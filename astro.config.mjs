@@ -10,11 +10,11 @@ export default defineConfig({
       head: [
 				{
 					tag: 'meta',
-					attrs: { property: 'og:image', content: 'https://docs.tudubucket.dev/_assets/104169263_p2.webp' },
+					attrs: { property: 'og:image', content: './docs/assets/104169263_p2.webp' },
 				},
 				{
 					tag: 'meta',
-					attrs: { property: 'twitter:image', content: 'https://docs.tudubucket.dev/_assets/104169263_p2.webp' },
+					attrs: { property: 'twitter:image', content: './docs/assets/104169263_p2.webp' },
 				},
         {
 					tag: 'meta',
