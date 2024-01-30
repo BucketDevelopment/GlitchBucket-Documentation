@@ -7,6 +7,20 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "BucketDevelopment",
+      head: [
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image', content: 'https://cdn.langdua.net/104169263_p1.png' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'twitter:image', content: 'https://cdn.langdua.net/104169263_p1.png' },
+				},
+        {
+					tag: 'meta',
+					attrs: { property: 'theme-color', content: '#C0CDFF' },
+				},
+			],
       social: {
         github: "https://github.com/tudubucket",
         discord: "https://langdua.net/discord"
