@@ -10,11 +10,11 @@ export default defineConfig({
       head: [
 				{
 					tag: 'meta',
-					attrs: { property: 'og:image', content: 'https://cdn.langdua.net/104169263_p1.png' },
+					attrs: { property: 'og:image', content: 'https://docs.tudubucket.dev/_assets/104169263_p2.webp' },
 				},
 				{
 					tag: 'meta',
-					attrs: { property: 'twitter:image', content: 'https://cdn.langdua.net/104169263_p1.png' },
+					attrs: { property: 'twitter:image', content: 'https://docs.tudubucket.dev/_assets/104169263_p2.webp' },
 				},
         {
 					tag: 'meta',
