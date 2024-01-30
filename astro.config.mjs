@@ -1,7 +1,7 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
-import { Image } from 'astro:assets';
 import myImage from "../assets/104169263_p2.webp";
+
 // https://astro.build/config
 export default defineConfig({
   srcDir: './docs',
