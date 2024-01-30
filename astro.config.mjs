@@ -1,6 +1,5 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
-import myImage from "../assets/104169263_p2.webp";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,11 +10,11 @@ export default defineConfig({
       head: [
 				{
 					tag: 'meta',
-					attrs: { property: 'og:image', content: myImage },
+					attrs: { property: 'og:image', content: "https://docs.tudubucket.dev/favicon.webp" },
 				},
 				{
 					tag: 'meta',
-					attrs: { property: 'twitter:image', content: myImage },
+					attrs: { property: 'twitter:image', content: "https://docs.tudubucket.dev/favicon.webp" },
 				},
         {
 					tag: 'meta',
