@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/biomejs/biome/main/packages/%40biomejs/biome/configuration_schema.json",
+  "formatter": {
+    "ignore": ["node_modules", "public", "dist"],
+    "lineEnding": "lf",
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "linter": {
+    "ignore": ["node_modules", "public", "dist", ".astro"],
+    "rules": {
+      "recommended": true
+    }
+  }
+}
