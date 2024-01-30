@@ -13,7 +13,7 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Hướng dẫn",
+          label: "Welcome",
 					autogenerate: { directory: "getting-started" },
         },
       ],
