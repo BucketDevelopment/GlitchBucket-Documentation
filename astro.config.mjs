@@ -18,6 +18,10 @@ export default defineConfig({
 				},
         {
 					tag: 'meta',
+					attrs: { property: 'twitter:card'},
+				},
+        {
+					tag: 'meta',
 					attrs: { property: 'theme-color', content: '#C0CDFF' },
 				},
 			],
