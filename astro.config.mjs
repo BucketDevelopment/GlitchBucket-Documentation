@@ -8,6 +8,13 @@ export default defineConfig({
 		starlight({
 			title: "BucketDevelopment",
 			customCss: ["./docs/styles/global.css"],
+      defaultLocale: 'vi',
+      locales: {
+        root: {
+          label: 'Tiếng Việt',
+          lang: 'vi',
+        },
+      },
 			head: [
 				{
 					tag: "meta",
