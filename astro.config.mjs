@@ -31,7 +31,7 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Welcome",
+          label: "Chung",
 					autogenerate: { directory: "getting-started" },
         },
       ],
