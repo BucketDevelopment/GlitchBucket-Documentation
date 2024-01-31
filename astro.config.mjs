@@ -18,7 +18,7 @@ export default defineConfig({
 				},
         {
 					tag: 'meta',
-					attrs: { property: 'twitter:card'},
+					attrs: { property: 'twitter:card', content: 'idk' },
 				},
         {
 					tag: 'meta',
