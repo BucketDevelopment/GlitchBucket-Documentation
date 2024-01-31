@@ -7,7 +7,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "BucketDevelopment",
-      customCss: "./docs/styles/global.css",
+      customCss: ["./docs/styles/global.css"],
       head: [
 				{
 					tag: 'meta',
