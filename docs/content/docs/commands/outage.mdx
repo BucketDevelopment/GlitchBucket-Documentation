@@ -4,8 +4,9 @@ description: "GlitchBucket - Khối lệnh kiểm tra cắt điện tại Việt
 ---
 
 import { Code } from '@astrojs/starlight/components';
+export const highlights = ['provider:', 'subprovider:', 'keyword:', 'region:']
 
-# Mô tả
+## Mô tả
 Đây là một khối lệnh. Khối lệnh này giúp bạn kiểm tra cắt điện tại Việt Nam, cũng như tự động nhận thông báo về những lượt cắt điện tại khu vực của bạn.
 
 :::caution[Chú ý]
@@ -27,13 +28,68 @@ _Không bắt buộc_:
 
 ### Ví dụ sử dụng lệnh
 
-export const highlights = ['provider:', 'subprovider:']
-
 <Code code="/outage lookup provider:Yên Bái subprovider:An Thịnh" title="command" mark={highlights} />
 
-# `/outage provider`
-# `/outage subprovider`
-# `/outage subscription`
-# `/outage subscribe`
-# `/outage unsubscribe`
+
+
+## `/outage subscribe` - Nhận thông báo cắt điện tự động
+### Mô tả
+Lệnh này giúp bạn nhận thông báo cắt điện tự động tại khu vực tùy chỉnh
+
+### Tham chiếu lệnh (Parameters)
+_Bắt buộc_:
+ - `provider`: Tên tỉnh/thành phố
+ - `keyword`: Từ khóa khớp với huyện/xã/thị trấn, hoặc nơi sinh sống
+
+### Ví dụ sử dụng lệnh
+Lệnh này sẽ đăng kí cắt điện tại tỉnh Yên Bái, khu vực có TBA (Trạm biến áp) An Thịnh 1
+<Code code="/outage subscribe provider:Yên Bái keyword:TBA An Thịnh 1" title="command" mark={highlights} />
+
+## `/outage subscription` - Kiểm tra thông báo cắt điện tự động
+### Mô tả
+Lệnh này giúp bạn kiểm tra thông báo cắt điện tự động mà bạn đang đăng kí với bot
+
+### Tham chiếu lệnh (Parameters)
+_Không có tham chiếu_
+
+### Ví dụ sử dụng lệnh
+
+<Code code="/outage subscription" title="command" mark={highlights} />
+
+## `/outage unsubscribe` - Hủy thông báo cắt điện tự động
+### Mô tả
+Lệnh này giúp bạn hủy thông báo cắt điện tự động mà bạn đang đăng kí với bot
+
+### Tham chiếu lệnh (Parameters)
+_Không có tham chiếu_
+
+### Ví dụ sử dụng lệnh
+
+<Code code="/outage unsubscribe" title="command" mark={highlights} />
+
+## `/outage provider`
+### Mô tả
+Lệnh này giúp bạn kiểm tra mã công ty điện lực
+
+### Tham chiếu lệnh (Parameters)
+_Bắt buộc_:
+ - `region`: Miền sinh sống (Bắc/Trung/Nam)
+
+### Ví dụ sử dụng lệnh
+
+<Code code="/outage provider region:Miền Bắc" title="command" mark={highlights} />
+
+## `/outage subprovider`
+### Mô tả
+Lệnh này giúp bạn tra cứu mã công ty con của công ty điện lực trong tỉnh/thành phố
+
+### Tham chiếu lệnh (Parameters)
+_Bắt buộc_:
+ - `provider`: Tên tỉnh/thành phố
+
+### Ví dụ sử dụng lệnh
+
+<Code code="/outage subprovider provider:Yên Bái" title="command" mark={highlights} />
+
+
 
