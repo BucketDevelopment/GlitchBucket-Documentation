@@ -7,6 +7,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "BucketDevelopment",
+      customCss: "./docs/styles/global.css",
       head: [
 				{
 					tag: 'meta',
@@ -33,6 +34,14 @@ export default defineConfig({
         {
           label: "Các lệnh của bot",
 					autogenerate: { directory: "commands" },
+        },
+        {
+          label: "Lệnh đơn",
+					autogenerate: { directory: "commands/single" },
+        },
+        {
+          label: "Khối lệnh",
+					autogenerate: { directory: "commands/group" },
         },
       ],
     }),
