@@ -1,0 +1,20 @@
+---
+title: "/snipe"
+description: "GlitchBucket - Kiểm tra tin nhắn đã xóa gần đây"
+---
+
+## Mô tả
+Lệnh này giúp bạn kiểm tra các tin nhắn đã được xóa gần đây, trong một kênh nhất định
+
+## Tham chiếu lệnh (Parameters)
+_Không bắt buộc_:
+ - `page`: Nhập một trang từ 1 đến 10, nhập 'all' để kiểm tra tất cả tin nhắn đã xóa gần đây, _mặc định: trang 1_
+ - `channel`: Chỉ định một kênh, _mặc định: kênh sử dụng lệnh_
+## Ví dụ sử dụng lệnh
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['page:', 'channel:'];
+
+<Code code="/snipe page:1" title="command" mark={highlights} />
+
+<Code code="/snipe page:all channel:#general" title="command" mark={highlights} />

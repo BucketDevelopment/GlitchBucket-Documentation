@@ -1,0 +1,19 @@
+---
+title: "/lemme"
+description: "GlitchBucket - đấm đá ôm hôn hoặc tương tự"
+---
+
+## Mô tả
+Lệnh này giúp bạn trở nên thân thiết hơn với bạn của bạn!
+
+## Tham chiếu lệnh (Parameters)
+_Bắt buộc_:
+ - Hành động phải lựa chọn: 1 trong `kiss`, `hug`, `slap`, `bite`, `handhold`, `pat`, `punch`, `match`
+ - `user`: Đối tượng thực hiện hành động
+
+## Ví dụ sử dụng lệnh
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['user:'];
+
+<Code code="/lemme slap user:@tudubucket" title="command" mark={highlights} />

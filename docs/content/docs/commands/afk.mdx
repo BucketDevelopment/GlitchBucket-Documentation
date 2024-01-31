@@ -7,7 +7,7 @@ description: "GlitchBucket - Thiết lập cho bạn AFK"
 Lệnh này thiết lập cho bạn AFK, lưu lại các đề cập (ping) tới bạn, và sẽ thông báo lại cho bạn khi bạn quay trở lại chat.
 
 ## Tham chiếu lệnh (Parameters)
-- __Không bắt buộc__:
+_Không bắt buộc_:
  - `reason`: Lý do AFK, mặc định là "AFK"
  - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không, mặc định là Không.
 
@@ -16,4 +16,4 @@ Lệnh này thiết lập cho bạn AFK, lưu lại các đề cập (ping) tớ
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['reason:', 'silent:'];
 
-<Code code="/afk reason:tui đang bận, quay trở lại sau nha silent: False" title="command" mark={highlights} />
+<Code code="/afk reason:tui đang bận, quay trở lại sau nha silent:False" title="command" mark={highlights} />
