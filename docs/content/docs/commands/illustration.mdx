@@ -1,0 +1,33 @@
+---
+title: "/illustration"
+description: "GlitchBucket - Tìm kiếm art trên https://pixiv.net"
+---
+
+## Mô tả
+Lệnh này giúp bạn tìm kiếm art trên https://pixiv.net một cách nhanh chóng (và có thể tùy chỉnh chất lượng)
+
+:::caution[Chú ý]
+Chúng tôi không đảm bảo 100% rằng lệnh chỉ trả về các ảnh an toàn trong môi trường làm việc (ảnh không phản cảm, hoặc gọi là SFW).
+:::
+
+:::note[Note]
+Chất lượng ảnh có thể thấp tùy vào tag bạn tìm kiếm. Chúng tôi khuyên bạn nên sử dụng lệnh [`/artwork`](/commands/artwork) hoặc [`/r18`](/commands/r18) của bot nếu như bạn muốn tìm một bức ảnh có chất lượng ảnh trung bình sau mỗi kết quả ở mức cao.
+:::
+
+## Tham chiếu lệnh (Parameters)
+_Bắt buộc_:
+ - `tag`: Tìm kiếm ảnh liên quan tới `tag`
+
+_Không bắt buộc_:
+ - `search_mode`: Chọn chế độ tìm kiếm, _mặc định: theo tag_
+ - `sort_mode`: Chọn chế độ sắp xếp tìm kiếm, _mặc định: không_
+ - `leaderboard`: Chọn hình ảnh hàng đầu của phạm vi ngày cụ thể, _mặc định: hàng tuần + hàng ngày_
+ - `nsfw`: Tìm kiếm hình ảnh NSFW hay không, _mặc định: không_
+
+## Ví dụ sử dụng lệnh
+Lệnh sau sẽ tìm ảnh Yae Miko, được xếp hạng cao trong ngày
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['tag:', 'leaderboard:'];
+
+<Code code="/illustration tag:Yae Miko leaderboard:Daily" title="command" mark={highlights} />

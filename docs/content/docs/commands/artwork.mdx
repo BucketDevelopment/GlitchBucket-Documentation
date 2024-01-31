@@ -1,0 +1,30 @@
+---
+title: "/artwork"
+description: "GlitchBucket - Tìm kiếm art trên https://pixiv.net"
+---
+
+## Mô tả
+Lệnh này giúp bạn tìm kiếm art trên https://pixiv.net một cách nhanh chóng với chất lượng được đảm bảo ở mức cao.
+
+:::caution[Chú ý]
+Chúng tôi không đảm bảo 100% rằng lệnh chỉ trả về các ảnh an toàn trong môi trường làm việc (ảnh không phản cảm, hoặc gọi là SFW).
+:::
+
+:::note[Note]
+Lệnh này không hỗ trợ tìm kiếm theo tag. Để tìm kiếm ảnh theo tag bạn có thể sử dụng lệnh [`/illustration`](/commands/illustration).
+:::
+
+## Tham chiếu lệnh (Parameters)
+_Bắt buộc_:
+ - `leaderboard`: Chọn hình ảnh hàng đầu của phạm vi ngày cụ thể
+
+_Không bắt buộc_:
+ - `archived`: Có chọn hình ảnh lưu trữ ngẫu nhiên không còn trong bảng xếp hạng hay không, _mặc định: không_
+
+## Ví dụ sử dụng lệnh
+Lệnh sau sẽ tìm ảnh ngẫu nhiên được xếp hạng cao trong ngày
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['leaderboard:'];
+
+<Code code="/artwork leaderboard:Daily" title="command" mark={highlights} />
