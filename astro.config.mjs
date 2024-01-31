@@ -3,47 +3,48 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  srcDir: './docs',
-  integrations: [
-    starlight({
-      title: "BucketDevelopment",
-      customCss: ["./docs/styles/global.css"],
-      head: [
+	srcDir: "./docs",
+	integrations: [
+		starlight({
+			title: "BucketDevelopment",
+			customCss: ["./docs/styles/global.css"],
+			head: [
 				{
-					tag: 'meta',
-					attrs: { property: 'og:image', content: "https://docs.tudubucket.dev/favicon.webp" },
+					tag: "meta",
+					attrs: {
+						property: "og:image",
+						content: "https://docs.tudubucket.dev/favicon.webp",
+					},
 				},
 				{
-					tag: 'meta',
-					attrs: { property: 'twitter:image', content: "https://docs.tudubucket.dev/favicon.webp" },
+					tag: "meta",
+					attrs: {
+						property: "twitter:image",
+						content: "https://docs.tudubucket.dev/favicon.webp",
+					},
 				},
-        {
-					tag: 'meta',
-					attrs: { property: 'theme-color', content: '#C0CDFF' },
+				{
+					tag: "meta",
+					attrs: { property: "theme-color", content: "#C0CDFF" },
 				},
 			],
-      social: {
-        github: "https://github.com/tudubucket",
-        discord: "https://langdua.net/discord"
-      },
-      sidebar: [
-        {
-          label: "Chung",
+			social: {
+				github: "https://github.com/tudubucket",
+				discord: "https://langdua.net/discord",
+			},
+			sidebar: [
+				{
+					label: "Chung",
 					autogenerate: { directory: "getting-started" },
-        },
-        {
-          label: "Các lệnh của bot",
-					autogenerate: { directory: "commands" },
-        },
-        {
-          label: "Lệnh đơn",
-					autogenerate: { directory: "commands/single" },
-        },
-        {
-          label: "Khối lệnh",
-					autogenerate: { directory: "commands/group" },
-        },
-      ],
-    }),
-  ],
+				},
+				{
+					label: "Các lệnh của bot",
+					items: [
+            { label: "Lệnh đơn", link: "commands/single" },
+            { label: "Khối lệnh", link: "commands/group" }
+          ],
+				},
+			],
+		}),
+	],
 });
