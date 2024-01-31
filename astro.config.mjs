@@ -34,6 +34,10 @@ export default defineConfig({
           label: "Chung",
 					autogenerate: { directory: "getting-started" },
         },
+        {
+          label: "Các lệnh của bot",
+					autogenerate: { directory: "commands" },
+        },
       ],
     }),
   ],
