@@ -40,8 +40,8 @@ export default defineConfig({
 				{
 					label: "Các lệnh của bot",
 					items: [
-            { label: "Lệnh đơn", link: "commands/single" },
-            { label: "Khối lệnh", link: "commands/group" }
+            { label: "Lệnh đơn", autogenerate: { directory: 'single' }},
+            { label: "Khối lệnh", autogenerate: { directory: 'group' }},
           ],
 				},
 			],
