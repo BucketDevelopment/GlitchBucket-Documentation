@@ -1,0 +1,236 @@
+---
+title: "/quickreport"
+description: "GlitchBucket - Quản lí report một cách nhanh chóng & hiệu quả"
+---
+
+import Code from '@astrojs/starlight/components';
+export const highlights = ['receive_channel:', 'on_user_timeout:', 'role:', 'maximum:', 'channel:', 'message:', 'on_user_muted:', 'category:', 'on_user_leave:', 'action:', 'after:']
+
+## `/quickreport enable` - Kích hoạt tính năng Quick Report
+Kích hoạt tính năng Quick Report
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `receive_channel`: Chỉ định kênh để nhận báo cáo đến
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport enable receive_channel:" title="command" mark={highlights} />
+## `/quickreport configuration` - Xem cấu hình Quick Report hiện tại của máy chủ này
+Xem cấu hình Quick Report hiện tại của máy chủ này
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport configuration " title="command" mark={highlights} />
+## `/quickreport disable` - Vô hiệu hóa tính năng Quick Report
+Vô hiệu hóa tính năng Quick Report
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport disable " title="command" mark={highlights} />
+## `/quickreport muterole` - Đặt vai trò tắt tiếng hiện có của bot kiểm duyệt khác
+Đặt vai trò tắt tiếng hiện có của bot kiểm duyệt khác
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport muterole role:" title="command" mark={highlights} />
+## `/quickreport manager` - Đặt vai trò người quản lý báo cáo
+Đặt vai trò người quản lý báo cáo
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport manager role:" title="command" mark={highlights} />
+## `/quickreport bypass` - Đặt vai trò sẽ bảo vệ người dùng khỏi các báo cáo
+Đặt vai trò sẽ bảo vệ người dùng khỏi các báo cáo
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport bypass role:" title="command" mark={highlights} />
+## `/quickreport blacklist` - Đặt vai trò khiến người dùng không thể báo cáo các tin nhắn khác
+Đặt vai trò khiến người dùng không thể báo cáo các tin nhắn khác
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport blacklist role:" title="command" mark={highlights} />
+## `/quickreport autoexpire` - Đặt thời gian chờ cho các báo cáo khi không có người kiểm duyệt nào xử lý sau thời gian cụ thể
+Đặt thời gian chờ cho các báo cáo khi không có người kiểm duyệt nào xử lý sau thời gian cụ thể
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `after`: Chỉ định khoảng thời gian tính bằng giờ sau đó các báo cáo sẽ tự động hết hạn giờ đã chỉ định
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport autoexpire after:" title="command" mark={highlights} />
+## `/quickreport concurrent` - Đặt báo cáo đồng thời tối đa cho mỗi người dùng
+Đặt báo cáo đồng thời tối đa cho mỗi người dùng
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `maximum`: Chỉ định giá trị
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport concurrent maximum:" title="command" mark={highlights} />
+## `/quickreport successful_message` - Đặt một tin nhắn được gửi tới Người báo cáo sau khi báo cáo thành công
+Đặt một tin nhắn được gửi tới Người báo cáo sau khi báo cáo thành công
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `message`: Chỉ định tin nhắn
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport successful_message message:" title="command" mark={highlights} />
+## `/quickreport auto_delele` - Đặt bot tự động xóa báo cáo trong một số sự kiện
+Đặt bot tự động xóa báo cáo trong một số sự kiện
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `on_user_timeout`: Có xóa báo cáo khi người dùng đó đã hết giờ hay không
+- `on_user_muted`: Có xóa báo cáo khi người dùng đó bị tắt tiếng hay không (vai trò tắt tiếng đã được trao cho họ)
+- `on_user_leave`: Có xóa báo cáo khi người dùng đó bị cấm/rời máy chủ hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport auto_delele on_user_timeout: on_user_muted: on_user_leave:" title="command" mark={highlights} />
+## `/quickreport channels` - Đưa vào danh sách trắng/đen Quick Report trong một số kênh
+Đưa vào danh sách trắng/đen Quick Report trong một số kênh
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+- `channel`: Chọn kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport channels action: channel:" title="command" mark={highlights} />
+## `/quickreport categories` - Đưa vào danh sách trắng/đen Quick Report trong một số danh mục
+Đưa vào danh sách trắng/đen Quick Report trong một số danh mục
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+- `category`: Chọn danh mục
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport categories action: category:" title="command" mark={highlights} />
+## `/quickreport mode` - Chuyển đổi chế độ Quick Report
+Chuyển đổi chế độ Quick Report
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quickreport mode action:" title="command" mark={highlights} />

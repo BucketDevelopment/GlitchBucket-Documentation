@@ -1,0 +1,278 @@
+---
+title: "/donation"
+description: "GlitchBucket - Tự động nhận ủng hộ từ tiền của bot khác!"
+---
+
+import Code from '@astrojs/starlight/components';
+export const highlights = ['range:', 'silent:', 'delete:', 'amount:', 'limit:', 'role:', 'user:', 'channel:', 'receiver:', 'threshold:', 'message:', 'announce:', 'action:', 'reason:']
+
+## `/donation enable` - Thiết lập bản ghi ủng hộ cho máy chủ này
+Thiết lập bản ghi ủng hộ cho máy chủ này
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chỉ định kênh để tự động nhận ủng hộ từ thành viên thông qua loại tiền tệ của bot khác
+- `receiver`: Chỉ định người dùng, người sẽ là người nhận ủng hộ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation enable channel: receiver:" title="command" mark={highlights} />
+## `/donation autoreceive` - Bật/tắt tính năng ghi lại ủng hộ tự động cho máy chủ này (không vô hiệu hóa tính năng)
+Bật/tắt tính năng ghi lại ủng hộ tự động cho máy chủ này (không vô hiệu hóa tính năng)
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation autoreceive action:" title="command" mark={highlights} />
+## `/donation disable` - Vô hiệu hóa bản ghi ủng hộ cho máy chủ này
+Vô hiệu hóa bản ghi ủng hộ cho máy chủ này
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `delete`: Hủy hành động - Xóa dữ liệu ủng hộ của máy chủ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation disable delete:" title="command" mark={highlights} />
+## `/donation threshold` - Chỉnh sửa ngưỡng thông báo ủng hộ
+Chỉnh sửa ngưỡng thông báo ủng hộ
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `threshold`: Chỉ định ngưỡng, nếu số tiền ủng hộ lớn hơn ngưỡng này, chúng tôi sẽ thông báo
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation threshold threshold:" title="command" mark={highlights} />
+## `/donation leaderboard` - Xem bảng xếp hạng ủng hộ
+Xem bảng xếp hạng ủng hộ
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `range`: Chỉ định phạm vi cho truy vấn
+- `limit`: Chỉ định giới hạn cho truy vấn
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation leaderboard range: limit:" title="command" mark={highlights} />
+## `/donation message` - Chỉnh sửa tin nhắn ủng hộ khi kích hoạt
+Chỉnh sửa tin nhắn ủng hộ khi kích hoạt
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `message`: Placeholder: {amount}, {donator_id}, {donator_name}, {donator_displayname}, {donator_mention}
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation message message:" title="command" mark={highlights} />
+## `/donation receiverole` - Đặt vai trò cho người nhận
+Đặt vai trò cho người nhận
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+- `delete`: Có xóa vai trò nhận này hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation receiverole role: delete:" title="command" mark={highlights} />
+## `/donation receiver` - Thêm/Xóa người nhận
+Thêm/Xóa người nhận
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+- `receiver`: Chỉ định người dùng, người sẽ là người nhận ủng hộ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation receiver action: receiver:" title="command" mark={highlights} />
+## `/donation announcement` - Đặt kênh thông báo ủng hộ
+Đặt kênh thông báo ủng hộ
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chỉ định kênh, sẽ là kênh thông báo ủng hộ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation announcement channel:" title="command" mark={highlights} />
+## `/donation reward` - Đặt phần thưởng (vai trò) sau khi ủng hộ một số điểm nhất định
+Đặt phần thưởng (vai trò) sau khi ủng hộ một số điểm nhất định
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+- `role`: Chọn vai trò
+- `threshold`: Chỉ định ngưỡng, bot thêm phần thưởng cho người dùng, nếu số tiền ủng hộ lớn hơn ngưỡng này
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation reward action: role: threshold:" title="command" mark={highlights} />
+## `/donation configuration` - Kiểm tra cấu hình về Người nhận ủng hộ tự động
+Kiểm tra cấu hình về Người nhận ủng hộ tự động
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation configuration " title="command" mark={highlights} />
+## `/donation channel` - Thêm/Xóa kênh nhận ủng hộ
+Thêm/Xóa kênh nhận ủng hộ
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+- `channel`: Chọn kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation channel action: channel:" title="command" mark={highlights} />
+## `/donation serverstats` - Gửi các thống kê về khoản ủng hộ của máy chủ
+Gửi các thống kê về khoản ủng hộ của máy chủ
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation serverstats " title="command" mark={highlights} />
+## `/donation userstats` - Kiểm tra thông tin ủng hộ của một người dùng
+Kiểm tra thông tin ủng hộ của một người dùng
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn người dùng
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation userstats user:" title="command" mark={highlights} />
+## `/donation add` - Thêm số tiền ủng hộ vào số dư của người dùng
+Thêm số tiền ủng hộ vào số dư của người dùng
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn người dùng
+- `amount`: Hãy ghi số sượng
+- `announce`: Có nên thông báo về việc này hay không
+- `reason`: Hãy nhập lý do cho hành động này
+- `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation add user: amount: announce: reason: silent:" title="command" mark={highlights} />
+## `/donation subtract` - Trừ số tiền ủng hộ khỏi số dư của người dùng
+Trừ số tiền ủng hộ khỏi số dư của người dùng
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn người dùng
+- `amount`: Hãy ghi số sượng
+- `reason`: Hãy nhập lý do cho hành động này
+- `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/donation subtract user: amount: reason: silent:" title="command" mark={highlights} />

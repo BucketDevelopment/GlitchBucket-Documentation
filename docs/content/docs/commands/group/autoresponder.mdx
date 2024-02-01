@@ -1,0 +1,91 @@
+---
+title: "/autoresponder"
+description: "GlitchBucket - Tự động phản hồi lại chuỗi tin nhắn nhất định"
+---
+
+import Code from '@astrojs/starlight/components';
+export const highlights = ['response:', 'mode:', 'trigger:', 'ignorecase:']
+
+## `/autoresponder placeholders` - Hàm cho autoresponder của bạn
+Hàm cho autoresponder của bạn
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/autoresponder placeholders " title="command" mark={highlights} />
+## `/autoresponder add` - Thêm một autoresponder
+Thêm một autoresponder
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `trigger`: Từ khóa để kích hoạt autoresponder
+- `response`: Chuỗi để trả lời cho trigger
+- `mode`: Chế độ khớp cho autoresponder
+- `ignorecase`: Có nên bỏ qua trường hợp khi khớp hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/autoresponder add trigger: response: mode: ignorecase:" title="command" mark={highlights} />
+## `/autoresponder view` - Xem cài đặt hiện tại của autoresponder
+Xem cài đặt hiện tại của autoresponder
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `trigger`: Từ khóa để kích hoạt autoresponder
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/autoresponder view trigger:" title="command" mark={highlights} />
+## `/autoresponder delete` - Xóa một autoresponder
+Xóa một autoresponder
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `trigger`: Từ khóa để kích hoạt autoresponder
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/autoresponder delete trigger:" title="command" mark={highlights} />
+## `/autoresponder list` - Danh sách autoresponder trên máy chủ này
+Danh sách autoresponder trên máy chủ này
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/autoresponder list " title="command" mark={highlights} />

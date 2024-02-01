@@ -1,0 +1,285 @@
+---
+title: "/customrole"
+description: "GlitchBucket - Customize Timing-role for Members"
+---
+
+import Code from '@astrojs/starlight/components';
+export const highlights = ['author:', 'icon:', 'role:', 'user:', 'name:', 'action:', 'color:']
+
+## `/customrole admin create` - Create & Assign a custom none-permission role to a member
+Create & Assign a custom none-permission role to a member
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `above_role`: The new custom role will be above this role
+- `author`: Specify custom role's author
+- `name`: Specify role name
+- `max_users`: Maximum users can be assigned into this role
+- `expire_after`: Short date supported (e.g. 2mon1d2h), write '0' for pernament, '1' for until remove boost
+- `color`: Specify role color
+- `edit_name_permission`: Let role's author can chance their own role name
+- `edit_icon_permission`: Let role's author can chance their own role icon
+- `edit_color_permission`: Let role's author can chance their own role color
+- `manage_role_members_permission`: Let role's author can add/remove role members
+- `make_role_mentionable_permission`: Let role's author can make their role mentionable by another members
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin create above_role: author: name: max_users: expire_after: color: edit_name_permission: edit_icon_permission: edit_color_permission: manage_role_members_permission: make_role_mentionable_permission:" title="command" mark={highlights} />
+## `/customrole admin terminate` - Terminate a custom role instance of a member
+Terminate a custom role instance of a member
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn người dùng
+- `delete_role`: Whether delete the role or not
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin terminate user: delete_role:" title="command" mark={highlights} />
+## `/customrole admin migrate` - Migrate an existing role to a bot's custom role
+Migrate an existing role to a bot's custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Specify a role
+- `author`: Specify custom role's author
+- `max_users`: Maximum users can be assigned into this role
+- `expire_after`: Short date supported (e.g. 2mon1d2h), write '0' for pernament, '1' for until remove boost
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin migrate role: author: max_users: expire_after:" title="command" mark={highlights} />
+## `/customrole admin default_author_permission` - Edit default permissions for role's author
+Edit default permissions for role's author
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `edit_name`: Let role's author can chance their own role name
+- `edit_icon`: Let role's author can chance their own role icon
+- `edit_color`: Let role's author can chance their own role color
+- `manage_role_members`: Let role's author can add/remove role members
+- `make_role_mentionable`: Let role's author can make their role mentionable by another members
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin default_author_permission edit_name: edit_icon: edit_color: manage_role_members: make_role_mentionable:" title="command" mark={highlights} />
+## `/customrole admin extend` - Extend expire date for a custom role
+Extend expire date for a custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+- `time_range`: Specity time range. Type '0' to make pernament, '1' to remove when role author remove boost
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin extend role: time_range:" title="command" mark={highlights} />
+## `/customrole admin reduce` - Reduce expire date of a custom role
+Reduce expire date of a custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+- `time_range`: Specity time range to reduce, short date is supported (e.g. 2mon4w6h)
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin reduce role: time_range:" title="command" mark={highlights} />
+## `/customrole admin on_expire` - Specify event to do when an user's custom role is expired
+Specify event to do when an user's custom role is expired
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole admin on_expire action:" title="command" mark={highlights} />
+## `/customrole user add` - Add a member to your custom role
+Add a member to your custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn một thành viên máy chủ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user add user:" title="command" mark={highlights} />
+## `/customrole user remove` - Remove a member from your custom role
+Remove a member from your custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn một thành viên máy chủ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user remove user:" title="command" mark={highlights} />
+## `/customrole user color` - Change color of your custom role
+Change color of your custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `color`: Can be `0x<hex>`, `#<hex>`, `rgb(<number>, <number>, <number>)`, or leave empty for default color.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user color color:" title="command" mark={highlights} />
+## `/customrole user icon` - Edit icon of your custom role
+Edit icon of your custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `icon`: Upload your icon
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user icon icon:" title="command" mark={highlights} />
+## `/customrole user removeicon` - Remove icon from your custom role
+Remove icon from your custom role
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user removeicon " title="command" mark={highlights} />
+## `/customrole user mentionable` - Make your custom role mentionable
+Make your custom role mentionable
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `action`: Hãy ghi hành động
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user mentionable action:" title="command" mark={highlights} />
+## `/customrole user info` - See your custom role's information
+See your custom role's information
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user info " title="command" mark={highlights} />
+## `/customrole user name` - Change your custom role's name
+Change your custom role's name
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `name`: Specify role name
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user name name:" title="command" mark={highlights} />
+## `/customrole search` - Search a custom role assigned to a member, or reverse of it
+Search a custom role assigned to a member, or reverse of it
+
+<h4>Giới hạn</h4>
+- **Sử dụng trong chat riêng với bot:** Có thể sử dụng
+- **Quyền hạn yêu cầu:** Không
+- **Quyền hạn bot yêu cầu:** Không
+- **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `role`: Chọn vai trò
+- `author`: Chọn một thành viên máy chủ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole search role: author:" title="command" mark={highlights} />
