@@ -1,6 +1,6 @@
 ---
 title: "/donation"
-description: "GlitchBucket - Tự động nhận ủng hộ từ tiền của bot khác!"
+description: "GlitchBucket - Tự động nhận ủng hộ từ tiền tệ của bot khác!"
 ---
 
 import { Code } from '@astrojs/starlight/components';
@@ -21,7 +21,7 @@ Chúng tôi mang đến tính năng này hoàn toàn miễn phí, để giúp b�
  - Ghi lại thông tin donate, cũng như có bảng xếp hạng, v.v.
 
 ## `/donation enable` - Thiết lập bản ghi ủng hộ cho máy chủ
-Thiết lập bản ghi ủng hộ cho máy chủ này
+Lệnh này sẽ bắt đầu thiết lập bản ghi ủng hộ cho máy chủ
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -31,7 +31,8 @@ _Bắt buộc:_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
-<Code code="/donation enable channel: receiver:" title="command" mark={highlights} />
+Lệnh này sẽ bắt đầu thiết lập bản ghi ủng hộ cho máy chủ, với kênh nhận donate là `#donation`, và người nhận ủng hộ đầu tiên là `@tudubucket` (có thể thêm người nhận ủng hộ)
+<Code code="/donation enable channel:#donation receiver:@tudubucket" title="command" mark={highlights} />
 
 ## `/donation autoreceive` - Bật/tắt ghi ủng hộ tự động
 Lệnh này sẽ bật, hoặc tắt tính năng ghi lại ủng hộ tự động cho máy chủ (không vô hiệu hóa tính năng)

@@ -9,6 +9,7 @@ export const highlights = ['lang:', 'override_guilds:'];
 Bởi mặc định, chúng tôi sẽ lấy ngôn ngữ dựa trên cài đặt Discord của bạn, sau đó sẽ lấy ngôn ngữ của máy chủ làm dự phòng. Nếu không thể lấy cả 2, chúng tôi sẽ tự trả về cài đặt mặc định bằng tiếng Anh của phần đó.
 
 Nếu bạn đã cài đặt ngôn ngữ máy chủ thông qua `/locale guildset`, tất cả các lệnh được sử dụng trong máy chủ sẽ được lấy theo ngôn ngữ được cài đặt qua lệnh này.
+
 Nếu bạn đã cài đặt ngôn ngữ của bản thân thông qua `/locale myself`, có 2 trường hợp xảy ra:
  - Nếu bạn không chỉnh để ghi đè cài đặt máy chủ (sử dụng `override_guilds:False`), tất cả các lệnh được sử dụng trong máy chủ sẽ được lấy theo ngôn ngữ được cài đặt của máy chủ. 
  - Nếu máy chủ không cài đặt ngôn ngữ thông qua `/locale guildset`, hoặc bạn ghi đè cài đặt máy chủ (`override_guilds:True`), tất cả các lệnh được sử dụng trong máy chủ sẽ được lấy theo ngôn ngữ cài đặt theo bạn.
@@ -32,6 +33,7 @@ _Bắt buộc:_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
+Lệnh này sẽ chỉnh ngôn ngữ máy chủ của bạn thành Tiếng Việt
 <Code code="/locale guildset lang:Vietnamese (Tiếng Việt)" title="command" mark={highlights} />
 
 ## `/locale myself` - Đặt ngôn ngữ cho chính bạn, để hiển thị lệnh
@@ -44,5 +46,5 @@ _Bắt buộc:_
  - `override_guilds`: Có ghi đè cài đặt ngôn ngữ của máy chủ hay không
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/locale myself lang: override_guilds:" title="command" mark={highlights} />
+Lệnh này sẽ chỉnh ngôn ngữ của bạn thành Tiếng Việt, và ghi đè cài đặt ngôn ngữ của các máy chủ khác
+<Code code="/locale myself lang:Vietnamese (Tiếng Việt) override_guilds:True" title="command" mark={highlights} />
