@@ -6,15 +6,24 @@ description: "GlitchBucket - Đặt ngôn ngữ cho việc hiển thị lệnh"
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['lang:', 'override_guilds:'];
 
-## `/locale guildset` - Đặt ngôn ngữ của máy chủ
-Đặt ngôn ngữ của máy chủ
+Bởi mặc định, chúng tôi sẽ lấy ngôn ngữ dựa trên cài đặt Discord của bạn, sau đó sẽ lấy ngôn ngữ của máy chủ làm dự phòng. Nếu không thể lấy cả 2, chúng tôi sẽ tự trả về cài đặt mặc định bằng tiếng Anh của phần đó.
 
-<h4>Giới hạn</h4>
+Nếu bạn đã cài đặt ngôn ngữ máy chủ thông qua `/locale guildset`, tất cả các lệnh được sử dụng trong máy chủ sẽ được lấy theo ngôn ngữ được cài đặt qua lệnh này.
+Nếu bạn đã cài đặt ngôn ngữ của bản thân thông qua `/locale myself`, có 2 trường hợp xảy ra:
+ - Nếu bạn không chỉnh để ghi đè cài đặt máy chủ (sử dụng `override_guilds:False`), tất cả các lệnh được sử dụng trong máy chủ sẽ được lấy theo ngôn ngữ được cài đặt của máy chủ. 
+ - Nếu máy chủ không cài đặt ngôn ngữ thông qua `/locale guildset`, hoặc bạn ghi đè cài đặt máy chủ (`override_guilds:True`), tất cả các lệnh được sử dụng trong máy chủ sẽ được lấy theo ngôn ngữ cài đặt theo bạn.
 
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+
+:::caution[Chú ý]
+Khối lệnh này chỉ xác định ngôn ngữ về **các tin nhắn bot gửi về cho bạn thông qua lệnh**. Các thành phần như _mô tả lệnh, mô tả tham chiếu_, ... do Discord xử lí và sẽ lấy theo ngôn ngữ bạn cài đặt trong Discord. Việc này chỉ có thể thay đổi bằng cách bạn thay đổi ngôn ngữ của Discord.
+:::
+
+:::note[Note]
+Chúng tôi khuyến khích bạn nên cài đặt ngôn ngữ của bot cùng với ngôn ngữ của Discord của bạn để có trải nghiệm tốt nhất!
+:::
+
+## `/locale guildset` - Đặt ngôn ngữ máy chủ
+Lệnh này sẽ đặt ngôn ngữ của máy chủ
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -23,23 +32,16 @@ _Bắt buộc:_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
-<Code code="/locale guildset lang:" title="command" mark={highlights} />
+<Code code="/locale guildset lang:Vietnamese (Tiếng Việt)" title="command" mark={highlights} />
 
 ## `/locale myself` - Đặt ngôn ngữ cho chính bạn, để hiển thị lệnh
 Đặt ngôn ngữ cho chính bạn, để hiển thị lệnh
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `lang`: Chọn một ngôn ngữ
- - `override_guilds`: Có ghi đè cài đặt của máy chủ hay không
+ - `override_guilds`: Có ghi đè cài đặt ngôn ngữ của máy chủ hay không
 
 <h4>Ví dụ sử dụng lệnh</h4>
 

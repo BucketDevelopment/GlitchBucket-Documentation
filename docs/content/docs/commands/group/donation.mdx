@@ -6,73 +6,59 @@ description: "GlitchBucket - Tự động nhận ủng hộ từ tiền của bo
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['range:', 'silent:', 'delete:', 'amount:', 'limit:', 'role:', 'user:', 'channel:', 'receiver:', 'threshold:', 'message:', 'announce:', 'action:', 'reason:'];
 
-## `/donation enable` - Thiết lập bản ghi ủng hộ cho máy chủ này
+<h4>Vấn đề</h4>
+Bạn có một server có thể nhận donate qua một số tiền tệ của bot khác (chẳng hạn như [OwOBot](https://owobot.com/)), hoặc một đơn vị tính donate nhất định (tính theo điểm).
+
+Với mỗi một mốc donate, bạn sẽ ghi lại số tiền donate ra một khu vực nào đó. Khi người đó đạt một mốc điểm donate nhất định, bạn sẽ cho người đó một role, có vai trò như phần thưởng donate.
+ 
+ 
+Nhưng bạn cũng không thể đăng kí một số bot premium cho một tính năng này, hoặc là phải đương đầu với rắc rối.
+
+<h4>Giải pháp</h4>
+Chúng tôi mang đến tính năng này hoàn toàn miễn phí, để giúp bạn:
+ - Tự động theo dõi các khoản donate (hoàn toàn tự động) từ người dùng tới đội ngũ quản lí máy chủ của bạn.
+ - Tự động trao phần thưởng khi đạt một mốc donate nhất định
+ - Ghi lại thông tin donate, cũng như có bảng xếp hạng, v.v.
+
+## `/donation enable` - Thiết lập bản ghi ủng hộ cho máy chủ
 Thiết lập bản ghi ủng hộ cho máy chủ này
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `channel`: Chỉ định kênh để tự động nhận ủng hộ từ thành viên thông qua loại tiền tệ của bot khác
- - `receiver`: Chỉ định người dùng, người sẽ là người nhận ủng hộ
+ - `receiver`: Chỉ định người dùng, là người nhận ủng hộ
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/donation enable channel: receiver:" title="command" mark={highlights} />
 
-## `/donation autoreceive` - Bật/tắt tính năng ghi lại ủng hộ tự động cho máy chủ này (không vô hiệu hóa tính năng)
-Bật/tắt tính năng ghi lại ủng hộ tự động cho máy chủ này (không vô hiệu hóa tính năng)
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation autoreceive` - Bật/tắt ghi ủng hộ tự động
+Lệnh này sẽ bật, hoặc tắt tính năng ghi lại ủng hộ tự động cho máy chủ (không vô hiệu hóa tính năng)
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động
+ - `action`: Chọn hành động, tắt hoặc bật
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ tắt tính năng nhận donate tự động (bạn sẽ phải thêm khoản donate bằng lệnh [/donation add](/commands/group/donation#donation-add))
+<Code code="/donation autoreceive action:False" title="command" mark={highlights} />
 
-<Code code="/donation autoreceive action:" title="command" mark={highlights} />
-
-## `/donation disable` - Vô hiệu hóa bản ghi ủng hộ cho máy chủ này
-Vô hiệu hóa bản ghi ủng hộ cho máy chủ này
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation disable` - Vô hiệu hóa tính năng
+Lệnh này sẽ vô hiệu hóa bản ghi ủng hộ cho máy chủ này
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
-_Bắt buộc:_
- - `delete`: Hủy hành động - Xóa dữ liệu ủng hộ của máy chủ
+_Không bắt buộc:_
+ - `delete`: Xóa dữ liệu ủng hộ của máy chủ, _mặc định: không_
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ tắt tính năng donate, nhưng không xóa dữ liệu
+<Code code="/donation disable delete:False" title="command" mark={highlights} />
 
-<Code code="/donation disable delete:" title="command" mark={highlights} />
-
-## `/donation threshold` - Chỉnh sửa ngưỡng thông báo ủng hộ
-Chỉnh sửa ngưỡng thông báo ủng hộ
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation threshold` - Ngưỡng thông báo ủng hộ
+Lệnh này sẽ chỉnh sửa ngưỡng thông báo ủng hộ. Khi một người dùng donate nhiều hơn số lượng được cài đặt ở đây, bot sẽ tự động thông báo tới kênh nhất định.
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -80,97 +66,70 @@ _Bắt buộc:_
  - `threshold`: Chỉ định ngưỡng, nếu số tiền ủng hộ lớn hơn ngưỡng này, chúng tôi sẽ thông báo
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh sửa ngưỡng thông báo ủng hộ trên 100.000 đơn vị donate
+<Code code="/donation threshold threshold:100000" title="command" mark={highlights} />
 
-<Code code="/donation threshold threshold:" title="command" mark={highlights} />
+## `/donation leaderboard` - Bảng xếp hạng ủng hộ
+Lệnh này sẽ gửi cho bạn bảng xếp hạng ủng hộ
 
-## `/donation leaderboard` - Xem bảng xếp hạng ủng hộ
-Xem bảng xếp hạng ủng hộ
+<h4>Tham chiếu lệnh (Parameters)</h4>
 
-<h4>Giới hạn</h4>
+_Không bắt buộc:_
+ - `range`: Chỉ định phạm vi cho truy vấn (trong ngày, hoặc trong tháng, hoặc trong năm)
+ - `limit`: Chỉ định giới hạn cho truy vấn (số lượng người trong bảng)
 
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xem top 25 người donate nhiều nhất trong tháng này
+<Code code="/donation leaderboard range:This month limit:25" title="command" mark={highlights} />
+
+## `/donation message` - Chỉnh sửa tin nhắn ủng hộ
+Lệnh này sẽ chỉnh sửa tin nhắn ủng hộ khi được gọi.
+
+Một số placeholder bạn có thể sử dụng: `\{amount\}`, `\{donator_id\}`, `\{donator_name\}`, `\{donator_displayname\}`, `\{donator_mention\}`
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `range`: Chỉ định phạm vi cho truy vấn
- - `limit`: Chỉ định giới hạn cho truy vấn
+ - `message`: Tin nhắn hiển thị khi có donate mới. 
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/donation leaderboard range: limit:" title="command" mark={highlights} />
-
-## `/donation message` - Chỉnh sửa tin nhắn ủng hộ khi kích hoạt
-Chỉnh sửa tin nhắn ủng hộ khi kích hoạt
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `message`: Tin nhắn hiển thị khi có donate mới. Một số placeholder có thể sử dụng: `\{amount\}`, `\{donator_id\}`, `\{donator_name\}`, `\{donator_displayname\}`, `\{donator_mention\}`
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/donation message message:" title="command" mark={highlights} />
+Lệnh này sẽ chỉnh tin nhắn ủng hộ thành `Cảm ơn bạn \{donator_mention\} đã ủng hộ cho máy chủ \{amount\}!`
+<Code code="/donation message message:Cảm ơn bạn \{donator_mention\} đã ủng hộ cho máy chủ \{amount\}!" title="command" mark={highlights} />
 
 ## `/donation receiverole` - Đặt vai trò cho người nhận
-Đặt vai trò cho người nhận
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+Lệnh này sẽ đặt vai trò cho người nhận. Có nghĩa rằng, nếu bạn gửi tiền tệ của bot khác cho người có vai trò (role) này, thì bot sẽ công nhận đó là khoản donate.
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `role`: Chọn vai trò
- - `delete`: Có xóa vai trò nhận này hay không
+
+_Không bắt buộc:_
+ - `delete`: Có đóng vai trò lệnh này như để xóa role nhận này hay không. _Mặc định: không_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/donation receiverole role: delete:" title="command" mark={highlights} />
+Lệnh này sẽ đặt role `@Staff` trở thành role có thể được nhận donate.
+<Code code="/donation receiverole role:@Staff" title="command" mark={highlights} />
 
 ## `/donation receiver` - Thêm/Xóa người nhận
-Thêm/Xóa người nhận
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+Lệnh này sẽ Thêm/Xóa người nhận. Có nghĩa rằng, nếu bạn gửi tiền tệ của bot khác cho người này, thì bot sẽ công nhận đó là khoản donate.
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động
+ - `action`: Hãy ghi hành động (thêm hoặc xóa)
  - `receiver`: Chỉ định người dùng, người sẽ là người nhận ủng hộ
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
-<Code code="/donation receiver action: receiver:" title="command" mark={highlights} />
+Lệnh này sẽ **thêm** người dùng `@tudubucket` là người nhận ủng hộ
+<Code code="/donation receiver action:Add receiver:@tudubucket" title="command" mark={highlights} />
+
+Lệnh này sẽ **xóa** người dùng `@tudubucket` khỏi danh sách người nhận ủng hộ
+<Code code="/donation receiver action:Remove receiver:@tudubucket" title="command" mark={highlights} />
 
 ## `/donation announcement` - Đặt kênh thông báo ủng hộ
-Đặt kênh thông báo ủng hộ
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+Lệnh này sẽ đặt kênh thông báo ủng hộ khi có ủng hộ tới.
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -178,39 +137,25 @@ _Bắt buộc:_
  - `channel`: Chỉ định kênh, sẽ là kênh thông báo ủng hộ
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ đặt kênh thông báo là kênh `#donator` khi có ủng hộ tới.
+<Code code="/donation announcement channel:#donator" title="command" mark={highlights} />
 
-<Code code="/donation announcement channel:" title="command" mark={highlights} />
-
-## `/donation reward` - Đặt phần thưởng (vai trò) sau khi ủng hộ một số điểm nhất định
-Đặt phần thưởng (vai trò) sau khi ủng hộ một số điểm nhất định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation reward` - Phần thưởng ủng hộ
+Lệnh này sẽ đặt phần thưởng (role) sau khi ủng hộ một số điểm nhất định. 
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động
- - `role`: Chọn vai trò
+ - `action`: Hãy ghi hành động (thêm hoặc xóa)
+ - `role`: Chọn vai trò (đóng vai như phần thưởng)
  - `threshold`: Chỉ định ngưỡng, bot thêm phần thưởng cho người dùng, nếu số tiền ủng hộ lớn hơn ngưỡng này
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thêm vai trò `@donator` khi người dùng đạt được 100.000 điểm ủng hộ
+<Code code="/donation reward action:Add role:@donator threshold:100000" title="command" mark={highlights} />
 
-<Code code="/donation reward action: role: threshold:" title="command" mark={highlights} />
-
-## `/donation configuration` - Kiểm tra cấu hình về Người nhận ủng hộ tự động
-Kiểm tra cấu hình về Người nhận ủng hộ tự động
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation configuration` - Kiểm tra cài đặt
+Lệnh này sẽ kiểm tra cấu hình về tính năng trên
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -218,37 +163,23 @@ _Không có tham chiếu_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
-<Code code="/donation configuration " title="command" mark={highlights} />
+<Code code="/donation configuration" title="command" mark={highlights} />
 
 ## `/donation channel` - Thêm/Xóa kênh nhận ủng hộ
-Thêm/Xóa kênh nhận ủng hộ
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+Lệnh này sẽ thêm/xóa kênh nhận ủng hộ
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động
+ - `action`: Hãy ghi hành động (thêm hoặc xóa)
  - `channel`: Chọn kênh
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thêm kênh `#general` làm kênh nhận ủng hộ
+<Code code="/donation channel action:Add channel:#general" title="command" mark={highlights} />
 
-<Code code="/donation channel action: channel:" title="command" mark={highlights} />
-
-## `/donation serverstats` - Gửi các thống kê về khoản ủng hộ của máy chủ
-Gửi các thống kê về khoản ủng hộ của máy chủ
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation serverstats` - Thống kê ủng hộ của máy chủ
+Lệnh này sẽ gửi các thống kê về khoản ủng hộ của máy chủ
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -256,17 +187,10 @@ _Không có tham chiếu_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 
-<Code code="/donation serverstats " title="command" mark={highlights} />
+<Code code="/donation serverstats" title="command" mark={highlights} />
 
-## `/donation userstats` - Kiểm tra thông tin ủng hộ của một người dùng
-Kiểm tra thông tin ủng hộ của một người dùng
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation userstats` - Kiểm tra thông tin ủng hộ
+Lệnh này sẽ kiểm tra thông tin ủng hộ của một người dùng
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
@@ -274,50 +198,40 @@ _Bắt buộc:_
  - `user`: Chọn người dùng
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ kiểm tra thông tin ủng hộ của người dùng `@tudubucket`
+<Code code="/donation userstats user:@tudubucket" title="command" mark={highlights} />
 
-<Code code="/donation userstats user:" title="command" mark={highlights} />
-
-## `/donation add` - Thêm số tiền ủng hộ vào số dư của người dùng
-Thêm số tiền ủng hộ vào số dư của người dùng
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation add` - Thêm số tiền ủng hộ
+Lệnh này sẽ thêm số tiền ủng hộ vào số dư của người dùng
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `user`: Chọn người dùng
  - `amount`: Hãy ghi số sượng
- - `announce`: Có nên thông báo về việc này hay không
- - `reason`: Hãy nhập lý do cho hành động này
- - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+
+_Không bắt buộc:_
+ - `announce`: Có nên thông báo về việc này hay không, _mặc định: có_
+ - `reason`: Hãy nhập lý do cho hành động này, _mặc định: không có_
+ - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không, _mặc định: không_
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thêm 50.000 điểm cho `@tudubucket`, với lí do `thích thì cho`
+<Code code="/donation add user:@tudubucket amount:50000 reason:thích thì cho " title="command" mark={highlights} />
 
-<Code code="/donation add user: amount: announce: reason: silent:" title="command" mark={highlights} />
-
-## `/donation subtract` - Trừ số tiền ủng hộ khỏi số dư của người dùng
-Trừ số tiền ủng hộ khỏi số dư của người dùng
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/donation subtract` - Trừ số dư ủng hộ
+Lênh này sẽ trừ số tiền ủng hộ khỏi số dư của người dùng
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `user`: Chọn người dùng
  - `amount`: Hãy ghi số sượng
+
+_Không bắt buộc:_
  - `reason`: Hãy nhập lý do cho hành động này
  - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/donation subtract user: amount: reason: silent:" title="command" mark={highlights} />
+Lệnh này sẽ trừ 100.000 điểm của `@tudubucket`, với lí do `láo`
+<Code code="/donation add user:@tudubucket amount:100000 reason:láo " title="command" mark={highlights} />

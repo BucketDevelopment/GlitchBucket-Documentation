@@ -6,49 +6,42 @@ description: "GlitchBucket - Hiển thị thông tin người chơi từ trình 
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['period:', 'background:', 'user:', 'game:', 'date_end:', 'date_start:', 'generate_image:'];
 
-## `/blocksmc tracker` - Hiển thị thông tin trò chơi từ trình theo dõi số liệu thống kê người chơi BlocksMC
-Hiển thị thông tin trò chơi từ trình theo dõi số liệu thống kê người chơi BlocksMC
+<h4>Vấn đề</h4>
+Bạn muốn xem thông tin của mình trong [BlocksMC](https://blocksmc.com) một cách nhanh chóng, với giao diện đẹp, nhưng bạn luôn phải lên website hoặc chia sẻ những bức ảnh có tính chuyên nghiệp thấp.
 
-<h4>Giới hạn</h4>
+<h4>Giải pháp</h4>
+Khối lệnh này sẽ giúp bạn tìm kiếm thông tin người chơi BlocksMC một cách nhanh chóng.
 
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/blocksmc tracker` - Hiển thị thông tin theo game
+Lệnh này sẽ hiển thị thông tin trò chơi từ trình theo dõi số liệu thống kê người chơi BlocksMC
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `game`: Chọn một trò chơi
  - `user`: Chỉ định người dùng
+
+_Không bắt buộc:_
  - `generate_image`: Bot có tạo ảnh cho hồ sơ hay không
  - `background`: Chọn một hình nền đẹp
- - `period`: [Người dùng được phép] Chọn một khoảng thời gian
- - `date_start`: [Người dùng được phép] Chỉ định ngày bắt đầu tra cứu theo định dạng DD/MM/YYYY.
- - `date_end`: [Người dùng được phép] Chỉ định ngày kết thúc tra cứu theo định dạng DD/MM/YYYY.
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ hiển thị thông tin của người chơi [tudubucket](https://blocksmc.com/player/tudubucket) trong game BedWarTeams
+<Code code="/blocksmc tracker game:BedWarTeams user:tudubucket" title="command" mark={highlights} />
 
-<Code code="/blocksmc tracker game: user: generate_image: background: period: date_start: date_end:" title="command" mark={highlights} />
-
-## `/blocksmc information` - Hiển thị thông tin người chơi từ trình theo dõi số liệu thống kê người chơi BlocksMC
-Hiển thị thông tin người chơi từ trình theo dõi số liệu thống kê người chơi BlocksMC
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/blocksmc information` - Hiển thị thông tin toàn diện
+Lệnh này sẽ hiển thị thông tin người chơi từ trình theo dõi số liệu thống kê người chơi BlocksMC
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `user`: Chỉ định người dùng
  - `generate_image`: Bot có tạo ảnh cho hồ sơ hay không
+
+_Không bắt buộc:_
  - `background`: Chọn một hình nền đẹp
  - `period`: Chọn một khoảng thời gian
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/blocksmc information user: generate_image: background: period:" title="command" mark={highlights} />
+Lệnh này sẽ hiển thị thông tin toàn diện của người chơi [tudubucket](https://blocksmc.com/player/tudubucket)
+<Code code="/blocksmc information user:tudubucket" title="command" mark={highlights} />
