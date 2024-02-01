@@ -1,12 +1,12 @@
 ---
 import type { z } from 'astro/zod';
 import config from 'virtual:starlight/user-config';
-import { version } from '../package.json';
-import type { HeadConfigSchema } from '../schemas/head';
-import { fileWithBase } from '../utils/base';
-import { createHead } from '../utils/head';
-import { localizedUrl } from '../utils/localizedUrl';
-import type { Props } from '../props';
+import { version } from '@astrojs/starlight/package.json';
+import type { HeadConfigSchema } from '@astrojs/starlight/schemas/head';
+import { fileWithBase } from '@astrojs/starlight/utils/base';
+import { createHead } from '@astrojs/starlight/utils/head';
+import { localizedUrl } from '@astrojs/starlight/utils/localizedUrl';
+import type { Props } from '@astrojs/starlight/props';
 
 const { entry, lang } = Astro.props;
 const { data } = entry;

@@ -7,6 +7,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: "BucketDevelopment",
+      favicon: '/favicon.png',
 			customCss: ["./docs/styles/global.css"],
       defaultLocale: 'vi',
       locales: {
@@ -14,9 +15,6 @@ export default defineConfig({
           label: 'Tiếng Việt',
           lang: 'vi',
         },
-      },
-      components: {
-        Head: './src/components/Head.astro',
       },
 			head: [
 				{
