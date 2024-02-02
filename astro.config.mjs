@@ -7,15 +7,18 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: "BucketDevelopment",
-      favicon: '/favicon.png',
+			favicon: "/favicon.png",
 			customCss: ["./docs/styles/global.css"],
-      defaultLocale: 'vi',
-      locales: {
-        root: {
-          label: 'Tiếng Việt',
-          lang: 'vi',
-        },
-      },
+			defaultLocale: "vi",
+			locales: {
+				root: {
+					label: "Tiếng Việt",
+					lang: "vi",
+				},
+			},
+			components: {
+				Head: './docs/components/Head.astro',
+			  },
 			head: [
 				{
 					tag: "meta",
@@ -48,9 +51,15 @@ export default defineConfig({
 				{
 					label: "Các lệnh của bot",
 					items: [
-            { label: "Lệnh đơn", autogenerate: { directory: 'commands/single/' }},
-            { label: "Khối lệnh", autogenerate: { directory: 'commands/group/' }},
-          ],
+						{
+							label: "Lệnh đơn",
+							autogenerate: { directory: "commands/single/" },
+						},
+						{
+							label: "Khối lệnh",
+							autogenerate: { directory: "commands/group/" },
+						},
+					],
 				},
 			],
 		}),

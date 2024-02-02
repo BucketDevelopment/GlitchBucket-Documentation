@@ -6,195 +6,151 @@ description: "GlitchBucket - Đặt một thông báo nhúng cố định"
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['delay:', 'channel:', 'threshold:', 'mode:', 'action:'];
 
-## `/stickie configuration` - Xem cấu hình Thông báo cố định hiện tại của kênh
-Xem cấu hình Thông báo cố định hiện tại của kênh
+<h4>Vấn đề</h4>
+:::note[Note]
+**Tin nhắn cố định**, có thể được gọi là **Tin nhắn ghim trên chat**, hoặc là **Sticky Message**.
+:::
+Bạn muốn một tin nhắn được ghim trên chat (luôn hiển thị trên chat), để member có thể đọc một số thông tin đóng vai trò như một lưu ý.
 
-<h4>Giới hạn</h4>
+Tuy nhiên, bạn không đơn thuần chỉ muốn chúng ghim trên chat. Có thể bạn sẽ muốn...
+ - Tin nhắn được ghim **chỉ hiển thị khi chat đã không còn ai chat**. _Ví dụ:_ tin nhắn được ghim sẽ hiển thị khi chat ngừng hoạt động trong một thời gian, có thể là 15 giây
+ - Tin nhắn được ghim **chỉ hiển thị khi mọi người đã chat được một lượng tin nhắn**. _Ví dụ:_ tin nhắn được ghim sẽ hiển thị khi mọi người trong chat đã gửi được 50 tin nhắn, sau mỗi 50 tin nhắn, bot sẽ gửi lên một tin nhắn khác (và xóa tin nhắn cũ)
+ - Tin nhắn được ghim **là một [Webhook](https://support.discord.com/hc/vi/articles/228383668-Gi%E1%BB%9Bi-thi%E1%BB%87u-v%E1%BB%81-Webhook) có Avatar và tên theo ý muốn của bạn**. _Ví dụ:_ tin nhắn được ghim sẽ có tên là **Nhắc nhở**, với một avatar được tùy chỉnh bởi bạn.
+ - Tin nhắn được ghim **là một Embed**, giúp hiển thị thông tin một cách trực quan hơn.
 
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+Bạn không thể trả tiền cho những bot premium cho những tính năng trên, nhưng bạn cũng không muốn tin nhắn đó lặp lại quá nhiều, và bạn cũng muốn tin nhắn cố định kia có tên của riêng mình.
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Giải pháp</h4>
+Khối lệnh dưới đây sẽ giúp bạn cài đặt một tin nhắn cố định với đầy đủ các tính năng đã được liệt kê bên trên.
 
-_Bắt buộc:_
- - `channel`: Chọn kênh
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie configuration channel:" title="command" mark={highlights} />
-
-## `/stickie message` - Đặt Thông báo cố định, một khung lệnh sẽ xuất hiện và lắng nghe nội dung bạn nhập!
-Đặt Thông báo cố định, một khung lệnh sẽ xuất hiện và lắng nghe nội dung bạn nhập!
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/stickie configuration` - Xem cài đặt
+Xem cấu hình Tin nhắn cố định hiện tại của một kênh
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Thông báo cố định
+ - `channel`: Chọn một kênh có tin nhắn cố định
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ hiển thị cấu hình Tin nhắn cố định hiện tại của kênh `#general`
+<Code code="/stickie configuration channel:#general" title="command" mark={highlights} />
 
-<Code code="/stickie message channel:" title="command" mark={highlights} />
-
-## `/stickie remove` - Xóa Thông báo cố định đã tồn tại
-Xóa Thông báo cố định đã tồn tại
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+## `/stickie message` - Đặt Tin nhắn cố định
+Lệnh này sẽ đặt một Tin nhắn cố định cho một kênh. Khi bạn sử dụng lệnh một khung lệnh sẽ xuất hiện và bạn sẽ nhập vào khung lệnh đó
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `channel`: Chọn một kênh để xóa Thông báo cố định
+ - `channel`: Chọn một kênh để tạo Tin nhắn cố định
 
 <h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ tạo một Tin nhắn cố định tại kênh `#general`
+<Code code="/stickie message channel:#general" title="command" mark={highlights} />
 
-<Code code="/stickie remove channel:" title="command" mark={highlights} />
+## `/stickie mode` - Chỉnh sửa StickMode cho Tin nhắn cố định
+Chỉnh sửa cách Tin nhắn cố định hoạt động. Bạn có thể chọn 1 trong 2 cách: 
+ - `ChatInactive`: Tin nhắn cố định sẽ hiển thị **sau một thời gian chat không còn hoạt động**
+ - `MessageThreshold`: Tin nhắn cố định sẽ hiển thị **sau một lượng tin nhắn nhất định**
 
-## `/stickie list` - Xem các Thông báo cố định của máy chủ
-Xem các Thông báo cố định của máy chủ
+<h4>Tham chiếu lệnh (Parameters)</h4>
 
-<h4>Giới hạn</h4>
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
+ - `mode`: Chọn chế độ
 
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh mode tin nhắn cố định của kênh `#general` thành `ChatInactive` (Sau một thời gian không ai chat thì tin nhắn sẽ được hiển thị)
+<Code code="/stickie mode channel:#general mode:ChatInactive" title="command" mark={highlights} />
+
+## `/stickie webhook` - Đặt webhook tùy chỉnh
+Lệnh này sẽ đặt webhook tùy chỉnh cho Tin nhắn cố định
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ cho tin nhắn cố định tại lênh `#general` thành Webhook. Bot sẽ tự động tạo một webhook, sau đó bạn có thể thay đổi cài đặt của Webhook (avatar, tên) trong cài đặt của kênh.
+<Code code="/stickie webhook channel:#general" title="command" mark={highlights} />
+
+## `/stickie delay` - Đặt độ trễ
+Lệnh này sẽ đặt độ trễ cho Tin nhắn cố định. Tin nhắn cố định sẽ xuất hiện trong chat sau khi chat không hoạt động trong `delay` giây
+:::note[Note]
+Bạn cần chỉnh chế độ của tin nhắn cố định thành `ChatInactive` để sử dụng lệnh này.
+:::
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
+ - `delay`: Phạm vi từ 1 - 15 giây
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh delay tin nhắn cố định của kênh `#general` xuống _8 giây_ (Sau 8 giây không ai chat thì tin nhắn sẽ được hiển thị)
+<Code code="/stickie delay channel:#general delay:8" title="command" mark={highlights} />
+
+## `/stickie msgthreshold` - Đặt ngưỡng tin nhắn
+Lệnh này sẽ đặt ngưỡng tin nhắn cho Tin nhắn cố định. Tin nhắn cố định sẽ xuất hiện trong chat sau khi mọi người trong chat đã gửi được `threshold` tin nhắn.
+:::note[Note]
+Bạn cần chỉnh chế độ của tin nhắn cố định thành `MessageThreshold` để sử dụng lệnh này.
+:::
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
+ - `threshold`: Phạm vi từ 1 - 500, Tin nhắn sẽ xuất hiện trong trò chuyện sau khi số lượng tin nhắn này được gửi đi
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh ngưỡng tin nhắn để gọi tin nhắn cố định của kênh `#general` lên _100 tin nhắn_ (Sau 100 tin nhắn thì tin nhắn sẽ được hiển thị)
+<Code code="/stickie msgthreshold channel:#general threshold:100" title="command" mark={highlights} />
+
+## `/stickie embed` - Đặt thông báo cố định thành Embed
+Lệnh này sẽ đặt một thông báo nhúng cố định của một kênh thành Embed. _Bạn cần cung cấp dữ liệu của Embed._
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ đặt thông báo nhúng cố định của kênh `#general` thành Embed. _Bạn cần cung cấp dữ liệu của Embed._
+<Code code="/stickie embed channel:#general" title="command" mark={highlights} />
+
+## `/stickie allowmentions` - Đặt quy tắc AllowedMention
+Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định tại một kênh (tin nhắn có thể đề cập _người dùng/vai trò_ hay không). Cài đặt này đề phòng rằng, nếu bạn muốn ghi một vai trò (role) vào tin nhắn cố định, nhưng khi bot gửi tin nhắn thì bạn không muốn bot đề cập tới role đó, gây phiền hà cho người có role.
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
+ - `action`: Hãy ghi hành động (có hoặc không)
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định tại kênh `#general` thành `False` (không)
+
+<Code code="/stickie allowmentions channel:#general action:False" title="command" mark={highlights} />
+
+
+## `/stickie remove` - Xóa Tin nhắn cố định
+Lệnh này sẽ xóa một Tin nhắn cố định đã tồn tại tại một kênh 
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn một kênh để xóa Tin nhắn cố định
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa tin nhắn cố định tại kênh `#general`
+<Code code="/stickie remove channel:#general" title="command" mark={highlights} />
+
+## `/stickie list` - Xem các Tin nhắn cố định
+Lệnh này sẽ hiển thị các Tin nhắn cố định của máy chủ
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
 _Không có tham chiếu_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
 <Code code="/stickie list " title="command" mark={highlights} />
-
-## `/stickie mode` - Chỉnh sửa StickMode cho Thông báo cố định
-Chỉnh sửa StickMode cho Thông báo cố định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình thông báo cố định
- - `mode`: Chọn chế độ
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie mode channel: mode:" title="command" mark={highlights} />
-
-## `/stickie webhook` - Đặt webhook tùy chỉnh cho Thông báo cố định
-Đặt webhook tùy chỉnh cho Thông báo cố định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình thông báo cố định
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie webhook channel:" title="command" mark={highlights} />
-
-## `/stickie delay` - Đặt độ trễ cho Thông báo cố định
-Đặt độ trễ cho Thông báo cố định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình thông báo cố định
- - `delay`: Phạm vi từ 1 - 15, Thông báo cố định sẽ xuất hiện trong trò chuyện sau khi trò chuyện không hoạt động trong `\{delay\}` giây
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie delay channel: delay:" title="command" mark={highlights} />
-
-## `/stickie allowmentions` - Đặt quy tắc AllowedMention cho Thông báo cố định
-Đặt quy tắc AllowedMention cho Thông báo cố định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình thông báo cố định
- - `action`: Hãy ghi hành động
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie allowmentions channel: action:" title="command" mark={highlights} />
-
-## `/stickie msgthreshold` - Đặt ngưỡng tin nhắn cho Thông báo cố định
-Đặt ngưỡng tin nhắn cho Thông báo cố định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình thông báo cố định
- - `threshold`: Phạm vi từ 1 - 500, Tin nhắn sẽ xuất hiện trong trò chuyện sau khi số lượng tin nhắn này được gửi đi
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie msgthreshold channel: threshold:" title="command" mark={highlights} />
-
-## `/stickie embed` - Đặt một thông báo nhúng cố định
-Đặt một thông báo nhúng cố định
-
-<h4>Giới hạn</h4>
-
- - **Sử dụng trong chat riêng với bot:** Có thể sử dụng
- - **Quyền hạn yêu cầu:** Không
- - **Quyền hạn bot yêu cầu:** Không
- - **Giới hạn sử dụng:** 1 lần sử dụng trong 1 giây
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình thông báo cố định
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/stickie embed channel:" title="command" mark={highlights} />
