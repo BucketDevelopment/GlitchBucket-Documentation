@@ -16,9 +16,6 @@ export default defineConfig({
 					lang: "vi",
 				},
 			},
-			components: {
-				Head: './docs/components/Head.astro',
-			  },
 			head: [
 				{
 					tag: "meta",
