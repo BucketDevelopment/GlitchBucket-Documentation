@@ -21,7 +21,11 @@ Quick Report, hay còn gọi là Tố cáo nhanh, giúp cho:
  - Member tố cáo nội dung vi phạm một cách nhanh chóng
  - Moderator quản lí các bản tố cáo một cách hiệu quả và tự động.
 
-Một người dùng có thể bấm chuột phải vào một tin nhắn, sau đó chọn **Ứng dụng** `>` **<Icon name="error" /> Tố cáo tin nhắn này**. Member chỉ cần nhập thêm lí do tố cáo, vậy là một bản tố cáo đã được gửi về kênh nhận tố cáo được chỉ định trước (có thể được định trước như `/quickreport enable receive_channel:#report`)
+:::note[Note]
+Các lệnh để **cài đặt** tính năng sẽ bắt đầu bằng `/quickreport`, còn các lệnh để **quản lí** các phiếu tố cáo, sẽ bắt đầu bằng `/report`
+:::
+
+Một người dùng có thể bấm chuột phải vào một tin nhắn, sau đó chọn **Ứng dụng** `>` **Tố cáo tin nhắn này**. Member chỉ cần nhập thêm lí do tố cáo, vậy là một bản tố cáo đã được gửi về kênh nhận tố cáo được chỉ định trước (có thể được định trước như `/quickreport enable receive_channel:#report`)
 
 :::note[Note]
 Người dùng đang bị mute, hoặc bị timeout, sẽ không thể tạo báo cáo. Xem thêm ở phía dưới để biết cách cài đặt mute role
@@ -42,6 +46,78 @@ Ngoài ra, Quick Report **có thể đề phòng/tắt report đến từ các m
 
 
 Quick Report cũng có thể chỉ cho phép/hạn chế một số kênh nhận report, cũng như cho các bản báo cáo có thể tự động hết hạn sau một thời gian nhất định.
+
+## Các lệnh quản lí
+
+## `/report message` - Báo cáo tin nhắn
+Lệnh này để báo cáo tin nhắn trong máy chủ
+
+:::note[Note]
+Chúng tôi khuyến khích bạn nên bấm chuột phải vào tin nhắn vi phạm, sau đó chọn **Ứng dụng** `>` **Tố cáo tin nhắn này**, để tố cáo tin nhắn đó.
+:::
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chỉ định kênh chứa tin nhắn
+ - `message_id`: Chỉ định ID tin nhắn
+ - `reason`: Hãy nhập lý do cho hành động này
+
+_Không bắt buộc:_
+ - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ báo cáo tin nhắn với ID `1202861080175452210` trong kênh `#general` với lí do "Vi phạm quy tắc máy chủ"
+<Code code="/report message channel:#general message_id:1202861080175452210 reason:Vi phạm quy tắc máy chủ" title="command" mark={highlights} />
+
+
+## `/report recent` - Xem các báo cáo gần đây
+Lệnh này sẽ hiển thị các báo cáo gần đây
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `order`: Chọn một hành động để sắp xếp kết quả
+
+_Không bắt buộc:_
+ - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+ - `status`: Chỉ định trạng thái cho kết quả truy vấn
+ - `reporter`: Chỉ định người báo cáo
+ - `reported`: Chỉ định thành viên đã bị báo cáo
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ hiển thị các báo cáo bị từ chối gần đây
+<Code code="/report recent order:Mới nhất status:Đã từ chối" title="command" mark={highlights} />
+
+## `/report check` - Xem báo cáo dựa trên ID
+Lệnh này sẽ hiển thị báo cáo dựa trên ID
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `report_id`: Chỉ định ID báo cáo
+
+_Không bắt buộc:_
+ - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ hiển thị báo cáo dựa trên ID `2215`
+<Code code="/report check report_id:2215" title="command" mark={highlights} />
+
+## `/report update` - Phê duyệt/Từ chối báo cáo
+Lệnh này giúp bạn Phê duyệt/Từ chối báo cáo
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `action`: Hãy ghi hành động
+ - `report_id`: Chỉ định ID báo cáo
+ - `reason`: Hãy nhập lý do cho hành động này
+ - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này phê duyệt báo cáo với ID `2215` với lí do **"Người dùng vi phạm quy tắc"**
+<Code code="/report update action:Xác nhận report_id:2215 reason:Người dùng vi phạm quy tắc" title="command" mark={highlights} />
 
 ## Các lệnh cài đặt
 
