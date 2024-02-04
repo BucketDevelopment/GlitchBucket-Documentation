@@ -30,6 +30,23 @@ Mọi thứ đều yêu cầu bạn phải thực hiện, bởi vì một ngư�
 Nếu bạn đang có role tùy chỉnh trong máy chủ của bạn, bạn có thể chuyển chúng sang cơ sở dữ liệu của bot bằng lệnh `/customrole admin migrate` để làm role đó được quản lí dễ dàng hơn!
 :::
 
+## Lệnh chung
+
+### `/customrole search` - Tìm kiếm role tùy chỉnh
+Tìm kiếm thông tin một role tùy chỉnh được gán cho một thành viên, hoặc ngược lại
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `role`: Chọn role
+ - `author`: Chọn một thành viên
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ tìm kiếm thông tin một role tùy chỉnh mang tên **@bucket**
+<Code code="/customrole search role:@bucket" title="command" mark={highlights} />
+
+## Các lệnh cài đặt dành cho quản trị
+
 ### `/customrole admin create` - Tạo Role tùy chỉnh
 Lệnh này sẽ tạo và gán một Custom Role cho một thành viên
 
@@ -161,6 +178,8 @@ _Bắt buộc:_
 Lệnh này sẽ chỉnh hành động là **xóa tất cả** khi một role tùy chỉnh hết hạn
 <Code code="/customrole admin on_expire action:Xóa tất cả" title="command" mark={highlights} />
 
+## Các lệnh cài đặt dành cho người dùng
+
 ### `/customrole user add` - Thêm thành viên
 Thêm một thành viên vào role tùy chỉnh của bạn
 
@@ -255,15 +274,3 @@ _Bắt buộc:_
 Lệnh này sẽ thay đổi tên role tùy chỉnh của bạn thành **@bukkit**
 <Code code="/customrole user name name:bukkit" title="command" mark={highlights} />
 
-### `/customrole search` - Tìm kiếm role tùy chỉnh
-Tìm kiếm thông tin một role tùy chỉnh được gán cho một thành viên, hoặc ngược lại
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không bắt buộc:_
- - `role`: Chọn role
- - `author`: Chọn một thành viên
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tìm kiếm thông tin một role tùy chỉnh mang tên **@bucket**
-<Code code="/customrole search role:@bucket" title="command" mark={highlights} />
