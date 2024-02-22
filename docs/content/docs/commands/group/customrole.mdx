@@ -45,6 +45,104 @@ _Không bắt buộc:_
 Lệnh này sẽ tìm kiếm thông tin một role tùy chỉnh mang tên **@bucket**
 <Code code="/customrole search role:@bucket" title="command" mark={highlights} />
 
+## Các lệnh cài đặt dành cho người dùng
+
+### `/customrole user add` - Thêm thành viên
+Thêm một thành viên vào role tùy chỉnh của bạn
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `user`: Chọn một thành viên
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thêm người dùng **@tudubucket** vào role tùy chỉnh của bạn
+<Code code="/customrole user add user:@tudubucket" title="command" mark={highlights} />
+
+### `/customrole user remove` - Xóa thành viên
+Xóa một thành viên khỏi role tùy chỉnh của bạn
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `user`: Chọn một thành viên
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa người dùng **@tudubucket** khỏi role tùy chỉnh của bạn
+<Code code="/customrole user remove user:@tudubucket" title="command" mark={highlights} />
+
+### `/customrole user color` - Thay đổi màu role
+Thay đổi màu của role tùy chỉnh của bạn
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `color`: Có thể là `0x<hex>`, `#<hex>`, `rgb(<number>, <number>, <number>)`.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thay đổi màu role tùy chỉnh của bạn thành `#c0cdff`
+<Code code="/customrole user color color:#c0cdff" title="command" mark={highlights} />
+
+### `/customrole user icon` - Chỉnh sửa icon
+Chỉnh sửa icon của role tùy chỉnh của bạn. Bạn có thể copy-paste trực tiếp icon vào lệnh này
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `icon`: Tải lên icon của bạn
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh icon role của bạn thành file bạn đã gửi lên
+<Code code="/customrole user icon icon:<file>" title="command" mark={highlights} />
+
+### `/customrole user removeicon` - Xóa icon
+Xóa icon từ role tùy chỉnh của bạn
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Không có tham chiếu_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user removeicon " title="command" mark={highlights} />
+
+### `/customrole user mentionable` - Làm cho role có thể nhắc đến
+Làm cho role tùy chỉnh của bạn có thể nhắc đến
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `action`: Ghi hành động
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ làm cho role tùy chỉnh của bạn không thể đề cập bởi người dùng khác
+<Code code="/customrole user mentionable action:False" title="command" mark={highlights} />
+
+### `/customrole user info` - Xem thông tin role
+Xem thông tin role tùy chỉnh của bạn
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Không có tham chiếu_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/customrole user info " title="command" mark={highlights} />
+
+### `/customrole user name` - Thay đổi tên role
+Thay đổi tên role tùy chỉnh của bạn
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `name`: Chỉ định tên role
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thay đổi tên role tùy chỉnh của bạn thành **@bukkit**
+<Code code="/customrole user name name:bukkit" title="command" mark={highlights} />
+
+
+
 ## Các lệnh cài đặt dành cho quản trị
 
 ### `/customrole admin create` - Tạo Role tùy chỉnh
@@ -177,100 +275,4 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh hành động là **xóa tất cả** khi một role tùy chỉnh hết hạn
 <Code code="/customrole admin on_expire action:Xóa tất cả" title="command" mark={highlights} />
-
-## Các lệnh cài đặt dành cho người dùng
-
-### `/customrole user add` - Thêm thành viên
-Thêm một thành viên vào role tùy chỉnh của bạn
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `user`: Chọn một thành viên
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ thêm người dùng **@tudubucket** vào role tùy chỉnh của bạn
-<Code code="/customrole user add user:@tudubucket" title="command" mark={highlights} />
-
-### `/customrole user remove` - Xóa thành viên
-Xóa một thành viên khỏi role tùy chỉnh của bạn
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `user`: Chọn một thành viên
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ xóa người dùng **@tudubucket** khỏi role tùy chỉnh của bạn
-<Code code="/customrole user remove user:@tudubucket" title="command" mark={highlights} />
-
-### `/customrole user color` - Thay đổi màu role
-Thay đổi màu của role tùy chỉnh của bạn
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `color`: Có thể là `0x<hex>`, `#<hex>`, `rgb(<number>, <number>, <number>)`.
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ thay đổi màu role tùy chỉnh của bạn thành `#c0cdff`
-<Code code="/customrole user color color:#c0cdff" title="command" mark={highlights} />
-
-### `/customrole user icon` - Chỉnh sửa icon
-Chỉnh sửa icon của role tùy chỉnh của bạn. Bạn có thể copy-paste trực tiếp icon vào lệnh này
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `icon`: Tải lên icon của bạn
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉnh icon role của bạn thành file bạn đã gửi lên
-<Code code="/customrole user icon icon:<file>" title="command" mark={highlights} />
-
-### `/customrole user removeicon` - Xóa icon
-Xóa icon từ role tùy chỉnh của bạn
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không có tham chiếu_
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/customrole user removeicon " title="command" mark={highlights} />
-
-### `/customrole user mentionable` - Làm cho role có thể nhắc đến
-Làm cho role tùy chỉnh của bạn có thể nhắc đến
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `action`: Ghi hành động
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ làm cho role tùy chỉnh của bạn không thể đề cập bởi người dùng khác
-<Code code="/customrole user mentionable action:False" title="command" mark={highlights} />
-
-### `/customrole user info` - Xem thông tin role
-Xem thông tin role tùy chỉnh của bạn
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không có tham chiếu_
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/customrole user info " title="command" mark={highlights} />
-
-### `/customrole user name` - Thay đổi tên role
-Thay đổi tên role tùy chỉnh của bạn
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `name`: Chỉ định tên role
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ thay đổi tên role tùy chỉnh của bạn thành **@bukkit**
-<Code code="/customrole user name name:bukkit" title="command" mark={highlights} />
 
