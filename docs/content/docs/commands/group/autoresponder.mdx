@@ -52,6 +52,36 @@ _Bắt buộc:_
 Lệnh này sẽ xem cài đặt của autoresponder `xd`
 <Code code="/autoresponder view trigger:xd" title="command" mark={highlights} />
 
+## `/autoresponder edit` - Chỉnh sửa autoresponder
+Lệnh này sẽ chỉnh sửa cài đặt hiện tại của 1 autoresponder
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `trigger`: Từ khóa để kích hoạt autoresponder
+ - `response`: Chuỗi để trả lời cho trigger
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh sửa cài đặt của autoresponder `xd` để chúng phản hồi lại là `xD`
+<Code code="/autoresponder edit trigger:xd response:xD" title="command" mark={highlights} />
+
+## `/autoresponder matchmode` - Chỉnh sửa loại autoresponder
+Lệnh này sẽ chỉnh sửa cài đặt khớp của 1 autoresponder, bao gồm:
+ - Chính xác (exact)
+ - Chứa (contains)
+ - Bắt đầu bằng (startswith)
+ - Kết thúc bằng (endswith)
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `trigger`: Từ khóa để kích hoạt autoresponder
+ - `mode`: Cách khớp cho trigger
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh sửa cài đặt của autoresponder `xd` thành `contains` (Chứa)
+<Code code="/autoresponder edit trigger:xd mode:contains" title="command" mark={highlights} />
+
 ## `/autoresponder delete` - Xóa một autoresponder
 Xóa một autoresponder
 
