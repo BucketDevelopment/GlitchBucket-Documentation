@@ -4,7 +4,7 @@ description: "GlitchBucket - Tùy chỉnh Role Thời gian cho Thành viên"
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['author:', 'icon:', 'role:', 'user:', 'name:', 'action:', 'color:'];
+export const highlights = ['author:', 'icon:', 'role:', 'user:', 'name:', 'action:', 'color:', 'users:'];
 
 :::note[Note]
 Tính năng dưới đây được gọi là **Custom Role**, hoặc còn gọi là **Role Tùy chỉnh**.
@@ -205,7 +205,7 @@ _Bắt buộc:_
 Lệnh này sẽ di chuyển một role hiện tại bạn đang quản lí là **@bucket** sang role tùy chỉnh của bot, với chủ role là **@tudubucket**, tối đa 3 người dùng, và sẽ không bao giờ hết hạn
 <Code code="/customrole admin migrate role:@bucket author:@tudubucket max_users:3 expire_after:0" title="command" mark={highlights} />
 
-### `/customrole admin ` - Chỉnh sửa quyền từng role
+### `/customrole admin edit_permission` - Chỉnh sửa quyền từng role
 Lệnh này sẽ **chỉnh sửa quyền của từng role**
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
@@ -221,6 +221,19 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ sửa tất cả các quyền của role **@bucket** thành có (`True`)
 <Code code="/customrole admin default_author_permission edit_name:True edit_icon:True edit_color:True manage_role_members:True make_role_mentionable:True" title="command" mark={highlights} />
+
+### `/customrole admin max_users` - Chỉnh sửa số người tối đa
+Lệnh này sẽ chỉnh sửa số người tối đa của role
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `role`: Chỉ định một role
+ - `users`: Chỉ định số lượng, từ 1 đến tối đa 100
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ sửa cố người tối đa của role **@bucket** thành `10`
+<Code code="/customrole admin max_users role:@bucket users:10" title="command" mark={highlights} />
 
 ### `/customrole admin default_author_permission` - Chỉnh sửa quyền mặc định
 Lệnh này sẽ **chỉnh sửa quyền mặc định** cho các role
