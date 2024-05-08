@@ -4,23 +4,22 @@ description: "GlitchBucket - Hiển thị trợ giúp cho bot"
 sidebar:
   label: "/help"
   order: 10
-  badge:
-    text: Không còn sử dụng
-    variant: caution
+  # badge:
+  #   text: Không còn sử dụng
+  #   variant: caution
 ---
-
-:::caution[Chú ý]
-Lệnh này là lệnh đã được sắp xếp để loại bỏ. Bạn có thể ghi `/GlitchBucket` (ghi, không phải gửi) lên chat, Discord sẽ hiển thị toàn bộ lệnh của bot cho bạn!
-:::
 
 ## Mô tả
 Lệnh này hiển thị một số thông tin của bot
 
 ## Tham chiếu lệnh (Parameters)
-_Không có tham chiếu_
+_Bắt buộc_:
+ - `command`: Chọn một lệnh bạn cần trợ giúp
+
 
 ## Ví dụ sử dụng lệnh
 
 import { Code } from '@astrojs/starlight/components';
 
-<Code code="/help" title="command"/>
+Lệnh này sẽ trả về hỗ trợ sử dụng lệnh [`/artwork`](/commands/single/artwork):
+<Code code="/help command:artwork" title="command"/>
