@@ -1,0 +1,126 @@
+---
+title: "/giveaway"
+description: "GlitchBucket - Tạo một Giveaway nâng cao"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['template:', 'giveaway:', 'reward:', 'duration:', 'winners:', 'channel:', 'template:', 'requirements:', 'blacklists:', 'bypasses:', 'multipliers:', 'color:', 'button_color:', 'button_emoji:', 'requires_join_before:', 'image:']
+
+<h4>Vấn đề</h4>
+Bạn muốn tạo một Giveaway có thể custom được mọi phần trong tin nhắn Giveaway, cũng như có các yêu cầu/hạn chế phức tạp dành cho từng Giveaway (Chẳng hạn như yêu cầu phải tham gia server được 3 ngày, hoặc phải có role `@Server Booster` thì mới được tham gia Giveaway).
+ 
+<h4>Giải pháp</h4>
+Tính năng Giveaway giúp bạn tạo một Giveaway hoàn toàn không có giới hạn, giúp bạn chỉnh sửa mọi thứ của Giveaway, cũng như thêm các yêu cầu/hạn chế. Các tính năng chính của Giveaway:
+- Cho phép chỉnh sửa toàn bộ các phần trong tin nhắn Giveaway,
+- Chỉnh sửa Giveawway đang chạy,
+- Giveaway Template giúp bạn lưu các mẫu Giveaway có độ phức tạp cao đề về sau tạo chúng một cách dễ dàng!
+
+
+## `/giveaway setup` - Thiết lập một giveaway mới
+Lệnh này sẽ thiết lập một giveaway mới
+
+:::note[Note]
+Lệnh này là để setup một giveaway có tính phức tạp cao. Nếu bạn muốn tạo một giveaway nhanh chóng, bạn có thể sử dụng lệnh [/giveaway create](#giveaway-create---thêm-số-tiền-ủng-hộ)
+:::
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Không có tham chiếu_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ bắt đầu hỏi các thông tin về giveaway. Một menu sẽ hiện ra và bạn sẽ thực hiện chỉnh sửa trên đó.
+<Code code="/giveaway setup " title="command" mark={highlights} />
+
+## `/giveaway end` - Kết thúc một giveaway hiện có
+Kết thúc một giveaway hiện có
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `giveaway`: Chọn một giveaway đang chạy
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ kết thúc một Giveaway có ID là `1245195068156149786`
+<Code code="/giveaway end giveaway:1245195068156149786" title="command" mark={highlights} />
+## `/giveaway reroll` - Reroll một giveaway đã kết thúc
+Reroll một giveaway đã kết thúc
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `giveaway`: Chọn một giveaway đã kết thúc
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ reroll một Giveaway có ID là `1245195068156149786`
+<Code code="/giveaway reroll giveaway:1245195068156149786" title="command" mark={highlights} />
+## `/giveaway edit` - Chỉnh sửa một giveaway đang chạy
+Chỉnh sửa một giveaway đang chạy
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `giveaway`: Chọn một giveaway đang chạy
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉnh sửa một Giveaway có ID là `1245195068156149786`
+<Code code="/giveaway edit giveaway:1245195068156149786" title="command" mark={highlights} />
+## `/giveaway create` - Tạo một giveaway nhanh chóng
+Tạo một giveaway nhanh chóng
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `reward`: Chỉ định phần thưởng
+- `duration`: Chỉ định thời lượng theo định dạng ngày ngắn (ví dụ: 10m25s), hoặc số giây (ví dụ: 86400)
+- `winners`: Chỉ định người chiến thắng
+
+_Không bắt buộc:_
+- `channel`: Chỉ định kênh để bắt đầu
+- `template`: Chọn một template
+- `requirements`: Chỉ định requirements theo định dạng: role1|role2|...|role(n). Tối đa 15 vai trò
+- `blacklists`: Chỉ định blacklists theo định dạng: role1|role2|...|role(n). Tối đa 10 vai trò
+- `bypasses`: Chỉ định bypass requirements dạng: role1|role2|...|role(n). Tối đa 15 vai trò
+- `multipliers`: Chỉ định số lượt tham gia bonus theo định dạng: role1:bonus1|role2:bonus2|... Tối đa 10 phần thưởng
+- `color`: Chỉ định màu theo định dạng: #<hex>, hoặc rgb(<số>, <số>, <số>)
+- `button_color`: Chọn màu nút
+- `button_emoji`: Chỉ định biểu tượng cảm xúc tùy chỉnh của máy chủ hoặc mã Unicode biểu tượng cảm xúc
+- `requires_join_before`: Chỉ định thời lượng theo định dạng ngày ngắn (ví dụ: 10m25s), hoặc số giây (ví dụ: 86400)
+- `image`: Chỉ định URL hình ảnh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Đơn giản nhất: Tạo 1 Giveaway về `Nitro` với `1 Người chiến thắng`, với thời gian là `10 phút`
+<Code code="/giveaway create reward:nitro duration:10m winners:1" title="command" mark={highlights} />
+
+Phức tạp hơn: Tạo 1 Giveaway về `Nitro` với `2 Người chiến thắng`, với thời gian là `1 ngày`, tại kênh `#giveaway`. Kèm theo đó là áp dụng sẵn template `Giveaway Nitro`.
+<Code code="/giveaway create reward:nitro duration:10m winners:1 channel:#giveaway template:Giveaway Nitro" title="command" mark={highlights} />
+
+## `/giveaway template edit` - Chỉnh sửa một template
+Chỉnh sửa một template
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `template`: Chọn một template
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ tạo một template có tên là `Giveaway Nitro`. Một menu sẽ hiện ra và bạn sẽ thực hiện chỉnh sửa trên đó.
+<Code code="/giveaway template edit template:Giveaway Nitro" title="command" mark={highlights} />
+## `/giveaway template create` - Tạo một template
+Tạo một template
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `name`: Chỉ định tên template
+
+_Không bắt buộc:_
+- `description`: Chỉ định mô tả template
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ tạo một template có tên là `Giveaway Nitro` với miêu tả là `Giveaway Nitro dành cho Booster`. Một menu sẽ hiện ra và bạn sẽ thực hiện chỉnh sửa trên đó.
+<Code code="/giveaway template create name:Giveaway Nitro description:iveaway Nitro dành cho Booster" title="command" mark={highlights} />
+## `/giveaway template delete` - Xóa một template
+Xóa một template
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `template`: Chọn một template
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa template có tên là `Giveaway Nitro`
+<Code code="/giveaway template delete template:Giveaway Nitro" title="command" mark={highlights} />
