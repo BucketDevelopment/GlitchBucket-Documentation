@@ -3,12 +3,12 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-	srcDir: "./docs",
+	srcDir: "./web",
 	integrations: [
 		starlight({
 			title: "BucketDevelopment",
 			favicon: "/favicon.png",
-			customCss: ["./docs/styles/global.css"],
+			customCss: ["./web/styles/global.css"],
 			defaultLocale: "vi",
 			locales: {
 				root: {
