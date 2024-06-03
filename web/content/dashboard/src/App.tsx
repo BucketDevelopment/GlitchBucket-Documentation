@@ -1,6 +1,12 @@
-import { MantineProvider, rem } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import Header from "./components/Header";
 import GuildSelector from "./GuildSelector";
+import {
+	QueryClient,
+	QueryClientProvider,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient()
 
 export default function App() {
 	return (
@@ -23,8 +29,10 @@ export default function App() {
 				},
 			}}
 		>
-			<Header />
-			<GuildSelector />
+			<QueryClientProvider client={queryClient}>
+				<Header />
+				<GuildSelector />
+			</QueryClientProvider>
 		</MantineProvider>
 	);
 }
