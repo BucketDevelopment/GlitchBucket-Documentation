@@ -13,14 +13,15 @@
 	padding-bottom: var(--mantine-spacing-md);
 }
 
-.information {
-	padding-left: var(--mantine-spacing-md);
+.border {
+	padding-top: var(--mantine-spacing-xl);
+	padding-left: var(--mantine-spacing-xl);
+	padding-right: var(--mantine-spacing-xl);
+	padding-bottom: var(--mantine-spacing-xl);
 }
 
-.like {
-	color: var(--mantine-color-red-6);
-	width: rem(20px);
-	height: rem(20px);
+.information {
+	padding-left: var(--mantine-spacing-md);
 }
 
 .label {

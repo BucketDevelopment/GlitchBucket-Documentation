@@ -4,9 +4,9 @@ import {
 	Text,
 	Group,
 	Badge,
-	Container,
 	Grid,
 	Avatar,
+	Divider,
 	rem,
 } from "@mantine/core";
 import classes from "./GuildSelector.module.css";
@@ -85,7 +85,7 @@ function Example() {
 	const { isPending, error, data } = useQuery({
 		queryKey: [],
 		queryFn: () =>
-			axios.get("http://localhost:5000/rest/v1/guilds").then((res) => res.data),
+			axios.get("http://localhost:5000/rest/v1/guilds", {withCredentials: true}).then((res) => res.data),
 	});
 
 	if (isPending) return "Loading...";
@@ -125,8 +125,11 @@ function Example() {
 
 export default function GuildSelector() {
 	return (
-		<Grid>
-			<Example />
-		</Grid>
+		<Group className={classes.border}>
+			<Grid>
+				<Divider my="md" />
+				<Example />
+			</Grid>
+		</Group>
 	);
 }
