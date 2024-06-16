@@ -8,26 +8,32 @@ export const highlights = ['session:', 'user:', 'sort:', 'channel:', 'from_messa
 
 <h4>Vấn đề</h4>
 Bạn muốn tổ chức một cuộc thi vote cho server của bạn để quảng bá server rộng rãi hơn, cũng như là một event thú vị cho member trong server của bạn, và người có số lượng reaction trong kênh cao nhất sẽ là người chiến thắng
+
 Tuy nhiên, bạn đột nhiên nghĩ đến rằng:
 - *Nếu như người ta vote xong thoát server luôn thì đâu còn là event lùa member nữa nhỉ*
 - *Nhỡ đâu nó dùng self-bot thì sao nhỉ??*
+
 Vậy nên bạn sẽ đếm từng người vote một để đảm bảo rằng cuộc thi diễn ra công bằng.
 
 Nhưng server của bạn là một server có quy mô lớn, và đương nhiên việc bạn đếm - hoặc cho dù là gọi cả Đội ngũ Quản trị - thì cũng rất chậm và không tối ưu.
 
 <h4>Giải pháp</h4>
 Chỉ với một lệnh đơn giản: `/voting session setup`, tính năng này sẽ tự động đếm thống kê vote cho bạn!
+
 Ngoài ra, tính năng cũng đem lại một số yêu cầu đối với người vote và người tham gia vote, cũng như các phương thức đếm vote:
 
 **Với người bỏ vote**
+
 Bạn có thể thêm bất kì 1 trong các requirement dưới đây cho vote của bạn:
 - Blacklist voter theo role
 - Yêu cầu tài khoản đăng kí/tham gia server trước 1 lượng thời gian
 - Xóa vote thi voter thoát server
+
 **Với người tham gia vote**
 - Giới hạn số lượng tin nhắn có thể tham gia
 - Blacklist/Whitelist theo role
 - Tự bỏ qua các tin nhắn 0 vote hoặc tin nhắn bot
+
 **Với phương thức đếm vote**
 - Đếm số lượng reaction (nhanh nhất)
 - Đếm số người thả các reaction (chậm nhất)
@@ -45,8 +51,8 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ bắt đầu thiết lập session vote tại kênh `#vote` và tính từ sau tin nhắn có ID `12244382398348857345` trong kênh `#vote`
 <Code code="/voting session setup channel:#vote from_message:12244382398348857345" title="command" mark={highlights} />
-## `/voting session end` - Kết thúc phiên bầu chọn của máy chủ
-Kết thúc phiên bầu chọn của máy chủ
+## `/voting session end` - Kết thúc phiên vote
+Lệnh này sẽ kết thúc phiên bầu chọn của máy chủ
 
 <h4>Tham chiếu lệnh (Parameters)</h4>
 
