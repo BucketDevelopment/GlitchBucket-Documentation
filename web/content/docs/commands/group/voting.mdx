@@ -1,10 +1,38 @@
 ---
-title: "/voting"
+title: "Thống kê Vote"
 description: "GlitchBucket - Thống kê vote từ reaction một cách nhanh chóng!"
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['session:', 'user:', 'sort:']
+export const highlights = ['session:', 'user:', 'sort:', 'channel:', 'from_message:']
+
+<h4>Vấn đề</h4>
+Bạn muốn tổ chức một cuộc thi vote cho server của bạn để quảng bá server rộng rãi hơn, cũng như là một event thú vị cho member trong server của bạn, và người có số lượng reaction trong kênh cao nhất sẽ là người chiến thắng
+Tuy nhiên, bạn đột nhiên nghĩ đến rằng:
+- *Nếu như người ta vote xong thoát server luôn thì đâu còn là event lùa member nữa nhỉ*
+- *Nhỡ đâu nó dùng self-bot thì sao nhỉ??*
+Vậy nên bạn sẽ đếm từng người vote một để đảm bảo rằng cuộc thi diễn ra công bằng.
+
+Nhưng server của bạn là một server có quy mô lớn, và đương nhiên việc bạn đếm - hoặc cho dù là gọi cả Đội ngũ Quản trị - thì cũng rất chậm và không tối ưu.
+
+<h4>Giải pháp</h4>
+Chỉ với một lệnh đơn giản: `/voting session setup`, tính năng này sẽ tự động đếm thống kê vote cho bạn!
+Ngoài ra, tính năng cũng đem lại một số yêu cầu đối với người vote và người tham gia vote, cũng như các phương thức đếm vote:
+
+**Với người bỏ vote**
+Bạn có thể thêm bất kì 1 trong các requirement dưới đây cho vote của bạn:
+- Blacklist voter theo role
+- Yêu cầu tài khoản đăng kí/tham gia server trước 1 lượng thời gian
+- Xóa vote thi voter thoát server
+**Với người tham gia vote**
+- Giới hạn số lượng tin nhắn có thể tham gia
+- Blacklist/Whitelist theo role
+- Tự bỏ qua các tin nhắn 0 vote hoặc tin nhắn bot
+**Với phương thức đếm vote**
+- Đếm số lượng reaction (nhanh nhất)
+- Đếm số người thả các reaction (chậm nhất)
+- Đếm số người thả 1 reaction nhất định (chậm)
+
 
 ## `/voting session setup` - Thiết lập phiên vote
 Thiết lập một phiên bầu chọn
