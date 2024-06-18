@@ -16,7 +16,7 @@ Tuy nhiên, bạn không đơn thuần chỉ muốn chúng ghim trên chat. Có 
  - Tin nhắn được ghim **chỉ hiển thị khi chat đã không còn ai chat**. _Ví dụ:_ tin nhắn được ghim sẽ hiển thị khi chat ngừng hoạt động trong một thời gian, có thể là 15 giây
  - Tin nhắn được ghim **chỉ hiển thị khi mọi người đã chat được một lượng tin nhắn**. _Ví dụ:_ tin nhắn được ghim sẽ hiển thị khi mọi người trong chat đã gửi được 50 tin nhắn, sau mỗi 50 tin nhắn, bot sẽ gửi lên một tin nhắn khác (và xóa tin nhắn cũ)
  - Tin nhắn được ghim **là một [Webhook](https://support.discord.com/hc/vi/articles/228383668-Gi%E1%BB%9Bi-thi%E1%BB%87u-v%E1%BB%81-Webhook) có Avatar và tên theo ý muốn của bạn**. _Ví dụ:_ tin nhắn được ghim sẽ có tên là **Nhắc nhở**, với một avatar được tùy chỉnh bởi bạn.
- - Tin nhắn được ghim **là một Embed**, giúp hiển thị thông tin một cách trực quan hơn.
+ - Tin nhắn được ghim **là một Embed**, giúp hiển thị thông tin một cách trực quan hơn (Bạn cần tạo embed bằng [BucketScript](/commands/group/bucketscript/)).
 
 Bạn không thể trả tiền cho những bot premium cho những tính năng trên, nhưng bạn cũng không muốn tin nhắn đó lặp lại quá nhiều, và bạn cũng muốn tin nhắn cố định kia có tên của riêng mình.
 
@@ -105,18 +105,6 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh ngưỡng tin nhắn để gọi tin nhắn cố định của kênh `#general` lên _100 tin nhắn_ (Sau 100 tin nhắn thì tin nhắn sẽ được hiển thị)
 <Code code="/stickie msgthreshold channel:#general threshold:100" title="command" mark={highlights} />
-
-## `/stickie embed` - Đặt thông báo cố định thành Embed
-Lệnh này sẽ đặt một thông báo nhúng cố định của một kênh thành Embed. _Bạn cần cung cấp dữ liệu của Embed._
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ đặt thông báo nhúng cố định của kênh `#general` thành Embed. _Bạn cần cung cấp dữ liệu của Embed._
-<Code code="/stickie embed channel:#general" title="command" mark={highlights} />
 
 ## `/stickie allowmentions` - Đặt quy tắc AllowedMention
 Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định tại một kênh (tin nhắn có thể đề cập _người dùng/vai trò_ hay không). Cài đặt này đề phòng rằng, nếu bạn muốn ghi một vai trò (role) vào tin nhắn cố định, nhưng khi bot gửi tin nhắn thì bạn không muốn bot đề cập tới role đó, gây phiền hà cho người có role.
