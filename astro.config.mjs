@@ -58,6 +58,10 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: "Pháp lý",
+					autogenerate: { directory: "policy" },
+				},
 			],
 		}),
 	],
