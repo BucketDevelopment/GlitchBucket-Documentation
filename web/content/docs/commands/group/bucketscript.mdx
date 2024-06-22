@@ -17,59 +17,59 @@ export const highlights = ['name:', 'message:', 'channel:']
 ## Placeholder mặc định
 
 ### Placeholder về User
-Placeholder                   | Thông tin                                                                                                   | Ví dụ trả về
-------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------
-`{user}`                      | Tên của người dùng, và thêm tag, nếu là bot                                                                 | `tudubucket`, `GlitchBucket#9965`
-`{user_id}`                   | ID người dùng                                                                                               | `906844267870314577`
-`{user_mention}`              | Đề cập người dùng                                                                                           | `<@906844267870314577>`
-`{user_displayname}`          | Tên **hiển thị** của người dùng, khác **nick**                                                              | `Ankita Tudubucket`, `GlitchBucket`
-`{user_avatar}`               | URL Avatar của người dùng                                                                                   | [`Avatar của GlitchBucket`](https://cdn.discordapp.com/avatars/1103932552701550622/62ee3c3e34668a39581ec656649a7efa.webp?size=1024)
-`{user_nick}`                 | Nickname của người dùng trong server, nếu không có sẽ trả về tên hiển thị                                   | `Ankita Tudubucket`
-`{user_joindate}`             | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian người đó **tham gia server**           | `1681383883`
-`{user_joindate_formatted}`   | Thời gian người dùng tham gia server, với định dạng `HH:MM:SS DD:MM:YYYY`                                   | `18:04:43 13/04/2023`
-`{user_createdate}`           | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian người đó **bắt đầu sử dụng Discord**   | `1636278921`
-`{user_joindate_formatted}`   | Thời gian người dùng tham gia sử dụng discord, với định dạng `HH:MM:SS DD:MM:YYYY`                          | `16:55:21 07/11/2021`
-`{user_displaycolor}`         | Màu của role cao nhất của người dùng                                                                        | `#C0CDFF`
-`{user_boostsince}`           | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian người đó **bắt đầu nâng cấp máy chủ**  | `1681383883`
-`{user_boostsince_formatted}` | Thời gian người dùng nâng cấp máy chủ, với định dạng `HH:MM:SS DD:MM:YYYY`                                  | `18:04:43 13/04/2023`
+|Placeholder                   | Thông tin                                                                                                   | Ví dụ trả về
+|------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------
+|`{user}`                      | Tên của người dùng, và thêm tag, nếu là bot                                                                 | `tudubucket`, `GlitchBucket#9965`
+|`{user_id}`                   | ID người dùng                                                                                               | `906844267870314577`
+|`{user_mention}`              | Đề cập người dùng                                                                                           | `<@906844267870314577>`
+|`{user_displayname}`          | Tên **hiển thị** của người dùng, khác **nick**                                                              | `Ankita Tudubucket`, `GlitchBucket`
+|`{user_avatar}`               | URL Avatar của người dùng                                                                                   | [`Avatar của GlitchBucket`](https://cdn.discordapp.com/avatars/1103932552701550622/62ee3c3e34668a39581ec656649a7efa.webp?size=1024)
+|`{user_nick}`                 | Nickname của người dùng trong server, nếu không có sẽ trả về tên hiển thị                                   | `Ankita Tudubucket`
+|`{user_joindate}`             | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian người đó **tham gia server**           | `1681383883`
+|`{user_joindate_formatted}`   | Thời gian người dùng tham gia server, với định dạng `HH:MM:SS DD:MM:YYYY`                                   | `18:04:43 13/04/2023`
+|`{user_createdate}`           | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian người đó **bắt đầu sử dụng Discord**   | `1636278921`
+|`{user_joindate_formatted}`   | Thời gian người dùng tham gia sử dụng discord, với định dạng `HH:MM:SS DD:MM:YYYY`                          | `16:55:21 07/11/2021`
+|`{user_displaycolor}`         | Màu của role cao nhất của người dùng                                                                        | `#C0CDFF`
+|`{user_boostsince}`           | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian người đó **bắt đầu nâng cấp máy chủ**  | `1681383883`
+|`{user_boostsince_formatted}` | Thời gian người dùng nâng cấp máy chủ, với định dạng `HH:MM:SS DD:MM:YYYY`                                  | `18:04:43 13/04/2023`
 
 ### Placeholder về Server
 
-Placeholder                           | Thông tin                                                                                | Ví dụ trả về
---------------------------------------|------------------------------------------------------------------------------------------|----------------------------------
-`{server_name}`                       | Tên server                                                                               | `GlitchBucket Support`
-`{server_id}`                         | ID server                                                                                | `1096028188397809736`
-`{server_membercount}`                | Tổng số member của server                                                                | `302`
-`{server_membercount_ordinal}`        | Tổng số member của server, nhưng là dạng [thứ hạng trong Tiếng Anh](https://www.google.com/search?q=english+ordinal+number) | `302nd`
-`{server_membercount_nobots}`         | Tổng số member của server, nhưng không tính bot                                          | `295`
-`{server_membercount_nobots_ordinal}` | Tổng số member của server, nhưng không tính bot, và là dạng [thứ hạng trong Tiếng Anh](https://www.google.com/search?q=english+ordinal+number) | `295th`
-`{server_botcount}`                   | Tổng số bot của server                                                                   | `5`
-`{server_botcount_ordinal}`           | Tổng số bot của server, nhưng là dạng [thứ hạng trong Tiếng Anh](https://www.google.com/search?q=english+ordinal+number)    | `5th`
-`{server_icon}`                       | URL Icon server của bạn                                                                  | [`Server Icon của GlitchBucket Support`](https://cdn.discordapp.com/icons/1096028188397809736/999a7ac5089dcec659ce542c0804eb6e.png?size=1024)
-`{server_rolecount}`                  | Tổng số role (vai trò) của server                                                        | `21`
-`{server_channelcount}`               | Tổng số channel (kênh) của server                                                        | `17`
-`{server_owner}`                      | Tên của Server Owner                                                                     | `tudubucket`
-`{server_owner_id}`                   | ID của Server Owner                                                                      | `906844267870314577`
-`{server_createdate}`                 | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian **server được tạo** | `1681383883`
-`{server_createdate_formatted}`       | Thời gian server được tạo, với định dạng `HH:MM:SS DD:MM:YYYY`                           | `16:55:21 07/11/2021`
-`{server_boostlevel}`                 | Cấp độ nâng cấp (boost) của server (từ 0 tới 3)                                          | `0`
-`{server_boostcount}`                 | Số lượng nâng cấp (boost) của server                                                     | `1`
+|Placeholder                           | Thông tin                                                                                | Ví dụ trả về
+|--------------------------------------|------------------------------------------------------------------------------------------|----------------------------------
+|`{server_name}`                       | Tên server                                                                               | `GlitchBucket Support`
+|`{server_id}`                         | ID server                                                                                | `1096028188397809736`
+|`{server_membercount}`                | Tổng số member của server                                                                | `302`
+|`{server_membercount_ordinal}`        | Tổng số member của server, nhưng là dạng [thứ hạng trong Tiếng Anh](https://www.google.com/search?q=english+ordinal+number) | `302nd`
+|`{server_membercount_nobots}`         | Tổng số member của server, nhưng không tính bot                                          | `295`
+|`{server_membercount_nobots_ordinal}` | Tổng số member của server, nhưng không tính bot, và là dạng [thứ hạng trong Tiếng Anh](https://www.google.com/search?q=english+ordinal+number) | `295th`
+|`{server_botcount}`                   | Tổng số bot của server                                                                   | `5`
+|`{server_botcount_ordinal}`           | Tổng số bot của server, nhưng là dạng [thứ hạng trong Tiếng Anh](https://www.google.com/search?q=english+ordinal+number)    | `5th`
+|`{server_icon}`                       | URL Icon server của bạn                                                                  | [`Server Icon của GlitchBucket Support`](https://cdn.discordapp.com/icons/1096028188397809736/999a7ac5089dcec659ce542c0804eb6e.png?size=1024)
+|`{server_rolecount}`                  | Tổng số role (vai trò) của server                                                        | `21`
+|`{server_channelcount}`               | Tổng số channel (kênh) của server                                                        | `17`
+|`{server_owner}`                      | Tên của Server Owner                                                                     | `tudubucket`
+|`{server_owner_id}`                   | ID của Server Owner                                                                      | `906844267870314577`
+|`{server_createdate}`                 | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian **server được tạo** | `1681383883`
+|`{server_createdate_formatted}`       | Thời gian server được tạo, với định dạng `HH:MM:SS DD:MM:YYYY`                           | `16:55:21 07/11/2021`
+|`{server_boostlevel}`                 | Cấp độ nâng cấp (boost) của server (từ 0 tới 3)                                          | `0`
+|`{server_boostcount}`                 | Số lượng nâng cấp (boost) của server                                                     | `1`
 
 ### Placeholder về Kênh & Tin nhắn
 :::caution[Chú ý]
 Placeholder về Tin nhắn sẽ chỉ hỗ trợ cho [Autoresponder](/commands/group/autoresponder), nghĩa là các tính năng khác sử dụng BucketScript (Sticky Message, Donation Message), sẽ không được sử dụng placeholder này. Nếu bạn sử dụng, chúng sẽ trả về `None` 
 :::
 
-Placeholder                      | Thông tin                                                                                | Ví dụ trả về
----------------------------------|------------------------------------------------------------------------------------------|----------------------------------
-`{channel_name}`                 | Tên kênh được gửi tin nhắn                                                               | `#general`
-`{channel_id}`                   | ID kênh được gửi tin nhắn                                                                | `1096028188976619523`
-`{channel_mention}`              | Đề cập tới kênh                                                                          | `<#1096028188976619523>`
-`{channel_createdate}`           | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian **kênh được tạo**   | `1693190240`
-`{channel_createdate_formatted}` | Thời gian kênh được tạo, với định dạng `HH:MM:SS DD:MM:YYYY`                             | `09:37:20 28/08/2023 `
-`{message_link}`                 | URL dẫn đến tin nhắn được trigger                                                        | [`URL Tin nhắn giả định`](https://discord.com/channels/1096028188397809736/1145547639618801736/1253980690006016072)
-`{message_id}`                   | ID tin nhắn được trigger                                                                 | `1253980690006016072`
-`{message_content}`              | Nộit dung tin nhắn của tin nhắn được trigger                                             | `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+|Placeholder                      | Thông tin                                                                                | Ví dụ trả về
+|---------------------------------|------------------------------------------------------------------------------------------|----------------------------------
+|`{channel_name}`                 | Tên kênh được gửi tin nhắn                                                               | `#general`
+|`{channel_id}`                   | ID kênh được gửi tin nhắn                                                                | `1096028188976619523`
+|`{channel_mention}`              | Đề cập tới kênh                                                                          | `<#1096028188976619523>`
+|`{channel_createdate}`           | [Thời gian Epoch](/getting-started/useful) tương đương với thời gian **kênh được tạo**   | `1693190240`
+|`{channel_createdate_formatted}` | Thời gian kênh được tạo, với định dạng `HH:MM:SS DD:MM:YYYY`                             | `09:37:20 28/08/2023 `
+|`{message_link}`                 | URL dẫn đến tin nhắn được trigger                                                        | [`URL Tin nhắn giả định`](https://discord.com/channels/1096028188397809736/1145547639618801736/1253980690006016072)
+|`{message_id}`                   | ID tin nhắn được trigger                                                                 | `1253980690006016072`
+|`{message_content}`              | Nộit dung tin nhắn của tin nhắn được trigger                                             | `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
 
 
 # Các lệnh
