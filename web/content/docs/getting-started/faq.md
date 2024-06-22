@@ -17,10 +17,18 @@ Có nghĩa rằng, nếu trước đó đã có 50 bot khác sử dụng Slash C
 GlitchBucket đã được định sẵn để sử dụng toàn bộ bằng Message Component cũng như Slash Command (Tất cả đều thuộc về [Interaction & Component](https://discord.com/developers/docs/interactions/message-components)). Việc sử dụng Prefix Command ở GlitchBucket sẽ không được sử dụng tại hầu hết ở các tính năng.
 
 ## Một số tính năng của bot không thực sự hoạt động!
-Nếu tính năng đó liên quan tới **cấp bậc vai trò** (role của bot thấp hơn các role cần quản lí), thì bot sẽ không thể thực hiện quản lí các role đó. Những điều dưới đây sẽ xảy ra:
+
+Đầu tiên, bạn cần kiểm tra **quyền của bot** trước. 
+
+Ví dụ như [Sticky Message](/commands/group/stickie) sẽ yêu cầu quyền `Gửi tin nhắn` & `Gửi Embed`.
+
+Tùy theo các tính năng mà bot sẽ yêu cầu các quyền riêng. Các quyền cần cấp sẽ được yêu cầu khi bạn thực hiện lệnh của tính năng đó.
+
+
+Tiếp theo, nếu tính năng đó liên quan tới **cấp bậc vai trò** (role của bot thấp hơn các role cần quản lí, như [Custom Role](/commands/group/customrole) sẽ yêu cầu quyền `Quản lí Role` và bot phải có role cao hơn các role cần quản lí), thì bot sẽ không thể thực hiện quản lí các role đó. Những điều dưới đây sẽ xảy ra:
 
 - Bot tự động hủy tác vụ (nếu như nó thuộc tác vụ tự động)
-- Bot sẽ thông báo lại cho bạn, rằng đây không phải là lỗi (nếu bạn dùng lệnh)
+- Bot sẽ thông báo lại cho bạn, rằng đây không phải là lỗi mà là do bạn sắp xếp role chưa đúng (nếu bạn dùng lệnh)
 
 Để khắc phục vấn đề trên, bạn cần cho GlitchBucket có role cao hơn các role cần quản lí. 
 
