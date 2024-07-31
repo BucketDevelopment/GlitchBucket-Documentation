@@ -1,18 +1,12 @@
 ---
 title: "BucketScript"
-description: "GlitchBucket - Hệ thống xử lí tin nhắn của GlitchBucket"
+description: "GlitchBucket - Function cho Hệ thống xử lí tin nhắn của GlitchBucket"
 ---
 
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['name:', 'message:', 'channel:']
 
 Đây là bộ phận xử lí tin nhắn của toàn bộ hệ thống bot. Gần như tất cả các tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message) đều sử dụng bộ phận xử lí tin nhắn này.
-
-:::caution[Chú ý]
-Để xem các lệnh khác liên quan tới BucketScript, hãy sử dụng thanh điều hướng ở bên phải hoặc kéo xuống dưới.
-:::
-
-# Placeholders
 
 ## Placeholder mặc định
 
@@ -105,124 +99,7 @@ Các hàm bị ❌ tại cột *Dùng trên 1* là bạn chỉ được phép d�
 | ✔️ | `{remove_role:id}`            | Xóa một vai trò (role) có ID là `id` cho người trigger BucketScript                         | `id`: ID một role                     | `{remove_role:1122707453251948608}` 
 | ✔️ | `{react_trigger:emoji}`       | React vào tin nhắn trigger BucketScript                                                     | `emoji`: Một emoji                    | `{react_trigger:emoji}`
 | ✔️ | `{react_reply:emoji}`         | React vào tin nhắn được gửi đi từ bot sau trigger                                           | `emoji`: Một emoji                    | `{react_reply:emoji}`
-| ❌ | `{delete_trigger:int}`        | Xóa tin nhắn trigger BucketScript sau `int` giây                                            | `int`: Thời gian delay tính bằng giây | `{delete_trigger:2}`
-| ❌ | `{delete_reply:int}`          | Xóa tin nhắn được gửi đi từ bot sau trigger sau `int` giây                                  | `int`: Thời gian delay tính bằng giây | `{delete_reply:2}`
-
-
-# Các lệnh
-
-## `/bucketscript embed create` - Tạo một Embed
-Tạo một Embed bằng BucketScript
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `name`: Chỉ định tên embed
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tạo embed `welcome`
-<Code code="/bucketscript embed create name:welcome" title="command" mark={highlights} />
-## `/bucketscript embed edit` - Chỉnh sửa Embed
-Chỉnh sửa một Embed bằng BucketScript
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `name`: Chỉ định tên embed
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉnh sửa embed `welcome`
-<Code code="/bucketscript embed edit name:welcome" title="command" mark={highlights} />
-## `/bucketscript embed delete` - Xóa một Embed
-Xóa một Embed bằng BucketScript
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `name`: Chỉ định tên embed
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ xóa embed `welcome`
-<Code code="/bucketscript embed delete name:welcome" title="command" mark={highlights} />
-
-## `/bucketscript greeting message` - Đặt tin nhắn Chào mừng
-Đặt tin nhắn Chào mừng
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `message`: Chỉ định tin nhắn
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ set một tin nhắn chào mừng với embed có tên `welcome`
-<Code code="/bucketscript greeting message message:Xin chào {user_mention} đã đến với {server_name}!{embed:welcome}" title="command" mark={highlights} />
-## `/bucketscript greeting channel` - Đặt kênh Chào mừng
-Đặt kênh Chào mừng
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn kênh
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉ định kênh `#welcome` là kênh chào mừng
-<Code code="/bucketscript greeting channel channel:#welcome" title="command" mark={highlights} />
-## `/bucketscript greeting clear` - Xóa tin nhắn Chào mừng
-Xóa tin nhắn Chào mừng
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không có tham chiếu_
-
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/bucketscript greeting clear " title="command" mark={highlights} />
-## `/bucketscript greeting test` - Thử tin nhắn chào mừng
-Lệnh này sẽ thử tin nhắn chào mừng
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không có tham chiếu_
-
-
-<h4>Ví dụ sử dụng lệnh</h4>
-<Code code="/bucketscript greeting test " title="command" mark={highlights} />
-
-## `/bucketscript farewell message` - Đặt tin nhắn Tạm biệt
-Đặt tin nhắn Tạm biệt
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `message`: Chỉ định tin nhắn
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ đặt tin nhắn tạm biệt với một số placeholder
-<Code code="/bucketscript farewell message message:Tạm biệt {user}, mong bạn sẽ quay trở lại, ;(\nServer hiện chỉ còn {server_membercount_nobots} member" title="command" mark={highlights} />
-## `/bucketscript farewell channel` - Đặt kênh Tạm biệt
-Đặt kênh Tạm biệt
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn kênh
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ đặt kênh `#goodbye` là kênh gửi tin nhắn tạm biệt
-<Code code="/bucketscript farewell channel channel:#goodbye" title="command" mark={highlights} />
-## `/bucketscript farewell clear` - Xóa tin nhắn Tạm biệt
-Xóa tin nhắn Tạm biệt
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không có tham chiếu_
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/bucketscript farewell clear " title="command" mark={highlights} />
-
-## `/bucketscript farewell test` - Thử tin nhắn Tạm biệt
-Lệnh này sẽ kiểm tra & Thử tin nhắn Tạm biệt
-
-<h4>Tham chiếu lệnh (Parameters)</h4>
-
-_Không có tham chiếu_
-
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/bucketscript farewell test " title="command" mark={highlights} />
+| ❌ | `{delete_trigger:int}`        | Xóa tin nhắn trigger BucketScript sau `int` giây                                            | `int`: Thời gian delay (giây) | `{delete_trigger:2}`
+| ❌ | `{delete_reply:int}`          | Xóa tin nhắn được gửi đi từ bot sau trigger sau `int` giây                                  | `int`: Thời gian delay (giây) | `{delete_reply:2}`
+| ✔️ | `{balance:type:<user>}`       | Kiểm tra BucketBalance của bạn, hoặc của một người dùng khác                                | `type`: Một loại [BucketBalance](/commands/group/bucketbalance)\n`user`: ID một người dùng (không bắt buộc) | `{balance:my_balance:906844267870314577}`
+| ✔️ | `{edit_balance:type:+/-amount:<user>}`| Thay đổi dữ liệu BucketBalance của bạn, hoặc của một người dùng khác                | `type`: Một loại [BucketBalance](/commands/group/bucketbalance)\n`+/-amount`: Thêm/Giảm bớt một lượng `amount`\n`user`: ID một người dùng (không bắt buộc) | `{edit_balance:my_balance:+1000:906844267870314577}`

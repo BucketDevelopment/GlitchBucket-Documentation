@@ -56,6 +56,10 @@ export default defineConfig({
 							label: "Khối lệnh",
 							autogenerate: { directory: "commands/group/" },
 						},
+						{
+							label: "BucketScript",
+							autogenerate: { directory: "bucketscript/" },
+						},
 					],
 				},
 				{
