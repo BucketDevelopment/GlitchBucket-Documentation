@@ -1,0 +1,152 @@
+---
+title: "/quests"
+description: "GlitchBucket - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['channel:']
+
+## `/quests setup` - Thiết lập một nhiệm vụ mới
+Thiết lập một nhiệm vụ mới
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setup " title="command" mark={highlights} />
+## `/quests list` - Liệt kê tất cả các nhiệm vụ đang chạy
+Liệt kê tất cả các nhiệm vụ đang chạy
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `hidden`: Ẩn các nhiệm vụ mà bạn không thể hoàn thành
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests list hidden:" title="command" mark={highlights} />
+## `/quests delete` - Xóa một nhiệm vụ
+Xóa một nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
+- `purge_data`: Xóa dữ liệu người dùng liên quan đến nhiệm vụ này
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests delete quest: purge_data:" title="command" mark={highlights} />
+## `/quests leaderboard` - Hiển thị bảng xếp hạng của một nhiệm vụ
+Hiển thị bảng xếp hạng của một nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
+- `limit`: Chỉ định giới hạn số mục mỗi trang, mặc định là 10
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests leaderboard quest: limit:" title="command" mark={highlights} />
+## `/quests setting timezone` - Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `tz`: Chọn múi giờ cho server này
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setting timezone tz:" title="command" mark={highlights} />
+## `/quests setting channel` - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setting channel channel:" title="command" mark={highlights} />
+## `/quests setup` - Thiết lập một nhiệm vụ mới
+Thiết lập một nhiệm vụ mới
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setup " title="command" mark={highlights} />
+## `/quests list` - Liệt kê tất cả các nhiệm vụ đang chạy
+Liệt kê tất cả các nhiệm vụ đang chạy
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `hidden`: Ẩn các nhiệm vụ mà bạn không thể hoàn thành
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests list hidden:" title="command" mark={highlights} />
+## `/quests delete` - Xóa một nhiệm vụ
+Xóa một nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
+- `purge_data`: Xóa dữ liệu người dùng liên quan đến nhiệm vụ này
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests delete quest: purge_data:" title="command" mark={highlights} />
+## `/quests leaderboard` - Hiển thị bảng xếp hạng của một nhiệm vụ
+Hiển thị bảng xếp hạng của một nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
+- `limit`: Chỉ định giới hạn số mục mỗi trang, mặc định là 10
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests leaderboard quest: limit:" title="command" mark={highlights} />
+## `/quests setting timezone` - Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `tz`: Chọn múi giờ cho server này
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setting timezone tz:" title="command" mark={highlights} />
+## `/quests setting channel` - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setting channel channel:" title="command" mark={highlights} />
+## `/quests setting timezone` - Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `tz`: Chọn múi giờ cho server này
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setting timezone tz:" title="command" mark={highlights} />
+## `/quests setting channel` - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/quests setting channel channel:" title="command" mark={highlights} />

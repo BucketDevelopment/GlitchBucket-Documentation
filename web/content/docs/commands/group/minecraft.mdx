@@ -1,0 +1,28 @@
+---
+title: "/minecraft"
+description: "GlitchBucket - Hiển thị thông tin của một server Minecraft"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['below_layer:', 'darken:', 'background:', 'address:', 'above_layer:', 'blur:', 'name:']
+
+## `/minecraft server` - Hiển thị thông tin của một server Minecraft
+Hiển thị thông tin của một server Minecraft
+
+<h4>Tham chiếu lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `address`: Địa chỉ server, có thể bao gồm cổng (port)
+
+_Không bắt buộc:_
+- `name`: Tên cho server này
+- `above_layer`: Lớp phía trên của nền (cho các khối trong suốt, như Kính hoặc Lá)
+- `below_layer`: Lớp phía dưới của nền (dưới các khối trong suốt, mặc định là Đá End)
+- `background`: Hình nền. Ép buộc blur trên 5. Bạn có thể chỉ định 1 URL image cỡ 2560x320 (16:2)
+- `darken`: Giá trị làm tối cho nền, mặc định là 160
+- `blur`: Làm mờ nền, mặc định là 0
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ kiểm tra server [`langdua.net`](https://langdua.net)
+
+<Code code="/minecraft server address:langdua.net" title="command" mark={highlights} />
