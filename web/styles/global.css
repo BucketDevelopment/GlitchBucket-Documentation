@@ -1,8 +1,8 @@
 :root {
-    --sl-content-width: calc(100vw - 2.2 * var(--sl-sidebar-width));
+    --sl-content-width: calc(100vw - 2 * var(--sl-sidebar-width));
 }
 
-@media (min-width: 72rem) {
+@media (max-width: 72rem) {
     :root {
         --sl-content-width: calc(100vw - 1.1 * var(--sl-sidebar-width)); /* Khi >= 72rem, nhân với 1.1 */
     }
