@@ -4,6 +4,12 @@
 
 @media (max-width: 72rem) {
     :root {
-        --sl-content-width: calc(100vw - 1.1 * var(--sl-sidebar-width)); /* Khi >= 72rem, nhân với 1.1 */
+        --sl-content-width: calc(100vw - 1.1 * var(--sl-sidebar-width));
+    }
+}
+
+@media (max-width: 50rem) {
+    :root {
+        --sl-content-width: calc(100vw);
     }
 }
