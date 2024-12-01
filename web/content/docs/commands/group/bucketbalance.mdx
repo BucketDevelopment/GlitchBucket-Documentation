@@ -6,6 +6,18 @@ description: "GlitchBucket - Xây dựng economy trong chính server của bạn
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['balance:', 'limit:', 'name:', 'display_icon:', 'display_name:', 'amount:', 'user:']
 
+<h4>Giới thiệu</h4>
+
+Bằng cách kết hợp với [`Autoresponder`](/commands/group/autoresponder) & [`BucketScript`](/bucketscript/functions), **BucketBalance** giúp bạn có thể:
+- Lưu trữ tạm thời dữ liệu về một số người dùng (Lưu trữ tiền donate, số vật phẩm, v.v)
+- Làm bot economy trong server
+Giới hạn của tính năng nằm ở sự sáng tạo của bạn. 
+
+:::note[Note]
+Đây là một tính năng nâng cao thuộc [`BucketScript`](/bucketscript/functions). Nếu bạn gặp khó khăn trong quá trình sử dụng **BucketBalance**, đội ngũ hỗ trợ tại [Discord](https://bot.tudubucket.dev/support) luôn có mặt để giúp đỡ bạn. Hãy đặt câu hỏi khi bạn có thắc mắc nhé!
+:::
+
+
 ## `/bucketbalance create` - Tạo balance trong máy chủ của bạn
 Tạo balance trong máy chủ của bạn
 
@@ -16,7 +28,9 @@ _Bắt buộc:_
 - `display_name`: Chỉ định tên để hiển thị
 
 <h4>Ví dụ sử dụng lệnh</h4>
+
 Lệnh này sẽ tạo một Economy mang tên `bucket`, với emoji hiển thị là 💵, tên hiển thị là **BucketCoin**
+
 <Code code="/bucketbalance create name:bucket display_icon:💵 display_name:BucketCoin" title="command" mark={highlights} />
 
 ## `/bucketbalance delete` - Xóa một balance có sẵn trong máy chủ của bạn

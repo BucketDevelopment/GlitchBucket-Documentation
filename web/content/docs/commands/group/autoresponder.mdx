@@ -13,6 +13,14 @@ Bạn muốn bot phản hồi lại tin nhắn của bạn, hoặc bất cứ ng
 <h4>Giải pháp</h4>
 
 Autoresponder sẽ trả lời lại tin nhắn của bạn. Bạn có thể thêm các hàm tự động (functions) để thêm role, đổi nickname, ...
+Bằng cách kết hợp với [`BucketScript`](/bucketscript/functions), **Autoresponder** giúp bạn có thể:
+- Lưu trữ tạm thời dữ liệu về một số người dùng (Lưu trữ tiền donate, số vật phẩm, v.v)
+- Làm bot economy trong server
+Giới hạn của tính năng nằm ở sự sáng tạo của bạn. 
+
+:::note[Note]
+Đây là một tính năng nâng cao thuộc [`BucketScript`](/bucketscript/functions). Nếu bạn gặp khó khăn trong quá trình sử dụng **Autoresponder**, đội ngũ hỗ trợ tại [Discord](https://bot.tudubucket.dev/support) luôn có mặt để giúp đỡ bạn. Hãy đặt câu hỏi khi bạn có thắc mắc nhé!
+:::
 
 ## `/autoresponder placeholders` - Hàm cho autoresponder của bạn
 Hàm cho autoresponder của bạn
@@ -37,8 +45,8 @@ _Bắt buộc:_
  - `ignorecase`: Có nên bỏ qua trường hợp khi khớp hay không
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tạo 1 autoresponder với từ khóa `xd`, và sẽ được phản bot hồi là `xD`, chỉ khi tin nhắn chính xác là `xd` (do chế độ là `mode:Tương đương`). Bot cũng sẽ xóa tin nhắn gốc (tin nhắn chứa từ khóa `xd` nhờ vào hàm `\{delete_trigger\}`)
-<Code code="/autoresponder add trigger:xd response:xD\{delete_trigger\} mode:Tương đương ignorecase:True" title="command" mark={highlights} />
+Lệnh này sẽ tạo 1 autoresponder với từ khóa `xd`, và sẽ được phản bot hồi là `xD`, chỉ khi tin nhắn chính xác là `xd` (do chế độ là `mode:Tương đương`). Bot cũng sẽ xóa tin nhắn gốc (tin nhắn chứa từ khóa `xd` nhờ vào hàm `{{delete_trigger:0}}` (số `0` có nghĩa là sẽ xóa tin nhắn sau 0 giây))
+<Code code="/autoresponder add trigger:xd response:xD{delete_trigger:0} mode:Tương đương ignorecase:True" title="command" mark={highlights} />
 
 ## `/autoresponder view` - Xem cài đặt hiện tại của autoresponder
 Lệnh này sẽ hiển thị cài đặt hiện tại của 1 autoresponder
