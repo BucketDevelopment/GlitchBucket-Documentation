@@ -36,14 +36,14 @@ Chúng ta hãy gán:
 |`<id:customize>`|`<id:customize>`|Hướng tới phần Chọn kênh & vai trò (Channels & Roles)
 |`<id:browse>`|`<id:browse>`|Hướng tới phần Chọn hiển thị các kênh
 |`<id:guide>`|`<id:guide>`|Hướng tới phần Hướng dẫn Máy chủ (Server Guide)
-|</command\:id>|`</artwork:1147727553373683752>`: `</report recent:1192112079977582672>`|Đề cập tới 1 lênh slash (Bạn có thể bấm vào để trực tiếp sử dụng)
+|</command\:id>|`</artwork:1147727553373683752>`:n `</report recent:1192112079977582672>`|Đề cập tới 1 lênh slash (Bạn có thể bấm vào để trực tiếp sử dụng)
 
 :::note[Note]
 Bạn có thể thêm kí tự `\` ở đằng trước để chuyển từ kiểu **đã đề cập** sang loại kí tự bình thường.
 
 Ví dụ, bạn có một emoji là `:emoji:`, bạn có thể thêm `\` như `\:emoji:` để biến nó trở thành `<:emoji:1176462510690414646>`.
 
-Phương pháp này có thể sử dụng để lấy một số Emoji ID cho GlitchBucket, cũng như áp dụng cho mọi loại mention.
+Phương pháp này có thể sử dụng để lấy một số Emoji nguyên bản cho GlitchBucket, cũng như áp dụng cho mọi loại mention.
 :::
 
 Cách để format thời gian đã có ở bên trên.
