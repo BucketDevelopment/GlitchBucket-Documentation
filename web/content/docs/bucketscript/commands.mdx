@@ -8,6 +8,9 @@ export const highlights = ['name:', 'message:', 'channel:']
 
 Đây là bộ phận xử lí tin nhắn của toàn bộ hệ thống bot. Gần như tất cả các tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message) đều sử dụng bộ phận xử lí tin nhắn này.
 
+
+---
+
 ## `/bucketscript embed create` - Tạo một Embed
 Tạo một Embed bằng BucketScript
 
@@ -18,6 +21,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ tạo embed `welcome`
 <Code code="/bucketscript embed create name:welcome" title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript embed edit` - Chỉnh sửa Embed
 Chỉnh sửa một Embed bằng BucketScript
 
@@ -28,6 +34,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh sửa embed `welcome`
 <Code code="/bucketscript embed edit name:welcome" title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript embed delete` - Xóa một Embed
 Xóa một Embed bằng BucketScript
 
@@ -39,6 +48,9 @@ _Bắt buộc:_
 Lệnh này sẽ xóa embed `welcome`
 <Code code="/bucketscript embed delete name:welcome" title="command" mark={highlights} />
 
+
+---
+
 ## `/bucketscript greeting message` - Đặt tin nhắn Chào mừng
 Đặt tin nhắn Chào mừng
 
@@ -49,6 +61,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ set một tin nhắn chào mừng với embed có tên `welcome`
 <Code code="/bucketscript greeting message message:Xin chào {user_mention} đã đến với {server_name}!{embed:welcome}" title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript greeting channel` - Đặt kênh Chào mừng
 Đặt kênh Chào mừng
 
@@ -59,6 +74,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉ định kênh `#welcome` là kênh chào mừng
 <Code code="/bucketscript greeting channel channel:#welcome" title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript greeting clear` - Xóa tin nhắn Chào mừng
 Xóa tin nhắn Chào mừng
 
@@ -70,6 +88,9 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/bucketscript greeting clear " title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript greeting test` - Thử tin nhắn chào mừng
 Lệnh này sẽ thử tin nhắn chào mừng
 
@@ -81,6 +102,9 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 <Code code="/bucketscript greeting test " title="command" mark={highlights} />
 
+
+---
+
 ## `/bucketscript farewell message` - Đặt tin nhắn Tạm biệt
 Đặt tin nhắn Tạm biệt
 
@@ -91,6 +115,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ đặt tin nhắn tạm biệt với một số placeholder
 <Code code="/bucketscript farewell message message:Tạm biệt {user}, mong bạn sẽ quay trở lại, ;(\nServer hiện chỉ còn {server_membercount_nobots} member" title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript farewell channel` - Đặt kênh Tạm biệt
 Đặt kênh Tạm biệt
 
@@ -101,6 +128,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ đặt kênh `#goodbye` là kênh gửi tin nhắn tạm biệt
 <Code code="/bucketscript farewell channel channel:#goodbye" title="command" mark={highlights} />
+
+---
+
 ## `/bucketscript farewell clear` - Xóa tin nhắn Tạm biệt
 Xóa tin nhắn Tạm biệt
 
@@ -111,6 +141,9 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/bucketscript farewell clear " title="command" mark={highlights} />
+
+
+---
 
 ## `/bucketscript farewell test` - Thử tin nhắn Tạm biệt
 Lệnh này sẽ kiểm tra & Thử tin nhắn Tạm biệt

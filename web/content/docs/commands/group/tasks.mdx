@@ -6,6 +6,9 @@ description: "GlitchBucket - Automatic tasks for your server"
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['unlock_at:', 'channel:', 'name:', 'task:', 'task_name:', 'lock_at:', 'timezone:', 'action:'];
 
+
+---
+
 ## `/tasks autolock create` - Create a daily auto-lock task for a specific channel
 Create a daily auto-lock task for a specific channel
 
@@ -21,6 +24,9 @@ _Bắt buộc:_
 
 <Code code="/tasks autolock create task_name: channel: timezone: lock_at: unlock_at:" title="command" mark={highlights} />
 
+
+---
+
 ## `/tasks autolock mode` - Edit auto-lock mode for a specific task
 Edit auto-lock mode for a specific task
 
@@ -32,6 +38,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/tasks autolock mode task: action:" title="command" mark={highlights} />
+
+---
+
 ## `/tasks autolock setstatus` - Pause/Resume a specific auto-lock task
 Pause/Resume a specific auto-lock task
 
@@ -43,6 +52,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/tasks autolock setstatus task: action:" title="command" mark={highlights} />
+
+---
+
 ## `/tasks autolock rename` - Edit auto-lock mode for a specific task
 Edit auto-lock mode for a specific task
 
@@ -54,6 +66,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/tasks autolock rename task: name:" title="command" mark={highlights} />
+
+---
+
 ## `/tasks autolock configuration` - View configuration of a specific task
 View configuration of a specific task
 
@@ -64,6 +79,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/tasks autolock configuration task:" title="command" mark={highlights} />
+
+---
+
 ## `/tasks autolock delete` - Delete a specific task
 Delete a specific task
 
@@ -74,6 +92,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/tasks autolock delete task:" title="command" mark={highlights} />
+
+---
+
 ## `/tasks autolock list` - List all tasks belong to this server
 List all tasks belong to this server
 

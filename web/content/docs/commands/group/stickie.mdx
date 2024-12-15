@@ -23,6 +23,9 @@ Bạn không thể trả tiền cho những bot premium cho những tính năng 
 <h4>Giải pháp</h4>
 Khối lệnh dưới đây sẽ giúp bạn cài đặt một tin nhắn cố định với đầy đủ các tính năng đã được liệt kê bên trên.
 
+
+---
+
 ## `/stickie configuration` - Xem cài đặt
 Xem cấu hình Tin nhắn cố định hiện tại của một kênh
 
@@ -35,6 +38,9 @@ _Bắt buộc:_
 Lệnh này sẽ hiển thị cấu hình Tin nhắn cố định hiện tại của kênh `#general`
 <Code code="/stickie configuration channel:#general" title="command" mark={highlights} />
 
+
+---
+
 ## `/stickie message` - Đặt Tin nhắn cố định
 Lệnh này sẽ đặt một Tin nhắn cố định cho một kênh. Khi bạn sử dụng lệnh một khung lệnh sẽ xuất hiện và bạn sẽ nhập vào khung lệnh đó
 
@@ -46,6 +52,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ tạo một Tin nhắn cố định tại kênh `#general`
 <Code code="/stickie message channel:#general" title="command" mark={highlights} />
+
+
+---
 
 ## `/stickie mode` - Chỉnh sửa StickMode cho Tin nhắn cố định
 Chỉnh sửa cách Tin nhắn cố định hoạt động. Bạn có thể chọn 1 trong 2 cách: 
@@ -62,6 +71,9 @@ _Bắt buộc:_
 Lệnh này sẽ chỉnh mode tin nhắn cố định của kênh `#general` thành `ChatInactive` (Sau một thời gian không ai chat thì tin nhắn sẽ được hiển thị)
 <Code code="/stickie mode channel:#general mode:ChatInactive" title="command" mark={highlights} />
 
+
+---
+
 ## `/stickie webhook` - Đặt webhook tùy chỉnh
 Lệnh này sẽ đặt webhook tùy chỉnh cho Tin nhắn cố định
 
@@ -73,6 +85,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ cho tin nhắn cố định tại lênh `#general` thành Webhook. Bot sẽ tự động tạo một webhook, sau đó bạn có thể thay đổi cài đặt của Webhook (avatar, tên) trong cài đặt của kênh.
 <Code code="/stickie webhook channel:#general" title="command" mark={highlights} />
+
+
+---
 
 ## `/stickie delay` - Đặt độ trễ
 Lệnh này sẽ đặt độ trễ cho Tin nhắn cố định. Tin nhắn cố định sẽ xuất hiện trong chat sau khi chat không hoạt động trong `delay` giây
@@ -90,6 +105,9 @@ _Bắt buộc:_
 Lệnh này sẽ chỉnh delay tin nhắn cố định của kênh `#general` xuống _8 giây_ (Sau 8 giây không ai chat thì tin nhắn sẽ được hiển thị)
 <Code code="/stickie delay channel:#general delay:8" title="command" mark={highlights} />
 
+
+---
+
 ## `/stickie msgthreshold` - Đặt ngưỡng tin nhắn
 Lệnh này sẽ đặt ngưỡng tin nhắn cho Tin nhắn cố định. Tin nhắn cố định sẽ xuất hiện trong chat sau khi mọi người trong chat đã gửi được `threshold` tin nhắn.
 :::note[Note]
@@ -106,6 +124,9 @@ _Bắt buộc:_
 Lệnh này sẽ chỉnh ngưỡng tin nhắn để gọi tin nhắn cố định của kênh `#general` lên _100 tin nhắn_ (Sau 100 tin nhắn thì tin nhắn sẽ được hiển thị)
 <Code code="/stickie msgthreshold channel:#general threshold:100" title="command" mark={highlights} />
 
+
+---
+
 ## `/stickie allowmentions` - Đặt quy tắc AllowedMention
 Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định tại một kênh (tin nhắn có thể đề cập _người dùng/vai trò_ hay không). Cài đặt này đề phòng rằng, nếu bạn muốn ghi một vai trò (role) vào tin nhắn cố định, nhưng khi bot gửi tin nhắn thì bạn không muốn bot đề cập tới role đó, gây phiền hà cho người có role.
 
@@ -121,6 +142,9 @@ Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định t�
 <Code code="/stickie allowmentions channel:#general action:False" title="command" mark={highlights} />
 
 
+
+---
+
 ## `/stickie remove` - Xóa Tin nhắn cố định
 Lệnh này sẽ xóa một Tin nhắn cố định đã tồn tại tại một kênh 
 
@@ -132,6 +156,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xóa tin nhắn cố định tại kênh `#general`
 <Code code="/stickie remove channel:#general" title="command" mark={highlights} />
+
+
+---
 
 ## `/stickie list` - Xem các Tin nhắn cố định
 Lệnh này sẽ hiển thị các Tin nhắn cố định của máy chủ

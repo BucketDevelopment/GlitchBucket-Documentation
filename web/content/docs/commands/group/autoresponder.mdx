@@ -22,6 +22,9 @@ Giới hạn của tính năng nằm ở sự sáng tạo của bạn.
 Đây là một tính năng nâng cao thuộc [`BucketScript`](/bucketscript/functions). Nếu bạn gặp khó khăn trong quá trình sử dụng **Autoresponder**, đội ngũ hỗ trợ tại [Discord](https://bot.tudubucket.dev/support) luôn có mặt để giúp đỡ bạn. Hãy đặt câu hỏi khi bạn có thắc mắc nhé!
 :::
 
+
+---
+
 ## `/autoresponder placeholders` - Hàm cho autoresponder của bạn
 Hàm cho autoresponder của bạn
 
@@ -32,6 +35,9 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/autoresponder placeholders " title="command" mark={highlights} />
+
+
+---
 
 ## `/autoresponder add` - Thêm một autoresponder
 Lệnh này sẽ thêm một autoresponder vào máy chủ của bạn
@@ -48,6 +54,9 @@ _Bắt buộc:_
 Lệnh này sẽ tạo 1 autoresponder với từ khóa `xd`, và sẽ được phản bot hồi là `xD`, chỉ khi tin nhắn chính xác là `xd` (do chế độ là `mode:Tương đương`). Bot cũng sẽ xóa tin nhắn gốc (tin nhắn chứa từ khóa `xd` nhờ vào hàm `{{delete_trigger:0}}` (số `0` có nghĩa là sẽ xóa tin nhắn sau 0 giây))
 <Code code="/autoresponder add trigger:xd response:xD{delete_trigger:0} mode:Tương đương ignorecase:True" title="command" mark={highlights} />
 
+
+---
+
 ## `/autoresponder view` - Xem cài đặt hiện tại của autoresponder
 Lệnh này sẽ hiển thị cài đặt hiện tại của 1 autoresponder
 
@@ -59,6 +68,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xem cài đặt của autoresponder `xd`
 <Code code="/autoresponder view trigger:xd" title="command" mark={highlights} />
+
+
+---
 
 ## `/autoresponder edit` - Chỉnh sửa autoresponder
 Lệnh này sẽ chỉnh sửa cài đặt hiện tại của 1 autoresponder
@@ -72,6 +84,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh sửa cài đặt của autoresponder `xd` để chúng phản hồi lại là `xD`
 <Code code="/autoresponder edit trigger:xd response:xD" title="command" mark={highlights} />
+
+
+---
 
 ## `/autoresponder matchmode` - Chỉnh sửa loại autoresponder
 Lệnh này sẽ chỉnh sửa cài đặt khớp của 1 autoresponder, bao gồm:
@@ -90,6 +105,9 @@ _Bắt buộc:_
 Lệnh này sẽ chỉnh sửa cài đặt của autoresponder `xd` thành `contains` (Chứa)
 <Code code="/autoresponder edit trigger:xd mode:contains" title="command" mark={highlights} />
 
+
+---
+
 ## `/autoresponder delete` - Xóa một autoresponder
 Xóa một autoresponder
 
@@ -101,6 +119,9 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xóa autoresponder `xd`
 <Code code="/autoresponder delete trigger:xd" title="command" mark={highlights} />
+
+
+---
 
 ## `/autoresponder list` - Danh sách autoresponder trên máy chủ này
 Danh sách autoresponder trên máy chủ này
