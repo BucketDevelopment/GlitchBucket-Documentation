@@ -46,6 +46,10 @@ export default defineConfig({
 					autogenerate: { directory: "getting-started" },
 				},
 				{
+					label: "Premium",
+					autogenerate: { directory: "premium" },
+				},
+				{
 					label: "Các lệnh của bot",
 					items: [
 						{
