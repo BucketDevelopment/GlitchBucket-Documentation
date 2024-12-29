@@ -38,7 +38,7 @@ export default defineConfig({
 			],
 			social: {
 				github: "https://github.com/tudubucket",
-				discord: "https://langdua.net/discord",
+				discord: "https://bot.tudubucket.dev/support",
 			},
 			sidebar: [
 				{
@@ -47,6 +47,7 @@ export default defineConfig({
 				},
 				{
 					label: "Premium",
+					badge: { text: 'Mới', variant: 'caution' },
 					autogenerate: { directory: "premium" },
 				},
 				{
