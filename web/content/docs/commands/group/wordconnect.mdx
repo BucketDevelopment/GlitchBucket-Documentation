@@ -1,0 +1,77 @@
+---
+title: "Nối từ"
+description: "GlitchBucket - Khối lệnh liên quan tới nối từ"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['channel:']
+
+
+---
+
+## `/wordconnect setup`
+Setup Nối từ/Nối chữ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ setup & bắt đầu nối từ tại kênh `#noi-tu`
+
+<Code code="/wordconnect setup channel:#noi-tu" title="command" mark={highlights} />
+
+
+---
+
+## `/wordconnect restart`
+Restart Nối từ/Nối chữ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ restart Nối từ/Nối chữ
+
+<Code code="/wordconnect restart " title="command" mark={highlights} />
+
+
+---
+
+## `/wordconnect rule`
+Kiểm tra Quy định Nối từ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ kiểm tra Quy định Nối từ
+
+<Code code="/wordconnect rule " title="command" mark={highlights} />
+
+
+---
+
+## `/wordconnect end`
+Dừng phiên nối từ hiện tại
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ dừng phiên nối từ hiện tại
+
+<Code code="/wordconnect end " title="command" mark={highlights} />
+
