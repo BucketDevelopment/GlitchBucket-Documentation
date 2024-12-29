@@ -56,7 +56,7 @@ Lệnh này để báo cáo tin nhắn trong máy chủ
 Chúng tôi khuyến khích bạn nên bấm chuột phải vào tin nhắn vi phạm, sau đó chọn **Ứng dụng** `>` **Tố cáo tin nhắn này**, để tố cáo tin nhắn đó.
 :::
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `channel`: Chỉ định kênh chứa tin nhắn
@@ -74,7 +74,7 @@ Lệnh này sẽ báo cáo tin nhắn với ID `1202861080175452210` trong kênh
 ### `/report recent` - Xem các báo cáo gần đây
 Lệnh này sẽ hiển thị các báo cáo gần đây
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `order`: Chọn một hành động để sắp xếp kết quả
@@ -92,7 +92,7 @@ Lệnh này sẽ hiển thị các báo cáo bị từ chối gần đây
 ### `/report check` - Xem báo cáo dựa trên ID
 Lệnh này sẽ hiển thị báo cáo dựa trên ID
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `report_id`: Chỉ định ID báo cáo
@@ -107,7 +107,7 @@ Lệnh này sẽ hiển thị báo cáo dựa trên ID `2215`
 ### `/report update` - Phê duyệt/Từ chối báo cáo
 Lệnh này giúp bạn Phê duyệt/Từ chối báo cáo
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `action`: Hãy ghi hành động
@@ -124,7 +124,7 @@ Lệnh này phê duyệt báo cáo với ID `2215` với lí do **"Người dùn
 ### `/quickreport enable` - Kích hoạt tính năng
 Lệnh này sẽ kích hoạt tính năng Quick Report
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `receive_channel`: Chỉ định kênh để nhận báo cáo đến
@@ -136,7 +136,7 @@ Lệnh này sẽ kích hoạt tính năng Quick Report, gán kênh `#reports` th
 ### `/quickreport muterole` - Đặt muterole
 Lệnh này sẽ đặt vai trò tắt tiếng (mute role) hiện có của bot kiểm duyệt khác
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `role`: Chọn vai trò
@@ -148,7 +148,7 @@ Lệnh này sẽ đặt role **@Muted** thành mute role
 ### `/quickreport manager` - Đặt role người quản lý báo cáo
 Đặt vai trò người quản lý báo cáo
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `role`: Chọn vai trò
@@ -163,7 +163,7 @@ Lệnh này sẽ đặt role bảo vệ người dùng khỏi các báo cáo. Kh
 Người có quyền Quản lí Tin nhắn trở lên mặc định sẽ không thể bị báo cáo.
 :::
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `role`: Chọn vai trò
@@ -175,7 +175,7 @@ Lệnh này sẽ đặt role **@VIP** là role bảo vệ người dùng khỏi 
 ### `/quickreport blacklist` - Đặt vai trò chặn báo cáo
 Lệnh này sẽ đặt vai trò khiến người dùng không thể báo cáo các tin nhắn khác. Khi người dùng có vai trò này, họ sẽ không thể tạo báo cáo mới.
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `role`: Chọn vai trò
@@ -187,7 +187,7 @@ Lệnh này sẽ đặt role **@Report Blacklisted** là role bảo vệ ngườ
 ### `/quickreport autoexpire` - Đặt thời gian tự động hết hạn báo cáo
 Lệnh này sẽ đặt thời gian chờ cho các báo cáo khi không có người kiểm duyệt nào xử lý sau thời gian cụ thể
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `after`: Chỉ định khoảng thời gian tính bằng giờ sau đó các báo cáo sẽ tự động hết hạn giờ đã chỉ định
@@ -199,7 +199,7 @@ Lệnh này sẽ đặt thời gian tự xóa cho các báo cáo là **72 giờ*
 ### `/quickreport concurrent` - Đặt báo cáo đồng thời tối đa
 Lệnh này sẽ đặt báo cáo đồng thời tối đa cho mỗi người dùng
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `maximum`: Chỉ định giá trị
@@ -211,7 +211,7 @@ Lệnh này sẽ đặt báo cáo đồng thời tối đa cho mỗi người d�
 ### `/quickreport successful_message` - Đặt tin nhắn nhận báo cáo
 Lệnh này sẽ đặt một tin nhắn được gửi tới Người quản lí báo cáo sau khi báo cáo thành công
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `message`: Chỉ định tin nhắn
@@ -223,7 +223,7 @@ Lệnh này sẽ đặt một tin nhắn được gửi tới Người quản l�
 ### `/quickreport auto_delele` - Tự động xóa báo cáo 
 Lệnh này đặt bot tự động xóa báo cáo trong một số sự kiện
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `on_user_timeout`: Có xóa báo cáo khi người dùng đó đã hết giờ hay không
@@ -237,7 +237,7 @@ Lệnh này đặt bot tự động xóa báo cáo trong tất cả các sự ki
 ### `/quickreport channels` - Đưa kênh vào danh sách blacklist/whitelist
 Lệnh này sẽ đưa một số kênh vào danh sách blacklist/whitelist
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `action`: Hãy ghi hành động
@@ -250,7 +250,7 @@ Lệnh này sẽ thêm kênh `spam` vào danh mục không nhận report
 ### `/quickreport categories` - Đưa danh mục vào danh sách blacklist/whitelist
 Lệnh này sẽ đưa một số danh mục vào danh sách blacklist/whitelist
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `action`: Hãy ghi hành động
@@ -263,7 +263,7 @@ Lệnh này sẽ xóa danh mục `chat` khỏi danh mục không nhận report
 ### `/quickreport mode` - Chuyển đổi chế độ
 Lệnh này sẽ chuyển đổi chế độ Quick Report (chỉ định trong một số kênh (whitelist), hoặc chặn report tại một số kênh (blacklist), hoặc toàn bộ máy chủ (entire guild))
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
  - `action`: Hãy ghi hành động
@@ -275,7 +275,7 @@ Lệnh này sẽ chuyển đổi chế độ Quick Report thành nhận report t
 ### `/quickreport configuration` - Xem cấu hình hiện tại 
 Lệnh này sẽ hiển thị cấu hình Quick Report hiện tại của máy chủ này
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Không có tham chiếu_
 
@@ -286,7 +286,7 @@ _Không có tham chiếu_
 ### `/quickreport disable` - Vô hiệu hóa tính năng
 Lệnh này sẽ vô hiệu hóa tính năng Quick Report
 
-<h4>Tham chiếu lệnh (Parameters)</h4>
+<h4>Tham số lệnh (Parameters)</h4>
 
 _Không có tham chiếu_
 
