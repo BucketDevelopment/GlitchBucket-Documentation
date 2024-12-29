@@ -1,6 +1,6 @@
 ---
-title: "Donation"
-description: "GlitchBucket - Tự động nhận ủng hộ từ tiền tệ của bot khác!"
+title: "Ghi Donate"
+description: "GlitchBucket - Tự động ghi & nhận donate!"
 ---
 
 import { Code } from '@astrojs/starlight/components';
@@ -21,6 +21,7 @@ Chúng tôi mang đến tính năng này hoàn toàn miễn phí, để giúp b�
  - Ghi lại thông tin donate, cũng như có bảng xếp hạng, v.v.
 
 ## Các lệnh hiển thị thông tin
+---
 
 ### `/donation leaderboard` - Bảng xếp hạng ủng hộ
 Lệnh này sẽ gửi cho bạn bảng xếp hạng ủng hộ
@@ -34,6 +35,7 @@ _Không bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xem top 25 người donate nhiều nhất trong tháng này
 <Code code="/donation leaderboard range:This month limit:25" title="command" mark={highlights} />
+---
 
 ### `/donation serverstats` - Thống kê ủng hộ của máy chủ
 Lệnh này sẽ gửi các thống kê về khoản ủng hộ của máy chủ
@@ -45,6 +47,7 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/donation serverstats" title="command" mark={highlights} />
+---
 
 ### `/donation userstats` - Kiểm tra thông tin ủng hộ
 Lệnh này sẽ kiểm tra thông tin ủng hộ của một người dùng
@@ -57,6 +60,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ kiểm tra thông tin ủng hộ của người dùng `@tudubucket`
 <Code code="/donation userstats user:@tudubucket" title="command" mark={highlights} />
+---
 
 ### `/donation configuration` - Kiểm tra cài đặt
 Lệnh này sẽ kiểm tra cấu hình về tính năng trên
@@ -70,6 +74,7 @@ _Không có tham chiếu_
 <Code code="/donation configuration" title="command" mark={highlights} />
 
 ## Các lệnh cài đặt (dành cho Admin)
+---
 
 ### `/donation enable` - Thiết lập bản ghi ủng hộ cho máy chủ
 Lệnh này sẽ bắt đầu thiết lập bản ghi ủng hộ cho máy chủ
@@ -84,6 +89,7 @@ _Bắt buộc:_
 
 Lệnh này sẽ bắt đầu thiết lập bản ghi ủng hộ cho máy chủ, với kênh nhận donate là `#donation`, và người nhận ủng hộ đầu tiên là `@tudubucket` (có thể thêm người nhận ủng hộ)
 <Code code="/donation enable channel:#donation receiver:@tudubucket" title="command" mark={highlights} />
+---
 
 ### `/donation reward` - Phần thưởng ủng hộ
 Lệnh này sẽ đặt phần thưởng (role) sau khi ủng hộ một số điểm nhất định. 
@@ -98,6 +104,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm vai trò `@donator` khi người dùng đạt được 100.000 điểm ủng hộ
 <Code code="/donation reward action:Add role:@donator threshold:100000" title="command" mark={highlights} />
+---
 
 ### `/donation threshold` - Ngưỡng thông báo ủng hộ
 Lệnh này sẽ chỉnh sửa ngưỡng thông báo ủng hộ. Khi một người dùng donate nhiều hơn số lượng được cài đặt ở đây, bot sẽ tự động thông báo tới kênh nhất định.
@@ -110,6 +117,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh sửa ngưỡng thông báo ủng hộ trên 100.000 đơn vị donate
 <Code code="/donation threshold threshold:100000" title="command" mark={highlights} />
+---
 
 ### `/donation message` - Chỉnh sửa tin nhắn ủng hộ
 Lệnh này sẽ chỉnh sửa tin nhắn ủng hộ khi được gọi.
@@ -124,6 +132,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh tin nhắn ủng hộ thành `Cảm ơn bạn \{donator_mention\} đã ủng hộ cho máy chủ \{amount\}!`
 <Code code="/donation message message:Cảm ơn bạn \{donator_mention\} đã ủng hộ cho máy chủ \{amount\}!" title="command" mark={highlights} />
+---
 
 ### `/donation receiverole` - Đặt vai trò cho người nhận
 Lệnh này sẽ đặt vai trò cho người nhận. Có nghĩa rằng, nếu bạn gửi tiền tệ của bot khác cho người có vai trò (role) này, thì bot sẽ công nhận đó là khoản donate.
@@ -139,6 +148,7 @@ _Không bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ đặt role `@Staff` trở thành role có thể được nhận donate.
 <Code code="/donation receiverole role:@Staff" title="command" mark={highlights} />
+---
 
 ### `/donation receiver` - Thêm/Xóa người nhận
 Lệnh này sẽ Thêm/Xóa người nhận. Có nghĩa rằng, nếu bạn gửi tiền tệ của bot khác cho người này, thì bot sẽ công nhận đó là khoản donate.
@@ -156,6 +166,7 @@ Lệnh này sẽ **thêm** người dùng `@tudubucket` là người nhận ủn
 
 Lệnh này sẽ **xóa** người dùng `@tudubucket` khỏi danh sách người nhận ủng hộ
 <Code code="/donation receiver action:Remove receiver:@tudubucket" title="command" mark={highlights} />
+---
 
 ### `/donation announcement` - Đặt kênh thông báo ủng hộ
 Lệnh này sẽ đặt kênh thông báo ủng hộ khi có ủng hộ tới.
@@ -169,6 +180,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt kênh thông báo là kênh `#donator` khi có ủng hộ tới.
 <Code code="/donation announcement channel:#donator" title="command" mark={highlights} />
 
+---
 
 ### `/donation channel` - Thêm/Xóa kênh nhận ủng hộ
 Lệnh này sẽ thêm/xóa kênh nhận ủng hộ
@@ -182,6 +194,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm kênh `#general` làm kênh nhận ủng hộ
 <Code code="/donation channel action:Add channel:#general" title="command" mark={highlights} />
+---
 
 ### `/donation add` - Thêm số tiền ủng hộ
 Lệnh này sẽ thêm số tiền ủng hộ vào số dư của người dùng
@@ -200,6 +213,7 @@ _Không bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm 50.000 điểm cho `@tudubucket`, với lí do `thích thì cho`
 <Code code="/donation add user:@tudubucket amount:50000 reason:thích thì cho " title="command" mark={highlights} />
+---
 
 ### `/donation subtract` - Trừ số dư ủng hộ
 Lênh này sẽ trừ số tiền ủng hộ khỏi số dư của người dùng
@@ -217,6 +231,7 @@ _Không bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ trừ 100.000 điểm của `@tudubucket`, với lí do `láo`
 <Code code="/donation add user:@tudubucket amount:100000 reason:láo " title="command" mark={highlights} />
+---
 
 ### `/donation autoreceive` - Bật/tắt ghi ủng hộ tự động
 Lệnh này sẽ bật, hoặc tắt tính năng ghi lại ủng hộ tự động cho máy chủ (không vô hiệu hóa tính năng)
@@ -229,6 +244,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ tắt tính năng nhận donate tự động (bạn sẽ phải thêm khoản donate bằng lệnh [/donation add](/commands/group/donation#donation-add))
 <Code code="/donation autoreceive action:False" title="command" mark={highlights} />
+---
 
 ### `/donation disable` - Vô hiệu hóa tính năng
 Lệnh này sẽ vô hiệu hóa bản ghi ủng hộ cho máy chủ này

@@ -1,38 +1,68 @@
 ---
 title: "/network"
-description: "GlitchBucket - pap a network address"
+description: "GlitchBucket - Các lệnh liên quan tới mạng."
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['address:', 'port:', 'count:']
-
-
----
-
-## `/network paping` - pap a network address
-pap a network address
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `address`: Specify a domain, or an IPv4
-- `port`: Specify port, default TCP 22, HTTP(s) 80/443
-- `count`: Total pap count, default 20
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/network paping address: port: count:" title="command" mark={highlights} />
+export const highlights = ['count:', 'address:', 'port:'];
 
 ---
 
-## `/network paping` - pap a network address
-pap a network address
+## `/network paping`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `address`: Specify a domain, or an IPv4
-- `port`: Specify port, default TCP 22, HTTP(s) 80/443
-- `count`: Total pap count, default 20
+Pap một địa chỉ mạng.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/network paping address: port: count:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `address`: Chỉ định tên miền hoặc địa chỉ IPv4.
+- `port`: Chỉ định cổng, mặc định là TCP 22, HTTP(s) 80/443.
+
+**Không bắt buộc:**
+- `count`: Tổng số lần pap, mặc định là 20 (Không chỉ định thì mặc định không giới hạn).
+
+#### Ví dụ sử dụng lệnh
+
+- Pap địa chỉ tên miền trên cổng mặc định:
+  <Code code="/network paping address:example.com" title="command" mark={highlights} />
+
+- Pap địa chỉ IPv4 trên cổng 443 với 10 lần lặp:
+  <Code code="/network paping address:192.168.1.1 port:443 count:10" title="command" mark={highlights} />
+
+---
+
+## `/network address`
+
+Xem thông tin của một địa chỉ mạng.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `address`: Chỉ định tên miền hoặc địa chỉ IPv4.
+
+#### Ví dụ sử dụng lệnh
+
+- Kiểm tra thông tin của một tên miền:
+  <Code code="/network address address:tudubucket.dev" title="command" mark={highlights} />
+
+- Kiểm tra thông tin của một địa chỉ IPv4:
+  <Code code="/network address address:192.168.1.1" title="command" mark={highlights} />
+
+---
+
+## `/network check-host`
+
+Kiểm tra xem một máy chủ có đang hoạt động không, sử dụng dịch vụ từ check-host.net.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `address`: Chỉ định một địa chỉ IPv4 hoặc tên miền với giao thức (https:// hoặc http://) và cổng (HTTPS là 443, HTTP/IPv4 là 80).
+
+#### Ví dụ sử dụng lệnh
+
+- Kiểm tra trạng thái của một tên miền qua HTTPS:
+  <Code code="/network check-host address:https://tudubucket.dev" title="command" mark={highlights} />
+
+- Kiểm tra trạng thái của một địa chỉ IPv4 qua HTTP:
+  <Code code="/network check-host address:http://192.168.1.1" title="command" mark={highlights} />

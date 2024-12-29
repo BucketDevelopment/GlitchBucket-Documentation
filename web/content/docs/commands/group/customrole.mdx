@@ -31,6 +31,7 @@ Nếu bạn đang có role tùy chỉnh trong máy chủ của bạn, bạn có 
 :::
 
 ## Lệnh chung
+---
 
 ### `/customrole search` - Tìm kiếm role tùy chỉnh
 Tìm kiếm thông tin một role tùy chỉnh được gán cho một thành viên, hoặc ngược lại
@@ -45,6 +46,7 @@ Lệnh này sẽ tìm kiếm thông tin một role tùy chỉnh mang tên **@buc
 <Code code="/customrole search role:@bucket" title="command" mark={highlights} />
 
 ## Các lệnh cài đặt dành cho người dùng
+---
 
 ### `/customrole user add` - Thêm thành viên
 Thêm một thành viên vào role tùy chỉnh của bạn
@@ -57,6 +59,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm người dùng **@tudubucket** vào role tùy chỉnh của bạn
 <Code code="/customrole user add user:@tudubucket" title="command" mark={highlights} />
+---
 
 ### `/customrole user remove` - Xóa thành viên
 Xóa một thành viên khỏi role tùy chỉnh của bạn
@@ -69,6 +72,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xóa người dùng **@tudubucket** khỏi role tùy chỉnh của bạn
 <Code code="/customrole user remove user:@tudubucket" title="command" mark={highlights} />
+---
 
 ### `/customrole user color` - Thay đổi màu role
 Thay đổi màu của role tùy chỉnh của bạn
@@ -81,6 +85,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thay đổi màu role tùy chỉnh của bạn thành `#c0cdff`
 <Code code="/customrole user color color:#c0cdff" title="command" mark={highlights} />
+---
 
 ### `/customrole user icon` - Chỉnh sửa icon
 Chỉnh sửa icon của role tùy chỉnh của bạn. Bạn có thể copy-paste trực tiếp icon vào lệnh này
@@ -93,6 +98,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ chỉnh icon role của bạn thành file bạn đã gửi lên
 <Code code="/customrole user icon icon:<file>" title="command" mark={highlights} />
+---
 
 ### `/customrole user removeicon` - Xóa icon
 Xóa icon từ role tùy chỉnh của bạn
@@ -104,6 +110,7 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/customrole user removeicon " title="command" mark={highlights} />
+---
 
 ### `/customrole user mentionable` - Làm cho role có thể nhắc đến
 Làm cho role tùy chỉnh của bạn có thể nhắc đến
@@ -116,6 +123,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ làm cho role tùy chỉnh của bạn không thể đề cập bởi người dùng khác
 <Code code="/customrole user mentionable action:False" title="command" mark={highlights} />
+---
 
 ### `/customrole user info` - Xem thông tin role
 Xem thông tin role tùy chỉnh của bạn
@@ -127,6 +135,7 @@ _Không có tham chiếu_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 <Code code="/customrole user info " title="command" mark={highlights} />
+---
 
 ### `/customrole user name` - Thay đổi tên role
 Thay đổi tên role tùy chỉnh của bạn
@@ -143,6 +152,7 @@ Lệnh này sẽ thay đổi tên role tùy chỉnh của bạn thành **@bukkit
 
 
 ## Các lệnh cài đặt dành cho quản trị
+---
 
 ### `/customrole admin create` - Tạo Role tùy chỉnh
 Lệnh này sẽ tạo và gán một Custom Role cho một thành viên
@@ -173,6 +183,7 @@ Quyền hạn mặc định có thể được cài đặt thông qua `/customro
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ tạo 1 role **@bucket** trên role **@Custom Roles**, với chủ của role là **@tudubucket**, có tối đa **3 người**, hết hạn sau **1 tháng**, và có màu ở dạng hex là `#C0CDFF`
 <Code code="/customrole admin create above_role:@Custom Roles author:@tudubucket name:bucket max_users:3 expire_after:1mon color:#c0cdff " title="command" mark={highlights} />
+---
 
 ### `/customrole admin terminate` - Ngừng role tùy chỉnh
 Lệnh này sẽ chấm dứt một role tùy chỉnh đang được gia hạn của một thành viên
@@ -188,6 +199,7 @@ _Không bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ ngừng role tùy chỉnh mà **@tudubucket** hiện đang có, nhưng không xóa role, chỉ xóa tất cả thành viên của role đó
 <Code code="/customrole admin terminate user:@tudubucket delete_role:False" title="command" mark={highlights} />
+---
 
 ### `/customrole admin migrate` - Chuyển sang role tùy chỉnh
 Lệnh này sẽ di chuyển một role hiện tại bạn đang quản lí sang role tùy chỉnh của bot
@@ -203,6 +215,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ di chuyển một role hiện tại bạn đang quản lí là **@bucket** sang role tùy chỉnh của bot, với chủ role là **@tudubucket**, tối đa 3 người dùng, và sẽ không bao giờ hết hạn
 <Code code="/customrole admin migrate role:@bucket author:@tudubucket max_users:3 expire_after:0" title="command" mark={highlights} />
+---
 
 ### `/customrole admin edit_permission` - Chỉnh sửa quyền từng role
 Lệnh này sẽ **chỉnh sửa quyền của từng role**
@@ -220,6 +233,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ sửa tất cả các quyền của role **@bucket** thành có (`True`)
 <Code code="/customrole admin default_author_permission edit_name:True edit_icon:True edit_color:True manage_role_members:True make_role_mentionable:True" title="command" mark={highlights} />
+---
 
 ### `/customrole admin max_users` - Chỉnh sửa số người tối đa
 Lệnh này sẽ chỉnh sửa số người tối đa của role
@@ -233,6 +247,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ sửa cố người tối đa của role **@bucket** thành `10`
 <Code code="/customrole admin max_users role:@bucket users:10" title="command" mark={highlights} />
+---
 
 ### `/customrole admin default_author_permission` - Chỉnh sửa quyền mặc định
 Lệnh này sẽ **chỉnh sửa quyền mặc định** cho các role
@@ -249,6 +264,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ tạo tất cả các quyền mặc định thành có (`True`)
 <Code code="/customrole admin default_author_permission edit_name:True edit_icon:True edit_color:True manage_role_members:True make_role_mentionable:True" title="command" mark={highlights} />
+---
 
 ### `/customrole admin extend` - Gia hạn role lâu hơn
 Lệnh này sẽ gia hạn thêm ngày hết hạn cho một role tùy chỉnh
@@ -262,6 +278,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ gia hạn thêm **2 tháng 3 ngày** cho role **@bucket**
 <Code code="/customrole admin extend role:@bucket time_range:2mon3d" title="command" mark={highlights} />
+---
 
 ### `/customrole admin reduce` - Gia hạn role ngắn đi
 Lệnh này sẽ giảm ngày hết hạn của một role tùy chỉnh
@@ -275,6 +292,7 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ trừ bớt **3 ngày** gia hạn cho role **@bucket**
 <Code code="/customrole admin reduce role:@bucket time_range:3d" title="command" mark={highlights} />
+---
 
 ### `/customrole admin on_expire` - Chỉ định sự kiện hết hạn
 Lệnh này sẽ chỉ định sự kiện thực hiện khi role tùy chỉnh của một người dùng hết hạn

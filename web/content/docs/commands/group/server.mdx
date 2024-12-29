@@ -1,270 +1,124 @@
 ---
 title: "/server"
-description: "GlitchBucket - Xóa vai trò khỏi tất cả thành viên máy chủ"
+description: "GlitchBucket - Hiển thị thông tin liên quan đến máy chủ."
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['role:', 'option:']
-
-
----
-
-## `/server info` - Hiển thị thông tin về máy chủ này
-Hiển thị thông tin về máy chủ này
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server info " title="command" mark={highlights} />
+export const highlights = ['member:', 'role:', 'limit:', 'option:'];
 
 ---
 
-## `/server membercount` - Hiển thị số lượng thành viên về máy chủ này
-Hiển thị số lượng thành viên về máy chủ này
+## `/server info`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
+Hiển thị thông tin về máy chủ này.
 
+#### Tham số lệnh (Parameters)
 
-<h4>Ví dụ sử dụng lệnh</h4>
+**Không có tham số.**
 
-<Code code="/server membercount " title="command" mark={highlights} />
+#### Ví dụ sử dụng lệnh
 
----
-
-## `/server role members` - Hiển thị thành viên của một vai trò cụ thể
-Hiển thị thành viên của một vai trò cụ thể
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-- `limit`: Chỉ định giới hạn số lượng mục mỗi trang, mặc định là 10
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role members role: limit:" title="command" mark={highlights} />
+- Hiển thị thông tin của máy chủ hiện tại:
+  <Code code="/server info" title="command" mark={highlights} />
 
 ---
 
-## `/server role add` - Thêm một vai trò cho một thành viên
-Thêm một vai trò cho một thành viên
+## `/server membercount`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
+Hiển thị số lượng thành viên của máy chủ.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/server role add member: role:" title="command" mark={highlights} />
+**Không có tham số.**
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/server role add-all` - Thêm vai trò cho tất cả thành viên máy chủ
-Thêm vai trò cho tất cả thành viên máy chủ
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `option`: Chọn một tùy chọn để gán vai trò
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role add-all option: role:" title="command" mark={highlights} />
+- Hiển thị tổng số lượng thành viên của máy chủ:
+  <Code code="/server membercount" title="command" mark={highlights} />
 
 ---
 
-## `/server role remove` - Xóa một vai trò khỏi thành viên
-Xóa một vai trò khỏi thành viên
+## `/server role members`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
+Hiển thị thành viên của một vai trò cụ thể.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/server role remove member: role:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
 
----
+**Không bắt buộc:**
+- `limit`: Chỉ định giới hạn số lượng mục mỗi trang, mặc định là 10.
 
-## `/server role remove-all` - Xóa vai trò khỏi tất cả thành viên máy chủ
-Xóa vai trò khỏi tất cả thành viên máy chủ
+#### Ví dụ sử dụng lệnh
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `option`: Chọn một tùy chọn để gán vai trò
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role remove-all option: role:" title="command" mark={highlights} />
+- Hiển thị các thành viên có vai trò **@bucket**, với giới hạn 5 mục mỗi trang:
+  <Code code="/server role members role:@bucket limit:5" title="command" mark={highlights} />
 
 ---
 
-## `/server info` - Hiển thị thông tin về máy chủ này
-Hiển thị thông tin về máy chủ này
+## `/server role add`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
+Thêm một vai trò cho một thành viên.
 
+#### Tham số lệnh (Parameters)
 
-<h4>Ví dụ sử dụng lệnh</h4>
+**Bắt buộc:**
+- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
 
-<Code code="/server info " title="command" mark={highlights} />
+#### Ví dụ sử dụng lệnh
 
----
-
-## `/server membercount` - Hiển thị số lượng thành viên về máy chủ này
-Hiển thị số lượng thành viên về máy chủ này
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server membercount " title="command" mark={highlights} />
+- Gán vai trò **@bucket** cho thành viên **@tudubucket**:
+  <Code code="/server role add member:@tudubucket role:@bucket" title="command" mark={highlights} />
 
 ---
 
-## `/server role members` - Hiển thị thành viên của một vai trò cụ thể
-Hiển thị thành viên của một vai trò cụ thể
+## `/server role add-all`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-- `limit`: Chỉ định giới hạn số lượng mục mỗi trang, mặc định là 10
+Thêm vai trò cho tất cả thành viên trong máy chủ.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/server role members role: limit:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `option`: Chọn một tùy chọn để gán vai trò.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/server role add` - Thêm một vai trò cho một thành viên
-Thêm một vai trò cho một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role add member: role:" title="command" mark={highlights} />
+- Gán vai trò **@bucket** cho tất cả thành viên với tùy chọn "all":
+  <Code code="/server role add-all option:all role:@bucket" title="command" mark={highlights} />
 
 ---
 
-## `/server role add-all` - Thêm vai trò cho tất cả thành viên máy chủ
-Thêm vai trò cho tất cả thành viên máy chủ
+## `/server role remove`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `option`: Chọn một tùy chọn để gán vai trò
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
+Xóa một vai trò khỏi một thành viên.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/server role add-all option: role:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/server role remove` - Xóa một vai trò khỏi thành viên
-Xóa một vai trò khỏi thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role remove member: role:" title="command" mark={highlights} />
+- Xóa vai trò **@bucket** khỏi thành viên **@tudubucket**:
+  <Code code="/server role remove member:@tudubucket role:@bucket" title="command" mark={highlights} />
 
 ---
 
-## `/server role remove-all` - Xóa vai trò khỏi tất cả thành viên máy chủ
-Xóa vai trò khỏi tất cả thành viên máy chủ
+## `/server role remove-all`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `option`: Chọn một tùy chọn để gán vai trò
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
+Xóa vai trò khỏi tất cả thành viên máy chủ.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/server role remove-all option: role:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `option`: Chọn một tùy chọn để gán vai trò.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/server role members` - Hiển thị thành viên của một vai trò cụ thể
-Hiển thị thành viên của một vai trò cụ thể
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-- `limit`: Chỉ định giới hạn số lượng mục mỗi trang, mặc định là 10
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role members role: limit:" title="command" mark={highlights} />
-
----
-
-## `/server role add` - Thêm một vai trò cho một thành viên
-Thêm một vai trò cho một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role add member: role:" title="command" mark={highlights} />
-
----
-
-## `/server role add-all` - Thêm vai trò cho tất cả thành viên máy chủ
-Thêm vai trò cho tất cả thành viên máy chủ
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `option`: Chọn một tùy chọn để gán vai trò
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role add-all option: role:" title="command" mark={highlights} />
-
----
-
-## `/server role remove` - Xóa một vai trò khỏi thành viên
-Xóa một vai trò khỏi thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role remove member: role:" title="command" mark={highlights} />
-
----
-
-## `/server role remove-all` - Xóa vai trò khỏi tất cả thành viên máy chủ
-Xóa vai trò khỏi tất cả thành viên máy chủ
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `option`: Chọn một tùy chọn để gán vai trò
-- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/server role remove-all option: role:" title="command" mark={highlights} />
+- Xóa vai trò **@bucket** khỏi tất cả thành viên với tùy chọn "all":
+  <Code code="/server role remove-all option:all role:@bucket" title="command" mark={highlights} />

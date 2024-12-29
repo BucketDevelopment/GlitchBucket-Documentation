@@ -1,6 +1,6 @@
 ---
 title: "/logging"
-description: "GlitchBucket - Vô hiệu hóa ghi nhật ký sự kiện"
+description: "GlitchBucket - Ghi lại các hành động được thực hiện bởi bot"
 ---
 
 import { Code } from '@astrojs/starlight/components';
@@ -17,8 +17,8 @@ _Bắt buộc:_
 - `channel`: Chọn một kênh, hoặc chỉ định ID kênh
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ 
-<Code code="/logging setup channel:" title="command" mark={highlights} />
+Lệnh này sẽ ghi lại các hành động của bot tại kênh `#log`
+<Code code="/logging setup channel:#log" title="command" mark={highlights} />
 
 ---
 
@@ -26,7 +26,7 @@ Lệnh này sẽ
 Vô hiệu hóa ghi nhật ký sự kiện
 
 <h4>Tham số lệnh (Parameters)</h4>
-_Không có tham số:_
+_Không có tham số._
 
 
 <h4>Ví dụ sử dụng lệnh</h4>

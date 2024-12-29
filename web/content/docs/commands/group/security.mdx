@@ -1,53 +1,60 @@
 ---
-title: "Security"
-description: "GlitchBucket - Tự động xóa tất cả các lệnh cấm trên máy chủ"
+title: "/security"
+description: "GlitchBucket - Thiết lập Bảo mật tự động cho server của bạn"
 ---
 
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['enable:'];
 
-Khối lệnh này để thay đổi một số cài đặt. 
+---
 
+## `/security cancernickname`
+
+Tự động chỉnh sửa lại tên người dùng khi họ phản cảm.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `enable`: Cho biết có nên kích hoạt điều này hay không.
+
+#### Ví dụ sử dụng lệnh
+
+- Kích hoạt tính năng tự động chỉnh sửa tên:
+  <Code code="/security cancernickname enable:True" title="command" mark={highlights} />
+
+- Tắt tính năng tự động chỉnh sửa tên:
+  <Code code="/security cancernickname enable:False" title="command" mark={highlights} />
 
 ---
 
-## `/security cancernickname` - Tự động chỉnh sửa lại tên người dùng khi họ phản cảm
-Tự động chỉnh sửa lại tên người dùng khi họ phản cảm
+## `/security lockinvite`
 
-<h4>Tham số lệnh (Parameters)</h4>
+Tự động khóa lời mời.
 
-_Bắt buộc:_
- - `enable`: Cho biết có nên kích hoạt điều này hay không
+#### Tham số lệnh (Parameters)
 
-<h4>Ví dụ sử dụng lệnh</h4>
+**Bắt buộc:**
+- `enable`: Cho biết có nên kích hoạt điều này hay không.
 
-<Code code="/security cancernickname enable:" title="command" mark={highlights} />
+#### Ví dụ sử dụng lệnh
 
+- Kích hoạt tính năng tự động khóa lời mời:
+  <Code code="/security lockinvite enable:True" title="command" mark={highlights} />
 
----
-
-## `/security lockinvite` - Tự động khóa lời mời
-Tự động khóa lời mời
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `enable`: Cho biết có nên kích hoạt điều này hay không
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/security lockinvite enable:" title="command" mark={highlights} />
-
+- Tắt tính năng tự động khóa lời mời:
+  <Code code="/security lockinvite enable:False" title="command" mark={highlights} />
 
 ---
 
-## `/security purgebans` - Tự động xóa tất cả các lệnh cấm trên máy chủ
-Tự động xóa tất cả các lệnh cấm trên máy chủ
+## `/security purgebans`
 
-<h4>Tham số lệnh (Parameters)</h4>
+Tự động xóa tất cả các lệnh cấm trên server.
 
-_Không có tham chiếu_
+#### Tham số lệnh (Parameters)
 
-<h4>Ví dụ sử dụng lệnh</h4>
+**Không có tham số.**
 
-<Code code="/security purgebans " title="command" mark={highlights} />
+#### Ví dụ sử dụng lệnh
+
+- Xóa tất cả các lệnh cấm hiện tại:
+  <Code code="/security purgebans" title="command" mark={highlights} />

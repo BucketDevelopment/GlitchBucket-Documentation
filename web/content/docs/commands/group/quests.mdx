@@ -1,194 +1,126 @@
 ---
-title: "/quests"
-description: "GlitchBucket - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ"
+title: "Nhiệm vụ"
+description: "GlitchBucket - Tạo một hoặc nhiều nhiệm vụ cho Member"
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['channel:']
+export const highlights = ['channel:'];
 
+**Quests**, hay **Nhiệm vụ**, là một tính năng được đưa ra để setup các quest dạng:
+- Chat 1,000 tin nhắn trong 1 tuần
+- Ngồi Voice 40 phút, không được tắt mic
+- Spam 30,000 tin nhắn tại `#command`
+- Treo voice 500 phút, không được tắt loa (deafen)
+- ...
 
----
-
-## `/quests setup` - Thiết lập một nhiệm vụ mới
-Thiết lập một nhiệm vụ mới
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests setup " title="command" mark={highlights} />
+Nhiệm vụ rất đa dạng, có thể tùy chỉnh để chặn 1 số kênh, hoặc chỉ cho phép 1 số kênh được phép thực hiện quest.
 
 ---
 
-## `/quests list` - Liệt kê tất cả các nhiệm vụ đang chạy
-Liệt kê tất cả các nhiệm vụ đang chạy
+## `/quests setup`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `hidden`: Ẩn các nhiệm vụ mà bạn không thể hoàn thành
+Thiết lập một nhiệm vụ mới.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/quests list hidden:" title="command" mark={highlights} />
+**Không có tham số.**
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/quests delete` - Xóa một nhiệm vụ
-Xóa một nhiệm vụ
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
-- `purge_data`: Xóa dữ liệu người dùng liên quan đến nhiệm vụ này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests delete quest: purge_data:" title="command" mark={highlights} />
+- Thiết lập một nhiệm vụ mới:
+  <Code code="/quests setup" title="command" mark={highlights} />
 
 ---
 
-## `/quests leaderboard` - Hiển thị bảng xếp hạng của một nhiệm vụ
-Hiển thị bảng xếp hạng của một nhiệm vụ
+## `/quests list`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
-- `limit`: Chỉ định giới hạn số mục mỗi trang, mặc định là 10
+Liệt kê tất cả các nhiệm vụ đang chạy.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/quests leaderboard quest: limit:" title="command" mark={highlights} />
+**Không bắt buộc:**
+- `hidden`: Ẩn các nhiệm vụ mà bạn không thể hoàn thành (Mặc định: Không).
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/quests setting timezone` - Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
-Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
+- Liệt kê tất cả nhiệm vụ:
+  <Code code="/quests list" title="command" mark={highlights} />
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `tz`: Chọn múi giờ cho server này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests setting timezone tz:" title="command" mark={highlights} />
+- Liệt kê nhiệm vụ, ẩn các nhiệm vụ không thể hoàn thành:
+  <Code code="/quests list hidden:true" title="command" mark={highlights} />
 
 ---
 
-## `/quests setting channel` - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
-Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+## `/quests delete`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+Xóa một nhiệm vụ.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/quests setting channel channel:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ.
 
----
+**Không bắt buộc:**
+- `purge_data`: Xóa dữ liệu người dùng liên quan đến nhiệm vụ này (Mặc định: Không).
 
-## `/quests setup` - Thiết lập một nhiệm vụ mới
-Thiết lập một nhiệm vụ mới
+#### Ví dụ sử dụng lệnh
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
+- Xóa một nhiệm vụ theo ID:
+  <Code code="/quests delete quest:7b4d3cf..." title="command" mark={highlights} />
 
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests setup " title="command" mark={highlights} />
+- Xóa một nhiệm vụ và dữ liệu liên quan:
+  <Code code="/quests delete quest:7b4d3cf... purge_data:true" title="command" mark={highlights} />
 
 ---
 
-## `/quests list` - Liệt kê tất cả các nhiệm vụ đang chạy
-Liệt kê tất cả các nhiệm vụ đang chạy
+## `/quests leaderboard`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `hidden`: Ẩn các nhiệm vụ mà bạn không thể hoàn thành
+Hiển thị bảng xếp hạng của một nhiệm vụ.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/quests list hidden:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ.
 
----
+**Không bắt buộc:**
+- `limit`: Chỉ định giới hạn số mục mỗi trang, mặc định là 10 (Mặc định: Không).
 
-## `/quests delete` - Xóa một nhiệm vụ
-Xóa một nhiệm vụ
+#### Ví dụ sử dụng lệnh
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
-- `purge_data`: Xóa dữ liệu người dùng liên quan đến nhiệm vụ này
+- Hiển thị bảng xếp hạng của nhiệm vụ:
+  <Code code="/quests leaderboard quest:7b4d3cf..." title="command" mark={highlights} />
 
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests delete quest: purge_data:" title="command" mark={highlights} />
+- Hiển thị bảng xếp hạng với 20 mục mỗi trang:
+  <Code code="/quests leaderboard quest:7b4d3cf... limit:20" title="command" mark={highlights} />
 
 ---
 
-## `/quests leaderboard` - Hiển thị bảng xếp hạng của một nhiệm vụ
-Hiển thị bảng xếp hạng của một nhiệm vụ
+## `/quests setting timezone`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `quest`: Chọn một nhiệm vụ, hoặc nhập ID Nhiệm Vụ
-- `limit`: Chỉ định giới hạn số mục mỗi trang, mặc định là 10
+Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/quests leaderboard quest: limit:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `timezone`: Chọn múi giờ cho server này.
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/quests setting timezone` - Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
-Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `tz`: Chọn múi giờ cho server này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests setting timezone tz:" title="command" mark={highlights} />
+- Cấu hình múi giờ cho việc reset quest:
+  <Code code="/quests setting timezone timezone:UTC+7" title="command" mark={highlights} />
 
 ---
 
-## `/quests setting channel` - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
-Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
+## `/quests setting channel`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/quests setting channel channel:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `channel`: Chọn một kênh, hoặc chỉ định ID kênh.
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/quests setting timezone` - Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
-Nhiệm vụ sẽ được đặt lại vào nửa đêm dựa trên múi giờ đã cấu hình
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `tz`: Chọn múi giờ cho server này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests setting timezone tz:" title="command" mark={highlights} />
-
----
-
-## `/quests setting channel` - Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
-Đặt kênh để gửi tin nhắn hoàn thành nhiệm vụ
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/quests setting channel channel:" title="command" mark={highlights} />
+- Cấu hình kênh để gửi tin nhắn (vào kênh `#quest-completion`):
+  <Code code="/quests setting channel channel:#quest-completion" title="command" mark={highlights} />

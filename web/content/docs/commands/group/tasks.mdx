@@ -1,107 +1,143 @@
 ---
-title: "Tasks"
-description: "GlitchBucket - Automatic tasks for your server"
+title: "Tác vụ tự động"
+description: "GlitchBucket - Tạo các tác vụ tự động."
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['unlock_at:', 'channel:', 'name:', 'task:', 'task_name:', 'lock_at:', 'timezone:', 'action:'];
-
-
----
-
-## `/tasks autolock create` - Create a daily auto-lock task for a specific channel
-Create a daily auto-lock task for a specific channel
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `task_name`: Specify task name
-- `channel`: Chọn kênh
-- `timezone`: Select timezone for this server
-- `lock_at`: When the channel should locked down, specify by hh:mm format.
-- `unlock_at`: When the channel should unlock, specify by hh:mm format.
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/tasks autolock create task_name: channel: timezone: lock_at: unlock_at:" title="command" mark={highlights} />
-
+export const highlights = ['task_name:', 'task:', 'channel:', 'lock_at:', 'name:', 'date:', 'timezone:', 'action:', 'unlock_at:'];
 
 ---
 
-## `/tasks autolock mode` - Edit auto-lock mode for a specific task
-Edit auto-lock mode for a specific task
+## `/tasks autolock create`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `task`: Specify task
-- `action`: Hãy ghi hành động
+Tạo một tác vụ tự động khóa hàng ngày cho một kênh cụ thể.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/tasks autolock mode task: action:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `task_name`: Chỉ định tên tác vụ.
+- `channel`: Chọn một kênh hoặc chỉ định ID kênh.
+- `timezone`: Chọn múi giờ cho server này.
+- `lock_at`: Khi nào kênh sẽ bị khóa (định dạng hh:mm).
+- `unlock_at`: Khi nào kênh sẽ được mở khóa (định dạng hh:mm).
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/tasks autolock setstatus` - Pause/Resume a specific auto-lock task
-Pause/Resume a specific auto-lock task
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `task`: Specify task
-- `action`: Select an action
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/tasks autolock setstatus task: action:" title="command" mark={highlights} />
+- Tạo tác vụ tự động khóa kênh `#general` từ 22:00 đến 06:00 với tên "NightLock":
+  <Code code="/tasks autolock create task_name:NightLock channel:#general timezone:UTC lock_at:22:00 unlock_at:06:00" title="command" mark={highlights} />
 
 ---
 
-## `/tasks autolock rename` - Edit auto-lock mode for a specific task
-Edit auto-lock mode for a specific task
+## `/tasks autolock mode`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `task`: Specify task
-- `name`: Specify name
+Chỉnh sửa chế độ tự động khóa cho một tác vụ cụ thể.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/tasks autolock rename task: name:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `task`: Chọn một tác vụ từ autocomplete hoặc chỉ định ID tác vụ.
+- `action`: Chỉ định hành động.
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/tasks autolock configuration` - View configuration of a specific task
-View configuration of a specific task
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `task`: Specify task
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/tasks autolock configuration task:" title="command" mark={highlights} />
+- Đặt tác vụ "NightLock" ở chế độ tự động khóa:
+  <Code code="/tasks autolock mode task:NightLock action:enable" title="command" mark={highlights} />
 
 ---
 
-## `/tasks autolock delete` - Delete a specific task
-Delete a specific task
+## `/tasks autolock setstatus`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `task`: Specify task
+Tạm dừng hoặc tiếp tục một tác vụ tự động khóa cụ thể.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/tasks autolock delete task:" title="command" mark={highlights} />
+**Bắt buộc:**
+- `task`: Chọn một tác vụ từ autocomplete hoặc chỉ định ID tác vụ.
+- `action`: Hành động cần thực hiện (`pause` hoặc `resume`).
+
+#### Ví dụ sử dụng lệnh
+
+- Tạm dừng tác vụ "NightLock":
+  <Code code="/tasks autolock setstatus task:NightLock action:pause" title="command" mark={highlights} />
 
 ---
 
-## `/tasks autolock list` - List all tasks belong to this server
-List all tasks belong to this server
+## `/tasks autolock rename`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
+Đổi tên một tác vụ.
 
+#### Tham số lệnh (Parameters)
 
-<h4>Ví dụ sử dụng lệnh</h4>
+**Bắt buộc:**
+- `task`: Chọn một tác vụ từ autocomplete hoặc chỉ định ID tác vụ.
+- `name`: Tên mới cho tác vụ.
 
-<Code code="/tasks autolock list " title="command" mark={highlights} />
+#### Ví dụ sử dụng lệnh
+
+- Đổi tên tác vụ "NightLock" thành "EveningLock":
+  <Code code="/tasks autolock rename task:NightLock name:EveningLock" title="command" mark={highlights} />
+
+---
+
+## `/tasks autolock configuration`
+
+Xem cấu hình của một tác vụ cụ thể.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `task`: Chọn một tác vụ từ autocomplete hoặc chỉ định ID tác vụ.
+
+#### Ví dụ sử dụng lệnh
+
+- Xem cấu hình của tác vụ "NightLock":
+  <Code code="/tasks autolock configuration task:NightLock" title="command" mark={highlights} />
+
+---
+
+## `/tasks autolock delete`
+
+Xóa một tác vụ cụ thể.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `task`: Chọn một tác vụ từ autocomplete hoặc chỉ định ID tác vụ.
+
+#### Ví dụ sử dụng lệnh
+
+- Xóa tác vụ "NightLock":
+  <Code code="/tasks autolock delete task:NightLock" title="command" mark={highlights} />
+
+---
+
+## `/tasks autolock ignore-date`
+
+Bỏ qua thực thi tác vụ vào một ngày cụ thể.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `action`: Hành động cần thực hiện (`add` hoặc `remove`).
+- `date`: Ngày cụ thể (định dạng YYYY-MM-DD).
+- `task`: Chọn một tác vụ từ autocomplete hoặc chỉ định ID tác vụ.
+
+#### Ví dụ sử dụng lệnh
+
+- Bỏ qua tác vụ "NightLock" vào ngày 2024-12-31:
+  <Code code="/tasks autolock ignore-date action:add date:2024-12-31 task:NightLock" title="command" mark={highlights} />
+
+---
+
+## `/tasks autolock list`
+
+Liệt kê tất cả các tác vụ thuộc về server này.
+
+#### Tham số lệnh (Parameters)
+
+**Không có tham số.**
+
+#### Ví dụ sử dụng lệnh
+
+- Hiển thị danh sách các tác vụ tự động khóa:
+  <Code code="/tasks autolock list" title="command" mark={highlights} />

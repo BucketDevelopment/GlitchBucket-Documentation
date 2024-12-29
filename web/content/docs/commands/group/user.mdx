@@ -1,86 +1,64 @@
 ---
-title: "/user"
-description: "GlitchBucket - Xem banner của một người dùng"
+title: "Thông tin Người dúng"
+description: "GlitchBucket - Hiển thị thông tin liên quan tới người dùng."
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['user:']
-
-
----
-
-## `/user info` - Kiểm tra thông tin của một người dùng
-Kiểm tra thông tin của một người dùng
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/user info user:" title="command" mark={highlights} />
+export const highlights = ['user:'];
 
 ---
 
-## `/user avatar` - Xem avatar của một người dùng
-Xem avatar của một người dùng
+## `/user info`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
+Kiểm tra thông tin của một người dùng.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/user avatar user:" title="command" mark={highlights} />
+**Không bắt buộc:**
+- `user`: Chọn một người dùng hoặc chỉ định ID người dùng (Mặc định: Không).
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/user banner` - Xem banner của một người dùng
-Xem banner của một người dùng
+- Kiểm tra thông tin của người dùng `tudubucket`:
+  <Code code="/user info user:tudubucket" title="command" mark={highlights} />
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/user banner user:" title="command" mark={highlights} />
+- Kiểm tra thông tin của người dùng `khoi1908vn`:
+  <Code code="/user info user:khoi1908vn" title="command" mark={highlights} />
 
 ---
 
-## `/user info` - Kiểm tra thông tin của một người dùng
-Kiểm tra thông tin của một người dùng
+## `/user avatar`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
+Xem avatar của một người dùng.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/user info user:" title="command" mark={highlights} />
+**Không bắt buộc:**
+- `user`: Chọn một người dùng hoặc chỉ định ID người dùng (Mặc định: Không).
 
----
+#### Ví dụ sử dụng lệnh
 
-## `/user avatar` - Xem avatar của một người dùng
-Xem avatar của một người dùng
+- Xem avatar của người dùng `tudubucket`:
+  <Code code="/user avatar user:tudubucket" title="command" mark={highlights} />
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/user avatar user:" title="command" mark={highlights} />
+- Xem avatar của người dùng `khoi1908vn`:
+  <Code code="/user avatar user:khoi1908vn" title="command" mark={highlights} />
 
 ---
 
-## `/user banner` - Xem banner của một người dùng
-Xem banner của một người dùng
+## `/user banner`
 
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
+Xem banner của một người dùng.
 
-<h4>Ví dụ sử dụng lệnh</h4>
+#### Tham số lệnh (Parameters)
 
-<Code code="/user banner user:" title="command" mark={highlights} />
+**Không bắt buộc:**
+- `user`: Chọn một người dùng hoặc chỉ định ID người dùng (Mặc định: Không).
+
+#### Ví dụ sử dụng lệnh
+
+- Xem banner của người dùng `tudubucket`:
+  <Code code="/user banner user:tudubucket" title="command" mark={highlights} />
+
+- Xem banner của người dùng `khoi1908vn`:
+  <Code code="/user banner user:khoi1908vn" title="command" mark={highlights} />
