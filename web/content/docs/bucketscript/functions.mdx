@@ -82,6 +82,7 @@ Các hàm bị ❌ tại cột *Dùng trên 1* là bạn chỉ được phép d�
 |----|-------------------------------|---------------------------------------------------------------------------------------------|---------------------------------------|-------------------------------------
 | ✔️ | `{newline}`                   | Thay thế kí tự xuống dòng                                                                   | *Không có tham số*                    | `{newline}`
 | ❌ | `{embed:name}`                | Gửi một embed có tên là `name`                                                              | `name`: Tên một embed                 | `{embed:welcome}`
+| ✔️ | `{require_arg:position|type}` | Yêu cầu vị trí kí tự tại `position` trong tin nhắn phải là dạng `type`.                 | `position`: Vị trí từ trong tin nhắn:n `type`: Loại yêu cầu, không bắt buộc. Là 1 trong 4 loại `user` (người dùng), `number` (số), `channel` (kênh), `role` (vai trò)               | `{require_arg:1|user}`, `{require_arg:2}`, {require_arg:4|number}
 | ✔️ | `{require_user:id}`           | Yêu cầu được sử dụng bởi người dùng có ID là `id`                                           | `id`: ID một người dùng               | `{require_user:906844267870314577}`
 | ✔️ | `{require_channel:id}`        | Yêu cầu kênh trigger có ID là `id`                                                          | `id`: ID một kênh                     | `{require_user:1145547639618801736}`
 | ✔️ | `{require_role:id}`           | Yêu cầu người gửi phải có role `id`                                                         | `id`: ID một role                     | `{require_role:1122707453251948608}`
@@ -90,8 +91,8 @@ Các hàm bị ❌ tại cột *Dùng trên 1* là bạn chỉ được phép d�
 | ✔️ | `{ignore_channel:id}`         | Chặn kênh gửi đến có ID là `id` sử dụng                                                     | `id`: ID một kênh                     | `{ignore_user:1145547639618801736}`
 | ✔️ | `{ignore_role:id}`            | Chặn người gửi có role `id` sử dụng                                                         | `id`: ID một role                     | `{ignore_role:1122707453251948608}`
 | ✔️ | `{ignore_perm:permission}`    | Yêu cầu người gửi phải có quyền `permission`                                                | `permission`: Một quyền thuộc Discord | `{ignore_perm:administrator}`
-| ❌ | `{minimum_args:int}`          | Độ dài tối thiểu của xâu khi được chia bởi dấu cách                                         | `int`: Một số nguyên                  | `{minimum_args:2}`
-| ❌ | `{cooldown:int}`              | Thời gian chờ giữa các lần sử dụng BucketScript                                             | `int`: Một số nguyên                  | `{cooldown:2}`
+| ❌ | `{minimum_args:number}`          | Độ dài tối thiểu của xâu khi được chia bởi dấu cách                                         | `number`: Một số nguyên                  | `{minimum_args:2}`
+| ❌ | `{cooldown:number}`              | Thời gian chờ giữa các lần sử dụng BucketScript                                             | `number`: Một số nguyên                  | `{cooldown:2}`
 | ❌ | `{ignore_errors}`             | Ẩn tất cả các lỗi được trả về                                                               | *Không có tham số*                    | `{ignore_errors}`
 | ❌ | `{reply}`                     | Phản hồi về tin nhắn được trigger                                                           | *Không có tham số*                    | `{reply}` 
 | ❌ | `{reply_no_mention}`          | Phản hồi về tin nhắn được trigger, nhưng không đề cập đến người dùng đấy                    | *Không có tham số*                    | `{reply_no_mention}` 
@@ -101,8 +102,11 @@ Các hàm bị ❌ tại cột *Dùng trên 1* là bạn chỉ được phép d�
 | ✔️ | `{remove_role:id}`            | Xóa một vai trò (role) có ID là `id` cho người trigger BucketScript                         | `id`: ID một role                     | `{remove_role:1122707453251948608}` 
 | ✔️ | `{react_trigger:emoji}`       | React vào tin nhắn trigger BucketScript                                                     | `emoji`: Một emoji                    | `{react_trigger:<:emoji:1122707453251948608>}`
 | ✔️ | `{react_reply:emoji}`         | React vào tin nhắn được gửi đi từ bot sau trigger                                           | `emoji`: Một emoji                    | `{react_reply:emoji}`
-| ❌ | `{delete_trigger:int}`        | Xóa tin nhắn trigger BucketScript sau `int` giây                                            | `int`: Thời gian delay (giây) | `{delete_trigger:2}`
-| ❌ | `{delete_reply:int}`          | Xóa tin nhắn được gửi đi từ bot sau trigger sau `int` giây                                  | `int`: Thời gian delay (giây) | `{delete_reply:2}`
+| ❌ | `{delete_trigger:number}`        | Xóa tin nhắn trigger BucketScript sau `number` giây                                            | `number`: Thời gian delay (giây) | `{delete_trigger:2}`
+| ✔️ | `{sleep:number}`        | Chờ một lúc trước khi gửi tin nhắn. Tin nhắn sẽ được chia ra các phần tại các vị trí đặt `{sleep:number}`, và được thực hiện lần lượt                                            | `number`: Thời gian delay (giây) | `{sleep:2}`
+| ✔️ | `{edit}`        | Thực hiện chỉnh sửa tin nhắn gốc sau khi sử dụng `{sleep:number}`                                           | *Không có tham số* | `{edit}`
+
+| ❌ | `{delete_reply:number}`          | Xóa tin nhắn được gửi đi từ bot sau trigger sau `number` giây                                  | `number`: Thời gian delay (giây) | `{delete_reply:2}`
 | ✔️ | `{balance:type:<user>}`       | Kiểm tra BucketBalance của bạn, hoặc của một người dùng khác                                | `type`: Một loại [BucketBalance](/commands/group/bucketbalance):n `user`: ID một người dùng (không bắt buộc) | `{balance:tien_ao:906844267870314577}`:n `{balance:tien_donate}`
 | ✔️ | `{edit_balance:type:+/-amount:<user>}`| Thay đổi dữ liệu BucketBalance của bạn, hoặc của một người dùng khác                | `type`: Một loại [BucketBalance](/commands/group/bucketbalance):n `+/-amount`: Thêm/Giảm bớt một lượng `amount`:n `user`: ID một người dùng (không bắt buộc) | `{edit_balance:tien_donate:+1000:906844267870314577}`:n `{edit_balance:tien_ao:-1000}`
 | ✔️ | `{random:string:A\|B\|C}`       | Chọn một chuỗi kí tự ngẫu nhiên giữa **A**, **B**, hoặc **C**, ... ngăn cách bởi dấu gạch   | `A\|B\|C`: Một dãy chuỗi kí tự cần chọn ngẫu nhiên | `{random:string:hello\|hi\|hewwo\|:3}` |
