@@ -47,7 +47,7 @@ export default defineConfig({
 				},
 				{
 					label: "Premium",
-					badge: { text: 'Mới', variant: 'caution' },
+					badge: { text: "Mới", variant: "caution" },
 					autogenerate: { directory: "premium" },
 				},
 				{

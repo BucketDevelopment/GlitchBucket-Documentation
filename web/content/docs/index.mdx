@@ -17,6 +17,8 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import TestimonialGrid from './components/testimonial-grid.astro';
+import Testimonial from './components/testimonial.astro';
 
 <CardGrid stagger>
   <Card title="Tính năng độc quyền" icon="rocket">
@@ -32,3 +34,41 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 		Tất cả các tính năng của **GlitchBucket** đều được chú trọng. Không cẩu thả, không màu mè. Tất cả đều rất mạnh, nhưng lại đơn giản!
 	</Card> 
 </CardGrid>
+
+<TestimonialGrid title="Mọi người nói gì về bot?">
+  <Testimonial
+    name="Duy Andy"
+    handle="duyandy"
+    cite="https://top.gg/bot/1103932552701550622"
+  >
+    GlitchBucket là một người bạn hỗ trợ tuyệt vời cho cộng đồng của tôi, có rất nhiều chức năng hay, phục vụ rất nhiều cho cộng đồng mà các bạn không nên bỏ lỡ. Chức năng quản lý donation, chức năng tạo roles có thời hạn, đây là 2 chức năng tôi rất đánh giá cao. 
+  </Testimonial>
+
+  <Testimonial
+    name="Hoang Long"
+    handle="hoanglong921"
+    cite="https://top.gg/bot/1103932552701550622"
+  >
+    Cảm ơn vì network paping
+  </Testimonial>
+
+  <Testimonial
+    name="ptcd"
+    handle="ptcd"
+    cite="https://top.gg/bot/1103932552701550622"
+  >
+    cảm ơn vì tính năng độc cmn lạ - love from <a href="https://asakacloud.vn">asakacloud.vn</a> ❤ 
+  </Testimonial>
+
+  <Testimonial
+    name="fakecattos"
+    handle="fakecattos"
+    cite="https://top.gg/bot/1103932552701550622"
+  >
+    bot nhu cai lol
+  </Testimonial>
+</TestimonialGrid>
+
+<small id="topgg-read-more" style={{ color: 'var(--sl-color-gray-3)', alignItems: 'center', textAlign: 'center' }}>
+  Xem thêm tại <a href="https://top.gg/bot/1103932552701550622">top.gg</a>
+</small>
