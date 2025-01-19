@@ -2,8 +2,9 @@
 title: GlitchBucket
 description: A Discord Bot designed with unique & powerful features, brings you a better experience & more leisurely in manage servers!
 template: splash
+lastUpdated: false
 hero:
-  tagline: Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn Quản lí Máy chủ một cách dễ dàng hơn! 
+  tagline: Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn Quản lí Máy chủ một cách dễ dàng hơn!
   image:
     file: ../../assets/favicon.webp
   actions:
@@ -16,23 +17,32 @@ hero:
       icon: document
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
-import TestimonialGrid from './components/testimonial-grid.astro';
-import Testimonial from './components/testimonial.astro';
+import { Card, CardGrid, LinkButton } from "@astrojs/starlight/components";
+
+import TestimonialGrid from "./components/TestimonialGrid.astro";
+import Testimonial from "./components/Testimonial.astro";
+import FeatureGrid from "./components/FeatureGrid.astro";
+import Feature from "./components/Feature.astro";
+import Invite from "./components/Invite.astro";
 
 <CardGrid stagger>
   <Card title="Tính năng độc quyền" icon="rocket">
-		**GlitchBucket** mang tới cho bạn nhiều tính năng để luôn đáp ứng nhu cầu của bạn, cả về Quản lí Máy chủ cũng như Trải nghiệm Cá nhân, mà rất nhiều bot khác không có!
-	</Card> 
-	<Card title="Tính ổn định" icon="forward-slash">
-		**GlitchBucket** đã trực tuyến từ 06/2023, không có thời gian ngoại tuyến kéo dài, gây ảnh hưởng tới trải nghiệm của bạn. (hoặc là do OVH 😭)
-	</Card> 
+    **GlitchBucket** mang tới cho bạn nhiều tính năng để luôn đáp ứng nhu cầu
+    của bạn, cả về Quản lí Máy chủ cũng như Trải nghiệm Cá nhân, mà rất nhiều
+    bot khác không có!
+  </Card>
+  <Card title="Tính ổn định" icon="forward-slash">
+    **GlitchBucket** đã trực tuyến từ 06/2023, không có thời gian ngoại tuyến
+    kéo dài, gây ảnh hưởng tới trải nghiệm của bạn. (hoặc là do OVH 😭)
+  </Card>
   <Card title="Hỗ trợ nhiều ngôn ngữ" icon="translate">
-		**GlitchBucket** có một hệ thống ~25 ngôn ngữ, luôn sẵn sàng để tiếp đón bạn bè quốc tế!
-	</Card> 
+    **GlitchBucket** có một hệ thống ~25 ngôn ngữ, luôn sẵn sàng để tiếp đón bạn
+    bè quốc tế!
+  </Card>
   <Card title="'Phở' Quality" icon="up-caret">
-		Tất cả các tính năng của **GlitchBucket** đều được chú trọng. Không cẩu thả, không màu mè. Tất cả đều rất mạnh, nhưng lại đơn giản!
-	</Card> 
+    Tất cả các tính năng của **GlitchBucket** đều được chú trọng. Không cẩu thả,
+    không màu mè. Tất cả đều rất mạnh, nhưng lại đơn giản!
+  </Card>
 </CardGrid>
 
 <TestimonialGrid title="Mọi người nói gì về bot?">
@@ -43,7 +53,6 @@ import Testimonial from './components/testimonial.astro';
   >
     GlitchBucket là một người bạn hỗ trợ tuyệt vời cho cộng đồng của tôi, có rất nhiều chức năng hay, phục vụ rất nhiều cho cộng đồng mà các bạn không nên bỏ lỡ. Chức năng quản lý donation, chức năng tạo roles có thời hạn, đây là 2 chức năng tôi rất đánh giá cao. 
   </Testimonial>
-
   <Testimonial
     name="Hoang Long"
     handle="hoanglong921"
@@ -51,15 +60,14 @@ import Testimonial from './components/testimonial.astro';
   >
     Cảm ơn vì network paping
   </Testimonial>
-
   <Testimonial
     name="ptcd"
     handle="ptcd"
     cite="https://top.gg/bot/1103932552701550622"
   >
-    cảm ơn vì tính năng độc cmn lạ - love from <a href="https://asakacloud.vn">asakacloud.vn</a> ❤ 
+    cảm ơn vì tính năng độc cmn lạ - love from{" "}
+    <a href="https://asakacloud.vn">asakacloud.vn</a> ❤
   </Testimonial>
-
   <Testimonial
     name="fakecattos"
     handle="fakecattos"
@@ -69,6 +77,88 @@ import Testimonial from './components/testimonial.astro';
   </Testimonial>
 </TestimonialGrid>
 
-<small id="topgg-read-more" style={{ color: 'var(--sl-color-gray-3)', alignItems: 'center', textAlign: 'center' }}>
-  Xem thêm tại <a href="https://top.gg/bot/1103932552701550622">top.gg</a>
-</small>
+<FeatureGrid title="Các tính năng chính">
+  <Feature
+    header="Donation"
+    filename="donation.mp4"
+    documentation="/commands/group/donation"
+  >
+    - Tự động theo dõi các khoản donate từ người dùng tới Quản trị viên. - Tặng
+    role hoặc phần thưởng khi người dùng đạt được cột mốc donate. - Ghi lại thông
+    tin donate và cung cấp bảng xếp hạng.
+  </Feature>
+  <Feature
+    header="Nối từ"
+    filename="wordconnect.png"
+    documentation="/commands/group/wordconnect"
+  >
+    Tính năng "Nối từ" của GlitchBucket mang đến cho bạn và các thành viên trong
+    server một trò chơi thú vị và sáng tạo. Trò chơi này yêu cầu người chơi nối từ
+    cuối của từ trước với từ đầu của từ sau, tạo thành một chuỗi từ liên tục. Bot
+    sẽ tự động kết thúc lượt nối từ khi không còn từ nào nối tiếp với từ cuối cùng
+    nữa.
+  </Feature>
+  <Feature
+    header="Thống kê vote"
+    filename="voting.png"
+    documentation="/commands/group/voting"
+  >
+    - Tạo và quản lý các cuộc thi vote với các yêu cầu và điều kiện tham gia theo yêu cầu.
+    
+    - Cung cấp các lệnh như bắt đầu, kết thúc và xem lịch sử cuộc thi vote.
+    
+    - Cho phép config các yêu cầu đối với người tham gia vote & người vote như:
+      * Thời gian tham gia server,
+      * Blacklist theo role,
+      * Chỉ được vote khi đã tham gia một thời gian nhất định
+      * ...
+    
+    - Đếm số lượng vote bằng các phương pháp khác nhau: tổng số reaction, số lượng người thả reaction, hoặc đếm một reaction nhất định.
+
+  </Feature>
+  <Feature
+    header="Custom Role"
+    filename="customrole.png"
+    documentation="/commands/group/customrole"
+  >
+    - Quản lý role tùy chỉnh cho người dùng, bao gồm việc tạo, chỉnh sửa và xóa role.
+
+    - Người dùng có thể tự quản lý role của mình (thêm/xóa thành viên, thay đổi màu sắc, tên và biểu tượng của role).
+
+    - Tự động xử lý thời gian hết hạn của role, giúp tránh việc quản lý thủ công.
+
+    - Cung cấp lệnh cho quản trị viên để tạo, chỉnh sửa, xóa role, và điều chỉnh quyền.
+
+  </Feature>
+  <Feature
+    header="Giveaway"
+    filename="giveaway.png"
+    documentation="/commands/group/giveaway"
+  >
+    - Tạo giveaway tùy chỉnh, với các yêu cầu phức tạp.
+    
+    - Cung cấp các lệnh như thiết lập giveaway mới, kết thúc giveaway, reroll lại giveaway đã kết thúc, và chỉnh sửa giveaway đang chạy.
+    
+    - Hỗ trợ tạo và chỉnh sửa mẫu giveaway để sử dụng lại nhiều lần.
+    
+    - Tính năng linh hoạt để điều chỉnh mọi chi tiết trong giveaway, bao gồm cả phần thưởng và điều kiện tham gia.
+
+  </Feature>
+  <Feature
+    header="Sticky Message"
+    filename="stickie.mp4"
+    documentation="/commands/group/stickie"
+  >
+    - Quản lý tin nhắn cố định trên kênh (Sticky Message), bao gồm cài đặt các tin nhắn hiển thị khi không có ai chat hoặc khi đạt ngưỡng tin nhắn.
+
+    - Tin nhắn có thể là webhook tùy chỉnh với avatar và tên riêng.
+
+    - Hỗ trợ sử dụng embed để hiển thị thông tin trực quan hơn.
+
+    - Cung cấp các lệnh như cấu hình tin nhắn cố định, đặt tin nhắn cố định, điều chỉnh độ trễ, và điều chỉnh ngưỡng tin nhắn.
+
+  </Feature>
+
+</FeatureGrid>
+
+<Invite url="http://bot.tudubucket.dev/invite"/>

@@ -1,0 +1,28 @@
+---
+import { LinkButton } from "@astrojs/starlight/components";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+
+---
+
+<div class="container">
+  <h4>Còn chần chừ gì nữa? Thêm GlitchBucket vào máy chủ của bạn ngay!</h4>
+  <LinkButton href={url} icon="discord" iconPlacement="start">
+    Thêm GlitchBucket
+  </LinkButton>
+</div>
+
+<style>
+  .container {
+    text-align: center;
+    padding-top: 30vh;
+    padding-bottom: 25vh;
+  }
+  h4 {
+    margin-bottom: 1.5rem; /* Adjust this value to control the space between the text and button */
+  }
+</style>

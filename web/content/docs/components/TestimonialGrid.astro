@@ -11,9 +11,23 @@ const { title } = Astro.props;
 	<ul class="testimonial-grid">
 		<slot />
 	</ul>
+	<small class="topgg-read-more">
+		Xem thêm tại&nbsp;<a href="https://top.gg/bot/1103932552701550622">top.gg</a>
+	</small>
 </div>
 
+
 <style>
+	.topgg-read-more {
+		color: var(--sl-color-gray-3);
+		display: flex;
+		justify-content: center; 
+		align-items: center; 
+		text-align: center; 
+		margin-top: 1rem; 
+		width: 100%;
+	}
+
 	.testimonial-wrapper {
 		margin-block: 7rem 2.5rem !important;
 		font-size: clamp(var(--sl-text-sm), calc(0.5rem + 1vw), var(--sl-text-body));

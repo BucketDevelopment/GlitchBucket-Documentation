@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type RequireSome<T, P extends keyof T> = Omit<T, P> & Required<Pick<T, P>>;
+
+export type Props = RequireSome<HTMLAttributes<'a'>, 'href'>;
+---
+
+<a target="_blank" rel="noopener noreferer" {...Astro.props}>
+	<slot />
+</a>

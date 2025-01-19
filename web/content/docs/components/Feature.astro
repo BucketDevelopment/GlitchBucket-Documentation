@@ -1,0 +1,127 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  header: string;
+  filename: string;
+}
+
+const { header, filename } = Astro.props;
+
+// Check if the filename is a URL or a local file
+const isUrl = filename.startsWith('http://') || filename.startsWith('https://');
+
+// Determine the file type based on the extension for local files
+const fileExtension = isUrl ? null : filename.split('.').pop()?.toLowerCase();
+const isImage = fileExtension && ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(fileExtension);
+const isVideo = fileExtension && ['mp4', 'mov', 'webm', 'gif'].includes(fileExtension);
+
+let src: string | undefined;
+
+if (isUrl) {
+  // Use the URL directly for external links
+  src = filename;
+} else {
+  // Handle local files
+  const attachments = import.meta.glob<{ default: ImageMetadata }>('../assets/features/*.{jpg,jpeg,png,webp,gif,mp4}');
+  const attachment = attachments[`../assets/features/${filename}`];
+  if (!attachment) {
+    throw new Error(`Could not resolve attachment file for ${filename}`);
+  }
+  src = (await attachment()).default;
+}
+
+---
+
+<div class="feature-item">
+  <div class="text-content">
+    <h3 class="header">{header}</h3>
+    <p class="content"><slot /></p>
+  </div>
+  <div class="attachment">
+    {isImage ? (
+      <Image class="attachment-media" src={src} alt={filename} />
+    ) : isVideo ? (
+      <video class="attachment-media" src={src} autoplay loop muted></video>
+    ) : null}
+  </div>
+</div>
+
+<style>
+  .feature-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--sl-color-background);
+  }
+
+  .text-content {
+    flex: 1;
+    text-align: left;  /* Ensures text is aligned to the left */
+    display: flex;
+    flex-direction: column;  /* Stacks children vertically */
+    justify-content: flex-start;  /* Aligns text to the top */
+  }
+
+  .header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem;
+    color: var(--sl-color-white);
+  }
+
+  .content {
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1rem;  /* Khoảng cách mặc định giữa các dòng */
+    white-space: normal;  /* Cho phép tự động xuống dòng khi không đủ chỗ */
+    color: var(--sl-color-text-primary);
+  }
+
+  .content br {
+    line-height: 1.3rem;  /* Khoảng cách lớn hơn khi có thẻ <br> (khi ký tự xuống dòng xuất hiện) */
+}
+
+  .attachment {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .attachment-media {
+    display: block; 
+    width: 25em; 
+    height: auto; 
+    border-radius: 5px; /* Bo góc */
+    object-fit: contain; /* Đảm bảo toàn bộ video hiển thị */
+    overflow: hidden; /* Chặn phần tràn */
+  }
+
+  @media (max-width: 50rem) {
+    .feature-item {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .text-content {
+      margin-bottom: 1rem;
+    }
+
+    .attachment {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .@media (max-width: 50rem) {
+      .attachment-media {
+        width: 100%; /* Đảm bảo video chiếm đủ chiều rộng màn hình */
+        max-width: 90vw; /* Giới hạn kích thước tối đa */
+        max-height: 50vw; /* Giới hạn chiều cao cho màn hình nhỏ */
+        aspect-ratio: auto; /* Tự động tỉ lệ nếu video không phải 16:9 */
+      }
+    }
+  }
+</style>
