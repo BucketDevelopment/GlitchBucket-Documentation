@@ -18,6 +18,7 @@
     --blue-hsl: 210, 100%, 85%;
     --pink-hsl: 289, 43%, 60%;
 	--gray-hsl: 224, 14%, 16%;
+    --sl-nav-gap: 1rem;
     --overlay-blurple: hsla(var(--blue-hsl), 0.2);
     --overlay-pink: hsla(var(--pink-hsl), 0.2);
 }
