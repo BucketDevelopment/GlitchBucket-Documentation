@@ -50,7 +50,6 @@ export default defineConfig({
                 attrs: { property: "theme-color", content: "#C0CDFF" },
             },
         ],
-        customCss: ['./web/assets/landing.css'],
         social: {
             github: "https://github.com/tudubucket",
             discord: "https://bot.tudubucket.dev/support",
