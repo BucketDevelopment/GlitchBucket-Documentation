@@ -17,7 +17,7 @@
 :root {
     --blue-hsl: 210, 100%, 85%;
     --pink-hsl: 289, 43%, 60%;
-	--gray-hsl: 224, 14%, 16%;
+	--header-hsl: 224, 14%, 16%;
     --sl-nav-gap: 1rem;
     --overlay-blurple: hsla(var(--blue-hsl), 0.2);
     --overlay-pink: hsla(var(--pink-hsl), 0.2);
@@ -26,6 +26,7 @@
 :root[data-theme='light'] {
     --blue-hsl: 255, 85%, 65%;
     --pink-hsl: 340, 45%, 65%;
+	--header-hsl: 210, 100%, 85%;
 }
 
 [data-has-hero] .page {
@@ -38,7 +39,7 @@
 
 [data-has-hero] header {
     border-bottom: 1px solid transparent;
-    background-color: hsla(var(--gray-hsl), 0.6); /* 60% opacity for blue */
+    background-color: hsla(var(--header-hsl), 0.6);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
 }
