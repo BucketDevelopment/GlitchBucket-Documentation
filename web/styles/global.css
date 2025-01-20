@@ -26,7 +26,7 @@
 :root[data-theme='light'] {
     --blue-hsl: 255, 85%, 65%;
     --pink-hsl: 340, 45%, 65%;
-	--header-hsl: 210, 100%, 85%;
+	--header-hsl: 255, 100%, 100%;
 }
 
 [data-has-hero] .page {
