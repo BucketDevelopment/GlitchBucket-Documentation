@@ -6,7 +6,7 @@ lastUpdated: false
 hero:
   tagline: Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn quản lí Server Discord một cách dễ dàng hơn!
   image:
-    file: ../../assets/favicon.webp
+    file: ../../assets/GlitchBucket.webp
   actions:
     - text: Thêm Bot vào Máy chủ!
       link: https://bot.tudubucket.dev/invite
@@ -23,7 +23,9 @@ import { Card, CardGrid, LinkButton } from "@astrojs/starlight/components";
 import TestimonialGrid from "./components/TestimonialGrid.astro";
 import Testimonial from "./components/Testimonial.astro";
 import FeatureGrid from "./components/FeatureGrid.astro";
+import ReasonGrid from "./components/ReasonGrid.astro";
 import Feature from "./components/Feature.astro";
+import Reason from "./components/Reason.astro";
 import Invite from "./components/Invite.astro";
 
 <CardGrid stagger>
@@ -77,6 +79,50 @@ import Invite from "./components/Invite.astro";
     bot nhu cai lol
   </Testimonial>
 </TestimonialGrid>
+
+<ReasonGrid title="Tại sao bạn nên dùng GlitchBucket?">
+
+  <Reason
+    header="Tính ổn định"
+    filename1="giveaway-others.png"
+    filename2="giveaway.png"
+    title1="Bot khác"
+    title2="GlitchBucket"
+  >
+    **[GlitchBucket](/invite)** đạt **`99,4521%`** uptime trong năm 2024. Dù là Flash Giveaway, hay bị tấn công mạng, bot vẫn luôn sẵn sàng để phục vụ mọi người!
+  </Reason>
+
+  <Reason
+    header="Tính đa dạng"
+    filename1="bot-list.png"
+    filename2="bot.png"
+    title1="Trước"
+    title2="Sau"
+  >
+    Không chỉ dừng lại ở những tính năng riêng biệt, **[GlitchBucket](/invite)** mang đến cho bạn rất nhiều tính năng phổ thông khác, giúp bạn giảm từ 4 - 5 bot, xuống chỉ còn 1.
+  </Reason>
+
+  <Reason
+    header="Tính đơn giản"
+    filename1="helppage-others.png"
+    filename2="helppage.png"
+    title1="Bot khác"
+    title2="GlitchBucket"
+  >
+    Trang bị cho bản thân rất nhiều tính năng, nhưng **[GlitchBucket](/invite)** đảm bảo có [Tài liệu](/getting-started) rõ ràng, cũng như mang theo một cấu trúc lệnh nhất định với tính hoàn thiện được đặt lên hàng đầu.
+  </Reason>
+
+  <Reason
+    header="Tính cách"
+    filename1="support-others.png"
+    filename2="support.png"
+    title1="Bot khác"
+    title2="GlitchBucket"
+  >
+    Được trang bị những kiến thức sâu rộng & hiểu biết về bot, Đội ngũ Hỗ trợ của **[GlitchBucket](/invite)** luôn nhiệt tình, sẵn sàng giúp đỡ bạn khi có thắc mắc!
+  </Reason>
+
+</ReasonGrid>
 
 <FeatureGrid title="Các tính năng chính">
   <Feature

@@ -1,0 +1,134 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  header: string;
+  filename1: string;
+  filename2: string;
+  title1?: string;
+  title2?: string;
+}
+
+const { header, filename1, filename2, title1, title2 } = Astro.props;
+
+// Helper function to process filenames (URLs or local files)
+async function resolveFileSrc(filename: string): Promise<string | undefined> {
+  if (!filename) return;
+  const isUrl = filename.startsWith('http://') || filename.startsWith('https://');
+
+  if (isUrl) return filename;
+
+  const attachments = import.meta.glob<{ default: ImageMetadata }>(
+    '../assets/comparisons/*.{jpg,jpeg,png,webp,gif,mp4}'
+  );
+  const attachment = attachments[`../assets/comparisons/${filename}`];
+
+  if (!attachment) {
+    throw new Error(`Could not resolve attachment file for ${filename}`);
+  }
+  return (await attachment()).default;
+}
+
+const src1 = await resolveFileSrc(filename1);
+const src2 = await resolveFileSrc(filename2);
+---
+
+<div class="feature-comparison">
+  <h3 class="header">{header}</h3>
+  <p class="content"><slot/></p>
+
+  <div class="attachment-row">
+    <div class="attachment">
+      {title1 && <h3 class="attachment-header">{title1}</h3>}
+      {filename1.endsWith('.mp4') || filename1.endsWith('.webm') ? (
+        <video class="attachment-media" src={src1} autoplay loop muted></video>
+      ) : (
+        <Image class="attachment-media" src={src1} alt={filename1} />
+      )}
+    </div>
+    <div class="attachment-separator"></div>
+    <div class="attachment">
+      {title2 && <h3 class="attachment-header">{title2}</h3>}
+      {filename2.endsWith('.mp4') || filename2.endsWith('.webm') ? (
+        <video class="attachment-media" src={src2} autoplay loop muted></video>
+      ) : (
+        <Image class="attachment-media" src={src2} alt={filename2} />
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .feature-comparison {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--sl-color-background);
+  }
+
+  .header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--sl-color-white);
+  }
+
+  .content {
+    font-size: 0.8rem;
+    color: var(--sl-color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .attachment-row {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .attachment {
+    flex: 1;
+    text-align: center;
+  }
+
+  .attachment-header {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--sl-color-text-primary);
+  }
+
+  .attachment-separator {
+    width: 0.2rem;
+  }
+
+  .attachment-media {
+    display: block;
+    width: 30em;
+    height: auto;
+    border-radius: 5px;
+    object-fit: contain;
+    overflow: hidden;
+  }
+
+  @media (max-width: 50rem) {
+    .attachment-row {
+      flex-direction: column;
+    }
+
+    .attachment {
+      margin-bottom: 1rem;
+    }
+
+    .attachment-media {
+      width: 100%;
+      max-width: 90vw;
+      max-height: 50vw;
+      aspect-ratio: auto;
+    }
+  }
+</style>

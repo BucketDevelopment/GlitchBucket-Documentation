@@ -14,6 +14,9 @@ export default defineConfig({
             replacesTitle: false,
         },
         lastUpdated: true,
+        components: {
+            Hero: '/web/content/docs/components/Hero.astro',
+        },
         favicon: "/favicon.png",
         customCss: ["./web/styles/global.css"],
         defaultLocale: "vi",
