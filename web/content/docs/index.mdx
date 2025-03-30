@@ -39,8 +39,8 @@ import Invite from "./components/Invite.astro";
     kéo dài, gây ảnh hưởng tới trải nghiệm của bạn. (hoặc là [do OVH](https://status.us.ovhcloud.com/pages/incident/59dd23da8827c804746f1664/66fd4e818bf9f2649b51c73d) 😭)
   </Card>
   <Card title="Hỗ trợ nhiều ngôn ngữ" icon="translate">
-    **GlitchBucket** có một hệ thống ~25 ngôn ngữ, luôn sẵn sàng để tiếp đón bạn
-    bè quốc tế!
+    **GlitchBucket** có một hệ thống đa ngôn ngữ, luôn sẵn sàng để 
+    phục vụ theo nhu cầu của bạn, cũng như tiếp đón bạn bè quốc tế!
   </Card>
   <Card title="'Phở' Quality" icon="up-caret">
     Tất cả các tính năng của **GlitchBucket** đều được chú trọng. Không cẩu thả,
@@ -128,9 +128,11 @@ import Invite from "./components/Invite.astro";
     filename="donation.mp4"
     documentation="/commands/group/donation"
   >
-    - Tự động theo dõi các khoản donate từ người dùng tới Quản trị viên. - Tặng
-    role hoặc phần thưởng khi người dùng đạt được cột mốc donate. - Ghi lại thông
-    tin donate và cung cấp bảng xếp hạng.
+    Nằm trong những tính năng nổi bật nhất của bot, Donation tự động theo dõi 
+    các khoản donate từ người dùng tới Quản trị viên, tự động tặng role hoặc phần thưởng 
+    khi người dùng đạt được cột mốc donate, cũng như ghi lại thông tin donate và cung cấp bảng xếp hạng.
+
+    Bot đồng hành với bạn để mang đến doanh thu và phát triển cộng đồng!
   </Feature>
   <Feature
     header="Nối từ"
@@ -148,10 +150,10 @@ import Invite from "./components/Invite.astro";
     filename="voting.png"
     documentation="/commands/group/voting"
   >
-    - Tạo và quản lý các cuộc thi vote với các yêu cầu và điều kiện tham gia theo yêu cầu.
+    Tính năng giúp bạn tạo và quản lý các cuộc thi vote với các yêu cầu và điều kiện tham gia theo yêu cầu, giúp tổ chức event một cách chuyên nghiệp!
     
-    - Cung cấp các lệnh như bắt đầu, kết thúc và xem lịch sử cuộc thi vote.
-    
+    Bạn có thể:
+
     - Cho phép config các yêu cầu đối với người tham gia vote & người vote như:
       * Thời gian tham gia server,
       * Blacklist theo role,
@@ -166,13 +168,9 @@ import Invite from "./components/Invite.astro";
     filename="customrole.png"
     documentation="/commands/group/customrole"
   >
-    - Quản lý role tùy chỉnh cho người dùng, bao gồm việc tạo, chỉnh sửa và xóa role.
+    Giải pháp giúp người dùng có thể tự quản lý role đặc biệt của mình (thêm/xóa thành viên, thay đổi màu sắc, tên và emoji của role) một cách an toàn và hiệu quả, giúp giảm tải công việc cho Mod & Admin.
 
-    - Người dùng có thể tự quản lý role của mình (thêm/xóa thành viên, thay đổi màu sắc, tên và biểu tượng của role).
-
-    - Tự động xử lý thời gian hết hạn của role, giúp tránh việc quản lý thủ công.
-
-    - Cung cấp lệnh cho quản trị viên để tạo, chỉnh sửa, xóa role, và điều chỉnh quyền.
+    Bot sẽ tự động xử lý kì hạn của role, giúp tránh việc quản lý thủ công, cũng như cung cấp lệnh cho quản trị viên để tạo, chỉnh sửa, xóa role, và điều chỉnh quyền riêng biệt.
 
   </Feature>
   <Feature
@@ -180,13 +178,9 @@ import Invite from "./components/Invite.astro";
     filename="giveaway.png"
     documentation="/commands/group/giveaway"
   >
-    - Tạo giveaway tùy chỉnh, với các yêu cầu phức tạp.
+    Module giúp bạn Tạo giveaway nâng cao, với các yêu cầu tùy chỉnh theo ý muốn của bạn (yêu cầu có role, blacklist, thời gian tại server, ...).
     
-    - Cung cấp các lệnh như thiết lập giveaway mới, kết thúc giveaway, reroll lại giveaway đã kết thúc, và chỉnh sửa giveaway đang chạy.
-    
-    - Hỗ trợ tạo và chỉnh sửa mẫu giveaway để sử dụng lại nhiều lần.
-    
-    - Tính năng linh hoạt để điều chỉnh mọi chi tiết trong giveaway, bao gồm cả phần thưởng và điều kiện tham gia.
+    Hơn hết, bot còn cung cấp tính năng đặc biệt như chỉnh sửa giveaway đang chạy và hỗ trợ tạo và chỉnh sửa mẫu giveaway để sử dụng lại nhiều lần!
 
   </Feature>
   <Feature
@@ -194,13 +188,9 @@ import Invite from "./components/Invite.astro";
     filename="stickie.mp4"
     documentation="/commands/group/stickie"
   >
-    - Quản lý tin nhắn cố định trên kênh (Sticky Message), bao gồm cài đặt các tin nhắn hiển thị khi không có ai chat hoặc khi đạt ngưỡng tin nhắn.
+    Tính năng mang đến tin nhắn cố định trên kênh (Sticky Message), bao gồm cài đặt các tin nhắn hiển thị khi không có ai chat hoặc sau khi đạt ngưỡng tin nhắn nhất định.
 
-    - Tin nhắn có thể là webhook tùy chỉnh với avatar và tên riêng.
-
-    - Hỗ trợ sử dụng embed để hiển thị thông tin trực quan hơn.
-
-    - Cung cấp các lệnh như cấu hình tin nhắn cố định, đặt tin nhắn cố định, điều chỉnh độ trễ, và điều chỉnh ngưỡng tin nhắn.
+    Đặc biệt, tin nhắn có thể là webhook tùy chỉnh với avatar và tên riêng, và hỗ trợ sử dụng embed để hiển thị thông tin trực quan hơn.
 
   </Feature>
 
