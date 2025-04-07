@@ -128,7 +128,11 @@ Lệnh này sẽ chỉnh sửa ngưỡng thông báo ủng hộ trên 100.000 đ
 ### `/donation message` - Chỉnh sửa tin nhắn ủng hộ
 Lệnh này sẽ chỉnh sửa tin nhắn ủng hộ khi được gọi.
 
-Một số placeholder bạn có thể sử dụng: `\{amount\}`, `\{donator_id\}`, `\{donator_name\}`, `\{donator_displayname\}`, `\{donator_mention\}`
+Bạn có thể kết hợp với [BucketScript Functions](/bucketscript/functions/) để thêm tên server, tên người dùng, ... vào tin nhắn cảm ơn
+
+Placeholder bổ sung bạn có thể sử dụng: 
+
+- `{amount}`: Hiển thị số tiền donate
 
 <h4>Tham số lệnh (Parameters)</h4>
 
@@ -136,8 +140,8 @@ _Bắt buộc:_
  - `message`: Tin nhắn hiển thị khi có donate mới. 
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉnh tin nhắn ủng hộ thành `Cảm ơn bạn \{donator_mention\} đã ủng hộ cho máy chủ \{amount\}!`
-<Code code="/donation message message:Cảm ơn bạn \{donator_mention\} đã ủng hộ cho máy chủ \{amount\}!" title="command" mark={highlights} />
+Lệnh này sẽ chỉnh tin nhắn ủng hộ thành `Cảm ơn bạn {user} đã ủng hộ cho {server_name} {amount}!`, và react thêm emoji 😋 vào tin nhắn cảm ơn 
+<Code code="/donation message message:Cảm ơn bạn {user} đã ủng hộ cho máy chủ {server_name} {amount}{react_reply: 😋 }!" title="command" mark={highlights} />
 ---
 
 ### `/donation receiverole` - Đặt vai trò cho người nhận
