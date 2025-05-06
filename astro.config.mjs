@@ -30,8 +30,15 @@ export default defineConfig({
             {
                 tag: "meta",
                 attrs: {
+                    name: "google-site-verification",
+                    content: "um3q97hCSAv7TUAD2O6KoMsdGKC-El8E7BMUWUw5bVk",
+                },
+            },
+            {
+                tag: "meta",
+                attrs: {
                     property: "og:image",
-                    content: "https://docs.tudubucket.dev/favicon.webp",
+                    content: "https://bot.tudubucket.dev/favicon.webp",
                 },
             },
             {
