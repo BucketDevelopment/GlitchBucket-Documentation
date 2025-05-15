@@ -28,6 +28,10 @@ export default defineConfig({
         },
         head: [
             {
+                tag: "script",
+                content: "(function () {const domain = window.location.hostname; const path = window.location.pathname; const url = `https://service.tudubucket.dev/metrics/?domain=${encodeURIComponent(domain)}&path=${encodeURIComponent(path)}`; fetch(url).catch(() => {});})();"
+            },
+            {
                 tag: "meta",
                 attrs: {
                     name: "google-site-verification",
