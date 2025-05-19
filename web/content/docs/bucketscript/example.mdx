@@ -3,10 +3,27 @@ title: "Ví dụ về BucketScript"
 description: "GlitchBucket - Các ví dụ cho Hệ thống xử lí tin nhắn của GlitchBucket"
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, Steps } from '@astrojs/starlight/components';
+export const highlights = ['trigger:', 'response:', 'mode:', 'ignorecase:'];
 
 Hệ thống xử lí tin nhắn của **GlitchBucket** được tích hợp gần như mọi nơi, như ở tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message, ...). Dưới đây sẽ là một số ví dụ hữu ích dành cho bạn để làm nền móng cho việc dựng một script khác, hoặc để bạn tham khảo.
 
 :::note[Lưu ý]
 Bạn có thể tham gia [Discord hỗ trợ](/support) và đóng góp ý tưởng của bản thân tại khu vực [`#🌟〡showcase`](https://discord.com/channels/1096028188397809736/1330168053324841000) 😄😄 Ví dụ của bạn sẽ được đưa lên trang hướng dẫn nếu bạn làm tốt 😋
 :::
+
+##### [Autoresponder](/commands/group/autoresponder) chọn ngẫu nhiên một chuỗi kí tự
+
+<Steps>
+
+1. Tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add
+    trigger:hôm nay
+    response: Ngày hôm nay{random:string: như lol | tuyệt vời | bình thường }[random:string]
+    mode:equal
+    ignorecase:True" title="command" mark={highlights} />
+
+2. Bot sẽ chọn ngẫu nhiên 1 trong 3 chuỗi kí tự: **như lol**, **tuyệt vời** & **bình thường**, và tạo nên 1 câu hoàn chỉnh.
+
+</Steps>

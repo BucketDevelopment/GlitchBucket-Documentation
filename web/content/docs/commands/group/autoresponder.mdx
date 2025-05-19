@@ -54,7 +54,7 @@ _Bắt buộc:_
  - `ignorecase`: Có nên bỏ qua trường hợp khi khớp hay không
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tạo 1 autoresponder với từ khóa `xd`, và sẽ được phản bot hồi là `xD`, chỉ khi tin nhắn chính xác là `xd` (do chế độ là `mode:Tương đương`). Bot cũng sẽ xóa tin nhắn gốc (tin nhắn chứa từ khóa `xd` nhờ vào hàm `{{delete_trigger:0}}` (số `0` có nghĩa là sẽ xóa tin nhắn sau 0 giây))
+Lệnh này sẽ tạo 1 autoresponder với từ khóa `xd`, và sẽ được phản bot hồi là `xD`, chỉ khi tin nhắn chính xác là `xd` (do chế độ là `mode:Tương đương`). Bot cũng sẽ xóa tin nhắn gốc (tin nhắn chứa từ khóa `xd` nhờ vào hàm `{delete_trigger:0}` (số `0` có nghĩa là sẽ xóa tin nhắn sau 0 giây))
 <Code code="/autoresponder add trigger:xd response:xD{delete_trigger:0} mode:Tương đương ignorecase:True" title="command" mark={highlights} />
 
 
