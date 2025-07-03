@@ -24,7 +24,24 @@ Trò chơi này yêu cầu người chơi nối từ cuối của từ trước 
 
 Bot sẽ tự động kết thúc lượt nối từ khi không còn từ nào nối tiếp với từ cuối cùng nữa.
 
-## `/wordconnect setup`
+---
+
+## Cách tính điểm trong Nối từ
+
+- **+2 → +15 điểm:** Khi nối đúng một từ, điểm thưởng giảm dần theo độ phổ biến của từ. Từ càng phổ biến, điểm càng thấp - ngược lại, từ càng khó, điểm thưởng càng cao. Công thức tổng quát: `max(15 - len(next_words), 2)`
+- **+20 điểm:** Khi là người chốt hạ, nối từ cuối cùng.
+- **-1 điểm:** Dùng lại từ đã nối.
+- **-2 điểm:** Nối liên tiếp hai lượt hoặc dùng từ không có trong từ điển.
+- **-4 điểm:** Vi phạm quy định (chỉnh sửa/xóa tin nhắn khi không được phép).
+
+> Điểm số sẽ được cộng/trừ tự động sau mỗi từ được nối.
+> Bạn có thể sử dụng `/wordconnect hint` để nhận gợi ý từ tiếp theo (có giới hạn cooldown nếu không nằm trong Top 100).
+
+---
+
+
+## Các lệnh của module
+### `/wordconnect setup`
 Setup Nối từ/Nối chữ
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -42,7 +59,24 @@ Lệnh này sẽ setup & bắt đầu nối từ tại kênh `#noi-tu`
 
 ---
 
-## `/wordconnect restart`
+### `/wordconnect hint`
+Setup Nối từ/Nối chữ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `channel`: Chọn một kênh, hoặc chỉ định ID kênh
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ setup & bắt đầu nối từ tại kênh `#noi-tu`
+
+<Code code="/wordconnect setup channel:#noi-tu" title="command" mark={highlights} />
+
+---
+
+### `/wordconnect restart`
 Restart Nối từ/Nối chữ
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -59,7 +93,7 @@ Lệnh này sẽ restart Nối từ/Nối chữ
 
 ---
 
-## `/wordconnect rule`
+### `/wordconnect rule`
 Kiểm tra Quy định Nối từ
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -76,7 +110,7 @@ Lệnh này sẽ kiểm tra Quy định Nối từ
 
 ---
 
-## `/wordconnect end`
+### `/wordconnect end`
 Dừng phiên nối từ hiện tại
 
 <h4>Tham số lệnh (Parameters)</h4>
