@@ -4,26 +4,162 @@ description: "GlitchBucket - Các ví dụ cho Hệ thống xử lí tin nhắn 
 ---
 
 import { Code, Steps } from '@astrojs/starlight/components';
-export const highlights = ['trigger:', 'response:', 'mode:', 'ignorecase:'];
+export const highlights = ['require_channel:', 'display_icon:', 'react_trigger:', 'trigger:', 'response:', 'mode:', 'ignorecase:', 'name:', 'channel:', 'display_name:', 'icon:'];
 
-Hệ thống xử lí tin nhắn của **GlitchBucket** được tích hợp gần như mọi nơi, như ở tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message, ...). Dưới đây sẽ là một số ví dụ hữu ích dành cho bạn để làm nền móng cho việc dựng một script khác, hoặc để bạn tham khảo.
+Hệ thống xử lí tin nhắn của **GlitchBucket** được tích hợp gần như mọi nơi, như ở tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message, ... và thường sẽ được ghi là **`[BucketScript Compatible]`**/**`[Tích hợp BucketScript]`**). Dưới đây sẽ là một số ví dụ hữu ích dành cho bạn để làm nền móng cho việc dựng một script khác, hoặc để bạn tham khảo.
 
 :::note[Lưu ý]
-Bạn có thể tham gia [Discord hỗ trợ](/support) và đóng góp ý tưởng của bản thân tại khu vực [`#🌟〡showcase`](https://discord.com/channels/1096028188397809736/1330168053324841000) 😄😄 Ví dụ của bạn sẽ được đưa lên trang hướng dẫn nếu bạn làm tốt 😋
+Bạn có thể tham gia [Discord hỗ trợ](/support) và đóng góp ý tưởng của bản thân tại khu vực [`#🌟〡showcase`](https://discord.com/channels/1096028188397809736/1330168053324841000) 😄😄 Ví dụ của bạn có thể sẽ được đưa lên trang hướng dẫn 😋
 :::
 
-##### [Autoresponder](/commands/group/autoresponder) chọn ngẫu nhiên một chuỗi kí tự
+---
+
+## [Autoresponder](/commands/group/autoresponder) chào mừng kèm Embed
+
+<Steps>
+
+1. Tạo embed bằng lệnh sau: 
+
+    <Code code="/bucketscript embed create name:welcome" title="command" mark={highlights} />
+
+2. Thực hiện chỉnh sửa embed qua Interactive UI
+
+3. Sau khi hoàn thành chỉnh sửa Embed, tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add  
+    trigger:wlc  
+    mode:startswith    -> Lưu ý Chế độ Starts With - Bắt đầu bằng  
+    ignorecase:True" title="command" mark={highlights} />
+
+4. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="{require_arg:1|user}{embed:welcome}{reply} Chào mừng {user_mention:[&1]} đến với {server_name}!" title="command" mark={highlights} />
+
+5. Khi có người gõ đúng "wlc **@tudubucket**", bot sẽ gửi embed `welcome` và mention người dùng.
+
+</Steps>
+
+---
+
+## [Sticky Message](/commands/group/stickie) tự động react tất cả tin nhắn trong 1 kênh
+
+Giả định bạn muốn react tất cả các tin nhắn trong kênh `#media`, bạn có thể làm như sau:
+
+<Steps>
+
+1.  Tạo một sticky message thông qua lệnh như sau:
+
+    <Code code="/stickie message channel:#media" title="command" mark={highlights} />
+
+2. Nhập chuỗi kí tự sau vào ô `Tin nhắn`:
+
+    <Code code="{react_trigger: 😍 }{react_trigger: 💖 }" title="command" mark={highlights} />
+
+3. Khi có tin nhắn mới trong kênh `#media`, bot sẽ tự react vào tin nhắn đó. 
+
+</Steps>
+
+:::note[Chú ý]
+Bạn có thể react nhiều emoji 1 lúc, bằng cách sử dụng nhiều hàm `{react_trigger:emoji}`
+Bạn cũng có thể sử dụng Custom Emoji thay cho Emoji truyền thống
+:::
+
+:::caution[Chú ý]
+Chỉ sử dụng `{react_trigger:emoji}` chứ không sử dụng `{react_reply:emoji}` vì `{react_reply:emoji}` là function react emoji vào tin nhắn phản hồi của bot - nhưng ở đây không có
+:::
+
+---
+
+## [Autoresponder](/commands/group/autoresponder) & [BucketBalance](/commands/group/bucketbalance/): lệnh "daily" nhận điểm
+
+<Steps>
+
+1. Giả định bạn sẽ muốn Economy trong server bạn là `💰 Coin`. Bây giờ tạo 1 [BucketBalance](/commands/group/bucketbalance/) như sau:
+
+    <Code code="/bucketbalance create name:coin display_icon:💰 display_name:Coin" title="command" mark={highlights} />
+
+    Lưu ý rằng `name:` là điền **tên định danh** và `display_name:` là **tên hiển thị**. Chi tiết xem tại [Cách tạo BucketBalance](/commands/group/bucketbalance/#bucketbalance-create---tạo-balance-trong-máy-chủ-của-bạn)
+
+2. Tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:daily" title="command" mark={highlights} />
+
+3. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="💳 `|` {cooldown:86400}{edit_balance:tien_donate:+100}{reply_no_mention} Bạn nhận 100 điểm! Số dư hiện tại của bạn: **💰 {balance:tien_donate}**" title="command" mark={highlights} />
+
+4. Khi gõ "daily", bot sẽ áp cooldown 24h, cộng 100 điểm cho bạn và thông báo số dư. Để làm lệnh kiểm tra số dư, bạn có thể tham khảo ví dụ tiếp theo
+
+</Steps>
+
+---
+
+## [Autoresponder](/commands/group/autoresponder) & [BucketBalance](/commands/group/bucketbalance/): lệnh "mycoin" kiểm tra số điểm
+
+<Steps>
+
+1. Giả định bạn đã tạo 1 Economy trong server bạn là `💰 Coin` từ ví dụ trước. Bây giờ tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:mycoin" title="command" mark={highlights} />
+
+3. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="💳 `|` Số dư **`💰 Coin`** hiện tại của bạn: **`💰 {balance:tien_donate}`**" title="command" mark={highlights} />
+
+4. Khi gõ "mycoin", bot sẽ thông báo số dư **`💰 Coin`** hiện tại của bạn.
+
+</Steps>
+
+---
+
+## [Autoresponder](/commands/group/autoresponder) chọn ngẫu nhiên một game
 
 <Steps>
 
 1. Tạo một autoresponder như sau:
 
-    <Code code="/autoresponder add
-    trigger:hôm nay
-    response: Ngày hôm nay{random:string: như lol | tuyệt vời | bình thường }[random:string]
-    mode:equal
-    ignorecase:True" title="command" mark={highlights} />
+    <Code code="/autoresponder add trigger:game?" title="command" mark={highlights} />
 
-2. Bot sẽ chọn ngẫu nhiên 1 trong 3 chuỗi kí tự: **như lol**, **tuyệt vời** & **bình thường**, và tạo nên 1 câu hoàn chỉnh.
+2. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="{random:string:Valorant|CS2|LOL|Dota2}[random:string] là trò chơi hôm nay!" title="command" mark={highlights} />
+
+3. Bot sẽ chọn ngẫu nhiên 1 trong 4 game và hoàn thiện câu.
+
+</Steps>
+
+---
+
+## [Autoresponder](/commands/group/autoresponder) chặn một user hoặc channel
+
+<Steps>
+
+1. Tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:secret" title="command" mark={highlights} />
+
+2. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="{require_channel:1145547639618801736}{reply} Đây là nội dung bí mật dành cho kênh #secret." title="command" mark={highlights} />
+
+3. Bot chỉ thực thi ở channel có ID tương ứng, các channel khác sẽ bị bỏ qua và hiện báo lỗi. Bạn có thể tắt thông báo lỗi bằng function `{ignore_errors}`
+
+</Steps>
+
+---
+
+## [Autoresponder](/commands/group/autoresponder) chế độ chờ (sleep) để tạo hiệu ứng (hiệu ứng chờ lắc xúc xắc)
+
+<Steps>
+
+1. Tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:tài xỉu" title="command" mark={highlights} />
+
+2. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="🎲 Đang lắc xúc xắc, đợi 1 chút... {sleep:2}{edit}{random:number:1-6} 🎲 Đang lắc xúc xắc, đợi 1 chút...{newline}Xúc xắc đã lắc ra mặt: **`[random:number] chấm`** " title="command" mark={highlights} />
+
+3. Bot sẽ gửi tin nhắn đang lắc xúc xắc trước, sau 3 giây sẽ thông báo kết quả.
 
 </Steps>
