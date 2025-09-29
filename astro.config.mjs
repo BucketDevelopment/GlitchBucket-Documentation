@@ -49,7 +49,7 @@ export default defineConfig({
                 tag: "meta",
                 attrs: {
                     property: "twitter:image",
-                    content: "https://cdn.langdua.net/widebucket.png",
+                    content: "https://cdn.tudubucket.dev/widebucket.png",
                 },
             },
             {
