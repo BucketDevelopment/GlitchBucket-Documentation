@@ -7,7 +7,9 @@ import { Code } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import Cv2ExampleImage from '../assets/layouts/component_v2_message.png';
 import TextDisplayExample from '../assets/layouts/text_display.png';
+import ButtonExample from '../assets/layouts/button.png';
 export const highlights = ['name:', 'message:', 'channel:']
+import Preview from '../components/Preview.astro';
 
 <Image class="attachment-media" src={Cv2ExampleImage} alt="Component v2 Message" style="width: 100%; border-radius: 12px; display:block;"/>
 
@@ -22,13 +24,15 @@ Như thường lệ, Layout của **GlitchBucket** sẽ sử dụng bộ phận 
 ## Các thành phần của giao diện
 ### Text (Ô chữ)
 
-<Image class="attachment-media" src={TextDisplayExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
-
 **Text Display** là một **thành phần nội dung (content component)** cho phép bạn thêm **văn bản có định dạng**.  
 Cách hoạt động của thành phần này **rất giống với nội dung tin nhắn bình thường**, nhưng nó cho phép bạn **thêm nhiều khối văn bản riêng biệt**, giúp **kiểm soát bố cục hiển thị của tin nhắn** linh hoạt hơn.
 
-Đối với **developer**, bạn có thể code như sau để gửi 1 TextDisplay đi:
-<Code code={`
+<Preview>
+
+	<Fragment slot="dev">
+		Đối với **developer**, chúng ta có thể dựa vào đây để gửi 1 TextDisplay đi:
+
+        <Code code={`
 from discord.ui import LayoutView, TextDisplay
 
 layout = LayoutView(timeout=300)
@@ -39,6 +43,69 @@ layout.add_item(text)
 await channel.send(view=layout)`} 
 lang="py" title="text_display.py"/>
 
+	</Fragment>
 
+	<Fragment slot="user">
+		Bạn cần tạo, hoặc sửa 1 giao diện có sẵn qua lệnh `/bucketscript layout edit`. 
+        
+        Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Text Display**, và nhập nội dung bạn muốn (như ở đây là *Hello World!*)
+	</Fragment>
 
+	<Fragment slot="preview">
+        <Image class="attachment-media" src={TextDisplayExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
+	</Fragment>
 
+</Preview>
+
+### Button (Nút bấm)
+
+**Button** là một **thành phần tương tác (interactive component)**. 
+
+Nó tạo ra **các nút có thể nhấn**, cho phép người dùng **tương tác trực tiếp**, và khi được bấm sẽ **gửi dữ liệu tương tác (interaction)** đến bot, để bot phản hồi.
+
+<Preview>
+
+	<Fragment slot="dev">
+		Các nút (**button**) phải được đặt **bên trong một Action Row** hoặc trong **accessory của Section** thì mới được phép gửi đi.
+        
+        Button đều có thể được sử dụng trong cả component cũ lẫn component mới. Chúng ta có thể dựa vào đây để gửi 1 Button (trong layout mới) bằng cách subclass `ui.Button` và thêm `callback`:
+
+        <Code code={`
+from discord import ButtonStyle, Interaction
+from discord.ui import ActionRow, LayoutView, Button
+
+class MyButton(Button):
+    async def callback(self, interaction: Interaction):
+        await interaction.response.send_message('Bạn vừa bấm vào nút!', ephemeral=True)
+
+layout = LayoutView(timeout=300)
+row = ActionRow(
+    MyButton(emoji='💖', label='Nhãn của nút', style=ButtonStyle.gray)
+)
+
+layout.add_item(row)
+
+await channel.send(view=layout)`} 
+lang="py" title="button.py" mark={10}/>
+
+	</Fragment>
+
+	<Fragment slot="user">
+		Bạn cần tạo, hoặc sửa 1 **nút** có sẵn qua lệnh `/bucketscript button`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+        
+        Sau khi đã làm nút cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Button**, và chọn 1 nút đã có sẵn từ `/bucketscript button`.
+
+:::note
+Bạn có thể chỉ nhập emoji, hoặc chỉ tên hiển thị của nút, nhưng bắt buộc phải có 1 cái nhé!
+:::
+
+:::note
+Nếu bạn muốn nút của bạn là một nút chỉ dẫn URL, thì bạn chỉ cần để phản hồi là URL đó. Bot sẽ tự hiểu và đặt đó là nút được chỉ dẫn tới 1 URL. Khi người dùng bấm vào thì sẽ nhảy thẳng tới link bạn đã đặt.
+:::
+    </Fragment>
+
+	<Fragment slot="preview">
+        <Image class="attachment-media" src={ButtonExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
+	</Fragment>
+
+</Preview>

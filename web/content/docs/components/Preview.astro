@@ -1,0 +1,43 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+---
+
+<figure>
+	<Tabs syncKey="content-view">
+		<TabItem label="Dành cho Người dùng GlitchBucket">
+			<slot name="user" />
+		</TabItem>
+		<TabItem label="Dành cho Developer">
+			<slot name="dev" />
+		</TabItem>
+	</Tabs>
+
+	<div class="preview">
+		<figcaption>Xem trước</figcaption>
+		<div class="preview-content">
+			<slot name="preview" />
+		</div>
+	</div>
+</figure>
+
+<style>
+	:global(.sl-markdown-content) figure {
+		overflow: hidden;
+		margin-top: 1rem;
+	}
+
+	:global(.sl-markdown-content) .preview {
+		border-top: 1px solid var(--sl-color-gray-5);
+	}
+
+	figcaption {
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		padding: 0.5rem 1rem 0;
+	}
+
+	:global(.sl-markdown-content) .preview-content {
+		margin-top: 0;
+		padding: 1rem;
+	}
+</style>
