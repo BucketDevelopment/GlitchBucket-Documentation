@@ -7,8 +7,13 @@ import { Code } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import Cv2ExampleImage from '../assets/layouts/component_v2_message.png';
 import TextDisplayExample from '../assets/layouts/text_display.png';
-import ButtonExample from '../assets/layouts/button.png';
-export const highlights = ['name:', 'message:', 'channel:']
+import ButtonExample from '../assets/layouts/button.mp4';
+import SelectExample from '../assets/layouts/select.mp4';
+import SeparatorExample from '../assets/layouts/separator.png';
+import SectionExample from '../assets/layouts/section.png';
+import MediaGalleryExample from '../assets/layouts/media_gallery.png';
+import ContainerExample from '../assets/layouts/container.png';
+
 import Preview from '../components/Preview.astro';
 
 <Image class="attachment-media" src={Cv2ExampleImage} alt="Component v2 Message" style="width: 100%; border-radius: 12px; display:block;"/>
@@ -61,12 +66,12 @@ lang="py" title="text_display.py"/>
 
 **Button** là một **thành phần tương tác (interactive component)**. 
 
-Nó tạo ra **các nút có thể nhấn**, cho phép người dùng **tương tác trực tiếp**, và khi được bấm sẽ **gửi dữ liệu tương tác (interaction)** đến bot, để bot phản hồi.
+Nó tạo ra **các nút có thể nhấn**, cho phép người dùng **tương tác trực tiếp**, và khi được bấm thì bot sẽ **nhận sự kiện tương tác (interaction)**, để bot phản hồi.
 
 <Preview>
 
 	<Fragment slot="dev">
-		Các nút (**button**) phải được đặt **bên trong một Action Row** hoặc trong **accessory của Section** thì mới được phép gửi đi.
+		Các nút (**button**) phải được đặt **bên trong một [Action Row](https://discord.com/developers/docs/components/reference#action-row)** hoặc trong **accessory của [Section](https://discord.com/developers/docs/components/reference#section)** thì mới được phép gửi đi.
         
         Button đều có thể được sử dụng trong cả component cũ lẫn component mới. Chúng ta có thể dựa vào đây để gửi 1 Button (trong layout mới) bằng cách subclass `ui.Button` và thêm `callback`:
 
@@ -105,7 +110,308 @@ Nếu bạn muốn nút của bạn là một nút chỉ dẫn URL, thì bạn c
     </Fragment>
 
 	<Fragment slot="preview">
-        <Image class="attachment-media" src={ButtonExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
+        <video class="attachment-media" src={ButtonExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
 	</Fragment>
 
 </Preview>
+
+
+
+### Select (Trình chọn)
+
+**Select (Trình chọn)** là một **thành phần tương tác (interactive component)** cho phép người dùng **chọn tùy chọn** được cung cấp sẵn.
+
+Khi người dùng **hoàn tất việc chọn**, bot sẽ **nhận được một sự kiện tương tác (interaction)**.
+
+<Preview>
+
+<Fragment slot="dev">
+
+Thành phần này có thể được **cấu hình ở hai chế độ**:  
+- **Chọn đơn (Single-select):** chỉ chọn một mục.  
+- **Chọn nhiều (Multi-select):** chọn nhiều mục cùng lúc. *(GlitchBucket không hỗ trợ chế độ này khi dựng layout)*
+
+**Select** có thể được sử dụng trong **tin nhắn (messages)** và **hộp thoại (modals)**.  
+
+Trong tin nhắn, Select **phải được đặt bên trong một [Action Row](https://discord.com/developers/docs/components/reference#action-row)**, còn trong hộp thoại thì **đặt trong một [Label](https://discord.com/developers/docs/components/reference#label)**.
+
+Select đều có thể được sử dụng trong cả component cũ lẫn component mới. Chúng ta có thể dựa vào đây để gửi 1 Select (trong layout mới) bằng cách subclass `ui.Select` và thêm `callback`:
+
+<Code code={`
+from discord import Interaction, PartialEmoji, SelectOption
+from discord.ui import ActionRow, LayoutView, Select
+
+class MySelect(Select):
+    async def callback(self, interaction: Interaction):
+        await interaction.response.send_message(f'Bạn vừa chọn lựa chọn số {self.values[0]}!', ephemeral=True)
+
+layout = LayoutView(timeout=300)
+
+options = [
+    SelectOption(emoji='💖', value='1', label='Số 1', description='Lựa chọn số 1'),
+    SelectOption(emoji=PartialEmoji.from_str('<a:gura_bounce:1311328344008032388>'), value='2', label='Số 2', description='Lựa chọn số 2'),
+]
+
+row = ActionRow(
+    MySelect(placeholder='Chọn 1 lựa chọn', options=options)
+)
+
+layout.add_item(row)
+
+await channel.send(view=layout)`} 
+lang="py" title="button.py"/>
+
+</Fragment>
+
+<Fragment slot="user">
+
+Bạn cần tạo, hoặc sửa 1 **trình chọn** có sẵn qua lệnh `/bucketscript dropdown`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+
+Sau khi đã làm trình chọn cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Select**, và chọn 1 trình chọn đã có sẵn từ `/bucketscript dropdown`.
+
+</Fragment>
+
+<Fragment slot="preview">
+    <video class="attachment-media" src={SelectExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
+</Fragment>
+
+</Preview>
+
+
+
+### Separator (Ngăn cách)
+**Separator (Ngăn cách)** là một **thành phần bố cục cấp cao (top-level layout component)** dùng để **thêm khoảng đệm ngang (horizontal padding)** và **tạo sự phân chia trực quan** giữa các thành phần khác trong tin nhắn.
+
+<Preview>
+
+<Fragment slot="dev">
+
+Separator không có lưu ý đặc biệt nào. Chúng ta có thể dựa vào đây để gửi 1 Separator (trong layout mới):
+
+<Code code={`
+from discord import SeparatorSpacing
+from discord.ui import LayoutView, Separator, TextDisplay
+
+layout = LayoutView(timeout=300)
+
+top = TextDisplay('Bắc Triều Tiên')
+separator = Separator(visible=True, spacing=SeparatorSpacing.small)
+bottom = TextDisplay('Nam Triều Tiên')
+
+for item in (top, separator, bottom):
+    layout.add_item(item)
+
+await channel.send(view=layout)`} 
+lang="py" title="separator.py"/>
+
+</Fragment>
+
+<Fragment slot="user">
+
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+
+Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Separator**. Bot sẽ tự thêm ngăn cách cho bạn mà không phải nhập gì thêm.
+
+</Fragment>
+
+<Fragment slot="preview">
+    <Image class="attachment-media" src={SeparatorExample} alt="Separator Example" style="width: 100%; border-radius: 12px; display:block;"/>
+</Fragment>
+
+</Preview>
+
+### Section (Nội dung đa phương tiện)
+**Section (Nội dung đa phương tiện)** là một **thành phần bố cục cấp cao (top-level layout component)** cho phép bạn **liên kết nội dung chính (text)** với một **thành phần phụ đi kèm (accessory component)** theo ngữ cảnh.  
+Trường hợp sử dụng phổ biến nhất là **kết hợp nội dung văn bản với một thành phần phụ**, ví dụ như nút, hoặc hình ảnh.
+
+<Preview>
+
+<Fragment slot="dev">
+:::caution
+`accessory` của **Section** chỉ có thể là [Button](https://discord.com/developers/docs/components/reference#button) hoặc [Thumbnail](https://discord.com/developers/docs/components/reference#thumbnail), và bạn không được dùng component khác (như [Select](https://discord.com/developers/docs/components/reference#string-select)).
+
+**Button** đặt trong `accessory` cũng không cần wrap qua **ActionRow**.
+:::
+
+Chúng ta có thể dựa vào đây để gửi 1 Section:
+
+<Code code={`from discord import SeparatorSpacing
+from discord.ui import LayoutView, Section, Container, Button, TextDisplay, Thumbnail, Separator
+
+layout = LayoutView(timeout=300)
+
+items = [
+    # Section đầu tiên, sử dụng Thumbnail
+    Section(    
+        TextDisplay(
+            f'Chào mừng **{user.name}** đã đến với server!\\n\\n'
+            '- 🧯 Để yêu cầu support, gửi tin nhắn tại <#1246856105074626634>\\n'
+            '- 💬 Tham gia chat với mọi người tại <#1145547639618801736>'
+        ),
+        accessory=Thumbnail(media=user.avatar.url, spoiler=False)
+    ),
+
+    # Separator để phân chia 2 Section
+    Separator(visible=True, spacing=SeparatorSpacing.large),    
+
+    # Section thứ 2, sử dụng Button
+    Section(    
+        TextDisplay('Để xem các module của bot, bạn có thể đọc thêm \\ntại đây nhé!!'),
+        accessory=Button(emoji='📖', label='Tài liệu', url='https://bot.tudubucket.dev/getting-started/')
+    )
+]
+
+for item in items:
+    layout.add_item(item)
+
+await channel.send(view=layout)`} 
+lang="py" title="section.py"/>
+
+</Fragment>
+
+<Fragment slot="user">
+
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+
+Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, sau đó:
+
+- Chọn **Section - Button**, nếu bạn muốn thêm 1 Nội dung có chứa [Nút](/bucketscript/layout/#button-nút-bấm)
+- Chọn **Section - Image**, nếu bạn muốn thêm 1 Nội dung có chứa ảnh thumbnail 
+
+Sau đó, bạn nhập những phần như bot yêu cầu.
+
+</Fragment>
+
+<Fragment slot="preview">
+    <Image class="attachment-media" src={SectionExample} alt="Section Example" style="width: 100%; border-radius: 12px; display:block;"/>
+</Fragment>
+
+</Preview>
+
+### Media Gallery (Sưu tập ảnh)
+**Media Gallery (Bộ sưu tập phương tiện)** là một **thành phần nội dung cấp cao (top-level content component)** cho phép bạn **hiển thị từ 1 đến 10 tệp phương tiện** (hình ảnh, video, v.v.) trong **dạng bố cục dạng thư viện (gallery)** gọn gàng và có tổ chức.  
+
+Mỗi mục trong bộ sưu tập có thể **kèm mô tả tùy chọn** và **được đánh dấu là nội dung tiết lộ (spoiler)** để làm mờ nếu cần.
+
+<Preview>
+
+<Fragment slot="dev">
+
+Chúng ta có thể dựa vào đây để gửi 1 Media Gallery:
+
+<Code code={`
+from discord import MediaGalleryItem
+from discord.ui import LayoutView, MediaGallery
+
+layout = LayoutView(timeout=300)
+
+gallery = MediaGallery(
+    MediaGalleryItem('https://cdn.tudubucket.dev/widebucket.png'),
+    MediaGalleryItem('https://cdn.tudubucket.dev/gura_bounce.gif'),
+    MediaGalleryItem('https://cdn.tudubucket.dev/gura_bounce.gif'),
+    MediaGalleryItem('https://cdn.tudubucket.dev/gura_bounce.gif'),
+)
+
+layout.add_item(gallery)
+
+await channel.send(view=layout)`} 
+lang="py" title="media_gallery.py"/>
+
+</Fragment>
+
+<Fragment slot="user">
+
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+
+Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, sau đó chọn **Media Gallery**, rồi nhập các đường dẫn (URL) hình ảnh mà bạn muốn hiển thị, mỗi ảnh 1 dòng. 
+
+Dựa theo **[BucketScript](/bucketscript/functions)**, Bạn cũng có thể sử dụng các placeholder như [`{user_avatar}`](/bucketscript/functions#placeholder-về-user) hoặc [`{server_icon}`](/bucketscript/functions#placeholder-về-server) thay cho 1 URL để hiển thị avatar của người dùng hoặc icon của server.
+
+</Fragment>
+
+<Fragment slot="preview">
+    <Image class="attachment-media" src={MediaGalleryExample} alt="Media Gallery Example" style="width: 100%; border-radius: 12px; display:block;"/>
+</Fragment>
+
+</Preview>
+
+### Container (Vùng chứa)
+**Container (Vùng chứa)** là một **thành phần bố cục cấp cao (top-level layout component)**.  
+
+Thành phần này cho phép bạn **gom nhóm và bao bọc trực quan nhiều thành phần khác** vào cùng một khối, đồng thời có thể tùy chỉnh thêm **thanh màu (accent color bar)** giống như Embed để tạo điểm nhấn.
+
+Nói 1 cách đơn giản, vùng chứa này có giao diện giống Embed, nhưng để chứa các thành phần mới, giúp thông tin hiển thị trực quan hơn. 
+
+<Preview>
+
+<Fragment slot="dev">
+
+Chúng ta có thể dựa vào đây để gửi 1 Container:
+
+<Code code={`
+from discord import SeparatorSpacing, MediaGalleryItem
+from discord.ui import LayoutView, Container, TextDisplay, MediaGallery, Button, Section, Separator
+
+ATTACHMENT_CDN = 'https://cdn.discordapp.com/attachments/697138785317814292'
+
+layout = LayoutView(timeout=None)
+container = Container(
+    MediaGallery(MediaGalleryItem(f'{ATTACHMENT_CDN}/1364347504702914602/docs-header.png')),
+
+    TextDisplay('### Giới thiệu các thành phần mới cho tin nhắn!'),
+
+    TextDisplay(
+        'Trước đây, hệ thống thành phần cũ dù **hoạt động ổn định**, nhưng vẫn có **nhiều hạn chế**. \\n'
+        'Nội dung, tệp đính kèm, embed và các thành phần khác **phải tuân theo vị trí cố định**.\\n\\n'),
+
+    MediaGallery(MediaGalleryItem(f'{ATTACHMENT_CDN}/1364347505642569850/components-hero.png')),
+
+    TextDisplay(
+        'Hệ thống thành phần mới trên đây **đã khắc phục hoàn toàn các giới hạn đó**, '
+        'với **các thành phần có thể kết hợp tự do (fully composable)** - bạn có thể **sắp xếp, bố trí** '
+        'theo bất kỳ thứ tự nào, tạo nên **thiết kế linh hoạt và hấp dẫn hơn về mặt trực quan**.'
+    ),
+
+    Separator(visible=True, spacing=SeparatorSpacing.small),
+
+    Section(
+        TextDisplay('Tài liệu liên quan về các thành phần mới:'),
+        accessory=Button(label='Overview', url='https://discord.com/developers/docs/components/overview')
+    ),
+
+    Section(
+        TextDisplay('Danh sách các thành phần mới:'),
+        accessory=Button(label='Reference', url='https://discord.com/developers/docs/components/reference')
+    )
+)
+
+layout.add_item(container)
+await channel.send(view=layout)`} 
+lang="py" title="container.py"/>
+
+</Fragment>
+
+<Fragment slot="user">
+
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+
+Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, sau đó chọn **Container**, nhập các thông tin như màu hoặc spoiler
+
+Bot sẽ hiện cho bạn vùng chứa lên để chỉnh sửa (thêm/xóa) các thành phần khác được miêu tả trước đó. 
+
+</Fragment>
+
+<Fragment slot="preview">
+    <Image class="attachment-media" src={ContainerExample} alt="Container Example" style="width: 100%; border-radius: 12px; display:block;"/>
+</Fragment>
+
+</Preview>
+
+## Các lệnh dựng layout của bot
+:::note
+Sẽ có trong cập nhật tới!!
+:::
+## Ví dụ về các giao diện
+:::note
+Sẽ có trong cập nhật tới!!
+:::
