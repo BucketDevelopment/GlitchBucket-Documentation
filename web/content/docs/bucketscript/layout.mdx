@@ -1,0 +1,44 @@
+---
+title: "Layout"
+description: "GlitchBucket - Layout (giao diện) tin nhắn"
+---
+
+import { Code } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import Cv2ExampleImage from '../assets/layouts/component_v2_message.png';
+import TextDisplayExample from '../assets/layouts/text_display.png';
+export const highlights = ['name:', 'message:', 'channel:']
+
+<Image class="attachment-media" src={Cv2ExampleImage} alt="Component v2 Message" style="width: 100%; border-radius: 12px; display:block;"/>
+
+Phía trên chính là Components v2 của Discord - một *layout (giao diện)* tin nhắn rất mới có tính linh hoạt và mạnh mẽ hơn embed truyền thống, cho phép bố trí nội dung và các hành động tương tác ngay trong cùng khung tin nhắn. 
+
+Tất cả các *components (thành phần)* này có thể tùy chỉnh và kết hợp với nhau, giúp bạn tạo ra tin nhắn bắt mắt, rõ ràng, và có thể tương tác trực tiếp.
+
+Như thường lệ, Layout của **GlitchBucket** sẽ sử dụng bộ phận xử lí tin nhắn **[BucketScript](/bucketscript/functions)**. Tài liệu dưới đây sẽ miêu tả về các thành phần (components), cách sử dụng trong GlitchBucket, cũng như 1 phần hỗ trợ các Developer về layout (giao diện) mới này. Nếu bạn muốn đọc tài liệu từ chính Discord, thì bạn có thể xem [tại đây](https://discord.com/developers/docs/components/overview).
+
+--- 
+
+## Các thành phần của giao diện
+### Text (Ô chữ)
+
+<Image class="attachment-media" src={TextDisplayExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
+
+**Text Display** là một **thành phần nội dung (content component)** cho phép bạn thêm **văn bản có định dạng**.  
+Cách hoạt động của thành phần này **rất giống với nội dung tin nhắn bình thường**, nhưng nó cho phép bạn **thêm nhiều khối văn bản riêng biệt**, giúp **kiểm soát bố cục hiển thị của tin nhắn** linh hoạt hơn.
+
+Đối với **developer**, bạn có thể code như sau để gửi 1 TextDisplay đi:
+<Code code={`
+from discord.ui import LayoutView, TextDisplay
+
+layout = LayoutView(timeout=300)
+text = TextDisplay('Hello World!')
+
+layout.add_item(text)
+
+await channel.send(view=layout)`} 
+lang="py" title="text_display.py"/>
+
+
+
+

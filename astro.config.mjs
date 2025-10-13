@@ -28,6 +28,13 @@ export default defineConfig({
         },
         head: [
             {
+                tag: "link", 
+                attrs: {
+                    href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+                    rel: "stylesheet",
+                },
+            },
+            {
                 tag: "script",
                 content: "(function () {const domain = window.location.hostname; const path = window.location.pathname; const url = `https://service.tudubucket.dev/metrics/?domain=${encodeURIComponent(domain)}&path=${encodeURIComponent(path)}`; fetch(url).catch(() => {});})();"
             },
