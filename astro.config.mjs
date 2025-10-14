@@ -45,13 +45,13 @@ export default defineConfig({
                     content: "um3q97hCSAv7TUAD2O6KoMsdGKC-El8E7BMUWUw5bVk",
                 },
             },
-            {
-                tag: "meta",
-                attrs: {
-                    property: "og:image",
-                    content: "https://bot.tudubucket.dev/favicon.webp",
-                },
-            },
+            // {
+            //     tag: "meta",
+            //     attrs: {
+            //         property: "og:image",
+            //         content: "https://bot.tudubucket.dev/favicon.webp",
+            //     },
+            // },
             {
                 tag: "meta",
                 attrs: {
