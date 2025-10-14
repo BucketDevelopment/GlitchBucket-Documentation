@@ -34,10 +34,10 @@ Cách hoạt động của thành phần này **rất giống với nội dung t
 
 <Preview>
 
-	<Fragment slot="dev">
-		Đối với **developer**, chúng ta có thể dựa vào đây để gửi 1 TextDisplay đi:
+<Fragment slot="dev">
+Đối với **developer**, chúng ta có thể dựa vào đây để gửi 1 TextDisplay đi:
 
-        <Code code={`
+<Code code={`
 from discord.ui import LayoutView, TextDisplay
 
 layout = LayoutView(timeout=300)
@@ -48,17 +48,17 @@ layout.add_item(text)
 await channel.send(view=layout)`} 
 lang="py" title="text_display.py"/>
 
-	</Fragment>
+</Fragment>
 
-	<Fragment slot="user">
-		Bạn cần tạo, hoặc sửa 1 giao diện có sẵn qua lệnh `/bucketscript layout edit`. 
-        
-        Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Text Display**, và nhập nội dung bạn muốn (như ở đây là *Hello World!*)
-	</Fragment>
+<Fragment slot="user">
+    Bạn cần tạo, hoặc sửa 1 giao diện có sẵn qua lệnh `/bucketscript layout edit`. 
+    
+    Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Text Display**, và nhập nội dung bạn muốn (như ở đây là *Hello World!*)
+</Fragment>
 
-	<Fragment slot="preview">
-        <Image class="attachment-media" src={TextDisplayExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
-	</Fragment>
+<Fragment slot="preview">
+    <Image class="attachment-media" src={TextDisplayExample} alt="Text Display Example" style="width: 100%; border-radius: 12px; display:block;"/>
+</Fragment>
 
 </Preview>
 
@@ -70,22 +70,22 @@ Nó tạo ra **các nút có thể nhấn**, cho phép người dùng **tương 
 
 <Preview>
 
-	<Fragment slot="dev">
-		Các nút (**button**) phải được đặt **bên trong một [Action Row](https://discord.com/developers/docs/components/reference#action-row)** hoặc trong **accessory của [Section](https://discord.com/developers/docs/components/reference#section)** thì mới được phép gửi đi.
-        
-        Button đều có thể được sử dụng trong cả component cũ lẫn component mới. Chúng ta có thể dựa vào đây để gửi 1 Button (trong layout mới) bằng cách subclass `ui.Button` và thêm `callback`:
+<Fragment slot="dev">
+Các nút (**button**) phải được đặt **bên trong một [Action Row](https://discord.com/developers/docs/components/reference#action-row)** hoặc trong **accessory của [Section](https://discord.com/developers/docs/components/reference#section)** thì mới được phép gửi đi.
 
-        <Code code={`
+Button đều có thể được sử dụng trong cả component cũ lẫn component mới. Chúng ta có thể dựa vào đây để gửi 1 Button (trong layout mới) bằng cách subclass `ui.Button` và thêm `callback`:
+
+<Code code={`
 from discord import ButtonStyle, Interaction
 from discord.ui import ActionRow, LayoutView, Button
 
 class MyButton(Button):
-    async def callback(self, interaction: Interaction):
-        await interaction.response.send_message('Bạn vừa bấm vào nút!', ephemeral=True)
+async def callback(self, interaction: Interaction):
+    await interaction.response.send_message('Bạn vừa bấm vào nút!', ephemeral=True)
 
 layout = LayoutView(timeout=300)
 row = ActionRow(
-    MyButton(emoji='💖', label='Nhãn của nút', style=ButtonStyle.gray)
+MyButton(emoji='💖', label='Nhãn của nút', style=ButtonStyle.gray)
 )
 
 layout.add_item(row)
@@ -93,12 +93,12 @@ layout.add_item(row)
 await channel.send(view=layout)`} 
 lang="py" title="button.py" mark={10}/>
 
-	</Fragment>
+</Fragment>
 
-	<Fragment slot="user">
-		Bạn cần tạo, hoặc sửa 1 **nút** có sẵn qua lệnh `/bucketscript button`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
-        
-        Sau khi đã làm nút cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Button**, và chọn 1 nút đã có sẵn từ `/bucketscript button`.
+<Fragment slot="user">
+    Bạn cần tạo, hoặc sửa 1 **nút** có sẵn qua lệnh `/bucketscript button`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+    
+    Sau khi đã làm nút cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Button**, và chọn 1 nút đã có sẵn từ `/bucketscript button`.
 
 :::note
 Bạn có thể chỉ nhập emoji, hoặc chỉ tên hiển thị của nút, nhưng bắt buộc phải có 1 cái nhé!
@@ -107,11 +107,11 @@ Bạn có thể chỉ nhập emoji, hoặc chỉ tên hiển thị của nút, n
 :::note
 Nếu bạn muốn nút của bạn là một nút chỉ dẫn URL, thì bạn chỉ cần để phản hồi là URL đó. Bot sẽ tự hiểu và đặt đó là nút được chỉ dẫn tới 1 URL. Khi người dùng bấm vào thì sẽ nhảy thẳng tới link bạn đã đặt.
 :::
-    </Fragment>
+</Fragment>
 
-	<Fragment slot="preview">
-        <video class="attachment-media" src={ButtonExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
-	</Fragment>
+<Fragment slot="preview">
+    <video class="attachment-media" src={ButtonExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
+</Fragment>
 
 </Preview>
 
