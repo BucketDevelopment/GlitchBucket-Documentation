@@ -85,12 +85,12 @@ from discord import ButtonStyle, Interaction
 from discord.ui import ActionRow, LayoutView, Button
 
 class MyButton(Button):
-async def callback(self, interaction: Interaction):
-    await interaction.response.send_message('Bạn vừa bấm vào nút!', ephemeral=True)
+    async def callback(self, interaction: Interaction):
+        await interaction.response.send_message('Bạn vừa bấm vào nút!', ephemeral=True)
 
 layout = LayoutView(timeout=300)
 row = ActionRow(
-MyButton(emoji='💖', label='Nhãn của nút', style=ButtonStyle.gray)
+    MyButton(emoji='💖', label='Nhãn của nút', style=ButtonStyle.gray)
 )
 
 layout.add_item(row)
