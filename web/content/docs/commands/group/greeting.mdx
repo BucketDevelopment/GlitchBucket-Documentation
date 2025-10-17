@@ -1,0 +1,115 @@
+---
+title: "👋 Greeting/Farewell"
+description: "GlitchBucket - Set tin nhắn chào mừng/tạm biệt"
+sidebar:
+  label: "👋 Greeting/Farewell"
+  order: 55
+---
+
+---
+
+## `/greeting message` - Đặt tin nhắn Chào mừng
+Đặt tin nhắn Chào mừng
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `message`: Chỉ định tin nhắn
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ set một tin nhắn chào mừng với embed có tên `welcome`
+<Code code="/greeting message message:Xin chào {user_mention} đã đến với {server_name}!{embed:welcome}" title="command" mark={highlights} />
+
+---
+
+## `/greeting channel` - Đặt kênh Chào mừng
+Đặt kênh Chào mừng
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chọn kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chỉ định kênh `#welcome` là kênh chào mừng
+<Code code="/greeting channel channel:#welcome" title="command" mark={highlights} />
+
+---
+
+## `/greeting clear` - Xóa tin nhắn Chào mừng
+Xóa tin nhắn Chào mừng
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/greeting clear " title="command" mark={highlights} />
+
+---
+
+## `/greeting test` - Thử tin nhắn chào mừng
+Lệnh này sẽ thử tin nhắn chào mừng
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/greeting test " title="command" mark={highlights} />
+
+
+---
+
+## `/farewell message` - Đặt tin nhắn Tạm biệt
+Đặt tin nhắn Tạm biệt
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `message`: Chỉ định tin nhắn
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ đặt tin nhắn tạm biệt với một số placeholder
+<Code code="/farewell message message:Tạm biệt {user}, mong bạn sẽ quay trở lại, ;(\nServer hiện chỉ còn {server_membercount_nobots} member" title="command" mark={highlights} />
+
+---
+
+## `/farewell channel` - Đặt kênh Tạm biệt
+Đặt kênh Tạm biệt
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Chọn kênh
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ đặt kênh `#goodbye` là kênh gửi tin nhắn tạm biệt
+<Code code="/farewell channel channel:#goodbye" title="command" mark={highlights} />
+
+---
+
+## `/farewell clear` - Xóa tin nhắn Tạm biệt
+Xóa tin nhắn Tạm biệt
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/farewell clear " title="command" mark={highlights} />
+
+
+---
+
+## `/farewell test` - Thử tin nhắn Tạm biệt
+Lệnh này sẽ kiểm tra & Thử tin nhắn Tạm biệt
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/farewell test " title="command" mark={highlights} />

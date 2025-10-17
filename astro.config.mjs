@@ -91,17 +91,19 @@ export default defineConfig({
                     {
                         label: "Lệnh đơn",
                         autogenerate: { directory: "commands/single/" },
+                        collapsed: true,
                     },
                     {
                         label: "Khối lệnh",
                         autogenerate: { directory: "commands/group/" },
-                    },
-                    {
-                        label: "BucketScript",
-                        autogenerate: { directory: "bucketscript/" },
+                        collapsed: true,
                     },
                 ],
             },
+                {
+                    label: "BucketScript",
+                    autogenerate: { directory: "bucketscript/" },
+                },
             {
                 label: "Pháp lý",
                 autogenerate: { directory: "policy" },

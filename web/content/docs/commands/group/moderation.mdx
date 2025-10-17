@@ -9,7 +9,7 @@ export const highlights = ['reason:', 'member:']
 
 ---
 
-## `/moderation timeout` - Tạm thời chặn một thành viên
+## `/moderation timeout`
 Tạm thời chặn một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -24,7 +24,7 @@ _Bắt buộc:_
 
 ---
 
-## `/moderation untimeout` - Bỏ chặn tạm thời một thành viên
+## `/moderation untimeout`
 Bỏ chặn tạm thời một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -38,7 +38,7 @@ _Bắt buộc:_
 
 ---
 
-## `/moderation ban` - Cấm một thành viên
+## `/moderation ban`
 Cấm một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -53,7 +53,7 @@ _Bắt buộc:_
 
 ---
 
-## `/moderation unban` - Bỏ cấm một người dùng
+## `/moderation unban`
 Bỏ cấm một người dùng
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -67,7 +67,7 @@ _Bắt buộc:_
 
 ---
 
-## `/moderation warn` - Cảnh cáo một thành viên
+## `/moderation warn`
 Cảnh cáo một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -81,7 +81,7 @@ _Bắt buộc:_
 
 ---
 
-## `/moderation unwarn` - Bỏ cảnh cáo một thành viên
+## `/moderation unwarn`
 Bỏ cảnh cáo một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -96,108 +96,7 @@ _Bắt buộc:_
 
 ---
 
-## `/moderation kick` - Đuổi một thành viên
-Đuổi một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `reason`: Hãy nhập lý do cho hành động này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation kick member: reason:" title="command" mark={highlights} />
-
----
-
-## `/moderation timeout` - Tạm thời chặn một thành viên
-Tạm thời chặn một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `duration`: Chỉ định thời gian dưới dạng ngắn (vd: 10m25s), hoặc số giây (vd: 86400)
-- `reason`: Hãy nhập lý do cho hành động này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation timeout member: duration: reason:" title="command" mark={highlights} />
-
----
-
-## `/moderation untimeout` - Bỏ chặn tạm thời một thành viên
-Bỏ chặn tạm thời một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `reason`: Hãy nhập lý do cho hành động này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation untimeout member: reason:" title="command" mark={highlights} />
-
----
-
-## `/moderation ban` - Cấm một thành viên
-Cấm một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
-- `reason`: Hãy nhập lý do cho hành động này
-- `delete_message`: Chỉ định số ngày tin nhắn cũ để xóa, mặc định là 0
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation ban user: reason: delete_message:" title="command" mark={highlights} />
-
----
-
-## `/moderation unban` - Bỏ cấm một người dùng
-Bỏ cấm một người dùng
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
-- `reason`: Hãy nhập lý do cho hành động này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation unban user: reason:" title="command" mark={highlights} />
-
----
-
-## `/moderation warn` - Cảnh cáo một thành viên
-Cảnh cáo một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên
-- `reason`: Hãy nhập lý do cho hành động này
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation warn member: reason:" title="command" mark={highlights} />
-
----
-
-## `/moderation unwarn` - Bỏ cảnh cáo một thành viên
-Bỏ cảnh cáo một thành viên
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
-- `reason`: Hãy nhập lý do cho hành động này
-- `case`: Chỉ định ID của trường hợp, để trống cho trường hợp gần nhất
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/moderation unwarn user: reason: case:" title="command" mark={highlights} />
-
----
-
-## `/moderation kick` - Đuổi một thành viên
+## `/moderation kick`
 Đuổi một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>

@@ -49,7 +49,7 @@ Quick Report cũng có thể chỉ cho phép/hạn chế một số kênh nhận
 
 ## Các lệnh quản lí report & tố cáo người dùng
 
-### `/report message` - Báo cáo tin nhắn
+### `/report message`
 Lệnh này để báo cáo tin nhắn trong máy chủ
 
 :::note[Note]
@@ -71,7 +71,7 @@ Lệnh này sẽ báo cáo tin nhắn với ID `1202861080175452210` trong kênh
 <Code code="/report message channel:#general message_id:1202861080175452210 reason:Vi phạm quy tắc máy chủ" title="command" mark={highlights} />
 
 
-### `/report recent` - Xem các báo cáo gần đây
+### `/report recent`
 Lệnh này sẽ hiển thị các báo cáo gần đây
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -89,7 +89,7 @@ _Không bắt buộc:_
 Lệnh này sẽ hiển thị các báo cáo bị từ chối gần đây
 <Code code="/report recent order:Mới nhất status:Đã từ chối" title="command" mark={highlights} />
 
-### `/report check` - Xem báo cáo dựa trên ID
+### `/report check`
 Lệnh này sẽ hiển thị báo cáo dựa trên ID
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -104,7 +104,7 @@ _Không bắt buộc:_
 Lệnh này sẽ hiển thị báo cáo dựa trên ID `2215`
 <Code code="/report check report_id:2215" title="command" mark={highlights} />
 
-### `/report update` - Phê duyệt/Từ chối báo cáo
+### `/report update`
 Lệnh này giúp bạn Phê duyệt/Từ chối báo cáo
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -121,7 +121,7 @@ Lệnh này phê duyệt báo cáo với ID `2215` với lí do **"Người dùn
 
 ## Các lệnh cài đặt
 
-### `/quickreport enable` - Kích hoạt tính năng
+### `/quickreport enable`
 Lệnh này sẽ kích hoạt tính năng Quick Report
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -133,7 +133,7 @@ _Bắt buộc:_
 Lệnh này sẽ kích hoạt tính năng Quick Report, gán kênh `#reports` thành kênh nhận các report
 <Code code="/quickreport enable receive_channel:#reports" title="command" mark={highlights} />
 
-### `/quickreport muterole` - Đặt muterole
+### `/quickreport muterole`
 Lệnh này sẽ đặt vai trò tắt tiếng (mute role) hiện có của bot kiểm duyệt khác
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -145,7 +145,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt role **@Muted** thành mute role
 <Code code="/quickreport muterole role:@Muted" title="command" mark={highlights} />
 
-### `/quickreport manager` - Đặt role người quản lý báo cáo
+### `/quickreport manager`
 Đặt vai trò người quản lý báo cáo
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -157,7 +157,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt role **@Moderator** thành role có quyền quản lí báo cáo
 <Code code="/quickreport manager role:@Moderator" title="command" mark={highlights} />
 
-### `/quickreport bypass` - Bảo vệ người dùng khỏi các báo cáo
+### `/quickreport bypass`
 Lệnh này sẽ đặt role bảo vệ người dùng khỏi các báo cáo. Khi người dùng có role được cài đặt ở đây, họ sẽ không thể bị báo cáo bởi member khác
 :::note[Note]
 Người có quyền Quản lí Tin nhắn trở lên mặc định sẽ không thể bị báo cáo.
@@ -172,7 +172,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt role **@VIP** là role bảo vệ người dùng khỏi các báo cáo
 <Code code="/quickreport bypass role:@VIP" title="command" mark={highlights} />
 
-### `/quickreport blacklist` - Đặt vai trò chặn báo cáo
+### `/quickreport blacklist`
 Lệnh này sẽ đặt vai trò khiến người dùng không thể báo cáo các tin nhắn khác. Khi người dùng có vai trò này, họ sẽ không thể tạo báo cáo mới.
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -184,7 +184,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt role **@Report Blacklisted** là role bảo vệ người dùng khỏi các báo cáo
 <Code code="/quickreport blacklist role:@Report Blacklisted" title="command" mark={highlights} />
 
-### `/quickreport autoexpire` - Đặt thời gian tự động hết hạn báo cáo
+### `/quickreport autoexpire`
 Lệnh này sẽ đặt thời gian chờ cho các báo cáo khi không có người kiểm duyệt nào xử lý sau thời gian cụ thể
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -196,7 +196,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt thời gian tự xóa cho các báo cáo là **72 giờ**
 <Code code="/quickreport autoexpire after:72" title="command" mark={highlights} />
 
-### `/quickreport concurrent` - Đặt báo cáo đồng thời tối đa
+### `/quickreport concurrent`
 Lệnh này sẽ đặt báo cáo đồng thời tối đa cho mỗi người dùng
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -208,7 +208,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt báo cáo đồng thời tối đa cho mỗi người dùng là **6 báo cáo chưa được xử lí**
 <Code code="/quickreport concurrent maximum:6" title="command" mark={highlights} />
 
-### `/quickreport successful_message` - Đặt tin nhắn nhận báo cáo
+### `/quickreport successful_message`
 Lệnh này sẽ đặt một tin nhắn được gửi tới Người quản lí báo cáo sau khi báo cáo thành công
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -220,7 +220,7 @@ _Bắt buộc:_
 Lệnh này sẽ đặt một tin nhắn được gửi tới Người quản lí báo cáo sau khi báo cáo thành công là **"@Moderator Đã tiếp nhận một phiếu tố cáo mới"**
 <Code code="/quickreport successful_message message:@Moderator Đã tiếp nhận một phiếu tố cáo mới" title="command" mark={highlights} />
 
-### `/quickreport auto_delele` - Tự động xóa báo cáo 
+### `/quickreport auto_delele`
 Lệnh này đặt bot tự động xóa báo cáo trong một số sự kiện
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -234,7 +234,7 @@ _Bắt buộc:_
 Lệnh này đặt bot tự động xóa báo cáo trong tất cả các sự kiện liệt kê bên trên
 <Code code="/quickreport auto_delele on_user_timeout:True on_user_muted:True on_user_leave:True" title="command" mark={highlights} />
 
-### `/quickreport channels` - Đưa kênh vào danh sách blacklist/whitelist
+### `/quickreport channels`
 Lệnh này sẽ đưa một số kênh vào danh sách blacklist/whitelist
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -247,7 +247,7 @@ _Bắt buộc:_
 Lệnh này sẽ thêm kênh `spam` vào danh mục không nhận report
 <Code code="/quickreport channels action:Add channel:#spam" title="command" mark={highlights} />
 
-### `/quickreport categories` - Đưa danh mục vào danh sách blacklist/whitelist
+### `/quickreport categories`
 Lệnh này sẽ đưa một số danh mục vào danh sách blacklist/whitelist
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -260,7 +260,7 @@ _Bắt buộc:_
 Lệnh này sẽ xóa danh mục `chat` khỏi danh mục không nhận report
 <Code code="/quickreport categories action:Remove category:chat" title="command" mark={highlights} />
 
-### `/quickreport mode` - Chuyển đổi chế độ
+### `/quickreport mode`
 Lệnh này sẽ chuyển đổi chế độ Quick Report (chỉ định trong một số kênh (whitelist), hoặc chặn report tại một số kênh (blacklist), hoặc toàn bộ máy chủ (entire guild))
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -272,7 +272,7 @@ _Bắt buộc:_
 Lệnh này sẽ chuyển đổi chế độ Quick Report thành nhận report tại toàn bộ máy chủ
 <Code code="/quickreport mode action:Toàn bộ máy chủ" title="command" mark={highlights} />
 
-### `/quickreport configuration` - Xem cấu hình hiện tại 
+### `/quickreport configuration`
 Lệnh này sẽ hiển thị cấu hình Quick Report hiện tại của máy chủ này
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -283,7 +283,7 @@ _Không có tham số_
 
 <Code code="/quickreport configuration " title="command" mark={highlights} />
 
-### `/quickreport disable` - Vô hiệu hóa tính năng
+### `/quickreport disable`
 Lệnh này sẽ vô hiệu hóa tính năng Quick Report
 
 <h4>Tham số lệnh (Parameters)</h4>
