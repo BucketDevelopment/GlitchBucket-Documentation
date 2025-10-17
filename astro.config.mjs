@@ -5,6 +5,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'https://bot.tudubucket.dev/',
     srcDir: "./web",
     integrations: [starlight({
         title: "BucketDevelopment",
@@ -102,6 +103,7 @@ export default defineConfig({
             },
                 {
                     label: "BucketScript",
+                    badge: { text: "Mới", variant: "caution" },
                     autogenerate: { directory: "bucketscript/" },
                 },
             {

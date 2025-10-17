@@ -6,9 +6,12 @@ sidebar:
   order: 55
 ---
 
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['template:', 'giveaway:', 'reward:', 'duration:', 'winners:', 'channel:', 'template:', 'requirements:', 'blacklists:', 'bypasses:', 'multipliers:', 'color:', 'button_color:', 'button_emoji:', 'requires_join_before:', 'image:']
+
 ---
 
-## `/greeting message` - Đặt tin nhắn Chào mừng
+## `/greeting set` - Đặt tin nhắn Chào mừng
 Đặt tin nhắn Chào mừng
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -16,21 +19,11 @@ _Bắt buộc:_
 - `message`: Chỉ định tin nhắn
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ set một tin nhắn chào mừng với embed có tên `welcome`
-<Code code="/greeting message message:Xin chào {user_mention} đã đến với {server_name}!{embed:welcome}" title="command" mark={highlights} />
+Lệnh này sẽ set một tin nhắn chào mừng với embed có tên `welcome`:
+<Code code="/greeting set" title="command" mark={highlights} />
 
----
-
-## `/greeting channel` - Đặt kênh Chào mừng
-Đặt kênh Chào mừng
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn kênh
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉ định kênh `#welcome` là kênh chào mừng
-<Code code="/greeting channel channel:#welcome" title="command" mark={highlights} />
+Sau đó, bạn nhập tin nhắn chào mừng vào hộp thoại:
+<Code code="Xin chào {user_mention} đã đến với {server_name}!{embed:welcome}" />
 
 ---
 
@@ -62,29 +55,19 @@ _Không có tham số_
 
 ---
 
-## `/farewell message` - Đặt tin nhắn Tạm biệt
+## `/farewell set` - Đặt tin nhắn Tạm biệt
 Đặt tin nhắn Tạm biệt
 
 <h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `message`: Chỉ định tin nhắn
+
+_Không có tham số_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ đặt tin nhắn tạm biệt với một số placeholder
-<Code code="/farewell message message:Tạm biệt {user}, mong bạn sẽ quay trở lại, ;(\nServer hiện chỉ còn {server_membercount_nobots} member" title="command" mark={highlights} />
+Lệnh này sẽ đặt tin nhắn tạm biệt với một số placeholder:
+<Code code="/farewell set" title="command" mark={highlights} />
 
----
-
-## `/farewell channel` - Đặt kênh Tạm biệt
-Đặt kênh Tạm biệt
-
-<h4>Tham số lệnh (Parameters)</h4>
-_Bắt buộc:_
-- `channel`: Chọn kênh
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ đặt kênh `#goodbye` là kênh gửi tin nhắn tạm biệt
-<Code code="/farewell channel channel:#goodbye" title="command" mark={highlights} />
+Sau đó, bạn nhập tin nhắn tạm biệt vào hộp thoại:n
+<Code code="Tạm biệt {user}, mong bạn sẽ quay trở lại, ;({newline}Server hiện chỉ còn {server_membercount_nobots} member" title="command" mark={highlights} />
 
 ---
 

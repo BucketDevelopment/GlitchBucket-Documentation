@@ -1,0 +1,20 @@
+---
+title: "Select (Trình chọn)"
+description: "GlitchBucket - Tạo & Quản lí các trình chọn"
+sidebar:
+  order: 40
+---
+
+import { Code } from '@astrojs/starlight/components';
+import SelectExample from '../assets/layouts/select.mp4';
+
+<video class="attachment-media" src={SelectExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
+
+
+**Select (Trình chọn)** là một **thành phần tương tác (interactive component)** cho phép người dùng **chọn tùy chọn** được cung cấp sẵn.
+
+Khi người dùng **hoàn tất việc chọn**, bot sẽ **nhận được một sự kiện tương tác (interaction)**.
+
+Thành phần này có thể được **configure ở hai chế độ**:  
+- **Chọn đơn (Single-select):** chỉ chọn một mục.  
+- **Chọn nhiều (Multi-select):** chọn nhiều mục cùng lúc. *(GlitchBucket không hỗ trợ chế độ này khi dựng layout)*

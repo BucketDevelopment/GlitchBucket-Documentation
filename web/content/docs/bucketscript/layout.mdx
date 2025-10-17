@@ -1,11 +1,13 @@
 ---
-title: "Layout"
+title: "Layout (Giao diện)"
 description: "GlitchBucket - Layout (giao diện) tin nhắn"
 head:
   - tag: meta
     attrs: 
         property: "twitter:image"
         content: "https://cdn.tudubucket.dev/component_v2_message.png"
+sidebar:
+  order: 10
 ---
 
 import { Code } from '@astrojs/starlight/components';
@@ -56,7 +58,7 @@ lang="py" title="text_display.py"/>
 </Fragment>
 
 <Fragment slot="user">
-    Bạn cần tạo, hoặc sửa 1 giao diện có sẵn qua lệnh `/bucketscript layout edit`. 
+    Bạn cần tạo, hoặc sửa 1 giao diện có sẵn qua lệnh `/layout edit`. 
     
     Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Text Display**, và nhập nội dung bạn muốn (như ở đây là *Hello World!*)
 </Fragment>
@@ -101,9 +103,9 @@ lang="py" title="button.py" mark={10}/>
 </Fragment>
 
 <Fragment slot="user">
-    Bạn cần tạo, hoặc sửa 1 **nút** có sẵn qua lệnh `/bucketscript button`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+    Bạn cần tạo, hoặc sửa 1 **nút** có sẵn qua lệnh `/buttons`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/layout edit`. 
     
-    Sau khi đã làm nút cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Button**, và chọn 1 nút đã có sẵn từ `/bucketscript button`.
+    Sau khi đã làm nút cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Button**, và chọn 1 nút đã có sẵn từ `/buttons`.
 
 :::note
 Bạn có thể chỉ nhập emoji, hoặc chỉ tên hiển thị của nút, nhưng bắt buộc phải có 1 cái nhé!
@@ -164,15 +166,15 @@ row = ActionRow(
 layout.add_item(row)
 
 await channel.send(view=layout)`} 
-lang="py" title="button.py"/>
+lang="py" title="select.py"/>
 
 </Fragment>
 
 <Fragment slot="user">
 
-Bạn cần tạo, hoặc sửa 1 **trình chọn** có sẵn qua lệnh `/bucketscript dropdown`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+Bạn cần tạo, hoặc sửa 1 **trình chọn** có sẵn qua lệnh `/selects`. Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/layout edit`. 
 
-Sau khi đã làm trình chọn cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Select**, và chọn 1 trình chọn đã có sẵn từ `/bucketscript dropdown`.
+Sau khi đã làm trình chọn cần gửi đi & chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Select**, và chọn 1 trình chọn đã có sẵn từ `/selects`.
 
 </Fragment>
 
@@ -213,7 +215,7 @@ lang="py" title="separator.py"/>
 
 <Fragment slot="user">
 
-Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/layout edit`. 
 
 Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, chọn lựa chọn **Separator**. Bot sẽ tự thêm ngăn cách cho bạn mà không phải nhập gì thêm.
 
@@ -276,7 +278,7 @@ lang="py" title="section.py"/>
 
 <Fragment slot="user">
 
-Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/layout edit`. 
 
 Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, sau đó:
 
@@ -326,7 +328,7 @@ lang="py" title="media_gallery.py"/>
 
 <Fragment slot="user">
 
-Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/layout edit`. 
 
 Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, sau đó chọn **Media Gallery**, rồi nhập các đường dẫn (URL) hình ảnh mà bạn muốn hiển thị, mỗi ảnh 1 dòng. 
 
@@ -398,7 +400,7 @@ lang="py" title="container.py"/>
 
 <Fragment slot="user">
 
-Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/bucketscript layout edit`. 
+Bạn cần tạo, hoặc sửa 1 **giao diện** có sẵn qua lệnh `/layout edit`. 
 
 Sau khi đã chọn cho mình được giao diện cần chỉnh sửa, hãy bấm **`➕ Thêm`**, sau đó chọn **Container**, nhập các thông tin như màu hoặc spoiler
 
