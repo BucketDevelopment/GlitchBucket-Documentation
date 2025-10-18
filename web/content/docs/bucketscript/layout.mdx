@@ -10,7 +10,7 @@ sidebar:
   order: 10
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import Cv2ExampleImage from '../assets/layouts/component_v2_message.png';
 import TextDisplayExample from '../assets/layouts/text_display.png';
@@ -22,6 +22,8 @@ import MediaGalleryExample from '../assets/layouts/media_gallery.png';
 import ContainerExample from '../assets/layouts/container.png';
 
 import Preview from '../components/Preview.astro';
+
+export const highlights = ['name:', 'trigger:', 'ignorecase:']
 
 <Image class="attachment-media" src={Cv2ExampleImage} alt="Component v2 Message" style="width: 100%; border-radius: 12px; display:block;"/>
 
@@ -415,9 +417,71 @@ Bot sẽ hiện cho bạn vùng chứa lên để chỉnh sửa (thêm/xóa) cá
 </Preview>
 
 ## Các lệnh dựng layout của bot
-:::note
-Sẽ có trong cập nhật tới!!
-:::
+
+### `/layout create`
+Tạo một layout (giao diện)
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `name`: Chỉ định tên layout (dạng ID, chỉ được sử dụng chữ cái thường, dấu gạch _ và số)
+
+<h4>Ví dụ sử dụng</h4>
+
+<Steps>
+
+1. Tạo layout bằng lệnh: 
+
+    <Code code="/layout create name:welcome" mark={highlights} />
+
+2. Thực hiện chỉnh sửa layout qua Interactive UI.
+
+3. Sau khi hoàn thành chỉnh sửa Layout, tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:wlc ignorecase:True" title="command" mark={highlights} />
+
+4. Nhập chuỗi kí tự sau vào ô `Phản hồi`:
+
+    <Code code="{layout:welcome}" title="command" mark={highlights} />
+
+5. Khi có người gõ đúng "wlc", bot sẽ gửi layout `welcome` ra.
+
+    :::caution
+    Layout (Giao diện) hoàn toàn khác biệt so với embed & cơ chế autoresponder bình thường. Tất cả nội dung cần thiết (nội dung tin nhắn, thành phần, container, ...) đều phải dựng trong layout.  
+
+    Nếu bạn set tin nhắn là **"Chào mừng \{user_mention\} đã đến với server!\{layout:welcome\}"**, bot sẽ chỉ gửi layout welcome đi, mà không gửi nội dung ở ngoài.
+    :::
+
+</Steps>
+
+---
+
+### `/layout edit`
+Chỉnh sửa 1 layout (giao diện) có sẵn
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `name`: Chỉ định tên layout
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ chỉnh sửa layout `welcome`
+<Code code="/layout edit name:welcome" mark={highlights} />
+
+---
+
+### `/layout delete`
+Xóa 1 layout (giao diện) có sẵn
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `name`: Chỉ định tên layout
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ xóa layout `welcome`
+<Code code="/layout delete name:welcome" mark={highlights} />
+
+
 ## Ví dụ về các giao diện
 :::note
 Sẽ có trong cập nhật tới!!

@@ -5,16 +5,159 @@ sidebar:
   order: 40
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, Steps } from '@astrojs/starlight/components';
 import SelectExample from '../assets/layouts/select.mp4';
 
-<video class="attachment-media" src={SelectExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
+export const highlights = ['name:', 'trigger:', 'ignorecase:']
 
+<video class="attachment-media" src={SelectExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
 
 **Select (Trình chọn)** là một **thành phần tương tác (interactive component)** cho phép người dùng **chọn tùy chọn** được cung cấp sẵn.
 
 Khi người dùng **hoàn tất việc chọn**, bot sẽ **nhận được một sự kiện tương tác (interaction)**.
 
-Thành phần này có thể được **configure ở hai chế độ**:  
-- **Chọn đơn (Single-select):** chỉ chọn một mục.  
-- **Chọn nhiều (Multi-select):** chọn nhiều mục cùng lúc. *(GlitchBucket không hỗ trợ chế độ này khi dựng layout)*
+Select có thể trả về **2 loại phản hồi**:
+- **Phản hồi bình thường**: Bot trả về một phản hồi dạng [BucketScript](/bucketscript/functions/)
+- **Phản hồi biểu mẫu (form)**: Bot yêu cầu người dùng điền vào một biểu mẫu, sau đó gửi dữ liệu đến kênh được chỉ định
+
+:::caution[Giới hạn]
+Mỗi trình chọn bạn được thêm tối đa **15 lựa chọn**. Bạn được phép tạo tối đa **3 trình chọn** qua GlitchBucket.
+:::
+
+---
+
+## Các lệnh quản lí Select
+
+### `/selects`
+Mở giao diện quản lí các trình chọn (select/select) trong server
+
+<h4>Ví dụ sử dụng</h4>
+
+<Steps>
+
+1. Mở giao diện quản lí select:
+
+    <Code code="/selects" />
+
+2. **Thêm select mới**: Bấm nút `➕ Tạo select (trình chọn)`
+   - Nhập thông tin select:
+     - **ID Trình chọn**: Tên định danh (chỉ chữ cái thường, số, dấu gạch _)
+     - **Placeholder**: Chữ hiển thị khi chưa chọn lựa chọn nào
+
+3. **Thêm lựa chọn**: Sau khi tạo select, chọn select từ danh sách và bấm `➕ Thêm lựa chọn`
+   - Chọn loại lựa chọn (phản hồi bình thường hoặc biểu mẫu)
+   - Nhập thông tin lựa chọn:
+     - **Tên hiển thị**: Label của lựa chọn
+     - **Mô tả**: Mô tả ngắn (không bắt buộc)
+     - **Emoji**: Emoji cho lựa chọn (bắt buộc)
+     - **Phản hồi/Form**: Nội dung phản hồi hoặc chọn form
+
+</Steps>
+
+Bạn cũng có thể:
+
+- **Chỉnh sửa select**: Chọn select từ select chính và bấm `📝 Sửa Placeholder`
+
+- **Chỉnh sửa lựa chọn**: Chọn lựa chọn từ select "Chọn lựa chọn để sửa"
+
+- **Xóa lựa chọn**: Chọn lựa chọn từ select "Chọn lựa chọn để xóa"
+
+- **Xóa select**: Bấm nút `🗑️ Xóa Select` và chọn select cần xóa
+
+---
+
+## Sử dụng Select trong tin nhắn
+
+### Với BucketScript
+Sử dụng function `{select:tên_select}` để thêm select vào tin nhắn:
+
+<Code code="{select:support_category}" title="BucketScript" />
+
+Bạn có thể thêm nhiều select như button, bằng cách ngăn nhau bằng dấu phẩy: `{select:select1,select2,...}`
+
+### Với Layout (Component v2)
+1. Tạo layout qua `/layout create`
+2. Thêm select vào layout thông qua giao diện quản lí
+3. Sử dụng `{layout:tên_layout}` trong tin nhắn
+
+### Với Autoresponder
+<Steps>
+
+1. Tạo trình chọn qua `/selects`
+
+2. Tạo autoresponder:
+    <Code code="/autoresponder add trigger:support ignorecase:True" mark={highlights} />
+
+3. Trong phản hồi, sử dụng:
+    <Code code="Chọn loại hỗ trợ bạn cần: {select:support_category}" />
+
+    :::tip[Mẹo sử dụng]
+    - Sử dụng emoji để các lựa chọn dễ nhận diện hơn
+    - Placeholder nên mô tả rõ mục đích của select
+    - Kết hợp với form để thu thập thông tin chi tiết từ user
+    :::
+</Steps>
+
+---
+
+## Ví dụ thực tế
+
+### Select phân loại hỗ trợ
+**Cấu hình Select:**
+- ID: `support_category`
+- Placeholder: `Chọn loại hỗ trợ`
+
+**Các lựa chọn:**
+1. **Báo lỗi**
+   - Emoji: `🐛`
+   - Mô tả: `Báo cáo lỗi trong bot`
+   - Phản hồi: `Cảm ơn bạn đã báo lỗi! Team sẽ xử lý sớm nhất.`
+
+2. **Yêu cầu tính năng**
+   - Emoji: `✨`
+   - Mô tả: `Đề xuất tính năng mới`
+   - Form: Chọn form "Đề xuất tính năng"
+
+3. **Hỗ trợ khác**
+   - Emoji: `❓`
+   - Mô tả: `Các vấn đề khác`
+   - Phản hồi: `Staff sẽ hỗ trợ bạn trong thời gian sớm nhất!`
+
+### Select với Form
+**Cấu hình:**
+- ID: `feedback_form`
+- Placeholder: `Chọn loại phản hồi`
+- Tất cả lựa chọn đều kết nối với form đã tạo từ `/forms`
+
+---
+
+## Lưu ý quan trọng
+
+:::caution[Giới hạn Discord]
+- Mỗi tin nhắn tối đa **5 select**
+- Select không thể đứng cùng hàng với 1 Button
+- Select chỉ hỗ trợ chọn đơn (single-select), không hỗ trợ multi-select trong GlitchBucket
+:::
+
+
+
+:::note[Tương thích]
+Tương tương với Button, Select có thể được sử dụng trong:
+- Tin nhắn thường với [BucketScript](/bucketscript/functions)
+- [Layout mới](/bucketscript/layout) (Component v2)
+- [Autoresponder](/commands/group/autoresponder)
+- [Sticky Message](/commands/group/stickie)
+- [Greeting/Farewell Message](/commands/group/greeting)
+:::
+
+---
+
+## Khác biệt với Button
+
+| Tính năng | Button | Select |
+|-----------|--------|-----------------|
+| Số lượng tối đa/server | 10 | 3 |
+| Số lựa chọn/component | 1 | 15 |
+| Hiển thị | Luôn hiện | Thu gọn trong select |
+| Phù hợp cho | Hành động đơn giản | Nhiều lựa chọn phân loại |
+| URL support | Có | Không |

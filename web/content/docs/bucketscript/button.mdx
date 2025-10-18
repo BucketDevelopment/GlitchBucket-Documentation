@@ -5,12 +5,141 @@ sidebar:
   order: 30
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, Steps } from '@astrojs/starlight/components';
 import ButtonExample from '../assets/layouts/button.mp4';
 
+export const highlights = ['name:', 'trigger:', 'ignorecase:']
 
 <video class="attachment-media" src={ButtonExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
 
 **Button** là một **thành phần tương tác (interactive component)**. 
 
 Nó tạo ra **các nút có thể nhấn**, cho phép người dùng **tương tác trực tiếp**, và khi được bấm thì bot sẽ **nhận sự kiện tương tác (interaction)**, để bot phản hồi.
+
+Button có thể trả về **2 loại phản hồi**:
+- **Phản hồi bình thường**: Bot trả về một phản hồi dạng [BucketScript](/bucketscript/functions/)
+- **Phản hồi biểu mẫu (form)**: Bot yêu cầu người dùng điền vào một biểu mẫu, sau đó gửi dữ liệu đến kênh được chỉ định
+
+Button có thể được sử dụng trong:
+- Tin nhắn thường với BucketScript
+- Layout mới (Component v2)
+- Autoresponder
+- Sticky Message
+- Greeting/Farewell Message
+
+
+:::caution[Giới hạn]
+Mỗi tin nhắn tối đa **25 button** (5 hàng × 5 button/hàng). Bạn được phép tạo tối đa 10 button qua GlitchBucket.
+:::
+
+:::note[Tương thích]
+Tương tương với Select, Button có thể được sử dụng trong:
+- Tin nhắn thường với [BucketScript](/bucketscript/functions)
+- [Layout mới](/bucketscript/layout) (Component v2)
+- [Autoresponder](/commands/group/autoresponder)
+- [Sticky Message](/commands/group/stickie)
+- [Greeting/Farewell Message](/commands/group/greeting)
+:::
+
+---
+
+## Lệnh quản lí Button
+
+### `/buttons` - Quản lí Button
+Mở giao diện quản lí các nút (button) trong server
+
+<h4>Ví dụ sử dụng</h4>
+
+<Steps>
+
+1. Mở giao diện quản lí button:
+
+    <Code code="/buttons" />
+
+2. **Thêm button mới**: Bấm nút `➕ Thêm`
+   - Chọn loại button (phản hồi bình thường hoặc biểu mẫu)
+   - Nhập thông tin button:
+     - **ID Button**: Tên định danh (chỉ chữ cái thường, số, dấu gạch _)
+     - **Tên hiển thị**: Chữ hiển thị trên button
+     - **Emoji**: Emoji cho button (không bắt buộc)
+     - **Màu**: Chọn màu cho button
+     - **Phản hồi/Form**: Nội dung phản hồi hoặc chọn form
+
+</Steps>
+
+Để **chỉnh sửa button**: Chọn button từ dropdown và chỉnh sửa
+
+Để **Xóa button**: Bấm nút `➖ Xóa` và chọn button cần xóa
+
+---
+
+## Sử dụng Button trong tin nhắn
+
+### Với BucketScript
+Sử dụng function `{button:tên_button}` để thêm button vào tin nhắn:
+
+<Code code="{button:support_ticket,report_bug}" title="BucketScript" />
+
+Bạn có thể thêm nhiều button, bằng cách ngăn nhau bằng dấu phẩy: `{button:button1,button2,button3,...}`
+
+### Với Layout (Component v2)
+1. Tạo layout qua `/layout create`
+2. Thêm button vào layout thông qua giao diện quản lí
+3. Sử dụng `{layout:tên_layout}` trong tin nhắn
+
+### Với Autoresponder
+<Steps>
+
+1. Tạo button qua `/buttons`
+
+2. Tạo autoresponder:
+    <Code code="/autoresponder add trigger:help ignorecase:True" mark={highlights} />
+
+3. Trong phản hồi, sử dụng:
+    <Code code="Cần hỗ trợ? Bấm nút bên dưới nhé! {button:support_ticket}" />
+    
+    :::tip[Mẹo sử dụng]
+    - Sử dụng emoji để button dễ nhận diện hơn
+    - Tên hiển thị ngắn gọn, rõ ràng
+    - Kết hợp với form để thu thập thông tin chi tiết từ user
+    :::
+
+</Steps>
+
+---
+
+## Ví dụ thực tế
+
+### Button hỗ trợ đơn giản
+**Cấu hình:**
+- ID: `support`
+- Tên hiển thị: `Hỗ trợ`
+- Emoji: `🎫`
+- Màu: Xanh lá
+- Phản hồi: `Đã gửi yêu cầu hỗ trợ! Staff sẽ liên hệ bạn sớm.`
+
+### Button với Form
+**Cấu hình:**
+- ID: `report_bug`
+- Tên hiển thị: `Báo lỗi`
+- Emoji: `🐛`
+- Màu: Đỏ
+- Form: Chọn form đã tạo từ `/forms`
+
+### Button URL
+Để tạo button dẫn đến link, chỉ cần đặt URL làm phản hồi:
+- Phản hồi: `https://bot.tudubucket.dev/`
+
+Bot sẽ tự hiểu và tạo button dẫn link thay vì gửi tin nhắn.
+
+---
+
+## Khác biệt với Select
+
+| Tính năng | Button | Select |
+|-----------|--------|-----------------|
+| Số lượng tối đa/server | 10 | 3 |
+| Số lựa chọn/component | 1 | 15 |
+| Hiển thị | Luôn hiện | Thu gọn trong select |
+| Phù hợp cho | Hành động đơn giản | Nhiều lựa chọn phân loại |
+| URL support | Có | Không |
