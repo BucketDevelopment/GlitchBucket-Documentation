@@ -1,0 +1,32 @@
+---
+const {
+  src,
+  widthDesktop = '50%',
+  widthMobile = '100%',
+  borderRadius = '12px'
+} = Astro.props;
+---
+
+<style>
+.video-wrapper {
+  display: block;
+  border-radius: var(--radius);
+  margin: 0 auto;
+  width: var(--width-desktop);
+}
+
+@media (max-width: 768px) {
+  .video-wrapper {
+    width: var(--width-mobile);
+  }
+}
+</style>
+
+<video
+  class="video-wrapper"
+  src={src}
+  autoplay
+  loop
+  muted
+  style={`--width-desktop: ${widthDesktop}; --width-mobile: ${widthMobile}; --radius: ${borderRadius};`}
+/>
