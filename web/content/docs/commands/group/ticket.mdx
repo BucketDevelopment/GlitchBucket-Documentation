@@ -1,0 +1,247 @@
+---
+title: "🎫 Ticket System"
+description: "GlitchBucket - Hệ thống Ticket hỗ trợ member"
+sidebar:
+  label: "🎫 Ticket System"
+  order: 31
+---
+
+import { Code, Steps } from '@astrojs/starlight/components';
+
+export const highlights = ['panel:', 'channel:', 'force:', 'reason:', 'object:']
+
+**Ticket System** là một **hệ thống hỗ trợ member chuyên nghiệp** cho phép thành viên **tạo ticket riêng tư** để nhận hỗ trợ từ đội ngũ quản trị.
+
+Hệ thống hỗ trợ **hai loại ticket**:
+- **Channel Ticket**: Tạo kênh riêng trong category (truyền thống)
+- **Thread Ticket**: Tạo thread trong kênh chỉ định (hiện đại)
+
+Ticket có thể được tùy chỉnh với:
+- **Form câu hỏi**: Thu thập thông tin từ người dùng khi tạo ticket
+- **Panel phân loại**: Nhiều danh mục ticket khác nhau
+- **Transcript**: Lưu trữ lịch sử chat khi đóng ticket
+- **Rating system**: Đánh giá chất lượng hỗ trợ
+
+---
+
+## Thiết lập ban đầu
+
+### `/ticket setup` - Khởi tạo hệ thống ticket
+Tạo cấu hình ticket cơ bản cho server
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Không bắt buộc:_
+- `force`: Ghi đè cấu hình cũ nếu đã tồn tại
+
+<h4>Ví dụ sử dụng</h4>
+
+<Steps>
+
+1. Khởi tạo hệ thống ticket lần đầu:
+
+    <Code code="/ticket setup" mark={highlights} />
+
+2. **Quá trình setup tự động**:
+   - Tạo kênh `#transcripts` để lưu lịch sử
+   - Tạo category `Hỗ trợ` và kênh `🎫〡ticket`
+   - Tạo panel ticket mặc định với form câu hỏi
+   - Tạo role `Hỗ trợ Ticket` và `Admin Ticket`
+
+3. **Hoàn tất**: Ticket panel sẽ được gửi tự động vào kênh vừa tạo
+
+</Steps>
+
+---
+
+## Quản lý cấu hình
+
+### `/ticket configuration` - Cài đặt chung
+Quản lý các cài đặt áp dụng cho toàn bộ hệ thống ticket
+
+<h4>Các cài đặt có sẵn</h4>
+
+- **🏷️ Thể loại**: Chọn giữa Channel hoặc Thread ticket
+- **📜 Transcript**: Kênh lưu trữ lịch sử ticket đã đóng
+- **🏷️ Định dạng tên**: Mẫu tên ticket (ví dụ: `ticket-{id}`)
+- **🔢 Số lượng/người**: Giới hạn ticket mở cùng lúc (1-10)
+- **🔒 Đóng ticket**: Cài đặt quyền đóng và tự động đóng
+- **🤝 Claim ticket**: Cài đặt về việc nhận ticket của supporter
+- **⛔ Blacklist**: Chặn role khỏi việc tạo ticket
+
+### `/ticket panel configuration` - Quản lý danh mục
+Quản lý các panel (danh mục) ticket riêng biệt
+
+<h4>Chức năng chính</h4>
+
+- **➕ Thêm bảng ticket**: Tạo danh mục mới (tối đa 5)
+- **✏️ Chỉnh sửa bảng**: Cấu hình category, form, role hỗ trợ
+- **🗑️ Xóa bảng**: Xóa danh mục không cần thiết
+
+---
+
+## Gửi ticket panel
+
+### `/ticket panel send` - Gửi panel đơn
+Gửi một danh mục ticket cụ thể
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Kênh để gửi panel ticket
+- `panel`: Chọn panel từ danh sách có sẵn
+
+<h4>Ví dụ sử dụng</h4>
+
+<Code code="/ticket panel send channel:#support panel:general_support" mark={highlights} />
+
+### `/ticket multi-panel manage` - Quản lý đa panel
+Thiết lập gửi nhiều danh mục ticket trong cùng một tin nhắn
+
+### `/ticket multi-panel send` - Gửi đa panel
+Gửi tất cả các panel được chọn vào một tin nhắn
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `channel`: Kênh để gửi multi-panel
+
+<h4>Ví dụ sử dụng</h4>
+
+<Code code="/ticket multi-panel send channel:#support" mark={highlights} />
+
+---
+
+## Quản lý ticket
+
+### `/ticket close` - Đóng ticket
+Đóng ticket hiện tại với lý do tùy chọn
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Không bắt buộc:_
+- `reason`: Lý do đóng ticket
+
+<h4>Ví dụ sử dụng</h4>
+
+<Code code="/ticket close reason:Đã giải quyết xong vấn đề" mark={highlights} />
+
+### `/ticket add` - Thêm người vào ticket
+Cho phép thêm thành viên hoặc role vào ticket
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `object`: Chọn thành viên hoặc role để thêm
+
+<h4>Ví dụ sử dụng</h4>
+
+<Code code="/ticket add object:@Developer" mark={highlights} />
+
+### `/ticket remove` - Xóa người khỏi ticket
+Xóa quyền truy cập ticket của thành viên hoặc role
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `object`: Chọn thành viên hoặc role để xóa
+
+<h4>Ví dụ sử dụng</h4>
+
+<Code code="/ticket remove object:@User" mark={highlights} />
+
+---
+
+## Cấu hình panel chi tiết
+
+### Cài đặt cho mỗi panel
+
+<Steps>
+
+1. **📁 Category tạo ticket**: Chọn category hoặc kênh để tạo ticket
+
+2. **📝 Quản lí câu hỏi**: Thêm form câu hỏi khi mở ticket (tối đa 5)
+   - Có thể chọn loại câu trả lời ngắn/dài
+   - Đặt câu hỏi bắt buộc hoặc tùy chọn
+
+3. **👥 Role hỗ trợ**: Chỉ định role có quyền xem và trả lời ticket
+
+4. **🔲 Nút mở ticket**: Tùy chỉnh emoji, tên, màu sắc của nút
+
+5. **📨 Tin nhắn mở**: Tin nhắn chào mừng khi ticket được tạo
+
+6. **📌 Tin nhắn bảng**: Embed hiển thị ở panel ticket
+
+7. **✨ Ưu tiên**: Cài đặt ticket ưu tiên cho role đặc biệt
+
+</Steps>
+
+---
+
+## Tính năng nâng cao
+
+### Ticket Priority (Ưu tiên)
+- Ticket của role cao hơn sẽ xuất hiện trên cùng trong category
+- Có thể đặt tên ticket riêng cho từng mức ưu tiên
+- Tối đa 2 role ưu tiên cho mỗi panel
+
+### Auto Close (Tự động đóng)
+- **Đóng khi người tạo rời server**: Tự động đóng nếu người tạo ticket rời khỏi server
+- **Đóng khi không hoạt động**: Đóng sau thời gian không có tin nhắn
+- **Phân biệt tin nhắn**: Từ tất cả mọi người vs chỉ từ người tạo ticket
+
+### Claim System (Hệ thống nhận ticket)
+- Supporter có thể "claim" ticket để chịu trách nhiệm
+- Cài đặt quyền xem/trả lời của supporter khác sau khi được claim
+
+### Rating & Feedback
+- Người dùng có thể đánh giá từ 1-5 sao sau khi ticket đóng
+- Hệ thống transcript tự động lưu toàn bộ lịch sử chat
+
+---
+
+## Loại ticket
+
+### Channel Ticket (Khuyến nghị)
+- **Ưu điểm**: Hiển thị trực tiếp, dễ quản lý
+- **Nhược điểm**: Giới hạn 50 ticket/category, 400-500 ticket/server
+- **Phù hợp**: Server nhỏ-trung bình
+
+### Thread Ticket
+- **Ưu điểm**: Không giới hạn số lượng
+- **Nhược điểm**: Phải click vào để xem, ít trực quan
+- **Phù hợp**: Server lớn với nhiều ticket
+
+---
+
+## Quyền hạn cần thiết
+
+### Bot permissions
+- `manage_roles`: Quản lý quyền trong ticket
+- `manage_channels`: Tạo/xóa kênh ticket
+
+### User permissions  
+- `manage_guild`: Cấu hình hệ thống ticket
+- `manage_channels`: Quản lý category/kênh ticket
+
+### Supporter permissions
+- Tự động được cấp quyền `view_channel`, `send_messages`, `attach_files` trong ticket được assigned
+
+---
+
+## Lưu ý quan trọng
+
+:::caution[Giới hạn]
+- Tối đa **5 panel** mỗi server
+- Tối đa **5 câu hỏi** mỗi panel (giới hạn Discord Modal)
+- Category đầy (50 kênh) sẽ tự tạo overflow category
+:::
+
+:::tip[Mẹo sử dụng]
+- Sử dụng form câu hỏi để thu thập thông tin cơ bản ngay từ đầu
+- Đặt tên panel rõ ràng để người dùng dễ chọn đúng danh mục
+- Cài đặt auto-close để tránh ticket tồn đọng
+- Sử dụng priority cho VIP hoặc urgent cases
+:::
+
+:::note[Tương thích]
+Ticket system tích hợp với:
+- [BucketScript](/bucketscript/functions) - Tin nhắn chào mừng động
+- [Embed](/bucketscript/embed) - Tùy chỉnh giao diện panel
+- Role system - Phân quyền hỗ trợ
+- Notification system - Thông báo khi có ticket mới
+:::
