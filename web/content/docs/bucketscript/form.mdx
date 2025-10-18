@@ -4,3 +4,177 @@ description: "GlitchBucket - Tạo & Quản lí Biểu mẫu"
 sidebar:
   order: 50
 ---
+
+import { Code, Steps } from '@astrojs/starlight/components';
+
+import FormExample from '../assets/layouts/form.mp4';
+
+export const highlights = ['name:', 'trigger:', 'ignorecase:']
+
+<video class="attachment-media" src={FormExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
+
+**Form (Biểu mẫu)** là một **hệ thống thu thập thông tin** cho phép bạn **tạo các modal với câu hỏi tùy chỉnh** để thu thập dữ liệu từ người dùng.
+
+Khi người dùng **hoàn tất việc điền form**, bot sẽ **gửi dữ liệu đã thu thập** đến kênh được chỉ định trước với định dạng embed đẹp mắt.
+
+Form có thể được sử dụng với:
+- **Button**: Tạo nút để mở form khi bấm
+- **Select**: Tạo lựa chọn để mở form khi chọn
+
+---
+
+## Lệnh quản lí Form
+
+### `/forms`
+Mở giao diện quản lí các biểu mẫu (form) trong server
+
+<h4>Ví dụ sử dụng</h4>
+
+<Steps>
+
+1. Mở giao diện quản lí form:
+
+    <Code code="/forms" />
+
+2. **Thêm form mới**: Bấm nút `➕ Thêm`
+   - Nhập thông tin form:
+     - **ID Form**: Tên định danh (chỉ chữ cái thường, số, dấu gạch _)
+     - **Tiêu đề**: Tiêu đề hiển thị của form
+     - **Miêu tả form**: Mô tả ngắn về form
+     - **Kênh trả form**: Kênh nhận dữ liệu khi form được gửi
+     - **Tin nhắn**: Tin nhắn kèm theo khi gửi dữ liệu
+
+3. **Thêm câu hỏi**: Sau khi tạo form, chọn form và bấm `➕ Thêm câu hỏi`
+   - Nhập thông tin câu hỏi:
+     - **Nội dung**: Câu hỏi hiển thị
+     - **Miêu tả**: Placeholder cho ô trả lời (không bắt buộc)
+     - **Câu trả lời có dài không**: Chọn loại ô nhập (ngắn/dài)
+     - **Bắt buộc**: Có bắt buộc trả lời hay không
+
+</Steps>
+
+Sau khi form được tạo hoàn tất, bạn có thể:
+- **Chỉnh sửa form**: Chọn form từ dropdown và bấm `✏️ Tiêu đề/miêu tả`
+- **Chỉnh sửa câu hỏi**: Chọn câu hỏi từ dropdown "Chọn câu hỏi cần sửa"
+- **Xóa câu hỏi**: Chọn câu hỏi từ dropdown "Xóa một câu hỏi"
+- **Xóa form**: Bấm nút `➖ Xóa` và chọn form cần xóa
+
+---
+
+## Sử dụng Form với Button/Select
+
+### Với Button
+<Steps>
+
+1. Tạo form qua `/forms`
+
+2. Tạo button qua `/buttons` và chọn loại **"Trả biểu mẫu"**
+
+3. Chọn form đã tạo từ danh sách
+
+4. Sử dụng button trong tin nhắn:
+    <Code code="{button:report_form}" />
+
+</Steps>
+
+### Với Select
+<Steps>
+
+1. Tạo form qua `/forms`
+
+2. Tạo select qua `/bucketscript selects`
+
+3. Thêm lựa chọn và chọn loại **"Trả biểu mẫu"**
+
+4. Chọn form đã tạo từ danh sách
+
+5. Sử dụng select trong tin nhắn:
+    <Code code="{select:support_category}" />
+
+</Steps>
+
+### Với Autoresponder
+<Steps>
+
+1. Tạo form và button/select như trên
+
+2. Tạo autoresponder:
+    <Code code="/autoresponder add trigger:report ignorecase:True" mark={highlights} />
+
+3. Trong phản hồi, sử dụng:
+    <Code code="Báo cáo vấn đề: {button:report_form}" />
+
+</Steps>
+
+---
+
+## Ví dụ thực tế
+
+### Form báo cáo lỗi
+**Cấu hình Form:**
+- ID: `bug_report`
+- Tiêu đề: `Báo cáo lỗi`
+- Miêu tả: `Báo cáo lỗi trong bot`
+- Kênh trả form: `#reports`
+- Tin nhắn: `🐛 Đã nhận được báo cáo lỗi mới!`
+
+**Câu hỏi:**
+1. **Mô tả lỗi**
+   - Miêu tả: `Mô tả chi tiết lỗi bạn gặp phải`
+   - Loại: Dài (paragraph)
+   - Bắt buộc: Có
+
+2. **Cách tái hiện**
+   - Miêu tả: `Các bước để tái hiện lỗi`
+   - Loại: Dài (paragraph)
+   - Bắt buộc: Có
+
+3. **Discord ID**
+   - Miêu tả: `ID Discord của bạn`
+   - Loại: Ngắn (short)
+   - Bắt buộc: Không
+
+### Form đăng ký sự kiện
+**Cấu hình Form:**
+- ID: `event_register`
+- Tiêu đề: `Đăng ký sự kiện`
+- Miêu tả: `Đăng ký tham gia sự kiện server`
+- Kênh trả form: `#event-registrations`
+- Tin nhắn: `🎉 Có người đăng ký sự kiện mới! {user_mention}`
+
+---
+
+## Lưu ý quan trọng
+
+:::caution[Giới hạn Discord]
+- Mỗi form tối đa **5 câu hỏi** (giới hạn của Discord Modal)
+- Câu trả lời ngắn tối đa **128 ký tự**
+- Câu trả lời dài tối đa **512 ký tự**
+:::
+
+:::tip[Mẹo sử dụng]
+- Đặt câu hỏi rõ ràng, dễ hiểu
+- Sử dụng placeholder để hướng dẫn user cách trả lời
+- Tin nhắn kèm theo có thể sử dụng [BucketScript](/bucketscript/functions/) để ping role hoặc thêm thông tin
+- Kiểm tra quyền bot tại kênh trả form (cần quyền gửi tin nhắn và embed)
+:::
+
+:::note[Tương thích]
+Form có thể được kết hợp với:
+- [Button](/bucketscript/button) - Tạo nút để mở form
+- [Select](/bucketscript/select) - Tạo lựa chọn để mở form
+- [Autoresponder](/commands/group/autoresponder) - Tự động gửi form khi có trigger
+- [Layout](/bucketscript/layout) - Tích hợp form vào giao diện mới
+:::
+
+---
+
+## Khác biệt với Button/Select
+
+| Tính năng | Button/Select | Form |
+|-----------|---------------|------|
+| Chức năng | Phản hồi tức thì | Thu thập thông tin |
+| Tương tác | Một lần bấm/chọn | Điền nhiều câu hỏi |
+| Dữ liệu | Phản hồi cố định | Dữ liệu từ user |
+| Kết quả | Tin nhắn phản hồi | Gửi về kênh chỉ định |
+| Sử dụng | Hành động đơn giản | Thu thập thông tin chi tiết |
