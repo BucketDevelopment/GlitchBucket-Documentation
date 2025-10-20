@@ -38,6 +38,13 @@ export default defineConfig({
             },
             head: [
                 {
+                    tag: "meta",
+                    attrs: {
+                        name: "keywords",
+                        content: "GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi",
+                    },
+                },
+                {
                     tag: "link", 
                     attrs: {
                         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
