@@ -1,0 +1,16 @@
+<sitemapindex 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <sitemap>
+    <loc>https://bot.tudubucket.dev/sitemap-landing.xml</loc>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://bot.tudubucket.dev/sitemap-commands.xml</loc>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://bot.tudubucket.dev/sitemap-bucketscript.xml</loc>
+  </sitemap>
+
+</sitemapindex>

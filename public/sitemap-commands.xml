@@ -1,0 +1,33 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<script src="chrome-extension://fjnbnpbmkenffdnngjfgmeleoegfcffe/static/js/contentInt.js"/>
+<url>
+<loc>https://bot.tudubucket.dev/commands/group/autoresponder/</loc>
+<changefreq>daily</changefreq>
+<priority>0.9</priority>
+</url>
+<url>
+<loc>https://bot.tudubucket.dev/commands/group/customrole/</loc>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://bot.tudubucket.dev/commands/group/donation/</loc>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://bot.tudubucket.dev/commands/group/giveaway/</loc>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://bot.tudubucket.dev/commands/group/voting/</loc>
+<changefreq>daily</changefreq>
+<priority>0.9</priority>
+</url>
+<url>
+<loc>https://bot.tudubucket.dev/commands/group/wordconnect/</loc>
+<changefreq>daily</changefreq>
+<priority>0.9</priority>
+</url>
+</urlset>
