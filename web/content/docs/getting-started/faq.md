@@ -18,7 +18,7 @@ Có nghĩa rằng, nếu trước đó đã có 50 bot khác sử dụng Slash C
 
 Đó là câu chuyện của 2 năm trước. Giờ thì có, GlitchBucket có prefix, với prefix mặc định là `g`. Bạn có thể sử dụng `ghelp` để xem các lệnh có sẵn, cũng như kiểm tra 1 lệnh bất kì xem lệnh đó hỗ trợ prefix không.
 
-Lưu ý rằng các tính năng của GlitchBucket vẫn sẽ luôn được ưu tiên phát triển dựa trên Slash Command. Một số lệnh hiện có sẽ được hỗ trợ đồng thời cả 2 phiên bản Slash và Prefix (như `/moderation ban` và `gban` là như nhau), nhưng phần lớn các lệnh có sẵn sẽ chỉ có phiên bản Slash.
+Lưu ý rằng các tính năng của GlitchBucket vẫn sẽ luôn được ưu tiên phát triển dựa trên Slash Command. Một số lệnh hiện có sẽ được hỗ trợ đồng thời cả 2 phiên bản Slash và Prefix (như `/moderation ban` và `gban` là tương đương với nhau), nhưng phần lớn các lệnh có sẵn sẽ chỉ có phiên bản Slash.
 
 ## Một số tính năng của bot không thực sự hoạt động!
 
