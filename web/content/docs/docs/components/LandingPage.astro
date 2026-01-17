@@ -1,0 +1,367 @@
+---
+// LandingPage.astro - Custom Landing Page Component
+---
+
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<nav class="nav_bar">
+    <div class="left">
+        <a class="logo" href="/">
+            <img src="https://bot.tudubucket.dev/_astro/favicon.D9TpfGM_.webp" alt="logo" class="img">
+            GlitchBucket
+        </a>
+        <a href="/dashboard/servers" class="link strikethrough">Bảng điều khiển</a>
+        <a href="https://bot.tudubucket.dev/stats" class="link">Status</a>
+        <a href="/invite" class="link">Thêm bot</a>
+        <a href="/docs/getting-started" class="link">Tài liệu</a>
+    </div>
+    <div class="right">
+        <button class="button primary">Đăng nhập</button>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="div_module">
+        <div class="main">
+            <div class="hero-blob-1"></div>
+            <div class="left">
+                <div class="tag">✨ #1 Utilities tại Việt Nam</div>
+                <h1 class="header">
+                    <span class="gradient">
+                        Quản Lý Server
+                    </span>
+                    <br>
+                    Thông Minh & Hiệu Quả
+                </h1>
+                <p class="description">
+                    GlitchBucket là Discord Bot đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, 
+                    giúp bạn vận hành Server Discord một cách chuyên nghiệp và hiệu quả hơn bao giờ hết.
+                </p>
+                <div class="button_container">
+                    <div class="button primary" onclick="location.href='/invite'">Thêm Bot Ngay</div>
+                    <div class="coming-soon-wrapper">
+                        <div class="button strikethrough" onclick="location.href='/dashboard/servers'">Dashboard</div>
+                        <span class="coming-soon-bubble">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <img src="https://bot.tudubucket.dev/_astro/GlitchBucket-2.CNgOzLYh.webp" alt="logo">
+            </div>
+        </div>
+        <div class="stats">
+            <div class="content">
+                <p class="text" data-target="5400">0+</p>
+                <p class="description">Servers</p>
+            </div>
+            <div class="content">
+                <p class="text" data-target="2600000">0+</p>
+                <p class="description">Members</p>
+            </div>
+            <div class="content">
+                <p class="text" data-target="99.5">0%</p>
+                <p class="description">Service-level Agreement</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="screen_2">
+    <div class="div_module">
+        <div class="content_web">
+            <h1 class="header">Tính Năng Nổi Bật</h1>
+            <p class="description">GlitchBucket mang đến hầu hết những tính năng thiết yếu để quản lý Server Discord</p>
+        </div>
+        <div class="features" id="featureList">
+            <!-- data -->
+        </div>
+    </div>
+</section>
+
+<section class="feedback_container">
+    <div class="content_web">
+        <h1 class="header">Mọi Người Nói Gì</h1>
+        <p class="description">Được yêu thích bởi hàng ngàn server owner tại Việt Nam</p>
+    </div>
+    <div class="feedback_data">
+        
+    </div>
+</section>
+
+<section id="cta" class="cta">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+        <h2>Sẵn Sàng Nâng Cấp Server?</h2>
+        <p>Tham gia cùng hàng ngàn server đã tin tưởng & sử dụng GlitchBucket. Hoàn toàn miễn phí để bắt đầu.</p>
+        <div class="cta-buttons">
+            <button class="btn-primary" onclick="location.href='/invite'">Thêm Bot Ngay <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 640 640"><path d="M480 96c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H160c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM368 360c0 13.3 10.7 24 24 24s24-10.7 24-24V248c0-13.3-10.7-24-24-24H280c-13.3 0-24 10.7-24 24s10.7 24 24 24h54.1l-103 103c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l103-103z"/></svg></button>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="grid">
+            <div class="section">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <img src="https://bot.tudubucket.dev/_astro/favicon.D9TpfGM_.webp" alt="logo" class="icon">
+                    <div class="text">GlitchBucket</div>
+                </div>
+                <p style="font-size: 14px; color: var(--muted-foreground);">Discord Bot với các chức năng độc quyền & hữu ích, giúp bạn quản lí Server Discord dễ dàng hơn!</p>
+            </div>
+
+            <div class="section">
+                <h4>Sản Phẩm</h4>
+                <ul>
+                    <li><a href="/docs/getting-started">Tính Năng</a></li>
+                    <li><a href="/docs/premium/whitelabel">Pricing</a></li>
+                    <li><a href="/docs/getting-started">Docs</a></li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h4>Cộng Đồng</h4>
+                <ul>
+                    <li><a href="https://bot.tudubucket.dev/support">Discord</a></li>
+                    <li><a href="https://github.com/tudubucket">GitHub</a></li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h4>Pháp Lý</h4>
+                <ul>
+                    <li><a href="/docs/policy/statement-of-purpose/">Mục tiêu & Sứ mệnh</a></li>
+                    <li><a href="/docs/policy/privacy-policy/">Privacy</a></li>
+                    <li><a href="/docs/policy/terms-of-service/">Terms</a></li>
+                    <li><a href="https://bot.tudubucket.dev/support">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <p>© 2025 BucketDevelopment. All rights reserved.</p>
+            <div class="socials">
+                <a href="https://bot.tudubucket.dev/support" title="Discord"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12"></path></svg></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .strikethrough {
+        text-decoration: line-through;
+        position: relative;
+    }
+    .coming-soon-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    .coming-soon-bubble {
+        position: absolute;
+        bottom: -35px;
+        right: 50%;
+        transform: translateX(50%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+    .coming-soon-bubble::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        width: 8px;
+        height: 8px;
+        background: #667eea;
+    }
+</style>
+
+<script>
+    function updateAllCardHeights() {
+        const elements = document.querySelectorAll('.landing_page .screen_2 .features .card .description');
+        elements.forEach(el => {
+            el.style.height = 'auto';
+            const height = el.scrollHeight;
+            el.style.height = height + 'px';
+        });
+    }
+    window.addEventListener('resize', () => {
+        updateAllCardHeights()
+    });
+    const featureData = [
+        {
+            icon: '⚡',
+            name: 'Nối từ',
+            description: 'Giải trí với các Member khác bằng trò chơi Nối từ!',
+            attachment: 'https://bot.tudubucket.dev/_astro/wordconnect.BkdDduFG_2rXfg8.webp',
+            is_video: false,
+            href: '/',
+        },
+        {
+            icon: '💰',
+            name: 'Donation',
+            description: 'Tự động theo dõi các khoản donate từ Member trong Server!',
+            attachment: 'https://bot.tudubucket.dev/_astro/donation.Dip9ZjSx.mp4',
+            is_video: true,
+            href: '/',
+        },
+        {
+            icon: '🎫',
+            name: 'Voting',
+            description: 'Tạo & quản lý tự động Event Vote với các yêu cầu & điều kiện phức tạp!',
+            attachment: 'https://bot.tudubucket.dev/_astro/voting.OwQYf-eD_14j4nK.webp',
+            is_video: false,
+            href: '/',
+        },
+        {
+            icon: '🏷️',
+            name: 'Custom-role',
+            description: 'Giảm tải cho Admin, giúp Member tự quản lý role một cách an toàn & hiệu quả!',
+            attachment: 'https://bot.tudubucket.dev/_astro/customrole.BRIm1vXy_2mpNVq.webp',
+            is_video: false,
+            href: '/',
+        },
+        {
+            icon: '🎁',
+            name: 'Giveaway',
+            description: 'Tổ chức các Giveaway cho Member trong Server, với các tính năng nâng cao!',
+            attachment: 'https://bot.tudubucket.dev/_astro/giveaway.DLuTa5gP_ZLD7vL.webp',
+            is_video: false,
+            href: '/',
+        },
+        {
+            icon: '📌',
+            name: 'Sticky Message',
+            description: 'Ghim tin nhắn cố định trong kênh theo style của bạn!',
+            attachment: 'https://bot.tudubucket.dev/_astro/stickie.BB-nMOwa.mp4',
+            is_video: true,
+            href: '/',
+        },
+    ]
+    const featureList = document.getElementById('featureList')
+    featureList.innerHTML = ''
+    featureData.map(item => {
+        let attachmentElement = ``
+        if(item.is_video === true){
+            attachmentElement = `<video src="${item.attachment}" autoplay="" loop="" muted="" class="preview"></video>`
+        } else {
+            attachmentElement = `<img src="${item.attachment}" class="preview">`
+        }
+        featureList.innerHTML += 
+        `
+        <div class="card" onclick="window.open('${item.href}', '_blank');">
+            ${attachmentElement}
+            <div class="absolute">
+                <div class="content">
+                    <h1 class="header">${item.name}</h1>
+                    <p class="description">${item.description}</p>
+                    <a class="learn">Tìm hiểu thêm <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h306.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+                </div>
+            </div>
+            <div class="icon">${item.icon}</div>
+        </div>
+        `
+    })
+    updateAllCardHeights();
+
+    // Animate stats numbers
+    function animateNumber(element, target, suffix, duration = 2500) {
+        const start = 0;
+        let startTime = null;
+        const isDecimal = target.toString().includes('.');
+        
+        function easeOut(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+        
+        function update(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOut(progress);
+            const current = start + (target - start) * easedProgress;
+            
+            if (isDecimal) {
+                element.textContent = current.toFixed(1).replace('.', ',') + suffix;
+            } else {
+                element.textContent = Math.floor(current).toLocaleString('en-US') + suffix;
+            }
+            
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+        
+        requestAnimationFrame(update);
+    }
+    
+    // Start animations with 0.5s delay
+    setTimeout(() => {
+        const statsElements = document.querySelectorAll('.stats .text');
+        statsElements.forEach(el => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const originalText = el.textContent;
+            const suffix = originalText.replace(/[0-9,\.]/g, '');
+            animateNumber(el, target, suffix);
+        });
+    }, 500);
+
+    const feedbackData = [
+        {
+            avatar: 'assets/testimonials/duyandy.webp',
+            role: 'Server Owner',
+            name: 'Duy Andy',
+            feedback: 'GlitchBucket là một người bạn hỗ trợ tuyệt vời cho cộng đồng của tôi, có rất nhiều chức năng hay, phục vụ rất nhiều cho cộng đồng mà các bạn không nên bỏ lỡ. Chức năng quản lý donation, chức năng tạo roles có thời hạn, đây là 2 chức năng tôi rất đánh giá cao.',
+        },
+        {
+            avatar: 'assets/testimonials/hoanglong921.webp',
+            role: 'Network Administrator',
+            name: 'Hoang Long',
+            feedback: 'Cảm ơn vì network paping',
+        },
+        {
+            avatar: 'assets/testimonials/ptcd.webp',
+            role: 'Server Owner',
+            name: 'ptcd',
+            feedback: 'cảm ơn vì tính năng độc cmn lạ - love from asakacloud.vn ❤',
+        },
+        {
+            avatar: 'assets/testimonials/fakecattos.webp',
+            role: 'Community Member',
+            name: 'fakecattos',
+            feedback: 'bot nhu cai lol',
+        },
+    ]
+    const feedbackDataEl = document.querySelector('.feedback_data');
+    feedbackDataEl.innerHTML = ``
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+    const randomFeedbacks = shuffleArray(feedbackData).slice(0, 4)
+    randomFeedbacks.map((item) => {
+        feedbackDataEl.innerHTML += 
+        `
+        <div class="card card-feedback">
+            <div class="header">
+                <img class="avatar" src="${item.avatar}"></img>
+                <div class="info">
+                    <h4>${item.name}</h4>
+                    <p>${item.role}</p>
+                </div>
+            </div>
+            <p class="content">"${item.feedback}"</p>
+        </div>
+        `
+    })
+</script>

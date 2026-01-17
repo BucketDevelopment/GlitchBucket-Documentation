@@ -24,9 +24,9 @@ export default defineConfig({
                 replacesTitle: false,
             },
             lastUpdated: true,
-            components: {
-                Hero: '/web/content/docs/components/Hero.astro',
-            },
+            // components: {
+            //     Hero: '/web/content/docs/docs/components/Hero.astro',
+            // },
             favicon: "/favicon.png",
             customCss: ["./web/styles/global.css"],
             defaultLocale: "vi",
@@ -95,24 +95,24 @@ export default defineConfig({
             sidebar: [
                 {
                     label: "Chung",
-                    autogenerate: { directory: "getting-started" },
+                    autogenerate: { directory: "docs/getting-started" },
                 },
                 {
                     label: "Premium",
                     badge: { text: "Mới", variant: "caution" },
-                    autogenerate: { directory: "premium" },
+                    autogenerate: { directory: "docs/premium" },
                 },
                 {
                     label: "Các lệnh của bot",
                     items: [
                         {
                             label: "Lệnh đơn",
-                            autogenerate: { directory: "commands/single/" },
+                            autogenerate: { directory: "docs/commands/single/" },
                             collapsed: true,
                         },
                         {
                             label: "Khối lệnh",
-                            autogenerate: { directory: "commands/group/" },
+                            autogenerate: { directory: "docs/commands/group/" },
                             collapsed: true,
                         },
                     ],
@@ -120,11 +120,11 @@ export default defineConfig({
                     {
                         label: "BucketScript",
                         badge: { text: "Mới", variant: "caution" },
-                        autogenerate: { directory: "bucketscript/" },
+                        autogenerate: { directory: "docs/bucketscript/" },
                     },
                 {
                     label: "Pháp lý",
-                    autogenerate: { directory: "policy" },
+                    autogenerate: { directory: "docs/policy" },
                 },
         ],
 		}), icon()],
