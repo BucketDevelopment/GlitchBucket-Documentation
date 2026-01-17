@@ -14,6 +14,9 @@ import votingImg from '../content/docs/docs/assets/features/voting.png';
 import customroleImg from '../content/docs/docs/assets/features/customrole.png';
 import giveawayImg from '../content/docs/docs/assets/features/giveaway.png';
 
+import faviconImg from '../assets/favicon.webp';
+import heroImg from '../assets/GlitchBucket-2.webp';
+
 const avatars = {
     duyandy,
     hoanglong921,
@@ -112,7 +115,7 @@ const images = {
     <nav class="nav_bar">
         <div class="left">
             <a class="logo" href="/">
-                <img src="https://bot.tudubucket.dev/_astro/favicon.D9TpfGM_.webp" alt="logo" class="img">
+                <img src={faviconImg.src} alt="logo" class="img">
                 GlitchBucket
             </a>
             <a href="/dashboard/servers" class="link strikethrough">Bảng điều khiển</a>
@@ -153,7 +156,7 @@ const images = {
                     </div>
                 </div>
                 <div class="right">
-                    <img src="https://bot.tudubucket.dev/_astro/GlitchBucket-2.CNgOzLYh.webp" alt="logo">
+                    <img src={heroImg.src} alt="logo">
                 </div>
             </div>
             <div class="stats">
@@ -210,7 +213,7 @@ const images = {
             <div class="grid">
                 <div class="section">
                     <div class="logo" style="margin-bottom: 1rem;">
-                        <img src="https://bot.tudubucket.dev/_astro/favicon.D9TpfGM_.webp" alt="logo" class="icon">
+                        <img src={faviconImg.src} alt="logo" class="icon">
                         <div class="text">GlitchBucket</div>
                     </div>
                     <p style="font-size: 14px; color: var(--muted-foreground);">Discord Bot với các chức năng độc quyền & hữu ích, giúp bạn quản lí Server Discord dễ dàng hơn!</p>
