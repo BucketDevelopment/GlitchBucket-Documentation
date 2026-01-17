@@ -341,7 +341,6 @@ const images = {
         })
         updateAllCardHeights();
 
-        // Animate stats numbers
         function animateNumber(element, target, suffix, duration = 2500) {
             const start = target * 0.5;
             let startTime = null;
@@ -360,7 +359,6 @@ const images = {
                 const easedProgress = easeOut(progress);
                 const current = start + (target - start) * easedProgress;
                 
-                // Clear "---" on first actual frame
                 if (!hasStarted) {
                     hasStarted = true;
                 }
