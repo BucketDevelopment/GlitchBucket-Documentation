@@ -161,11 +161,11 @@ const images = {
             </div>
             <div class="stats">
                 <div class="content">
-                    <p class="text" data-target="7000" data-suffix="+">---</p>
+                    <p class="text" data-target="7000" data-suffix="">---</p>
                     <p class="description">Servers</p>
                 </div>
                 <div class="content">
-                    <p class="text" data-target="3000000" data-suffix="+">---</p>
+                    <p class="text" data-target="3000000" data-suffix="">---</p>
                     <p class="description">Members</p>
                 </div>
                 <div class="content">
@@ -388,11 +388,11 @@ const images = {
                 const serverEl = statsElements[0];
                 const userEl = statsElements[1];
                 
-                if (serverEl && data.total_servers) {
-                    serverEl.setAttribute('data-target', data.total_servers);
+                if (serverEl && data.servers) {
+                    serverEl.setAttribute('data-target', data.servers);
                 }
-                if (userEl && data.total_users) {
-                    userEl.setAttribute('data-target', data.total_users);
+                if (userEl && data.users) {
+                    userEl.setAttribute('data-target', data.users);
                 }
             }
             
