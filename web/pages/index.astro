@@ -382,11 +382,49 @@ const images = {
         
         setTimeout(() => {
             const statsElements = document.querySelectorAll('.stats .text');
-            statsElements.forEach(el => {
-                const target = parseFloat(el.getAttribute('data-target'));
-                const suffix = el.getAttribute('data-suffix') || '';
-                animateNumber(el, target, suffix);
-            });
+            const CACHE_KEY = 'stats';
+            
+            function updateStats(data) {
+                const serverEl = statsElements[0];
+                const userEl = statsElements[1];
+                
+                if (serverEl && data.total_servers) {
+                    serverEl.setAttribute('data-target', data.total_servers);
+                }
+                if (userEl && data.total_users) {
+                    userEl.setAttribute('data-target', data.total_users);
+                }
+            }
+            
+            function animateAllStats() {
+                statsElements.forEach(el => {
+                    const target = parseFloat(el.getAttribute('data-target'));
+                    const suffix = el.getAttribute('data-suffix') || '';
+                    animateNumber(el, target, suffix);
+                });
+            }
+            
+            // Load from cache first
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+                try {
+                    const data = JSON.parse(cached);
+                    updateStats(data);
+                } catch (e) {}
+            }
+            
+            // Animate with cached/default values immediately
+            animateAllStats();
+            
+            // Fetch fresh data
+            fetch('https://service.tudubucket.dev/dashboard/status')
+                .then(res => res.json())
+                .then(data => {
+                    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+                    updateStats(data);
+                    animateAllStats();
+                })
+                .catch(() => {});
         }, 1);
     </script>
     <script define:vars={{ avatars }}>
