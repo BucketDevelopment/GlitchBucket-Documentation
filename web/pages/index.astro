@@ -345,7 +345,17 @@ const images = {
         updateAllCardHeights();
 
         function animateNumber(element, target, suffix, duration = 2500) {
-            const start = target * 0.5;
+            const currentText = element.textContent.replace(/,/g, '').replace(suffix, '').trim();
+            const currentValue = parseFloat(currentText) || target * 0.5;
+            const start = currentValue === 0 || isNaN(currentValue) ? target * 0.5 : currentValue;
+            
+            const diffRatio = Math.abs(target - start) / target;
+            
+            let adjustedDuration = duration;
+            if (diffRatio < 0.1) { 
+                adjustedDuration = Math.max(500, duration * (diffRatio / 0.1));
+            }
+            
             let startTime = null;
             let hasStarted = false;
             const isDecimal = target.toString().includes('.');
@@ -358,7 +368,7 @@ const images = {
             function update(currentTime) {
                 if (!startTime) startTime = currentTime;
                 const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
+                const progress = Math.min(elapsed / adjustedDuration, 1);
                 const easedProgress = easeOut(progress);
                 const current = start + (target - start) * easedProgress;
                 
