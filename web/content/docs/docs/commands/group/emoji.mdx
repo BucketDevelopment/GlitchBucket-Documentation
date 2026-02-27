@@ -1,0 +1,39 @@
+---
+title: "😀 Emoji"
+description: "GlitchBucket - Quản lý emoji trong máy chủ"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['name:', 'image:', 'input:'];
+
+## `/emoji upload`
+
+Tải ảnh lên và tạo emoji mới trong máy chủ.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `name`: Tên emoji.
+- `image`: File ảnh đính kèm.
+
+#### Ví dụ sử dụng lệnh
+
+<Code code="/emoji upload name:bucket image:<attachment>" title="command" mark={highlights} />
+
+---
+
+## `/emoji steal`
+
+Lấy emoji từ emoji custom hoặc từ URL ảnh.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `input`: Emoji custom (`<:name:id>`) hoặc URL ảnh.
+
+**Không bắt buộc:**
+- `name`: Tên emoji mới (bắt buộc khi `input` là URL).
+
+#### Ví dụ sử dụng lệnh
+
+<Code code="/emoji steal input:<:bucket:123456789012345678>" title="command" mark={highlights} />
