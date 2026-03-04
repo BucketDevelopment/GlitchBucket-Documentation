@@ -15,18 +15,83 @@ Bạn muốn tạo một Giveaway có thể custom được mọi phần trong t
 <h4>Giải pháp</h4>
 Tính năng Giveaway giúp bạn tạo một Giveaway hoàn toàn không có giới hạn, giúp bạn chỉnh sửa mọi thứ của Giveaway, cũng như thêm các yêu cầu/hạn chế. Các tính năng chính của Giveaway:
 - Cho phép chỉnh sửa toàn bộ các phần trong tin nhắn Giveaway,
-- Chỉnh sửa Giveawway đang chạy,
+- Chỉnh sửa Giveaway đang chạy,
 - Giveaway Template giúp bạn lưu các mẫu Giveaway có độ phức tạp cao đề về sau tạo chúng một cách dễ dàng!
-
 
 
 ---
 
-## `/giveaway setup` - Thiết lập một giveaway mới
-Lệnh này sẽ thiết lập một giveaway mới
+## Tùy chỉnh nội dung tin nhắn Giveaway
+
+Giveaway Messages là tính năng cho phép bạn tùy chỉnh hoàn toàn nội dung các tin nhắn xuất hiện trong quá trình diễn ra Giveaway. Thay vì sử dụng các tin nhắn mặc định của bot, bạn có thể thiết kế riêng các embed và nội dung phản hồi phù hợp với phong cách và thương hiệu của server.
+
+Khi bật tính năng Custom Message, hệ thống sẽ sử dụng các tin nhắn do bạn thiết lập thay cho các tin nhắn mặc định. Bạn có thể tùy chỉnh sáu loại tin nhắn khác nhau, bao gồm:
+- Embed khi giveaway đang diễn ra, 
+- Embed khi giveaway kết thúc có người thắng, 
+- Embed khi giveaway kết thúc không có người thắng, 
+- Tin nhắn phản hồi công bố kết quả, 
+- Tin nhắn khi reroll người thắng, 
+- Tin nhắn phản hồi khi không có ai thắng.
+
+Để setup Custom Message cho giveaway, sử dụng [`/giveaway messages`](#giveaway-messages).
+
+### Giveaway Placeholder
+
+Trong quá trình thiết kế tin nhắn, bạn có thể sử dụng các placeholder để hiển thị thông tin động. Các placeholder này sẽ được tự động thay thế bằng giá trị thực khi tin nhắn được gửi.
+
+| Placeholder                                                  | Thông tin                                                   | Ví dụ trả về               |
+|--------------------------------------------------------------|-------------------------------------------------------------|----------------------------|
+| `{giveaway_prize}`<br />`{giveaway_reward}`                  | Phần thưởng của giveaway                                    | `Discord Nitro`            |
+| `{giveaway_host}`                                            | Đề cập người tổ chức giveaway                               | `<@906844267870314577>`    |
+| `{giveaway_host_id}`                                         | ID người tổ chức giveaway                                   | `906844267870314577`       |
+| `{giveaway_duration}`                                        | Thời lượng giveaway đã được format theo ngôn ngữ của server | `1 ngày 2 giờ`             |
+| `{giveaway_remaining}`                                       | Thời gian còn lại của giveaway (Discord timestamp)          | `<t:1709500000:R>`         |
+| `{giveaway_timestamp}`<br />`{giveaway_end_timestamp}`       | Thời gian kết thúc giveaway (Unix timestamp)                | `1709500000`               |
+| `{giveaway_start_timestamp}`                                 | Thời gian bắt đầu giveaway (Unix timestamp)                 | `1709413600`               |
+| `{giveaway_entrants}`                                        | Số người đã tham gia giveaway                               | `42`                       |
+| `{giveaway_winners}`<br />`{giveaway_winners_count}`         | Số lượng người chiến thắng được đặt                         | `3`                        |
+| `{giveaway_winners_list}`<br />`{giveaway_winner_list}`      | Danh sách người chiến thắng (chỉ khả dụng sau khi kết thúc) | `<@123>, <@456>, <@789>`   |
+
+:::note[Lưu ý]
+Các placeholder `{giveaway_winners_list}` và `{giveaway_winner_list}` chỉ khả dụng trong các tin nhắn sau khi giveaway kết thúc (FINISHED, ROLLED, REROLLED). Nếu sử dụng trong tin nhắn RUNNING, chúng sẽ không được thay thế.
+
+Ngoài ra, khi sử dụng Custom Message, một số tùy chọn chỉnh sửa như **Image** và **Color** trong menu setup giveaway sẽ bị chặn, vì bạn đã quản lý chúng thông qua [Embed Builder](/docs/bucketscript/embed/) của Custom Message.
+:::
+
+:::tip[Mẹo]
+Ngoài các placeholder dành riêng cho Giveaway ở trên, bạn cũng có thể sử dụng các [placeholder mặc định của BucketScript](/bucketscript/functions/#placeholder-mặc-định) như `{server_name}`, `{server_icon}`, `{channel_mention}`, v.v. để tùy chỉnh tin nhắn phong phú hơn.
+:::
+
+---
+
+## Tính năng Giveaway Template
+
+Giveaway Template là công cụ giúp bạn lưu trữ các cấu hình giveaway phức tạp để tái sử dụng nhiều lần mà không cần thiết lập lại từ đầu. Đây là giải pháp lý tưởng cho các server thường xuyên tổ chức giveaway với các yêu cầu và cài đặt tương tự nhau.
+
+Khi tạo một template, bạn có thể thiết lập sẵn các thông số như requirements, blacklists, bypasses, bonus entrants, màu embed, kiểu nút, và emoji. Mỗi server có thể lưu tối đa 10 template khác nhau. Bot sẽ tự động lưu mọi thay đổi bạn thực hiện trên template mà không cần thao tác lưu thủ công, giúp quá trình chỉnh sửa trở nên thuận tiện hơn.
+
+Để sử dụng template khi tạo giveaway mới, bạn có thể chọn template trong menu của lệnh `/giveaway setup` hoặc truyền trực tiếp vào tham số `template` của lệnh `/giveaway create`. Khi áp dụng template, tất cả cài đặt đã lưu sẽ được áp dụng ngay lập tức cho giveaway mới, bao gồm cả requirements, multipliers, và các tùy chọn giao diện.
+
+
+---
+
+## Cơ chế Bonus Entrants (Multiplier)
+
+Bonus Entrants hay còn gọi là Multiplier là cơ chế cho phép một số thành viên có thêm lượt tham gia giveaway dựa trên các vai trò họ sở hữu. Điều này có nghĩa là người có vai trò được cấu hình bonus sẽ có cơ hội chiến thắng cao hơn so với người tham gia thông thường.
+
+Khi thiết lập bonus entrants, bạn sẽ chỉ định vai trò và số lượt bonus tương ứng. Ví dụ, nếu vai trò Server Booster được cấu hình với 5 bonus entries, một thành viên có vai trò này sẽ có tổng cộng 6 lượt tham gia (1 lượt mặc định cộng 5 lượt bonus). Trong trường hợp thành viên có nhiều vai trò được cấu hình bonus, tất cả các bonus sẽ được cộng dồn với nhau.
+
+Khi hệ thống xác định người chiến thắng, thuật toán sẽ tạo một danh sách chứa ID của tất cả người tham gia hợp lệ. Mỗi người sẽ xuất hiện trong danh sách với số lần tương ứng với tổng số lượt tham gia của họ. Sau đó, danh sách được xáo trộn ngẫu nhiên và hệ thống sẽ chọn người thắng theo thứ tự cho đến khi đủ số lượng người chiến thắng cần thiết. Người đã được chọn sẽ bị loại khỏi các lần chọn tiếp theo để đảm bảo không có người thắng trùng lặp.
+
+Để cấu hình bonus entrants thông qua lệnh `/giveaway create`, bạn sử dụng tham số `multipliers` với định dạng `role1:bonus1|role2:bonus2`. Ví dụ: `multipliers:@Booster:5|@VIP:3` sẽ cấp 5 bonus entries cho Booster và 3 bonus entries cho VIP. Nếu sử dụng `/giveaway setup` hoặc template, bạn có thể cấu hình thông qua giao diện đồ họa trong mục Bonus Entrants.
+
+---
+## Các lệnh cài đặt & tạo giveaway
+### `/giveaway setup`
+Lệnh này sẽ thiết lập một giveaway mới, 1 cách đơn giản và chi tiết
 
 :::note[Note]
-Lệnh này là để setup một giveaway có tính phức tạp cao. Nếu bạn muốn tạo một giveaway nhanh chóng, bạn có thể sử dụng lệnh [/giveaway create](#giveaway-create---tạo-một-giveaway-nhanh-chóng)
+Lệnh này là để setup một giveaway có tính phức tạp cao. Nếu bạn muốn tạo một giveaway nhanh chóng, bạn có thể sử dụng lệnh [`/giveaway create`](#giveaway-create)
 :::
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -40,7 +105,7 @@ Lệnh này sẽ bắt đầu hỏi các thông tin về giveaway. Một menu s�
 
 ---
 
-## `/giveaway end` - Kết thúc một giveaway hiện có
+### `/giveaway end`
 Kết thúc một giveaway hiện có
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -53,7 +118,7 @@ Lệnh này sẽ kết thúc một Giveaway có ID là `1245195068156149786`
 
 ---
 
-## `/giveaway reroll` - Reroll một giveaway đã kết thúc
+### `/giveaway reroll`
 Reroll một giveaway đã kết thúc
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -66,7 +131,7 @@ Lệnh này sẽ reroll một Giveaway có ID là `1245195068156149786`
 
 ---
 
-## `/giveaway edit` - Chỉnh sửa một giveaway đang chạy
+### `/giveaway edit`
 Chỉnh sửa một giveaway đang chạy
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -79,7 +144,7 @@ Lệnh này sẽ chỉnh sửa một Giveaway có ID là `1245195068156149786`
 
 ---
 
-## `/giveaway create` - Tạo một giveaway nhanh chóng
+### `/giveaway create`
 Tạo một giveaway nhanh chóng
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -111,7 +176,7 @@ Phức tạp hơn: Tạo 1 Giveaway về `Nitro` với `2 Người chiến thắ
 
 ---
 
-## `/giveaway template edit` - Chỉnh sửa một template
+### `/giveaway template edit`
 Chỉnh sửa một template
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -124,7 +189,7 @@ Lệnh này sẽ tạo một template có tên là `Giveaway Nitro`. Một menu 
 
 ---
 
-## `/giveaway template create` - Tạo một template
+### `/giveaway template create`
 Tạo một template
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -141,7 +206,7 @@ Lệnh này sẽ tạo một template có tên là `Giveaway Nitro` với miêu 
 
 ---
 
-## `/giveaway template delete` - Xóa một template
+### `/giveaway template delete`
 Xóa một template
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -151,3 +216,16 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xóa template có tên là `Giveaway Nitro`
 <Code code="/giveaway template delete template:Giveaway Nitro" title="command" mark={highlights} />
+
+
+---
+
+### `/giveaway messages`
+Tùy chỉnh các tin nhắn hiển thị trong Giveaway
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Không có tham số_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/giveaway messages" title="command" mark={highlights} />
+
