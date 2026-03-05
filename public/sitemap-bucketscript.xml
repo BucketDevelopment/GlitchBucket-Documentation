@@ -1,22 +1,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <script src="chrome-extension://fjnbnpbmkenffdnngjfgmeleoegfcffe/static/js/contentInt.js"/>
 <url>
-<loc>https://bot.tudubucket.dev/bucketscript/embed/</loc>
+<loc>https://bot.tudubucket.dev/docs/bucketscript/embed/</loc>
 <changefreq>daily</changefreq>
 <priority>0.7</priority>
 </url>
 <url>
-<loc>https://bot.tudubucket.dev/bucketscript/example/</loc>
+<loc>https://bot.tudubucket.dev/docs/bucketscript/example/</loc>
 <changefreq>daily</changefreq>
 <priority>0.7</priority>
 </url>
 <url>
-<loc>https://bot.tudubucket.dev/bucketscript/layout/</loc>
+<loc>https://bot.tudubucket.dev/docs/bucketscript/layout/</loc>
 <changefreq>daily</changefreq>
 <priority>0.7</priority>
 </url>
 <url>
-<loc>https://bot.tudubucket.dev/bucketscript/functions/</loc>
+<loc>https://bot.tudubucket.dev/docs/bucketscript/functions/</loc>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
