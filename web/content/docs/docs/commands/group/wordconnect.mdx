@@ -28,8 +28,8 @@ Bot sẽ tự động kết thúc lượt nối từ khi không còn từ nào n
 
 ## Cách tính điểm trong Nối từ
 
-- **+2 → +15 điểm:** Khi nối đúng một từ, điểm thưởng giảm dần theo độ phổ biến của từ. Từ càng phổ biến, điểm càng thấp - ngược lại, từ càng khó, điểm thưởng càng cao. Công thức tổng quát: `max(15 - len(next_words), 2)`
-- **+20 điểm:** Khi là người chốt hạ, nối từ cuối cùng.
+- **+2 → +12 điểm:** Khi nối đúng một từ, điểm thưởng giảm dần theo độ phổ biến của từ. Từ càng phổ biến, điểm càng thấp - ngược lại, từ càng khó, điểm thưởng càng cao. Công thức tổng quát: `max(12 - len(next_words), 2)`
+- **+20 điểm:** Khi là người chốt hạ, nối từ cuối cùng. (chỉ khi chốt hạ từ lượt nối thứ 3 trở đi)
 - **-1 điểm:** Dùng lại từ đã nối.
 - **-2 điểm:** Nối liên tiếp hai lượt hoặc dùng từ không có trong từ điển.
 - **-4 điểm:** Vi phạm quy định (chỉnh sửa/xóa tin nhắn khi không được phép).
