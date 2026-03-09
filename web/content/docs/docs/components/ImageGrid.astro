@@ -1,0 +1,21 @@
+---
+---
+
+<div class="image-grid not-content">
+	<slot />
+</div>
+
+<style>
+	.image-grid {
+		display: grid;
+		gap: 1.25rem;
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	/* mobile: 1 column */
+	@media (max-width: 560px) {
+		.image-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

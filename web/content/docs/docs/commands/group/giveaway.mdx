@@ -6,7 +6,12 @@ sidebar:
   order: 20
 ---
 
+export const _imgs = import.meta.glob('../../assets/giveaway/*', { eager: true });
+export const img = (name) => _imgs[`../../assets/giveaway/${name}`]?.default;
+
 import { Code } from '@astrojs/starlight/components';
+import ImageGrid from '../../components/ImageGrid.astro';
+import ImageItem from '../../components/ImageItem.astro';
 export const highlights = ['template:', 'giveaway:', 'reward:', 'duration:', 'winners:', 'channel:', 'template:', 'requirements:', 'blacklists:', 'bypasses:', 'multipliers:', 'color:', 'button_color:', 'button_emoji:', 'requires_join_before:', 'image:']
 
 <h4>Vấn đề</h4>
@@ -23,9 +28,23 @@ Tính năng Giveaway giúp bạn tạo một Giveaway hoàn toàn không có gi�
 
 ## Tùy chỉnh nội dung tin nhắn Giveaway
 
+<img src={img('customize.png').src} class="img" style="max-width:90%; height:auto; margin: 0 auto; display: block"></img>
+
 Giveaway Messages là tính năng cho phép bạn tùy chỉnh hoàn toàn nội dung các tin nhắn xuất hiện trong quá trình diễn ra Giveaway. Thay vì sử dụng các tin nhắn mặc định của bot, bạn có thể thiết kế riêng các embed và nội dung phản hồi phù hợp với phong cách và thương hiệu của server.
 
-Khi bật tính năng Custom Message, hệ thống sẽ sử dụng các tin nhắn do bạn thiết lập thay cho các tin nhắn mặc định. Bạn có thể tùy chỉnh sáu loại tin nhắn khác nhau, bao gồm:
+Để setup Custom Message cho giveaway, sử dụng [`/giveaway messages`](#giveaway-messages), sau đó bot sẽ gửi 1 bảng tương tác giúp để custom các tin nhắn như ảnh bên trên.
+
+Trước khi chỉnh sửa, ta cần phân biệt hai thành phần chính trong một tin nhắn Giveaway, bao gồm **Tin nhắn** và **Embed**:
+
+<img src={img('definition.png').src} class="img" style="max-width:60%; height:auto; margin: 0 auto; display: block"></img>
+
+Để chỉnh sửa phần **Tin nhắn**, chọn **`Chỉnh sửa tin nhắn`**; để chỉnh sửa phần **Embed**, chọn **`Chỉnh sửa Embed`**.
+
+---
+### Các thành phần có thể custom
+
+Giveaway có tổng cộng 6 loại tin nhắn có thể custom, mỗi loại tương ứng với một giai đoạn khác nhau của Giveaway:
+
 - Embed khi giveaway đang diễn ra, 
 - Embed khi giveaway kết thúc có người thắng, 
 - Embed khi giveaway kết thúc không có người thắng, 
@@ -33,7 +52,14 @@ Khi bật tính năng Custom Message, hệ thống sẽ sử dụng các tin nh�
 - Tin nhắn khi reroll người thắng, 
 - Tin nhắn phản hồi khi không có ai thắng.
 
-Để setup Custom Message cho giveaway, sử dụng [`/giveaway messages`](#giveaway-messages).
+<ImageGrid>
+  <ImageItem src={img('running.png').src} alt="running" caption="Embed khi Giveaway đang diễn ra" />
+  <ImageItem src={img('finished.png').src} alt="finished" caption="Embed khi Giveaway kết thúc có người thắng" />
+  <ImageItem src={img('no_winner.png').src} alt="no winner" caption="Embed khi Giveaway kết thúc không có người thắng" />
+  <ImageItem src={img('no_winner_reply.png').src} alt="no winner reply" caption="Tin nhắn khi không có ai chiến thắng" />
+  <ImageItem src={img('rolled.png').src} alt="rolled" caption="Tin nhắn công bố người chiến thắng" />
+  <ImageItem src={img('rerolled.png').src} alt="rerolled" caption="Tin nhắn khi reroll người chiến thắng" />
+</ImageGrid>
 
 ### Giveaway Placeholder
 
@@ -53,7 +79,7 @@ Trong quá trình thiết kế tin nhắn, bạn có thể sử dụng các plac
 | `{giveaway_winners_list}`<br />`{giveaway_winner_list}`      | Danh sách người chiến thắng (chỉ khả dụng sau khi kết thúc) | `<@123>, <@456>, <@789>`   |
 
 :::note[Lưu ý]
-Các placeholder `{giveaway_winners_list}` và `{giveaway_winner_list}` chỉ khả dụng trong các tin nhắn sau khi giveaway kết thúc (FINISHED, ROLLED, REROLLED). Nếu sử dụng trong tin nhắn RUNNING, chúng sẽ không được thay thế.
+Các placeholder `{giveaway_winners_list}` và `{giveaway_winner_list}` chỉ khả dụng trong các tin nhắn sau khi giveaway kết thúc (FINISHED, ROLLED, REROLLED). Nếu sử dụng trong tin nhắn **Đang diễn ra**, placeholder sẽ không được thay thế.
 
 Ngoài ra, khi sử dụng Custom Message, một số tùy chọn chỉnh sửa như **Image** và **Color** trong menu setup giveaway sẽ bị chặn, vì bạn đã quản lý chúng thông qua [Embed Builder](/docs/bucketscript/embed/) của Custom Message.
 :::
