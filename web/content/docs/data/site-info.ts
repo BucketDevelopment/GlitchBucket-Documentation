@@ -1,7 +1,10 @@
+import type { ComponentProps } from 'astro/types';
+import { Icon } from '@astrojs/starlight/components';
+
 export type SocialLink = {
 	me?: string;
 	text: string;
-	icon: string;
+	icon: ComponentProps<typeof Icon>['name'];
 	href: string;
 	platform: string;
 	footerOnly?: boolean;
@@ -16,7 +19,7 @@ const siteInfo: SiteInfo = {
 		{
 			platform: 'discord',
 			href: 'https://bot.tudubucket.dev/support',
-			icon: 'social/discord',
+			icon: 'discord',
 			text: 'Tham gia cộng đồng Discord',
 		},
 		// {
@@ -28,7 +31,7 @@ const siteInfo: SiteInfo = {
 		// },
 		{
 			platform: 'github',
-			icon: 'social/github',
+			icon: 'github',
 			text: "Đến Github của Author",
 			me: 'https://github.com/tudubucket/',
 			href: 'https://github.com/tudubucket',

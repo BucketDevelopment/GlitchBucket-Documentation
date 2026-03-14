@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import type { Props } from '@astrojs/starlight/props';
 import { LinkButton } from "@astrojs/starlight/components";
 const PAGE_TITLE_ID = '_top';
@@ -15,12 +15,14 @@ let darkImage: ImageMetadata | undefined;
 let lightImage: ImageMetadata | undefined;
 let rawHtml: string | undefined;
 if (image) {
-	if ('file' in image) {
-		darkImage = image.file;
-	} else if ('dark' in image) {
-		darkImage = image.dark;
-		lightImage = image.light;
-	} else {
+	if ('file' in image && image.file?.src) {
+		darkImage = image.file as ImageMetadata;
+	} else if ('dark' in image && image.dark?.src) {
+		darkImage = image.dark as ImageMetadata;
+		if (image.light?.src) {
+			lightImage = image.light as ImageMetadata;
+		}
+	} else if ('html' in image) {
 		rawHtml = image.html;
 	}
 }

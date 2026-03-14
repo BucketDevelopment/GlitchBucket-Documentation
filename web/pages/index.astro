@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
 import duyandy from '../content/docs/docs/assets/testimonials/duyandy.webp';
 import hoanglong921 from '../content/docs/docs/assets/testimonials/hoanglong921.webp';
 import ptcd from '../content/docs/docs/assets/testimonials/ptcd.webp';
@@ -255,10 +253,11 @@ const images = {
             </div>
         </div>
     </footer>
-    <script define:vars={{ videos, images }}>
+    <script is:inline define:vars={{ videos, images }}>
         function updateAllCardHeights() {
             const elements = document.querySelectorAll('.landing_page .screen_2 .features .card .description');
             elements.forEach(el => {
+                if (!(el instanceof HTMLElement)) return;
                 el.style.height = 'auto';
                 const height = el.scrollHeight;
                 el.style.height = height + 'px';
@@ -437,7 +436,7 @@ const images = {
                 .catch(() => {});
         }, 1);
     </script>
-    <script define:vars={{ avatars }}>
+    <script is:inline define:vars={{ avatars }}>
         const feedbackData = [
             {
                 avatar: avatars.duyandy.src,

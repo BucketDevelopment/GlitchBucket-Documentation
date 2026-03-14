@@ -13,14 +13,29 @@ interface Props {
 const { header, filename1, filename2, title1, title2 } = Astro.props;
 
 // Helper function to process filenames (URLs or local files)
-async function resolveFileSrc(filename: string): Promise<string | undefined> {
+async function resolveFileSrc(filename: string): Promise<ImageMetadata | string | undefined> {
   if (!filename) return;
   const isUrl = filename.startsWith('http://') || filename.startsWith('https://');
+  const extension = filename.split('.').pop()?.toLowerCase();
+  const isImage = extension ? ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(extension) : false;
 
   if (isUrl) return filename;
 
-  const attachments = import.meta.glob<{ default: ImageMetadata }>(
-    '../assets/comparisons/*.{jpg,jpeg,png,webp,gif,mp4}'
+  if (isImage) {
+    const attachments = import.meta.glob<{ default: ImageMetadata }>(
+      '../assets/comparisons/*.{jpg,jpeg,png,webp,gif}'
+    );
+    const attachment = attachments[`../assets/comparisons/${filename}`];
+
+    if (!attachment) {
+      throw new Error(`Could not resolve attachment file for ${filename}`);
+    }
+
+    return (await attachment()).default;
+  }
+
+  const attachments = import.meta.glob<{ default: string }>(
+    '../assets/comparisons/*.{mp4,mov,webm,gif}'
   );
   const attachment = attachments[`../assets/comparisons/${filename}`];
 
@@ -32,6 +47,8 @@ async function resolveFileSrc(filename: string): Promise<string | undefined> {
 
 const src1 = await resolveFileSrc(filename1);
 const src2 = await resolveFileSrc(filename2);
+const isImageMetadata = (value: ImageMetadata | string | undefined): value is ImageMetadata =>
+  typeof value === 'object' && value !== null && 'src' in value;
 ---
 
 <div class="feature-comparison">
@@ -42,18 +59,18 @@ const src2 = await resolveFileSrc(filename2);
     <div class="attachment">
       {title1 && <h3 class="attachment-header">{title1}</h3>}
       {filename1.endsWith('.mp4') || filename1.endsWith('.webm') ? (
-        <video class="attachment-media" src={src1} autoplay loop muted></video>
+        <video class="attachment-media" src={typeof src1 === 'string' ? src1 : src1?.src} autoplay loop muted></video>
       ) : (
-        <Image class="attachment-media" src={src1} alt={filename1} />
+        isImageMetadata(src1) ? <Image class="attachment-media" src={src1} alt={filename1} /> : <img class="attachment-media" src={src1} alt={filename1} />
       )}
     </div>
     <div class="attachment-separator"></div>
     <div class="attachment">
       {title2 && <h3 class="attachment-header">{title2}</h3>}
       {filename2.endsWith('.mp4') || filename2.endsWith('.webm') ? (
-        <video class="attachment-media" src={src2} autoplay loop muted></video>
+        <video class="attachment-media" src={typeof src2 === 'string' ? src2 : src2?.src} autoplay loop muted></video>
       ) : (
-        <Image class="attachment-media" src={src2} alt={filename2} />
+        isImageMetadata(src2) ? <Image class="attachment-media" src={src2} alt={filename2} /> : <img class="attachment-media" src={src2} alt={filename2} />
       )}
     </div>
   </div>

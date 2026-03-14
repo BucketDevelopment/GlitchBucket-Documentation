@@ -1,7 +1,7 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
 import ExternalLink from '../components/ExternalLink.astro';
-import type { SocialLink } from '../data/site-info.js';
+import type { SocialLink } from '../../data/site-info';
 
 export type Props = {
 	links: SocialLink[];
@@ -15,7 +15,7 @@ const { links } = Astro.props;
 		links.map((link) => (
 			<ExternalLink class="link flex items-center gap-2 text-white" href={link.href}>
 				<span class="sr-only">{link.text}</span>
-				<Icon name={link.icon} size={24} aria-hidden="true" />
+				<Icon name={link.icon} size="24" aria-hidden="true" />
 			</ExternalLink>
 		))
 	}

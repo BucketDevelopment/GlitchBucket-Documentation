@@ -17,19 +17,37 @@ const fileExtension = isUrl ? null : filename.split('.').pop()?.toLowerCase();
 const isImage = fileExtension && ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(fileExtension);
 const isVideo = fileExtension && ['mp4', 'mov', 'webm', 'gif'].includes(fileExtension);
 
-let src: string | undefined;
+let imageSrc: string | undefined;
+let imageMeta: ImageMetadata | undefined;
+let videoSrc: string | undefined;
 
 if (isUrl) {
   // Use the URL directly for external links
-  src = filename;
-} else {
-  // Handle local files
-  const attachments = import.meta.glob<{ default: ImageMetadata }>('../assets/features/*.{jpg,jpeg,png,webp,gif,mp4}');
-  const attachment = attachments[`../assets/features/${filename}`];
-  if (!attachment) {
-    throw new Error(`Could not resolve attachment file for ${filename}`);
+  if (isImage) {
+    imageSrc = filename;
+  } else if (isVideo) {
+    videoSrc = filename;
   }
-  src = (await attachment()).default;
+} else {
+  if (isImage) {
+    const attachments = import.meta.glob<{ default: ImageMetadata }>(
+      '../assets/features/*.{jpg,jpeg,png,webp,gif}'
+    );
+    const attachment = attachments[`../assets/features/${filename}`];
+    if (!attachment) {
+      throw new Error(`Could not resolve attachment file for ${filename}`);
+    }
+    imageMeta = (await attachment()).default;
+  } else if (isVideo) {
+    const attachments = import.meta.glob<{ default: string }>(
+      '../assets/features/*.{mp4,mov,webm,gif}'
+    );
+    const attachment = attachments[`../assets/features/${filename}`];
+    if (!attachment) {
+      throw new Error(`Could not resolve attachment file for ${filename}`);
+    }
+    videoSrc = (await attachment()).default;
+  }
 }
 
 ---
@@ -40,10 +58,12 @@ if (isUrl) {
     <p class="content"><slot /></p>
   </div>
   <div class="attachment">
-    {isImage ? (
-      <Image class="attachment-media" src={src} alt={filename} />
-    ) : isVideo ? (
-      <video class="attachment-media" src={src} autoplay loop muted></video>
+    {imageMeta ? (
+      <Image class="attachment-media" src={imageMeta} alt={filename} />
+    ) : imageSrc ? (
+      <img class="attachment-media" src={imageSrc} alt={filename} />
+    ) : videoSrc ? (
+      <video class="attachment-media" src={videoSrc} autoplay loop muted></video>
     ) : null}
   </div>
 </div>
