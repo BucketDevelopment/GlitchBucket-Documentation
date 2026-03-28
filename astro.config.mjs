@@ -113,7 +113,7 @@ export default defineConfig({
                         {
                             label: "Khối lệnh",
                             autogenerate: { directory: "docs/commands/group/" },
-                            collapsed: true,
+                            collapsed: false,
                         },
                     ],
                 },
