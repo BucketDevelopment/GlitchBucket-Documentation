@@ -132,6 +132,32 @@ Chỉ sử dụng `{react_trigger:emoji}` chứ không sử dụng `{react_reply
 
 ---
 
+## [Autoresponder](/commands/group/autoresponder) gửi 1 ảnh line random
+<Steps>
+
+1. Tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:line" title="command" mark={highlights} />
+
+2. Nhập chuỗi kí tự sau vào ô `Phản hồi` (bạn có thể thêm bao nhiêu url tùy thích, chỉ cần chia mỗi cái bằng kí tự `|`):
+
+    <Code code="{delete} {random:string: https://cdn.tudubucket.dev/Wild.png | https://cdn.tudubucket.dev/widebucket.png} [random:string]" title="command" mark={highlights} />
+
+</Steps>
+
+## [Autoresponder](/commands/group/autoresponder) react khi ping 1 người
+<Steps>
+
+1. Tạo một autoresponder như sau:
+
+    <Code code="/autoresponder add trigger:@tudubucket" title="command" mark={highlights} />
+
+2. Nhập chuỗi kí tự sau vào ô `Phản hồi` (bot sẽ react 2 emoji do có 2 function `react_trigger`):
+
+    <Code code="{react_trigger:💖}{react_trigger:😋}" title="command" mark={highlights} />
+
+</Steps>
+
 ## [Autoresponder](/commands/group/autoresponder) chặn một user hoặc channel
 
 <Steps>
