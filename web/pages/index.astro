@@ -413,7 +413,6 @@ const images = {
                 });
             }
             
-            // Load from cache first
             const cached = localStorage.getItem(CACHE_KEY);
             if (cached) {
                 try {
@@ -422,10 +421,8 @@ const images = {
                 } catch (e) {}
             }
             
-            // Animate with cached/default values immediately
             animateAllStats();
             
-            // Fetch fresh data
             fetch('https://service.tudubucket.dev/dashboard/status')
                 .then(res => res.json())
                 .then(data => {
