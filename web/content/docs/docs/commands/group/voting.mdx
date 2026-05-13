@@ -24,7 +24,7 @@ Vậy nên bạn sẽ đếm từng người vote một để đảm bảo rằn
 Nhưng server của bạn là một server có quy mô lớn, và đương nhiên việc bạn đếm - hoặc cho dù là gọi cả Đội ngũ Quản trị - thì cũng rất chậm và không tối ưu.
 
 <h4>Giải pháp</h4>
-Chỉ với một lệnh đơn giản: `/voting session setup`, tính năng này sẽ tự động đếm thống kê vote cho bạn!
+Chỉ với một lệnh đơn giản: `/voting start`, tính năng này sẽ tự động đếm thống kê vote cho bạn!
 
 Ngoài ra, tính năng cũng đem lại một số yêu cầu đối với người vote và người tham gia vote, cũng như các phương thức đếm vote:
 
@@ -49,7 +49,7 @@ Bạn có thể thêm bất kì 1 trong các requirement dưới đây cho vote 
 
 ---
 
-## `/voting session setup` - Thiết lập phiên vote
+## `/voting start` - Thiết lập phiên vote
 Thiết lập một phiên bầu chọn
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -58,12 +58,12 @@ _Bắt buộc:_
 - `from_message`: Chỉ định một ID tin nhắn để bắt đầu đếm phiếu sau đó
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ bắt đầu thiết lập session vote tại kênh `#vote` và tính từ sau tin nhắn có ID `12244382398348857345` trong kênh `#vote`
-<Code code="/voting session setup channel:#vote from_message:12244382398348857345" title="command" mark={highlights} />
+Lệnh này sẽ bắt đầu thiết lập lượt vote tại kênh `#vote` và tính từ sau tin nhắn có ID `12244382398348857345` trong kênh `#vote`
+<Code code="/voting start channel:#vote from_message:12244382398348857345" title="command" mark={highlights} />
 
 ---
 
-## `/voting session end` - Kết thúc phiên vote
+## `/voting end` - Kết thúc phiên vote
 Lệnh này sẽ kết thúc phiên bầu chọn của máy chủ
 
 <h4>Tham số lệnh (Parameters)</h4>
@@ -71,8 +71,8 @@ Lệnh này sẽ kết thúc phiên bầu chọn của máy chủ
 _Không có tham số_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ kết thúc session vote đang chạy
-<Code code="/voting session end" title="command" mark={highlights} />
+Lệnh này sẽ kết thúc phiên vote đang chạy
+<Code code="/voting end" title="command" mark={highlights} />
 
 
 ---
