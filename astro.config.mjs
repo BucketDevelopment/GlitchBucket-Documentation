@@ -9,6 +9,7 @@ import icon from "astro-icon";
 export default defineConfig({
     site: 'https://bot.tudubucket.dev',
     srcDir: "./web",
+    output: 'static',
     integrations: [
         sitemap({
             customSitemaps: ['https://bot.tudubucket.dev/sitemap.xml'],

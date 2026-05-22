@@ -1,0 +1,9 @@
+{
+  "no_bundle": false,
+  "rules": [
+    {
+      "globs": ["**/*.node"],
+      "fallthrough": true
+    }
+  ]
+}
