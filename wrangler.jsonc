@@ -3,6 +3,7 @@
   "no_bundle": false,
   "rules": [
     {
+      "type": "CommonJS",
       "globs": ["**/*.node"],
       "fallthrough": true
     }
