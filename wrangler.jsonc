@@ -1,5 +1,10 @@
 {
-  "name": "bucketbot",
-  "pages_build_output_dir": "dist",
-  "no_bundle": false
+  "no_bundle": false,
+  "rules": [
+    {
+      "type": "CommonJS",
+      "globs": ["**/*.node"],
+      "fallthrough": true
+    }
+  ]
 }
