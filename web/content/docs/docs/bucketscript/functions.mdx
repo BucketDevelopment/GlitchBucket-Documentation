@@ -13,6 +13,9 @@ Các Function & Placeholder dưới đây bộ phận xử lí tin nhắn của 
 ## Placeholder mặc định
 
 ### Placeholder về User
+
+Đối với placeholder cho user, bạn cũng có thể sử dụng `{user_name: id }` để lấy id từ người khác. Bạn cũng có thể kết hợp với các argument, như `{user_name: [$1] }` để lấy tên từ người khác trong autoresponder.
+
 |Placeholder                   | Thông tin                                                                                                   | Ví dụ trả về
 |------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------
 |`{user}`                      | Đề cập người dùng                                                                                           | `<@906844267870314577>`
@@ -104,6 +107,7 @@ Ngược lại, các hàm không có dấu `*` là bạn có thể sử dụng h
 |`{set_nick:string}`*           | Đặt nickname cho người trigger BucketScript thành `string`                                  | `string`: Một chuỗi kí tự             | `{set_nick:tudubucket}`
 |`{add_role:id}`               | Thêm một vai trò (role) có ID là `id` cho người trigger BucketScript                        | `id`: ID một role                     | `{add_role:1122707453251948608}` 
 |`{remove_role:id}`            | Xóa một vai trò (role) có ID là `id` cho người trigger BucketScript                         | `id`: ID một role                     | `{remove_role:1122707453251948608}` 
+|`{redirect_to:id}`            | Gửi tin nhắn reply tới 1 kênh khác                                                          | `id`: ID một kênh                     | `{redirect_to:1145547639618801736}` 
 |`{react_trigger:emoji}`       | React vào tin nhắn trigger BucketScript                                                     | `emoji`: Một emoji                    | `{react_trigger:<:emoji:1122707453251948608>}`
 |`{react_reply:emoji}`         | React vào tin nhắn được gửi đi từ bot sau trigger                                           | `emoji`: Một emoji                    | `{react_reply:emoji}`
 |`{delete_trigger:number}`*       | Xóa tin nhắn trigger BucketScript sau `number` giây                                            | `number`: Thời gian delay (giây) | `{delete_trigger:0}`
