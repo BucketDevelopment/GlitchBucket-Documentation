@@ -55,6 +55,104 @@ Bot sẽ tự động kết thúc lượt nối từ khi không còn từ nào n
 
 ---
 
+## Có nhiều từ không thấy trong từ điển bot!
+
+:::note[Tóm tắt]
+Không phải từ phổ thông nào cũng được đưa vào bot. Một số trường hợp thực chất là cụm từ hoặc từ ghép chính - phụ, như `ăn cơm`, `đi chơi`, `tiếng Anh`.
+
+Bot ưu tiên:
+
+1. **Từ ghép đẳng lập** trước, như `vua chúa`, `tiếng tăm`.
+2. Sau đó bổ sung các **cụm từ/từ ghép chính - phụ cực kỳ phổ biến**, như `ăn cơm`, `đi chơi`.
+
+Lý do là nếu sinh tất cả tổ hợp có thể có, từ điển sẽ phình rất nhanh và dễ xuất hiện **từ hiếm, từ sai, tổ hợp không tự nhiên**, gây lỗi và làm mất cân bằng game. Mục tiêu là ưu tiên chất lượng và độ phổ biến, thay vì cố đưa mọi tổ hợp tiếng Việt vào từ điển.
+:::
+
+---
+
+Ngoài việc thiếu từ (hiếm), việc một số từ/cụm từ trong tiếng Việt nhưng không xuất hiện trong từ điển của bot là có chủ đích, chứ không phải do bỏ sót hoàn toàn.
+
+### "Từ phổ thông" không đồng nghĩa với "từ đơn"
+
+Trong tiếng Việt, một đơn vị được sử dụng phổ biến có thể là **từ** hoặc **cụm từ**. Đặc biệt, nhiều trường hợp nhìn giống một "từ" trong giao tiếp hằng ngày nhưng về mặt cấu tạo lại là một **cụm từ** hoặc **từ ghép**.
+
+| Ví dụ       | Phân loại khái quát | Ví dụ cấu tạo   |
+| ----------- | ------------------- | --------------- |
+| `ăn cơm`    | Cụm động từ         | `ăn` + `cơm`    |
+| `ăn phở`    | Cụm động từ         | `ăn` + `phở`    |
+| `ăn bánh`   | Cụm động từ         | `ăn` + `bánh`   |
+| `đi chơi`   | Cụm động từ         | `đi` + `chơi`   |
+| `đi ngủ`    | Cụm động từ         | `đi` + `ngủ`    |
+| `tiếng Anh` | Từ ghép chính - phụ | `tiếng` + `Anh` |
+| `vua chúa`  | Từ ghép đẳng lập    | `vua` + `chúa`  |
+| `tiếng tăm` | Từ ghép đẳng lập    | `tiếng` + `tăm` |
+
+Theo cách phân loại thông thường trong tiếng Việt, **từ ghép chính - phụ** có một thành tố chính và một thành tố phụ bổ nghĩa cho thành tố chính; trong khi **từ ghép đẳng lập** có các thành tố có quan hệ bình đẳng với nhau.
+
+:::note[Lưu ý:]
+Việc gọi một tổ hợp là "từ", "từ ghép" hay "cụm từ" đôi khi còn phụ thuộc vào cách phân tích của từng tài liệu ngôn ngữ học. Vì vậy, bot không dùng một tiêu chí duy nhất để quyết định tất cả trường hợp.
+:::
+
+### Vì sao không sinh tất cả các cụm từ?
+
+Vấn đề nằm ở **số lượng tổ hợp có thể tạo ra**. Nếu cứ lấy mọi động từ, danh từ, tính từ... rồi ghép chúng lại, số lượng từ/cụm từ sẽ tăng lên rất nhanh. Quan trọng hơn, không phải tổ hợp nào cũng là một đơn vị có nghĩa hoặc được sử dụng tự nhiên.
+
+Ví dụ, từ:
+
+> `ăn` + `cơm` → **ăn cơm** 
+
+> `ăn` + `phở` → **ăn phở** 
+
+> `ăn` + `bánh` → **ăn bánh** 
+
+nhưng nếu tiếp tục sinh máy móc:
+
+> `ăn` + hàng nghìn danh từ khác → ???
+
+thì sẽ xuất hiện rất nhiều tổ hợp **hiếm gặp, không tự nhiên hoặc không được xem là một đơn vị từ vựng độc lập**. Điều này đặc biệt dễ tạo ra các trường hợp khó xử lý, chẳng hạn những từ chuyên ngành, tên riêng, thuật ngữ ngoại lai hoặc các từ rất hiếm như **"tiếng Latinh"**. 
+
+Do đó, nếu đưa toàn bộ tổ hợp vào bot, từ điển sẽ phình to nhưng **chất lượng từ lại giảm**, đồng thời có thể ảnh hưởng trực tiếp đến cân bằng của game.
+
+---
+
+Với mục tiêu xây dựng một từ điển có chất lượng, bot sẽ ưu tiên các **từ ghép đẳng lập** trước.
+
+Ví dụ:
+
+* `vua chúa`
+* `tiếng tăm`
+* `cha mẹ`
+* `quần áo`
+
+Đây là những tổ hợp có tính cố định và tính từ vựng tương đối rõ, nên phù hợp để đưa trực tiếp vào từ điển hơn so với việc sinh tổ hợp một cách máy móc. Sau khi xử lý nhóm từ ghép đẳng lập, bot sẽ tiếp tục bổ sung những **cụm từ hoặc từ ghép chính - phụ có tần suất sử dụng rất cao**.
+
+Ví dụ:
+
+* `ăn cơm`
+* `đi chơi`
+* `đi ngủ`
+* `tiếng Anh`
+
+Mục tiêu là chọn những trường hợp mà người dùng **thực sự thường xuyên gặp trong tiếng Việt**, thay vì cố gắng đưa mọi tổ hợp có thể tạo ra vào từ điển.
+
+---
+
+Cách làm này nhằm cân bằng giữa hai mục tiêu:
+- **"Có càng nhiều từ phổ thông càng tốt"**,
+- đồng thời **"Không đưa quá nhiều tổ hợp kém chất lượng vào game".**
+
+Nếu ưu tiên số lượng tuyệt đối, từ điển có thể chứa rất nhiều từ nhưng đồng thời phát sinh:
+
+* từ hiếm hoặc không tự nhiên;
+* tổ hợp sai hoặc khó xác định;
+* từ chuyên ngành không phù hợp;
+* lỗi do các trường hợp đặc biệt;
+* mất cân bằng giữa các nhóm từ;
+* khó kiểm soát và bảo trì dữ liệu.
+
+Vì vậy, việc một từ/cụm từ phổ biến chưa có trong bot không nhất thiết có nghĩa là nó bị xem là "không phải từ". Trong nhiều trường hợp, đó đơn giản là vấn đề **ưu tiên dữ liệu và kiểm soát chất lượng từ điển**.
+
+---
 
 ## Các lệnh của module
 ### `/wordconnect setup`
