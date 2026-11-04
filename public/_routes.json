@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/dashboard/*"],
+  "exclude": ["/dashboard/", "/dashboard/assets/*", "/dashboard/favicon.webp"]
+}
