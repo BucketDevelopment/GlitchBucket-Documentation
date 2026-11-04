@@ -17,32 +17,24 @@
 </div>
 
 ## 🌺 Giới thiệu
-Repo này chứa mã nguồn của [bot.tudubucket.dev](https://bot.tudubucket.dev): trang giới thiệu và tài liệu sử dụng [GlitchBucket](https://discord.com/application-directory/1103932552701550622), xây dựng bằng [Astro Starlight](https://starlight.astro.build).
+Đây là mã nguồn của [bot.tudubucket.dev](https://bot.tudubucket.dev), bao gồm trang giới thiệu và tài liệu hướng dẫn sử dụng [GlitchBucket](https://discord.com/application-directory/1103932552701550622). Trang được làm bằng [Astro Starlight](https://starlight.astro.build).
 
-| Thư mục | Nội dung |
-| --- | --- |
-| `web/content/docs` | Nội dung tài liệu (`.md`, `.mdx`) |
-| `web/pages` | Trang giới thiệu |
-| `web/assets`, `public` | Hình ảnh, video, sitemap |
+Nội dung tài liệu nằm trong `web/content/docs`, còn trang giới thiệu nằm trong `web/pages`.
 
-## 🍞 Chạy trên máy
+## 🍞 Chạy thử trên máy
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Kiểm tra trước khi tạo Pull Request:
-
-```bash
-npm run build
-```
+Trước khi tạo Pull Request, bạn nên chạy thử `npm run build` để chắc chắn trang build được.
 
 ## 🌸 Đóng góp
 
-Tạo Pull Request để sửa hoặc thêm tài liệu. PR cần được duyệt và build thành công trước khi merge. Sau khi merge, trang sẽ tự cập nhật.
+Nếu bạn thấy tài liệu bị sai, thiếu, hoặc muốn viết thêm, hãy tạo Pull Request. Pull Request sẽ được duyệt và phải build thành công thì mới được merge, sau đó trang sẽ tự cập nhật.
 
-Khi viết tài liệu, hãy đảm bảo:
-- Tên lệnh, tham số và hành vi khớp với bot đang chạy.
-- Ảnh và video đặt trong `web/content/docs/docs/assets`, dung lượng vừa phải.
-- Không đưa token, ID nội bộ hoặc thông tin cá nhân vào ví dụ.
+Khi viết tài liệu, bạn cần lưu ý:
+- Tên lệnh, tham số và cách hoạt động phải đúng với bot đang chạy.
+- Ảnh và video để trong `web/content/docs/docs/assets`, và đừng để dung lượng quá lớn.
+- Không đưa token, ID nội bộ hay thông tin cá nhân vào ví dụ.
