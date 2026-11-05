@@ -130,24 +130,6 @@ Lệnh này sẽ chỉnh ngưỡng tin nhắn để gọi tin nhắn cố địn
 
 ---
 
-## `/stickie allowmentions` - Đặt quy tắc AllowedMention
-Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định tại một kênh (tin nhắn có thể đề cập _người dùng/vai trò_ hay không). Cài đặt này đề phòng rằng, nếu bạn muốn ghi một vai trò (role) vào tin nhắn cố định, nhưng khi bot gửi tin nhắn thì bạn không muốn bot đề cập tới role đó, gây phiền hà cho người có role.
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `channel`: Chọn một kênh để chỉ định Cấu hình tin nhắn cố định
- - `action`: Hãy ghi hành động (có hoặc không)
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ đặt quy tắc AllowedMention cho Tin nhắn cố định tại kênh `#general` thành `False` (không)
-
-<Code code="/stickie allowmentions channel:#general action:False" title="command" mark={highlights} />
-
-
-
----
-
 ## `/stickie remove` - Xóa Tin nhắn cố định
 Lệnh này sẽ xóa một Tin nhắn cố định đã tồn tại tại một kênh 
 

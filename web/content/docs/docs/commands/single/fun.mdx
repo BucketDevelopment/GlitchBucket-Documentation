@@ -1,0 +1,88 @@
+---
+title: "Lệnh vui"
+description: "GlitchBucket - 8ball, pick, gayrate, chỉnh ảnh, ..."
+sidebar:
+  label: "Lệnh vui"
+  order: 9
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['question:', 'choices:', 'user:', 'seed_based:', 'image:', 'caption:', 'togif:'];
+
+Mấy lệnh cho vui, không có tác dụng gì cả 🤡
+
+## `/8ball` - Quả cầu thần kỳ
+Hỏi quả cầu thần kỳ một câu hỏi có/không
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `question`: Câu hỏi có/không bạn muốn hỏi
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/8ball question:mai có được nghỉ học không" title="command" mark={highlights} />
+
+---
+
+## `/ask` - Hỏi bot
+Hỏi bất cứ điều gì và nhận câu trả lời ngẫu nhiên
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `question`: Câu hỏi của bạn
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/ask question:tối nay ăn gì" title="command" mark={highlights} />
+
+---
+
+## `/pick` - Chọn ngẫu nhiên
+Chọn ngẫu nhiên 1 trong các lựa chọn, phân cách bằng dấu phẩy (ít nhất 2 lựa chọn)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `choices`: Các lựa chọn, ví dụ `táo, cam, chuối`
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ chọn ngẫu nhiên 1 trong 3 loại quả
+<Code code="/pick choices:táo, cam, chuối" title="command" mark={highlights} />
+
+---
+
+## `/gayrate` & `/penisize` - Đo chỉ số
+Đánh giá mức độ 🌈 hoặc đo kích thước 🍆 của một người
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `user`: Chọn một người dùng, _mặc định: bạn_
+ - `seed_based`: Kết quả cố định theo user (cùng user = cùng kết quả), _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ đo chỉ số của `@tudubucket`, lần nào dùng cũng ra cùng 1 kết quả
+<Code code="/gayrate user:@tudubucket seed_based:True" title="command" mark={highlights} />
+
+---
+
+## Chỉnh ảnh
+Gửi kèm ảnh vào `image`. Ảnh tối đa **8 MB**.
+
+| Lệnh | Chức năng | Tham số |
+|------|-----------|---------|
+| `/blur` | Làm mờ ảnh | `image`, `togif` |
+| `/speechbubble` | Thêm speech bubble vào ảnh | `image`, `togif` |
+| `/caption` | Thêm caption vào ảnh | `image`, `caption`, `togif` |
+| `/imagetogif` | Chuyển ảnh sang GIF | `image` |
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `image`: Ảnh cần chỉnh
+ - `caption`: Chữ cần thêm vào ảnh (chỉ có ở `/caption`)
+ - `togif`: Xuất ra dạng GIF, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ thêm caption vào ảnh bạn gửi kèm
+<Code code="/caption image:<attachment> caption:khi bot lỗi lúc 3h sáng" title="command" mark={highlights} />

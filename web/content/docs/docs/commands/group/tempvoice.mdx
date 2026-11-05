@@ -1,0 +1,125 @@
+---
+title: "🔊 Temp Voice"
+description: "GlitchBucket - Voice tạm thời cho member, tự xóa khi không còn ai"
+sidebar:
+  label: "🔊 Temp Voice"
+  order: 32
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['force:', 'member:', 'range:'];
+
+<h4>Vấn đề</h4>
+Server của bạn có nhiều nhóm muốn voice riêng, nhưng bạn không muốn tạo sẵn cả chục kênh voice, cũng không muốn ngồi xóa kênh mỗi khi mọi người rời đi.
+
+<h4>Giải pháp</h4>
+**Temp Voice** cho phép member tự tạo voice của riêng mình chỉ bằng cách join 1 kênh voice. Owner của voice có thể tự đổi tên, limit, privacy, trust/block member, ... mà không cần quyền `Manage Channels`. Khi không còn ai trong voice, bot sẽ tự xóa kênh.
+
+:::note[Cách hoạt động]
+- Join kênh **➕ Tạo voice**, bot sẽ tạo voice mới và chuyển bạn vào đó. Bạn là owner của voice này.
+- Quản lý voice bằng các nút trong kênh **#interface**, hoặc dùng lệnh `/voice`.
+- Khi bạn thay đổi setting, bot sẽ hỏi bạn có muốn **lưu cho lần sau** không. Các voice sau của bạn sẽ dùng setting đã lưu.
+- Voice trống sẽ bị xóa sau vài giây nếu không có ai join lại.
+:::
+
+:::caution[Giới hạn]
+- Mỗi member chỉ được tạo tối đa **2 voice trong 1 phút**.
+- Đổi tên voice tối đa **2 lần mỗi 10 phút** (giới hạn của Discord).
+:::
+
+---
+
+## Thiết lập
+
+### `/tempvoice setup` - Setup temp voice
+Tạo category **Temp Voice**, kênh **➕ Tạo voice** và kênh **#interface** chứa các nút quản lý. Voice notifier cũng sẽ được bật cho các temp voice.
+
+Bạn cần quyền `Manage Server`, bot cần quyền `Manage Channels`, `Manage Roles` và `Move Members`.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+- `force`: Setup lại kể cả khi server đã setup trước đó, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/tempvoice setup" title="command" mark={highlights} />
+
+---
+
+### `/tempvoice find` - Tìm voice của member
+Xem một member đang ở voice nào, và owner của voice đó (nếu là temp voice). Bot sẽ không hiện voice mà bạn không thể thấy.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `member`: Member cần tìm
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/tempvoice find member:@tudubucket" title="command" mark={highlights} />
+
+---
+
+### `/tempvoice bitrate` - Đổi bitrate
+Đổi bitrate (kbps) cho temp voice của bạn. Bitrate tối đa phụ thuộc vào level boost của server.
+
+<Code code="/tempvoice bitrate" title="command" mark={highlights} />
+
+---
+
+## Quản lý voice của bạn
+
+Các lệnh `/voice` dưới đây đều không có tham số, bot sẽ mở hộp thoại để bạn chọn/nhập. Bạn cần đang ở trong temp voice, và phần lớn lệnh chỉ owner mới dùng được.
+
+| Lệnh | Chức năng |
+|------|-----------|
+| `/voice name` | Đổi tên voice |
+| `/voice limit` | Đổi user limit (1 - 99) |
+| `/voice privacy` | Lock/Unlock, ẩn/hiện voice, bật/tắt chat |
+| `/voice trust` | Trust member, họ luôn thấy và join được voice của bạn, kể cả khi voice bị ẩn hoặc lock. Áp dụng cho mọi voice sau này |
+| `/voice untrust` | Xóa member khỏi danh sách trust |
+| `/voice invite` | Invite member vào voice hiện tại, kể cả khi bị ẩn hoặc lock |
+| `/voice kick` | Ngắt kết nối member khỏi voice |
+| `/voice block` | Block member, họ không thể thấy hay join voice của bạn, và bị kick nếu đang ở trong. Áp dụng cho mọi voice sau này |
+| `/voice unblock` | Xóa member khỏi danh sách block |
+| `/voice region` | Đổi region của voice, `Automatic` để Discord tự chọn |
+| `/voice claim` | Nhận làm owner khi owner cũ đã rời voice |
+| `/voice transfer` | Chuyển owner cho một member đang ở trong voice |
+| `/voice delete` | Xóa voice của bạn ngay lập tức |
+| `/voice reset` | Reset setting voice đã lưu về mặc định |
+
+<Code code="/voice privacy" title="command" mark={highlights} />
+
+---
+
+## Voice Notifier
+
+Bot sẽ gửi tin nhắn vào chat của voice mỗi khi có người join hoặc rời voice.
+
+### `/voice notifier range` - Phạm vi thông báo
+Chọn những voice nào sẽ có thông báo. Bạn cần quyền `Manage Server`.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `range`: 1 trong 3 giá trị:
+  - `off`: Tắt
+  - `tempvoice`: Chỉ các temp voice
+  - `all`: Mọi voice trong server
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/voice notifier range range:all" title="command" mark={highlights} />
+
+---
+
+### `/voice notifier messages` - Sửa tin nhắn thông báo
+Mở trình sửa tin nhắn join/leave. Bạn có thể thêm nhiều tin nhắn (tối đa **25** mỗi loại), bot sẽ chọn random một tin nhắn mỗi lần thông báo. Nếu chưa có tin nhắn nào, bot dùng tin nhắn mặc định.
+
+Tin nhắn hỗ trợ placeholder của [BucketScript](/bucketscript/functions), ví dụ `{user}`, `{user_nick}`, `{server_name}`, và `{channel}` (đề cập tới voice).
+
+<Code code="/voice notifier messages" title="command" mark={highlights} />
+
+Ví dụ tin nhắn join:
+<Code code="{user} vừa join {channel}, chào đi nào!" />

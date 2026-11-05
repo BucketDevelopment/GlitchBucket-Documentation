@@ -473,6 +473,25 @@ Lệnh này sẽ chỉnh sửa layout `welcome`
 
 ---
 
+### `/layout send`
+Gửi 1 layout (giao diện) có sẵn
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `name`: Chỉ định tên layout
+
+_Không bắt buộc:_
+- `channel`: Chọn một kênh, _mặc định: kênh hiện tại_
+- `ephemeral`: Gửi ở chế độ im lặng (chỉ bạn thấy), _mặc định: có_
+- `edit_message`: Link hoặc ID tin nhắn (của bot) để sửa thành layout này, thay vì gửi tin nhắn mới
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ gửi layout `welcome` vào kênh `#general`
+<Code code="/layout send name:welcome channel:#general ephemeral:False" mark={highlights} />
+
+---
+
 ### `/layout delete`
 Xóa 1 layout (giao diện) có sẵn
 
@@ -491,7 +510,7 @@ Lệnh này sẽ xóa layout `welcome`
 Bạn có thể tham gia [Discord hỗ trợ](/support) và đóng góp ý tưởng của bản thân tại khu vực [`#🌟〡showcase`](https://discord.com/channels/1096028188397809736/1330168053324841000) nhé 😄😄 
 :::
 
-### Layout mua role, kết hợp với [Item](/bucketscript/item) và [Select](/bucketscript/select) 
+### Layout mua role, kết hợp với [Item](/commands/group/item) và [Select](/bucketscript/select) 
 
 
 <ExampleVideoDisplay src={AdvancedLayoutExample} widthDesktop="60%" />

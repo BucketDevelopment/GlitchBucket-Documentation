@@ -1,0 +1,126 @@
+---
+title: "Các lệnh khác"
+description: "GlitchBucket - Xem thông tin của bot, server, người dùng và ID"
+sidebar:
+  label: "Các lệnh khác"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['user:', 'command:', 'id1:', 'id2:'];
+
+Các lệnh nhỏ để xem thông tin của bot, server, người dùng, ID, ...
+
+---
+
+## `/help` - Trợ giúp
+Lệnh này sẽ hiển thị danh sách lệnh của bot, hoặc cách sử dụng của một lệnh cụ thể
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `command`: Chọn một lệnh bạn cần trợ giúp
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ trả về hỗ trợ sử dụng lệnh [`/artwork`](/commands/single/artwork)
+<Code code="/help command:artwork" title="command" mark={highlights} />
+
+---
+
+## `/information` - Thông tin bot
+Lệnh này sẽ hiển thị một số thông tin của bot (CPU, RAM, ổ cứng, ...)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/information" title="command" mark={highlights} />
+
+---
+
+## `/serverinfo` - Thông tin server
+Lệnh này sẽ hiển thị thông tin về server hiện tại
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/serverinfo" title="command" mark={highlights} />
+
+---
+
+## `/membercount` - Số lượng thành viên
+Lệnh này sẽ hiển thị số lượng thành viên của server
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/membercount" title="command" mark={highlights} />
+
+---
+
+## `/user info` - Thông tin người dùng
+Lệnh này sẽ kiểm tra thông tin của một người dùng
+
+Lệnh ngắn: `/userinfo`
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `user`: Chọn một người dùng hoặc chỉ định ID người dùng, _mặc định: bạn_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ kiểm tra thông tin của `@tudubucket`
+<Code code="/user info user:@tudubucket" title="command" mark={highlights} />
+
+---
+
+## `/user avatar` - Xem avatar
+Lệnh này sẽ hiển thị avatar của một người dùng
+
+Lệnh ngắn: `/avatar`
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `user`: Chọn một người dùng hoặc chỉ định ID người dùng, _mặc định: bạn_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ hiển thị avatar của `@tudubucket`
+<Code code="/user avatar user:@tudubucket" title="command" mark={highlights} />
+
+---
+
+## `/user banner` - Xem banner
+Lệnh này sẽ hiển thị banner của một người dùng
+
+Lệnh ngắn: `/banner`
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `user`: Chọn một người dùng hoặc chỉ định ID người dùng, _mặc định: bạn_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ hiển thị banner của `@tudubucket`
+<Code code="/user banner user:@tudubucket" title="command" mark={highlights} />
+
+---
+
+## `/snowflake` - So sánh thời gian giữa 2 ID
+Lệnh này sẽ so sánh thời gian tạo giữa 2 ID Discord (tin nhắn, người dùng, server, ...), hoặc giữa `id1` với thời điểm bạn dùng lệnh. Bạn cũng có thể chuột phải vào tin nhắn, chọn **Apps** > **Snowflake this Message**.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `id1`: ID đầu tiên, hoặc link tin nhắn Discord
+
+_Không bắt buộc:_
+ - `id2`: ID thứ hai, hoặc link tin nhắn Discord, _mặc định: thời điểm dùng lệnh_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ so sánh thời gian giữa 2 tin nhắn
+<Code code="/snowflake id1:123456789012345678 id2:234567890123456789" title="command" mark={highlights} />

@@ -10,12 +10,25 @@ export const highlights = ['name:', 'message:', 'channel:']
 
 Các Function & Placeholder dưới đây bộ phận xử lí tin nhắn của toàn bộ hệ thống bot. Gần như tất cả các tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message) đều sử dụng bộ phận xử lí tin nhắn này. Các tính năng được tích hợp BucketScript thường sẽ được ghi thêm là **`[BucketScript Compatible]`**/**`[Tích hợp BucketScript]`**.
 
+## `/send` - Gửi thử BucketScript
+Gửi một tin nhắn BucketScript vào kênh, tiện để thử placeholder và function trước khi dùng trong Autoresponder, Sticky Message, ... Cần quyền `Manage Messages`.
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Không bắt buộc:_
+- `message`: Chỉ định tin nhắn, để trống để nhập trong hộp thoại
+- `channel`: Chọn một kênh, _mặc định: kênh hiện tại_
+- `ephemeral`: Gửi ở chế độ im lặng (chỉ bạn thấy), _mặc định: có_
+- `edit_message`: Link hoặc ID tin nhắn (của bot) để sửa thay vì gửi tin nhắn mới
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/send message:Chào {user_mention}, server có {server_membercount} member{embed} ephemeral:False" title="command" mark={highlights} />
+
 ## Placeholder mặc định
 
 ### Placeholder về User
 
 Đối với placeholder cho user, bạn cũng có thể sử dụng `{user_name: id }` để lấy id từ người khác. Bạn cũng có thể kết hợp với các argument, như `{user_name: [$1] }` để lấy tên từ người khác trong autoresponder.<br />
-Xem thêm ví dụ [tại đây](/docs/bucketscript/example)
+Xem thêm ví dụ [tại đây](/bucketscript/example)
 
 |Placeholder                   | Thông tin                                                                                                   | Ví dụ trả về
 |------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------
@@ -72,6 +85,17 @@ Placeholder về Tin nhắn sẽ chỉ hỗ trợ cho [Autoresponder](/commands/
 |`{message_id}`                   | ID tin nhắn được trigger                                                                 | `1253980690006016072`
 |`{message_content}`              | Nộit dung tin nhắn của tin nhắn được trigger                                             | `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
 
+### Argument (tham số trong tin nhắn)
+Trong [Autoresponder](/commands/group/autoresponder), bạn có thể lấy từng từ trong tin nhắn trigger (tính từ 1, ngăn cách bởi dấu cách). `[$1]` và `[&1]` là như nhau.
+
+|Argument  | Thông tin                          | Ví dụ với tin nhắn `!hug @tudubucket thật chặt`
+|----------|------------------------------------|----------------------------------
+|`[$1]`    | Từ thứ 1                           | `@tudubucket`
+|`[$1+]`   | Từ thứ 1 cho tới hết tin nhắn      | `@tudubucket thật chặt`
+|`[$2-3]`  | Từ thứ 2 tới từ thứ 3              | `thật chặt`
+
+Kết hợp với `{require_arg}` để bắt buộc tin nhắn phải có đủ từ, ví dụ `{require_arg:1|user}`.
+
 ### Functions (các hàm)
 
 :::caution[Chú ý]
@@ -87,6 +111,7 @@ Ngược lại, các hàm không có dấu `*` là bạn có thể sử dụng h
 | Function             | Chức năng                                                                                   | Parameters                            | Ví dụ sử dụng
 |----------------------|---------------------------------------------------------------------------------------------|---------------------------------------|-------------------------------------
 |`{newline}`                   | Thay thế kí tự xuống dòng                                                                   | *Không có tham số*                    | `{newline}`
+|`{now}`                       | Thời gian hiện tại, hiển thị theo múi giờ của người xem                                       | *Không có tham số*                    | `{now}`
 |`{embed:name}`*                | Gửi một embed có tên là `name`                                                              | `name`: Tên một embed                 | `{embed:welcome}`
 |`{embed}`*                     | Gói toàn bộ nội dung tin nhắn vào một embed, màu mặc định `#C0CDFF`                         | *Không có tham số*                    | `{embed}`
 |`{embed:#hex}`*                | Gói toàn bộ nội dung tin nhắn vào một embed có màu `hex`                                    | `hex`: Mã màu 6 kí tự                 | `{embed:#ffd24d}`
@@ -100,27 +125,35 @@ Ngược lại, các hàm không có dấu `*` là bạn có thể sử dụng h
 |`{ignore_channel:id}`         | Chặn kênh được sử dụng có ID là `id`                                                        | `id`: ID một kênh                     | `{ignore_channel:1145547639618801736}`
 |`{ignore_category:id}`        | Chặn category được sử dụng có ID là `id`                                                    | `id`: ID một category                     | `{ignore_category:1275866968582262965}`
 |`{ignore_role:id}`            | Chặn người gửi có role `id` sử dụng                                                         | `id`: ID một role                     | `{ignore_role:1122707453251948608}`
-|`{ignore_perm:permission}`    | Yêu cầu người gửi phải có quyền `permission`                                                | `permission`: Một quyền thuộc Discord | `{ignore_perm:administrator}`
-|`{cooldown:number}`*         | Thời gian chờ giữa các lần sử dụng BucketScript, đối với 1 người dùng                  | `number`: Một số nguyên                  | `{cooldown:2}`
+|`{ignore_perm:permission}`    | Chặn người gửi có quyền `permission` sử dụng                                                | `permission`: Một quyền thuộc Discord | `{ignore_perm:administrator}`
+|`{cooldown:number}`*         | Thời gian chờ giữa các lần sử dụng BucketScript, đối với 1 người dùng                  | `number`: Số giây, hoặc thời gian dạng ngắn (vd: `1h`) | `{cooldown:2}`<br />`{cooldown:1h}`
+|`{daily_cooldown}`*          | Mỗi người dùng chỉ được dùng 1 lần mỗi ngày. Không dùng chung với `{cooldown}`/`{global_cooldown}` | *Không có tham số* | `{daily_cooldown}`
 |`{global_cooldown:number}`*  | Thời gian chờ giữa các lần sử dụng BucketScript, đối với toàn server            | `number`: Một số nguyên                  | `{global_cooldown:2}`
 |`{ignore_errors}`*             | Ẩn tất cả các lỗi được trả về                                                               | *Không có tham số*                    | `{ignore_errors}`
 |`{reply}`*                     | Phản hồi về tin nhắn được trigger                                                           | *Không có tham số*                    | `{reply}` 
 |`{reply_no_mention}`*          | Phản hồi về tin nhắn được trigger, nhưng không đề cập đến người dùng đấy                    | *Không có tham số*                    | `{reply_no_mention}` 
 |`{message_no_mention}`*        | Gửi tin nhắn, nhưng không cho phép đề cập (`@everyone`, `@here`, đề cập role & người dùng)  | *Không có tham số*                    | `{message_no_mention}` 
 |`{set_nick:string}`*           | Đặt nickname cho người trigger BucketScript thành `string`                                  | `string`: Một chuỗi kí tự             | `{set_nick:tudubucket}`
-|`{add_role:id}`               | Thêm một vai trò (role) có ID là `id` cho người trigger BucketScript                        | `id`: ID một role                     | `{add_role:1122707453251948608}` 
-|`{remove_role:id}`            | Xóa một vai trò (role) có ID là `id` cho người trigger BucketScript                         | `id`: ID một role                     | `{remove_role:1122707453251948608}` 
+|`{add_role:id:<user>}`        | Thêm một vai trò (role) có ID là `id` cho người trigger BucketScript, hoặc cho người dùng khác | `id`: ID một role<br />`user`: ID một người dùng (không bắt buộc) | `{add_role:1122707453251948608}`<br />`{add_role:1122707453251948608:[$1]}`
+|`{remove_role:id:<user>}`     | Xóa một vai trò (role) có ID là `id` cho người trigger BucketScript, hoặc cho người dùng khác  | `id`: ID một role<br />`user`: ID một người dùng (không bắt buộc) | `{remove_role:1122707453251948608}`
+|`{admin}`*                     | Mặc định, `{add_role}`/`{remove_role}` yêu cầu người trigger có quyền `Manage Roles`. Thêm `{admin}` để bỏ yêu cầu này | *Không có tham số* | `{admin}{add_role:1122707453251948608}`
 |`{redirect_to:id}`            | Gửi tin nhắn reply tới 1 kênh khác                                                          | `id`: ID một kênh                     | `{redirect_to:1145547639618801736}` 
 |`{react_trigger:emoji}`       | React vào tin nhắn trigger BucketScript                                                     | `emoji`: Một emoji                    | `{react_trigger:<:emoji:1122707453251948608>}`
 |`{react_reply:emoji}`         | React vào tin nhắn được gửi đi từ bot sau trigger                                           | `emoji`: Một emoji                    | `{react_reply:emoji}`
 |`{delete_trigger:number}`*       | Xóa tin nhắn trigger BucketScript sau `number` giây                                            | `number`: Thời gian delay (giây) | `{delete_trigger:0}`
+|`{delete}`*                    | Giống `{delete_trigger:0}`, xóa tin nhắn trigger ngay lập tức                                | *Không có tham số* | `{delete}`
 |`{delete_reply:number}`*          | Xóa tin nhắn được gửi đi từ bot sau trigger sau `number` giây                                  | `number`: Thời gian delay (giây) | `{delete_reply:0}`
-|`{sleep:number}`        | Chờ một lúc trước khi gửi tin nhắn. Tin nhắn sẽ được chia ra các phần tại các vị trí đặt `{sleep:number}`, và được thực hiện lần lượt                                            | `number`: Thời gian delay (giây) | `{sleep:2}`
+|`{sleep:number}`        | Chờ một lúc trước khi gửi tin nhắn (có thể viết `{wait:number}` hoặc `{delay:number}`). Tin nhắn sẽ được chia ra các phần tại các vị trí đặt `{sleep:number}`, và được thực hiện lần lượt                                            | `number`: Thời gian delay (giây) | `{sleep:2}`
 |`{edit}`        | Thực hiện chỉnh sửa tin nhắn gốc sau khi sử dụng `{sleep:number}`                                           | *Không có tham số* | `{edit}`
 |`{item:ITEM_ID:<user>}`       | Kiểm tra số lượng item của bạn, hoặc của một người dùng khác                                | `type`: Một loại [Item](/commands/group/item)<br /> `user`: ID một người dùng (không bắt buộc) | `{item:tien_ao:906844267870314577}`<br /> `{item:tien_donate}`
+|`{require_item:ITEM_ID:amount:<user>}`| Yêu cầu bạn (hoặc người dùng khác) có ít nhất `amount` item | `ITEM_ID`: ID một [Item](/commands/group/item)<br /> `amount`: Số lượng<br /> `user`: ID một người dùng (không bắt buộc) | `{require_item:tien_ao:1000}`
 |`{edit_item:ITEM_ID:+/-amount:<user>}`| Thay đổi dữ liệu item của bạn, hoặc của một người dùng khác                | `type`: Một loại [Item](/commands/group/item)<br /> `+/-amount`: Thêm/Giảm bớt một lượng `amount`<br /> `user`: ID một người dùng (không bắt buộc) | `{edit_item:tien_donate:+1000:906844267870314577}`<br /> `{edit_item:tien_ao:-1000}`
 |`{random:string:A\|B\|C}`       | Chọn một chuỗi kí tự ngẫu nhiên giữa **A**, **B**, hoặc **C**, ... ngăn cách bởi dấu gạch   | `A\|B\|C`: Một dãy chuỗi kí tự cần chọn ngẫu nhiên | `{random:string:hello\|hi\|hewwo\|:3}` |
 |`{random:number:A-B}`         | Chọn một số ngẫu nhiên nằm giữa **A** và **B**, ngăn cách bởi `-`                           | `A` & `B`: 2 số đầu đuôi cho việc chọn ngẫu nhiên | `{random:number:1-100}` |
-|`[random:string]`             | Lấy chuỗi kí tự ngẫu nhiên đã chọn bằng hàm `{random:string}` trước đó                        | *Không có tham số*                   | `[random:string]` |
+|`[random:string]`             | Lấy chuỗi kí tự ngẫu nhiên đã chọn bằng hàm `{random:string}` trước đó (có thể viết `[choice:string]`)                     | *Không có tham số*                   | `[random:string]` |
 |`[random:number]`             | Lấy số ngẫu nhiên đã chọn bằng hàm `{random:number}` trước đó                                 | *Không có tham số*                   | `[random:number]` |
+|`{sticker:id}`*               | Gửi kèm một sticker của server                                                              | `id`: ID hoặc tên sticker của server | `{sticker:bucket}` |
+|`{layout:name}`*              | Gửi một [Layout](/bucketscript/layout)                                                       | `name`: Tên layout                   | `{layout:welcome}` |
+|`{button:a,b}`                | Thêm [Button](/bucketscript/button) vào tin nhắn                                              | `a,b`: Tên các button, ngăn cách bởi dấu phẩy | `{button:support_ticket,report_bug}` |
+|`{select:a,b}`                | Thêm [Select](/bucketscript/select) vào tin nhắn                                              | `a,b`: Tên các select, ngăn cách bởi dấu phẩy | `{select:support_category}` |
 

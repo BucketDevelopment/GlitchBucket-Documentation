@@ -10,7 +10,7 @@ sidebar:
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['session:', 'user:', 'sort:', 'channel:', 'from_message:']
+export const highlights = ['session:', 'user:', 'sort:', 'channel:', 'from:', 'save_data:', 'hide_disqualified:', 'message:', 'hide_invalid:', 'limit:']
 
 <h4>Vấn đề</h4>
 Bạn muốn tổ chức một cuộc thi vote cho server của bạn để quảng bá server rộng rãi hơn, cũng như là một event thú vị cho member trong server của bạn, và người có số lượng reaction trong kênh cao nhất sẽ là người chiến thắng
@@ -55,11 +55,13 @@ Thiết lập một phiên bầu chọn
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
 - `channel`: Chọn kênh
-- `from_message`: Chỉ định một ID tin nhắn để bắt đầu đếm phiếu sau đó
+
+_Không bắt buộc:_
+- `from`: Chỉ định một ID tin nhắn để đếm vote từ đó. Để trống để đếm toàn bộ tin nhắn
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ bắt đầu thiết lập lượt vote tại kênh `#vote` và tính từ sau tin nhắn có ID `12244382398348857345` trong kênh `#vote`
-<Code code="/voting start channel:#vote from_message:12244382398348857345" title="command" mark={highlights} />
+<Code code="/voting start channel:#vote from:12244382398348857345" title="command" mark={highlights} />
 
 ---
 
@@ -68,7 +70,8 @@ Lệnh này sẽ kết thúc phiên bầu chọn của máy chủ
 
 <h4>Tham số lệnh (Parameters)</h4>
 
-_Không có tham số_
+_Không bắt buộc:_
+- `save_data`: Lưu dữ liệu phiên vote vào lịch sử, _mặc định: không_. Bot sẽ mất một khoảng thời gian dài để làm mới dữ liệu và lưu
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ kết thúc phiên vote đang chạy
@@ -113,8 +116,26 @@ Lệnh này sẽ xem thống kê hiện tại của phiên bầu chọn
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Không bắt buộc:_
+- `hide_disqualified`: Ẩn những người bị loại, _mặc định: có_
 - `sort`: Sắp xếp kết quả theo thứ tự giảm dần hay không
 - `user`: Xem tin nhắn từ một người dùng cụ thể
 
 <h4>Ví dụ sử dụng lệnh</h4>
 <Code code="/voting statistics" title="command" mark={highlights} />
+
+---
+
+## `/voting detail` - Xem chi tiết 1 tin nhắn
+Lệnh này sẽ xem thống kê chi tiết của 1 tin nhắn (ai đã vote, vote nào bị loại)
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `message`: Chọn tin nhắn từ autocomplete
+
+_Không bắt buộc:_
+- `hide_invalid`: Ẩn những người vote bị loại, _mặc định: không_
+- `session`: Chọn một phiên hoặc chỉ định ID phiên, _mặc định: phiên hiện tại_
+- `limit`: Số mục mỗi trang (5 - 20), _mặc định: 10_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/voting detail message:12244382398348857345 hide_invalid:True" title="command" mark={highlights} />

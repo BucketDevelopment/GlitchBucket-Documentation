@@ -235,3 +235,32 @@ Lệnh này sẽ dừng phiên nối từ hiện tại
 
 <Code code="/wordconnect end " title="command" mark={highlights} />
 
+---
+
+### `/wordconnect leaderboard`
+Xem bảng xếp hạng nối từ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `scope`: Phạm vi bảng xếp hạng, `Server` hoặc `Toàn quốc`
+ - `time_range`: Khoảng thời gian thống kê (`Toàn bộ thời gian`, `Trong ngày`, `7 ngày trước`, `30 ngày trước`, `Trong tuần`, `Trong tháng`)
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Lệnh này sẽ xem bảng xếp hạng nối từ của server trong tuần này
+
+<Code code="/wordconnect leaderboard scope:Server time_range:Trong tuần" title="command" mark={highlights} />
+
+---
+
+### `/wordconnect streak-leaderboard`
+Xem bảng xếp hạng streak cao nhất
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không có tham số_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+<Code code="/wordconnect streak-leaderboard" title="command" mark={highlights} />

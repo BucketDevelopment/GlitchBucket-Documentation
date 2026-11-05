@@ -1,0 +1,305 @@
+---
+title: "🧹 Purge"
+description: "GlitchBucket - Xóa hàng loạt tin nhắn trong kênh"
+sidebar:
+  label: "🧹 Purge"
+  order: 35
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['amount:', 'user:', 'text:', 'before:', 'after:', 'pinned:'];
+
+<h4>Vấn đề</h4>
+Kênh của bạn vừa bị spam, hoặc có quá nhiều tin nhắn rác (link, invite, lệnh của bot khác, ...) cần dọn. Xóa từng tin nhắn bằng tay thì rất lâu, còn xóa cả kênh rồi tạo lại thì mất hết lịch sử chat.
+
+<h4>Giải pháp</h4>
+**Purge** giúp bạn xóa nhanh nhiều tin nhắn trong kênh hiện tại, có thể lọc theo người gửi, nội dung, link, ảnh, ...
+
+Bạn cần quyền `Manage Messages` để dùng lệnh, bot cũng cần quyền `Manage Messages` và `Read Message History` trong kênh đó.
+
+:::caution[Chú ý]
+- Bot chỉ quét tối đa **1000** tin nhắn gần nhất cho mỗi lần purge
+- Discord không cho phép xóa hàng loạt tin nhắn cũ hơn **14 ngày**, bot sẽ bỏ qua các tin nhắn này và báo lại số lượng
+- Tin nhắn đã ghim sẽ không bị xóa, trừ khi bạn đặt `pinned:True`
+- Mỗi kênh chỉ chạy được 1 lệnh purge cùng lúc
+:::
+
+---
+
+## `/purge all` - Xóa tin nhắn gần đây
+Xóa các tin nhắn gần đây trong kênh
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa 50 tin nhắn gần nhất trong kênh
+<Code code="/purge all amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge human` - Xóa tin nhắn của member
+Xóa tin nhắn của member, không tính bot
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa 20 tin nhắn gần nhất của member
+<Code code="/purge human amount:20" title="command" mark={highlights} />
+
+---
+
+## `/purge bot` - Xóa tin nhắn của bot
+Xóa tin nhắn của bot và webhook
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa 100 tin nhắn gần nhất của bot
+<Code code="/purge bot amount:100" title="command" mark={highlights} />
+
+---
+
+## `/purge user` - Xóa tin nhắn của một user
+Xóa tin nhắn của một user nhất định
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `user`: User có tin nhắn cần xóa
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa 30 tin nhắn gần nhất của `@tudubucket`
+<Code code="/purge user user:@tudubucket amount:30" title="command" mark={highlights} />
+
+---
+
+## `/purge contains` - Xóa tin nhắn có chứa nội dung
+Xóa tin nhắn có chứa nội dung nhất định, không phân biệt hoa thường
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `text`: Nội dung cần tìm
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có chứa chữ `spam`, trong 100 tin nhắn gần nhất
+<Code code="/purge contains text:spam amount:100" title="command" mark={highlights} />
+
+---
+
+## `/purge startswith` - Xóa tin nhắn bắt đầu bằng nội dung
+Xóa tin nhắn bắt đầu bằng nội dung nhất định, không phân biệt hoa thường
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `text`: Nội dung cần tìm
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn bắt đầu bằng `!` (thường là lệnh của bot khác)
+<Code code="/purge startswith text:! amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge endswith` - Xóa tin nhắn kết thúc bằng nội dung
+Xóa tin nhắn kết thúc bằng nội dung nhất định, không phân biệt hoa thường
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `text`: Nội dung cần tìm
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn kết thúc bằng `xd`
+<Code code="/purge endswith text:xd amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge links` - Xóa tin nhắn có link
+Xóa tin nhắn có link (`http://`, `https://`)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có link, trong 50 tin nhắn gần nhất
+<Code code="/purge links amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge invites` - Xóa tin nhắn có invite
+Xóa tin nhắn có invite Discord (`discord.gg`, `discord.com/invite`, `dsc.gg`)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có invite Discord
+<Code code="/purge invites amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge attachments` - Xóa tin nhắn có tệp đính kèm
+Xóa tin nhắn có tệp đính kèm
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có tệp đính kèm
+<Code code="/purge attachments amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge images` - Xóa tin nhắn có hình ảnh
+Xóa tin nhắn có hình ảnh (ảnh đính kèm, ảnh trong embed, GIF)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có hình ảnh
+<Code code="/purge images amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge embeds` - Xóa tin nhắn có embed
+Xóa tin nhắn có embed
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có embed
+<Code code="/purge embeds amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge mentions` - Xóa tin nhắn có mention
+Xóa tin nhắn có mention (user, role, `@everyone`/`@here`)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có mention
+<Code code="/purge mentions amount:50" title="command" mark={highlights} />
+
+---
+
+## `/purge emoji` - Xóa tin nhắn có emoji
+Xóa tin nhắn có emoji (custom emoji hoặc emoji Unicode)
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `amount`: Số tin nhắn cần xóa (1 - 1000)
+
+_Không bắt buộc:_
+ - `user`: Chỉ xóa tin nhắn của user này
+ - `before`: Chỉ xóa tin nhắn trước tin nhắn này (ID hoặc link tin nhắn)
+ - `after`: Chỉ xóa tin nhắn sau tin nhắn này (ID hoặc link tin nhắn)
+ - `pinned`: Xóa cả tin nhắn đã ghim, _mặc định: không_
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa các tin nhắn có emoji của `@tudubucket`
+<Code code="/purge emoji amount:50 user:@tudubucket" title="command" mark={highlights} />

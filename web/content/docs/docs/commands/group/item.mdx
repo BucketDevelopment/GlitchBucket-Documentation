@@ -4,7 +4,7 @@ description: "GlitchBucket - Xây dựng economy trong chính server của bạn
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['item:', 'limit:', 'name:', 'display_icon:', 'display_name:', 'amount:', 'user:']
+export const highlights = ['balance:', 'limit:', 'name:', 'display_icon:', 'display_name:', 'amount:', 'user:']
 
 <h4>Giới thiệu</h4>
 
@@ -22,7 +22,7 @@ Giới hạn của tính năng nằm ở sự sáng tạo của bạn.
 ---
 
 ## `/item create` - Tạo item trong máy chủ của bạn
-Tạo item trong máy chủ của bạn
+Tạo item trong máy chủ của bạn. Số item tối đa tùy theo [gói của server](/premium/plans).
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
@@ -44,11 +44,11 @@ Xóa một item có sẵn trong máy chủ của bạn
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
-- `item`: Chọn một item hoặc chỉ định ID item
+- `balance`: Chọn một item hoặc chỉ định ID item
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xóa một economy mang tên BucketCoin
-<Code code="/item delete item:BucketCoin" title="command" mark={highlights} />
+<Code code="/item delete balance:BucketCoin" title="command" mark={highlights} />
 
 ---
 
@@ -71,13 +71,13 @@ Thêm một số lượng item cụ thể cho một người dùng
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
-- `item`: Chọn một item hoặc chỉ định ID item
+- `balance`: Chọn một item hoặc chỉ định ID item
 - `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
 - `amount`: Hãy ghi số lượng
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm `10,000` **BucketCoin** cho người dùng **@tudubucket**
-<Code code="/item add item:BucketCoin user:@tudubucket amount:10000" title="command" mark={highlights} />
+<Code code="/item add balance:BucketCoin user:@tudubucket amount:10000" title="command" mark={highlights} />
 
 ---
 
@@ -86,13 +86,13 @@ Trừ một số lượng item cụ thể từ một người dùng
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
-- `item`: Chọn một item hoặc chỉ định ID item
+- `balance`: Chọn một item hoặc chỉ định ID item
 - `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
 - `amount`: Hãy ghi số lượng
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này trừ `10,000` **BucketCoin** khỏi người dùng **@tudubucket**
-<Code code="/item subtract item:BucketCoin user:@tudubucket amount:10000" title="command" mark={highlights} />
+<Code code="/item subtract balance:BucketCoin user:@tudubucket amount:10000" title="command" mark={highlights} />
 
 ---
 
@@ -101,10 +101,10 @@ Hiển thị bảng xếp hạng của một item cụ thể
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
-- `item`: Chọn một item hoặc chỉ định ID item
+- `balance`: Chọn một item hoặc chỉ định ID item
 _Không bắt buộc:_
-- `limit`: Chỉ định giới hạn số lượng mục mỗi trang, mặc định là 10
+- `limit`: Chỉ định giới hạn số lượng mục mỗi trang (5 - 25), mặc định là 10
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ kiểm tra top item của **BucketCoin**, 10 người 1 trang
-<Code code="/item leaderboard item:BucketCoin limit:10" title="command" mark={highlights} />
+<Code code="/item leaderboard balance:BucketCoin limit:10" title="command" mark={highlights} />

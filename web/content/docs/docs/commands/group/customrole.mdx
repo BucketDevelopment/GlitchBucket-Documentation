@@ -7,7 +7,7 @@ sidebar:
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['above_role:', 'max_users:', 'expire_after:', 'delete_role:', 'edit_name:', 'edit_icon:', 'edit_color:', 'manage_role_members:', 'make_role_mentionable:', 'time_range:', 'author:', 'icon:', 'role:', 'user:', 'name:', 'action:', 'color:', 'users:'];
+export const highlights = ['below_role:', 'secondary_color:', 'max_users:', 'expire_after:', 'delete_role:', 'edit_name:', 'edit_icon:', 'edit_color:', 'manage_role_members:', 'make_role_mentionable:', 'time_range:', 'author:', 'icon:', 'role:', 'user:', 'name:', 'action:', 'color:', 'users:'];
 
 :::note[Note]
 Tính năng dưới đây được gọi là **Custom Role**, hoặc còn gọi là **Role Tùy chỉnh**.
@@ -25,9 +25,10 @@ Mọi thứ đều yêu cầu bạn phải thực hiện, bởi vì một ngư�
 <h4>Giải pháp</h4>
 **Custom Role** mà một tính năng đưa ra những giải pháp để:
  - Giúp bạn quản lí những role tùy chỉnh của member một cách nhanh chóng
- - Giúp người sở hữu role có thể tự tùy chỉnh role một cách an toàn đối với server (thêm/xóa member, đổi tên/màu/icon của role, tất cả trong lệnh `/customrole user`)
+ - Giúp người sở hữu role có thể tự tùy chỉnh role một cách an toàn đối với server (thêm/xóa member, đổi tên/màu/icon của role, tất cả trong lệnh `/customrole user manage`)
  - Tạo 1 role tùy chỉnh có thời gian được gia hạn bởi admin (`/customrole admin create`)
- - Nếu như việc gia hạn đã kết thúc (`/customrole admin terminate` hoặc tự động hết hạn), bot sẽ tự xóa role, hoặc xóa tất cả member của role đó, tùy theo cài đặt của bạn (`/customrole admin on_expire`)
+ - Cho phép chủ role tự chỉnh, hoặc phải gửi yêu cầu để admin duyệt trước
+ - Nếu như việc gia hạn đã kết thúc (`/customrole admin terminate` hoặc tự động hết hạn), bot sẽ tự xóa role, hoặc xóa tất cả member của role đó, tùy theo cài đặt của bạn (`/customrole configuration`)
 
 :::note[Note]
 Nếu bạn đang có role tùy chỉnh trong máy chủ của bạn, bạn có thể chuyển chúng sang cơ sở dữ liệu của bot bằng lệnh `/customrole admin migrate` để làm role đó được quản lí dễ dàng hơn!
@@ -37,133 +38,63 @@ Nếu bạn đang có role tùy chỉnh trong máy chủ của bạn, bạn có 
 ---
 
 ### `/customrole search` - Tìm kiếm role tùy chỉnh
-Tìm kiếm thông tin một role tùy chỉnh được gán cho một thành viên, hoặc ngược lại
+Tìm kiếm thông tin một Custom Role được gán cho một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
 
-_Không bắt buộc:_
- - `role`: Chọn role
+_Bắt buộc:_
+ - `role`: Chọn một Custom Role, hoặc chỉ định một Custom Role ID
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ tìm kiếm thông tin một role tùy chỉnh mang tên **@bucket**
 <Code code="/customrole search role:@bucket" title="command" mark={highlights} />
 
-## Các lệnh cài đặt dành cho người dùng
+## Các lệnh dành cho người dùng
 ---
 
-### `/customrole user add` - Thêm thành viên
-Thêm một thành viên vào role tùy chỉnh của bạn
+### `/customrole user manage` - Quản lý role của bạn
+Lệnh này sẽ mở menu để chủ role tự quản lý Custom Role của mình:
+ - Thêm/Xóa thành viên
+ - Đổi tên, màu (màu chính/màu phụ), icon
+ - Bật/tắt cho phép role được ping
+
+Tùy theo quyền admin cấp cho role, thay đổi sẽ được áp dụng ngay, hoặc được gửi thành yêu cầu để Quản trị viên duyệt.
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `user`: Chọn một thành viên
+ - `role`: Chọn một Custom Role, hoặc chỉ định một Custom Role ID
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ thêm người dùng **@tudubucket** vào role tùy chỉnh của bạn
-<Code code="/customrole user add user:@tudubucket" title="command" mark={highlights} />
----
-
-### `/customrole user remove` - Xóa thành viên
-Xóa một thành viên khỏi role tùy chỉnh của bạn
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `user`: Chọn một thành viên
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ xóa người dùng **@tudubucket** khỏi role tùy chỉnh của bạn
-<Code code="/customrole user remove user:@tudubucket" title="command" mark={highlights} />
----
-
-### `/customrole user color` - Thay đổi màu role
-Thay đổi màu của role tùy chỉnh của bạn
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `color`: Có thể là `0x<hex>`, `#<hex>`, `rgb(<number>, <number>, <number>)`.
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ thay đổi màu role tùy chỉnh của bạn thành `#c0cdff`
-<Code code="/customrole user color color:#c0cdff" title="command" mark={highlights} />
----
-
-### `/customrole user icon` - Chỉnh sửa icon
-Chỉnh sửa icon của role tùy chỉnh của bạn. Bạn có thể copy-paste trực tiếp icon vào lệnh này
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `icon`: Tải lên icon của bạn
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉnh icon role của bạn thành file bạn đã gửi lên
-<Code code="/customrole user icon icon:<file>" title="command" mark={highlights} />
----
-
-### `/customrole user removeicon` - Xóa icon
-Xóa icon từ role tùy chỉnh của bạn
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Không có tham số_
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/customrole user removeicon " title="command" mark={highlights} />
----
-
-### `/customrole user mentionable` - Làm cho role có thể nhắc đến
-Làm cho role tùy chỉnh của bạn có thể nhắc đến
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `action`: Ghi hành động
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ làm cho role tùy chỉnh của bạn không thể đề cập bởi người dùng khác
-<Code code="/customrole user mentionable action:False" title="command" mark={highlights} />
+Lệnh này sẽ mở menu quản lý role **@bucket**
+<Code code="/customrole user manage role:@bucket" title="command" mark={highlights} />
 ---
 
 ### `/customrole user info` - Xem thông tin role
-Xem thông tin role tùy chỉnh của bạn
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Không có tham số_
-
-<h4>Ví dụ sử dụng lệnh</h4>
-
-<Code code="/customrole user info " title="command" mark={highlights} />
----
-
-### `/customrole user name` - Thay đổi tên role
-Thay đổi tên role tùy chỉnh của bạn
+Lệnh này sẽ xem thông tin của một Custom Role (chủ role, thành viên, thời hạn, quyền)
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `name`: Chỉ định tên role
+ - `role`: Chọn một Custom Role, hoặc chỉ định một Custom Role ID
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ thay đổi tên role tùy chỉnh của bạn thành **@bukkit**
-<Code code="/customrole user name name:bukkit" title="command" mark={highlights} />
+<Code code="/customrole user info role:@bucket" title="command" mark={highlights} />
 
-
-
-## Các lệnh cài đặt dành cho quản trị
+## Các lệnh dành cho quản trị
 ---
+
+:::note[Note]
+Các lệnh dưới đây cần quyền `Manage Roles`. Số Custom Role tối đa tùy theo [gói của server](/premium/plans).
+:::
 
 ### `/customrole admin create` - Tạo Role tùy chỉnh
-Lệnh này sẽ tạo và gán một Custom Role cho một thành viên
+Lệnh này sẽ tạo và gán một Custom Role (không có quyền) cho một thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `above_role`: Role mới sẽ nằm trên role này
+ - `below_role`: Custom Role mới sẽ nằm dưới role này
  - `author`: Chỉ định chủ của role tùy chỉnh
  - `name`: Chỉ định tên role
  - `max_users`: Số người dùng tối đa có thể được gán vào role này
@@ -171,37 +102,57 @@ _Bắt buộc:_
 
 _Không bắt buộc:_
  - `color`: Chỉ định màu của role
- - `edit_name_permission`: Cho phép chủ của role thay đổi tên role của họ
- - `edit_icon_permission`: Cho phép chủ của role thay đổi icon của họ
- - `edit_color_permission`: Cho phép chủ của role thay đổi màu của họ
- - `manage_role_members_permission`: Cho phép chủ của role thêm/xóa thành viên của role
- - `make_role_mentionable_permission`: Cho phép chủ của role làm cho role của họ có thể được nhắc đến bởi các thành viên khác
+ - `secondary_color`: Màu phụ của role, để trống cho màu mặc định
+ - `edit_name`: Cho phép chủ của role thay đổi tên role của họ
+ - `edit_icon`: Cho phép chủ của role thay đổi icon của họ
+ - `edit_color`: Cho phép chủ của role thay đổi màu của họ
+ - `manage_role_members`: Cho phép chủ của role thêm/xóa thành viên của role
+ - `make_role_mentionable`: Cho phép chủ của role làm cho role của họ có thể được nhắc đến bởi các thành viên khác
+
+Các quyền bên trên có 4 lựa chọn: `Có`, `Gửi Yêu cầu cho Quản trị viên duyệt`, `Không`, `Mặc định`.
 
 :::caution[Chú ý]
-Nếu bạn không ghi đè một quyền ở trong tham số không bắt buộc bên trên, role sẽ sử dụng quyền hạn mặc định. 
+Nếu bạn không chỉ định một quyền ở trong tham số không bắt buộc bên trên, role sẽ sử dụng quyền hạn mặc định của server.
 
-Quyền hạn mặc định có thể được cài đặt thông qua `/customrole admin default_author_permission`, giúp bạn có thể tùy chỉnh quyền của nhiều role trong 1 lúc.
+Quyền hạn mặc định có thể được cài đặt thông qua `/customrole configuration`, giúp bạn có thể tùy chỉnh quyền của nhiều role trong 1 lúc.
 :::
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tạo 1 role **@bucket** trên role **@Custom Roles**, với chủ của role là **@tudubucket**, có tối đa **3 người**, hết hạn sau **1 tháng**, và có màu ở dạng hex là `#C0CDFF`
-<Code code="/customrole admin create above_role:@Custom Roles author:@tudubucket name:bucket max_users:3 expire_after:1mon color:#c0cdff " title="command" mark={highlights} />
+Lệnh này sẽ tạo 1 role **@bucket** dưới role **@Custom Roles**, với chủ của role là **@tudubucket**, có tối đa **3 người**, hết hạn sau **1 tháng**, và có màu ở dạng hex là `#C0CDFF`
+<Code code="/customrole admin create below_role:@Custom Roles author:@tudubucket name:bucket max_users:3 expire_after:1mon color:#c0cdff" title="command" mark={highlights} />
 ---
 
-### `/customrole admin terminate` - Ngừng role tùy chỉnh
-Lệnh này sẽ chấm dứt một role tùy chỉnh đang được gia hạn của một thành viên
+### `/customrole admin manage` - Quản lý role (admin)
+Lệnh này sẽ mở menu quản lý một Custom Role với đầy đủ quyền của admin:
+ - Đổi tên, màu, icon, bật/tắt ping
+ - Sửa số người tối đa, thời hạn (gia hạn/rút ngắn)
+ - Chuyển chủ role cho người khác
+ - Ghi đè quyền của chủ role cho riêng role này
+ - Thêm/Xóa thành viên
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `user`: Chọn người dùng
+ - `role`: Chọn một Custom Role, hoặc chỉ định một Custom Role ID
+
+<h4>Ví dụ sử dụng lệnh</h4>
+<Code code="/customrole admin manage role:@bucket" title="command" mark={highlights} />
+---
+
+### `/customrole admin terminate` - Ngừng role tùy chỉnh
+Lệnh này sẽ chấm dứt một Custom Role đang được gia hạn
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `role`: Chọn một Custom Role, hoặc chỉ định một Custom Role ID
 
 _Không bắt buộc:_
  - `delete_role`: Xóa role hay không, _mặc định: không_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ ngừng role tùy chỉnh mà **@tudubucket** hiện đang có, nhưng không xóa role, chỉ xóa tất cả thành viên của role đó
-<Code code="/customrole admin terminate user:@tudubucket delete_role:False" title="command" mark={highlights} />
+Lệnh này sẽ ngừng Custom Role **@bucket**, nhưng không xóa role
+<Code code="/customrole admin terminate role:@bucket delete_role:False" title="command" mark={highlights} />
 ---
 
 ### `/customrole admin migrate` - Chuyển sang role tùy chỉnh
@@ -220,92 +171,38 @@ Lệnh này sẽ di chuyển một role hiện tại bạn đang quản lí là 
 <Code code="/customrole admin migrate role:@bucket author:@tudubucket max_users:3 expire_after:0" title="command" mark={highlights} />
 ---
 
-### `/customrole admin edit_permission` - Chỉnh sửa quyền từng role
-Lệnh này sẽ **chỉnh sửa quyền của từng role**
+### `/customrole admin color-palette` - Bảng màu
+Lệnh này sẽ chỉnh bảng màu cho Custom Role (tối đa 25 màu). Bạn có thể bật chế độ chỉ cho phép chủ role dùng màu trong bảng.
 
 <h4>Tham số lệnh (Parameters)</h4>
 
-_Bắt buộc:_
- - `role`: Chỉ định một role
- - `edit_name`: Cho phép chủ của role thay đổi tên role của họ
- - `edit_icon`: Cho phép chủ của role thay đổi icon của họ
- - `edit_color`: Cho phép chủ của role thay đổi màu của họ
- - `manage_role_members`: Cho phép chủ của role thêm/xóa thành viên của role
- - `make_role_mentionable`: Cho phép chủ của role làm cho role của họ có thể được nhắc đến bởi các thành viên khác
+_Không có tham số_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ sửa tất cả các quyền của role **@bucket** thành có (`True`)
-<Code code="/customrole admin default_author_permission edit_name:True edit_icon:True edit_color:True manage_role_members:True make_role_mentionable:True" title="command" mark={highlights} />
+<Code code="/customrole admin color-palette" title="command" mark={highlights} />
 ---
 
-### `/customrole admin max_users` - Chỉnh sửa số người tối đa
-Lệnh này sẽ chỉnh sửa số người tối đa của role
+### `/customrole configuration` - Cài đặt Custom Role
+Lệnh này sẽ mở menu cài đặt Custom Role của server:
+ - **Quyền mặc định của owner**: Quyền mặc định cho tất cả Custom Role
+ - **Cảnh báo hết hạn**: Gửi cảnh báo cho chủ role trước khi role hết hạn
+ - **Hành động khi hết hạn**: Xóa tất cả thành viên, chỉ xóa owner, hoặc xóa role
+ - **Yêu cầu phê duyệt**: Kênh để admin duyệt yêu cầu, và số yêu cầu tối đa cùng lúc
 
 <h4>Tham số lệnh (Parameters)</h4>
 
-_Bắt buộc:_
- - `role`: Chỉ định một role
- - `users`: Chỉ định số lượng, từ 1 đến tối đa 100
+_Không có tham số_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ sửa cố người tối đa của role **@bucket** thành `10`
-<Code code="/customrole admin max_users role:@bucket users:10" title="command" mark={highlights} />
+<Code code="/customrole configuration" title="command" mark={highlights} />
 ---
 
-### `/customrole admin default_author_permission` - Chỉnh sửa quyền mặc định
-Lệnh này sẽ **chỉnh sửa quyền mặc định** cho các role
+### `/customrole list` - Danh sách Custom Role
+Lệnh này sẽ liệt kê các Custom Role trong server
 
 <h4>Tham số lệnh (Parameters)</h4>
 
-_Bắt buộc:_
- - `edit_name`: Cho phép chủ của role thay đổi tên role của họ
- - `edit_icon`: Cho phép chủ của role thay đổi icon của họ
- - `edit_color`: Cho phép chủ của role thay đổi màu của họ
- - `manage_role_members`: Cho phép chủ của role thêm/xóa thành viên của role
- - `make_role_mentionable`: Cho phép chủ của role làm cho role của họ có thể được nhắc đến bởi các thành viên khác
+_Không có tham số_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tạo tất cả các quyền mặc định thành có (`True`)
-<Code code="/customrole admin default_author_permission edit_name:True edit_icon:True edit_color:True manage_role_members:True make_role_mentionable:True" title="command" mark={highlights} />
----
-
-### `/customrole admin extend` - Gia hạn role lâu hơn
-Lệnh này sẽ gia hạn thêm ngày hết hạn cho một role tùy chỉnh
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `role`: Chọn role
- - `time_range`: Chỉ định khoảng thời gian. Nhập '0' để làm vĩnh viễn, '1' để xóa khi chủ role bỏ ủng hộ
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ gia hạn thêm **2 tháng 3 ngày** cho role **@bucket**
-<Code code="/customrole admin extend role:@bucket time_range:2mon3d" title="command" mark={highlights} />
----
-
-### `/customrole admin reduce` - Gia hạn role ngắn đi
-Lệnh này sẽ giảm ngày hết hạn của một role tùy chỉnh
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `role`: Chọn role
- - `time_range`: Chỉ định khoảng thời gian để giảm, hỗ trợ ngày ngắn (ví dụ: 2mon4w6h)
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ trừ bớt **3 ngày** gia hạn cho role **@bucket**
-<Code code="/customrole admin reduce role:@bucket time_range:3d" title="command" mark={highlights} />
----
-
-### `/customrole admin on_expire` - Chỉ định sự kiện hết hạn
-Lệnh này sẽ chỉ định sự kiện thực hiện khi role tùy chỉnh của một người dùng hết hạn
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `action`: Ghi hành động
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ chỉnh hành động là **xóa tất cả** khi một role tùy chỉnh hết hạn
-<Code code="/customrole admin on_expire action:Xóa tất cả" title="command" mark={highlights} />
-
+<Code code="/customrole list" title="command" mark={highlights} />

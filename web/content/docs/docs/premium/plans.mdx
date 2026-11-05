@@ -1,0 +1,63 @@
+---
+title: "Gói & Giới hạn"
+description: "GlitchBucket - Giới hạn tính năng theo từng gói (plan) của server"
+---
+
+import { Code } from '@astrojs/starlight/components';
+
+Mỗi server đều có 1 gói (plan). Gói quyết định số lượng tối đa của một số tính năng, ví dụ số autoresponder, embed, panel ticket, ... Server mới mặc định dùng gói **Default**.
+
+## `/premium info`
+Xem gói hiện tại, thời hạn, và số lượng đã dùng/tối đa của từng tính năng trong server.
+
+<Code code="/premium info" title="command" />
+
+---
+
+## Bảng giới hạn
+
+`∞` là không giới hạn. Gói **Whitelabel** có giới hạn giống gói **Plus**.
+
+| Tính năng | Default | Plus | Extended |
+|-----------|--------:|-----:|---------:|
+| Autoresponder | 40 | 100 | 300 |
+| Embed | 15 | 40 | 100 |
+| Layout | 10 | 30 | 80 |
+| Button | 15 | 75 | 250 |
+| Select | 3 | 10 | 30 |
+| Lựa chọn mỗi select | 15 | 25 | 25 |
+| Form | 5 | 30 | 100 |
+| Lượt gửi form mỗi thành viên | 10 | 20 | 30 |
+| Sticky Message | 5 | 15 | 30 |
+| Custom Role | 50 | 300 | 1000 |
+| Giveaway đang chạy | 20 | 100 | 1000 |
+| Template giveaway | 10 | 30 | 100 |
+| Panel ticket | 5 | 10 | 25 |
+| Role ưu tiên mỗi panel ticket | 2 | 10 | 20 |
+| Ticket mở cùng lúc mỗi thành viên | 10 | 20 | 30 |
+| Item | 5 | 30 | 100 |
+| Người nhận ủng hộ | 10 | 30 | 60 |
+| Role phần thưởng ủng hộ | 10 | 25 | 50 |
+| Kênh nhận ủng hộ | 10 | 25 | 50 |
+
+:::note[Server cũ]
+Server đã thêm bot trước ngày **01/11/2026** được giữ lại giới hạn cũ nếu giới hạn cũ cao hơn Default: Autoresponder **50**, Form **10**, Sticky Message **6**, Custom Role **100**, Item **10**, Role ưu tiên mỗi panel ticket **5**.
+:::
+
+:::note[Gói Custom]
+Gói **Custom** được set riêng cho từng server. Những giới hạn không được set sẽ theo gói gốc của server.
+:::
+
+---
+
+## Khi vượt giới hạn
+
+- Khi đã dùng hết giới hạn, bot sẽ không cho tạo thêm và báo số lượng hiện tại.
+- Nếu server đang có nhiều hơn giới hạn (ví dụ gói đã hết hạn, hoặc server cũ có nhiều hơn giới hạn mới), những gì đã tạo vẫn được giữ. Bạn chỉ có thể xóa bớt cho tới khi về lại giới hạn, rồi mới tạo thêm được.
+- Khi gói hết hạn, server sẽ quay về gói Default.
+
+---
+
+## Nâng cấp gói
+
+Tham gia [Support Server](https://bot.tudubucket.dev/support) và tạo ticket để được hỗ trợ nâng cấp gói. Gói **Whitelabel** xem thêm tại [Dịch Vụ Whitelabel](/premium/whitelabel).

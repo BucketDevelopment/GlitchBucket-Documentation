@@ -12,7 +12,7 @@ export const img = (name) => _imgs[`../../assets/giveaway/${name}`]?.default;
 import { Code } from '@astrojs/starlight/components';
 import ImageGrid from '../../components/ImageGrid.astro';
 import ImageItem from '../../components/ImageItem.astro';
-export const highlights = ['template:', 'giveaway:', 'reward:', 'duration:', 'winners:', 'channel:', 'template:', 'requirements:', 'blacklists:', 'bypasses:', 'multipliers:', 'color:', 'button_color:', 'button_emoji:', 'requires_join_before:', 'image:']
+export const highlights = ['template:', 'giveaway:', 'reward:', 'duration:', 'winners:', 'channel:', 'template:', 'requirements:', 'blacklists:', 'bypasses:', 'bonus_entrants:', 'count:', 'message:', 'delete:', 'color:', 'button_color:', 'button_emoji:', 'requires_join_before:', 'image:']
 
 <h4>Vấn đề</h4>
 Bạn muốn tạo một Giveaway có thể custom được mọi phần trong tin nhắn Giveaway, cũng như có các yêu cầu/hạn chế phức tạp dành cho từng Giveaway (Chẳng hạn như yêu cầu phải tham gia server được 3 ngày, hoặc phải có role `@Server Booster` thì mới được tham gia Giveaway).
@@ -94,7 +94,7 @@ Ngoài các placeholder dành riêng cho Giveaway ở trên, bạn cũng có th�
 
 Giveaway Template là công cụ giúp bạn lưu trữ các cấu hình giveaway phức tạp để tái sử dụng nhiều lần mà không cần thiết lập lại từ đầu. Đây là giải pháp lý tưởng cho các server thường xuyên tổ chức giveaway với các yêu cầu và cài đặt tương tự nhau.
 
-Khi tạo một template, bạn có thể thiết lập sẵn các thông số như requirements, blacklists, bypasses, bonus entrants, màu embed, kiểu nút, và emoji. Mỗi server có thể lưu tối đa 10 template khác nhau. Bot sẽ tự động lưu mọi thay đổi bạn thực hiện trên template mà không cần thao tác lưu thủ công, giúp quá trình chỉnh sửa trở nên thuận tiện hơn.
+Khi tạo một template, bạn có thể thiết lập sẵn các thông số như requirements, blacklists, bypasses, bonus entrants, màu embed, kiểu nút, và emoji. Số template tối đa tùy theo [gói của server](/premium/plans). Bot sẽ tự động lưu mọi thay đổi bạn thực hiện trên template mà không cần thao tác lưu thủ công, giúp quá trình chỉnh sửa trở nên thuận tiện hơn.
 
 Để sử dụng template khi tạo giveaway mới, bạn có thể chọn template trong menu của lệnh `/giveaway setup` hoặc truyền trực tiếp vào tham số `template` của lệnh `/giveaway create`. Khi áp dụng template, tất cả cài đặt đã lưu sẽ được áp dụng ngay lập tức cho giveaway mới, bao gồm cả requirements, multipliers, và các tùy chọn giao diện.
 
@@ -109,7 +109,7 @@ Khi thiết lập bonus entrants, bạn sẽ chỉ định vai trò và số lư
 
 Khi hệ thống xác định người chiến thắng, thuật toán sẽ tạo một danh sách chứa ID của tất cả người tham gia hợp lệ. Mỗi người sẽ xuất hiện trong danh sách với số lần tương ứng với tổng số lượt tham gia của họ. Sau đó, danh sách được xáo trộn ngẫu nhiên và hệ thống sẽ chọn người thắng theo thứ tự cho đến khi đủ số lượng người chiến thắng cần thiết. Người đã được chọn sẽ bị loại khỏi các lần chọn tiếp theo để đảm bảo không có người thắng trùng lặp.
 
-Để cấu hình bonus entrants thông qua lệnh `/giveaway create`, bạn sử dụng tham số `multipliers` với định dạng `role1:bonus1|role2:bonus2`. Ví dụ: `multipliers:@Booster:5|@VIP:3` sẽ cấp 5 bonus entries cho Booster và 3 bonus entries cho VIP. Nếu sử dụng `/giveaway setup` hoặc template, bạn có thể cấu hình thông qua giao diện đồ họa trong mục Bonus Entrants.
+Để cấu hình bonus entrants thông qua lệnh `/giveaway create`, bạn sử dụng tham số `bonus_entrants` với định dạng `role1:bonus1|role2:bonus2`. Ví dụ: `bonus_entrants:@Booster:5|@VIP:3` sẽ cấp 5 bonus entries cho Booster và 3 bonus entries cho VIP. Nếu sử dụng `/giveaway setup` hoặc template, bạn có thể cấu hình thông qua giao diện đồ họa trong mục Bonus Entrants.
 
 ---
 ## Các lệnh cài đặt & tạo giveaway
@@ -151,6 +151,9 @@ Reroll một giveaway đã kết thúc
 _Bắt buộc:_
 - `giveaway`: Chọn một giveaway đã kết thúc
 
+_Không bắt buộc:_
+- `winners`: Số người chiến thắng cần reroll (1 - 5), _mặc định: theo giveaway_
+
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ reroll một Giveaway có ID là `1245195068156149786`
 <Code code="/giveaway reroll giveaway:1245195068156149786" title="command" mark={highlights} />
@@ -170,14 +173,39 @@ Lệnh này sẽ chỉnh sửa một Giveaway có ID là `1245195068156149786`
 
 ---
 
+### `/giveaway recover`
+Khôi phục một giveaway đã bị xóa tin nhắn nhưng vẫn chưa kết thúc. Bot sẽ gửi lại tin nhắn giveaway.
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `giveaway`: Chọn một giveaway đang chạy
+
+<Code code="/giveaway recover giveaway:1245195068156149786" title="command" mark={highlights} />
+
+---
+
+### `/giveaway migrate`
+Chuyển một giveaway đang chạy của bot khác sang GlitchBucket
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `message`: Đường dẫn (URL) tin nhắn giveaway (`https://discord.com/channels/.../.../...`)
+
+_Không bắt buộc:_
+- `delete`: Xóa tin nhắn giveaway cũ, _mặc định: không_
+
+<Code code="/giveaway migrate message:https://discord.com/channels/1096028188397809736/1145547639618801736/1253980690006016072 delete:True" title="command" mark={highlights} />
+
+---
+
 ### `/giveaway create`
-Tạo một giveaway nhanh chóng
+Tạo một giveaway nhanh chóng. Số giveaway chạy cùng lúc tối đa tùy theo [gói của server](/premium/plans).
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
 - `reward`: Chỉ định phần thưởng
 - `duration`: Chỉ định thời lượng theo định dạng ngày ngắn (ví dụ: 10m25s), hoặc số giây (ví dụ: 86400)
-- `winners`: Chỉ định người chiến thắng
+- `winners`: Số người chiến thắng (1 - 10)
 
 _Không bắt buộc:_
 - `channel`: Chỉ định kênh để bắt đầu
@@ -185,19 +213,20 @@ _Không bắt buộc:_
 - `requirements`: Chỉ định requirements theo định dạng: `role1|role2|...|role(n)`. Tối đa 15 vai trò
 - `blacklists`: Chỉ định blacklists theo định dạng: `role1|role2|...|role(n)`. Tối đa 10 vai trò
 - `bypasses`: Chỉ định bypass requirements dạng: `role1|role2|...|role(n)`. Tối đa 15 vai trò
-- `multipliers`: Chỉ định số lượt tham gia bonus theo định dạng: `role1:bonus1|role2:bonus2|...` Tối đa 10 phần thưởng
+- `bonus_entrants`: Chỉ định số lượt tham gia bonus theo định dạng: `role1:bonus1|role2:bonus2|...` Tối đa 10 phần thưởng
 - `color`: Chỉ định màu theo định dạng: `#<hex>`, hoặc `rgb(<số>, <số>, <số>)`
 - `button_color`: Chọn màu nút
 - `button_emoji`: Chỉ định biểu tượng cảm xúc tùy chỉnh của máy chủ hoặc mã Unicode biểu tượng cảm xúc
 - `requires_join_before`: Chỉ định thời lượng theo định dạng ngày ngắn (ví dụ: 10m25s), hoặc số giây (ví dụ: 86400)
 - `image`: Chỉ định URL hình ảnh
+- `count`: Tạo nhiều giveaway giống nhau cùng lúc (1 - 5), _mặc định: 1_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Đơn giản nhất: Tạo 1 Giveaway về `Nitro` với `1 Người chiến thắng`, với thời gian là `10 phút`
 <Code code="/giveaway create reward:nitro duration:10m winners:1" title="command" mark={highlights} />
 
 Phức tạp hơn: Tạo 1 Giveaway về `Nitro` với `2 Người chiến thắng`, với thời gian là `1 ngày`, tại kênh `#giveaway`. Kèm theo đó là áp dụng sẵn template `Giveaway Nitro`.
-<Code code="/giveaway create reward:nitro duration:10m winners:1 channel:#giveaway template:Giveaway Nitro" title="command" mark={highlights} />
+<Code code="/giveaway create reward:nitro duration:1d winners:2 channel:#giveaway template:Giveaway Nitro" title="command" mark={highlights} />
 
 
 ---
@@ -228,7 +257,7 @@ _Không bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 
 Lệnh này sẽ tạo một template có tên là `Giveaway Nitro` với miêu tả là `Giveaway Nitro dành cho Booster`. Một menu sẽ hiện ra và bạn sẽ thực hiện chỉnh sửa trên đó.
-<Code code="/giveaway template create name:Giveaway Nitro description:iveaway Nitro dành cho Booster" title="command" mark={highlights} />
+<Code code="/giveaway template create name:Giveaway Nitro description:Giveaway Nitro dành cho Booster" title="command" mark={highlights} />
 
 ---
 

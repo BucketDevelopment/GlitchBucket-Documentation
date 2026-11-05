@@ -1,0 +1,96 @@
+---
+title: "🎭 Role"
+description: "GlitchBucket - Thêm/xóa role cho thành viên"
+sidebar:
+  label: "🎭 Role"
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['member:', 'role:', 'limit:', 'option:'];
+
+---
+
+## `/role members`
+
+Hiển thị thành viên của một vai trò cụ thể.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
+
+_Không bắt buộc:_
+- `limit`: Chỉ định giới hạn số lượng mục mỗi trang (5 - 50), mặc định là 10.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Hiển thị các thành viên có vai trò **@bucket**, với giới hạn 5 mục mỗi trang
+<Code code="/role members role:@bucket limit:5" title="command" mark={highlights} />
+
+---
+
+## `/role add`
+
+Thêm một vai trò cho một thành viên.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Gán vai trò **@bucket** cho thành viên **@tudubucket**
+<Code code="/role add member:@tudubucket role:@bucket" title="command" mark={highlights} />
+
+---
+
+## `/role add-all`
+
+Thêm vai trò cho tất cả thành viên trong máy chủ.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `option`: `Tất cả Người và Bot`, `Tất cả Người` (không gồm bot), hoặc `Tất cả Bot`.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Gán vai trò **@bucket** cho tất cả thành viên với tùy chọn "all"
+<Code code="/role add-all option:all role:@bucket" title="command" mark={highlights} />
+
+---
+
+## `/role remove`
+
+Xóa một vai trò khỏi một thành viên.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `member`: Chọn một thành viên trong server, hoặc chỉ định ID thành viên.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Xóa vai trò **@bucket** khỏi thành viên **@tudubucket**
+<Code code="/role remove member:@tudubucket role:@bucket" title="command" mark={highlights} />
+
+---
+
+## `/role remove-all`
+
+Xóa vai trò khỏi tất cả thành viên máy chủ.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `option`: `Tất cả Người và Bot`, `Tất cả Người` (không gồm bot), hoặc `Tất cả Bot`.
+- `role`: Chọn một vai trò, hoặc chỉ định ID vai trò.
+
+<h4>Ví dụ sử dụng lệnh</h4>
+
+Xóa vai trò **@bucket** khỏi tất cả thành viên với tùy chọn "all"
+<Code code="/role remove-all option:all role:@bucket" title="command" mark={highlights} />

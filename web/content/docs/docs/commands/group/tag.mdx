@@ -1,0 +1,118 @@
+---
+title: "🏷 Tag"
+description: "GlitchBucket - Tag cá nhân, gửi tin nhắn soạn sẵn ở mọi nơi"
+sidebar:
+  label: "🏷 Tag"
+  order: 45
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['trigger:', 'tag:', 'name:'];
+
+<h4>Vấn đề</h4>
+Bạn hay phải gửi đi gửi lại một số tin nhắn (hướng dẫn, link, rule, ...) ở nhiều server khác nhau, hoặc trong DM, nhưng [Autoresponder](/commands/group/autoresponder) thì chỉ dùng được trong 1 server và cần quyền quản lý.
+
+<h4>Giải pháp</h4>
+**Tag** là các tin nhắn soạn sẵn của **riêng bạn**. Tag đi theo tài khoản của bạn, không theo server. Nếu bạn add bot vào tài khoản (User Install), bạn có thể dùng `/tag` ở mọi server, DM và group DM.
+
+Nội dung tag hỗ trợ [BucketScript](/bucketscript/functions), bao gồm embed, layout, button và select của riêng bạn.
+
+:::caution[Giới hạn]
+- Tối đa **50** tag mỗi người dùng
+- Tối đa **15** embed cho tag mỗi người dùng
+- Trigger chỉ được chứa chữ thường và dấu gạch dưới (`_`)
+:::
+
+---
+
+## Quản lý tag
+
+### `/tag create` - Tạo tag
+Tạo một tag mới. Bot sẽ mở hộp thoại để bạn nhập trigger, tên hiển thị và nội dung.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Không bắt buộc:_
+ - `trigger`: Trigger cho tag
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ tạo tag có trigger là `rules`
+<Code code="/tag create trigger:rules" title="command" mark={highlights} />
+
+---
+
+### `/tag send` - Gửi tag
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `tag`: Tag cần gửi
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ gửi tag `rules`
+<Code code="/tag send tag:rules" title="command" mark={highlights} />
+
+---
+
+### `/tag edit` - Chỉnh sửa tag
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `tag`: Tag cần chỉnh sửa
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ mở hộp thoại để chỉnh sửa nội dung tag `rules`
+<Code code="/tag edit tag:rules" title="command" mark={highlights} />
+
+---
+
+### `/tag remove` - Xóa tag
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `tag`: Tag cần xóa
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xóa tag `rules`
+<Code code="/tag remove tag:rules" title="command" mark={highlights} />
+
+---
+
+### `/tag view` - Xem thông tin tag
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `tag`: Tag cần xem
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xem thông tin của tag `rules`
+<Code code="/tag view tag:rules" title="command" mark={highlights} />
+
+---
+
+### `/tag list` - Danh sách tag
+Liệt kê tất cả tag của bạn
+
+<Code code="/tag list" title="command" mark={highlights} />
+
+---
+
+## Embed, Layout, Button, Select cho tag
+
+Các lệnh dưới đây giống với [`/embed`](/bucketscript/embed), [`/layout`](/bucketscript/layout), [`/buttons`](/bucketscript/button), [`/selects`](/bucketscript/select), nhưng dữ liệu là của riêng bạn và chỉ dùng được trong tag. Dùng trong nội dung tag bằng `{embed:name}`, `{layout:name}`, `{button:name}`, `{select:name}`.
+
+| Lệnh | Chức năng |
+|------|-----------|
+| `/tag embed create name:` | Tạo embed cho tag |
+| `/tag embed edit name:` | Chỉnh sửa embed |
+| `/tag embed delete name:` | Xóa embed |
+| `/tag layout create name:` | Tạo layout cho tag |
+| `/tag layout edit name:` | Chỉnh sửa layout |
+| `/tag layout delete name:` | Xóa layout |
+| `/tag buttons` | Quản lý button của bạn |
+| `/tag selects` | Quản lý select của bạn |
+
+<Code code="/tag embed create name:rules" title="command" mark={highlights} />

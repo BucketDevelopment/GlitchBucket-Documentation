@@ -12,11 +12,12 @@ Lệnh này thiết lập cho bạn AFK, lưu lại các đề cập (ping) tớ
 ## Tham số lệnh (Parameters)
 _Không bắt buộc_:
  - `reason`: Lý do AFK, mặc định là "AFK"
+ - `global`: AFK ở toàn bộ server, hay chỉ AFK tại server này, _mặc định: toàn bộ server_
  - `silent`: Cho biết lệnh này có nên được thực hiện ở chế độ im lặng hay không, mặc định là Không.
 
 ## Ví dụ sử dụng lệnh
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['reason:', 'silent:'];
+export const highlights = ['reason:', 'global:', 'silent:'];
 
 <Code code="/afk reason:tui đang bận, quay trở lại sau nha silent:False" title="command" mark={highlights} />

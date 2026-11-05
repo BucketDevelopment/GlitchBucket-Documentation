@@ -25,8 +25,8 @@ Form có thể được sử dụng với:
 
 ## Lệnh quản lí Form
 
-### `/forms`
-Mở giao diện quản lí các biểu mẫu (form) trong server
+### `/forms manage`
+Mở giao diện quản lí các biểu mẫu (form) trong server. Số form tối đa, và số lần 1 thành viên được gửi mỗi form tùy theo [gói của server](/premium/plans).
 
 <h4>Ví dụ sử dụng</h4>
 
@@ -34,7 +34,7 @@ Mở giao diện quản lí các biểu mẫu (form) trong server
 
 1. Mở giao diện quản lí form:
 
-    <Code code="/forms" />
+    <Code code="/forms manage" />
 
 2. **Thêm form mới**: Bấm nút `➕ Thêm`
    - Nhập thông tin form:
@@ -58,6 +58,20 @@ Sau khi form được tạo hoàn tất, bạn có thể:
 - **Chỉnh sửa câu hỏi**: Chọn câu hỏi từ dropdown "Chọn câu hỏi cần sửa"
 - **Xóa câu hỏi**: Chọn câu hỏi từ dropdown "Xóa một câu hỏi"
 - **Xóa form**: Bấm nút `➖ Xóa` và chọn form cần xóa
+
+---
+
+### `/forms history`
+Kiểm tra lịch sử nhập form của một thành viên
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `user`: Chọn một người dùng, hoặc chỉ định ID người dùng
+- `form`: Chọn 1 form
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ xem các lần `@tudubucket` đã gửi form `report`
+<Code code="/forms history user:@tudubucket form:report" />
 
 ---
 

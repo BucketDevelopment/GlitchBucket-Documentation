@@ -21,3 +21,18 @@ export const highlights = ['page:', 'channel:'];
 <Code code="/snipe page:1" title="command" mark={highlights} />
 
 <Code code="/snipe page:all channel:#general" title="command" mark={highlights} />
+
+---
+
+## `/setting snipe toggle`
+Bật/tắt việc lưu tin nhắn của **bạn** cho snipe. Khi tắt, tin nhắn bạn sửa/xóa sẽ không bị lưu lại.
+
+_Bắt buộc_:
+ - `action`: `Bật` (tiếp tục lưu trữ) hoặc `Tắt` (không lưu trữ)
+
+<Code code="/setting snipe toggle action:Tắt" title="command" />
+
+## `/setting snipe clear`
+Xóa toàn bộ tin nhắn snipe đã lưu của server. Cần quyền `Manage Messages`.
+
+<Code code="/setting snipe clear" title="command" />

@@ -1,0 +1,68 @@
+---
+title: "🛡 AutoMod"
+description: "GlitchBucket - Quản lý rule AutoMod của Discord"
+sidebar:
+  label: "🛡 AutoMod"
+  order: 36
+---
+
+import { Code } from '@astrojs/starlight/components';
+export const highlights = ['rule:'];
+
+**AutoMod** là tính năng có sẵn của Discord, tin nhắn bị chặn ngay cả khi bot offline. Tuy nhiên tạo và chỉnh rule trong Server Settings khá mất thời gian, nhất là khi bạn cần nhập nhiều từ khóa hoặc regex.
+
+Các lệnh `/automod` giúp bạn tạo và chỉnh rule AutoMod ngay trong Discord, kèm một số template có sẵn. Bạn cần quyền `Manage Server`.
+
+Các loại trigger hỗ trợ:
+- **Lọc từ khóa**: Chặn từ khóa, regex do bạn cấu hình, kèm allow list
+- **Phát hiện spam**: Dùng cơ chế phát hiện spam của Discord
+- **Lọc từ khóa theo preset**: Dùng preset của Discord (chửi thề, nội dung tình dục, xúc phạm), kèm allow list
+- **Giới hạn Spam Ping**: Giới hạn số lần ping trong mỗi tin nhắn
+- **Profile của Member**: Lọc từ khóa trong tên, hồ sơ của member
+
+Các action: chặn tin nhắn (kèm cảnh báo tùy chỉnh), timeout, gửi cảnh báo tới 1 kênh, chặn member tương tác.
+
+:::note[Note]
+Theo cơ chế của Discord, member có quyền `Administrator` hoặc `Manage Server` luôn được bỏ qua AutoMod.
+:::
+
+---
+
+## `/automod create` - Tạo rule
+Tạo một rule AutoMod mới. Bạn có thể tự tạo từ đầu, hoặc chọn template có sẵn:
+- Chặn từ ngữ thô tục phổ biến (Tiếng Việt)
+- Chặn invite Discord (Regex), kèm timeout 5 phút
+- Chặn địa chỉ server Minecraft (Regex), kèm allow list cho các IP phổ biến
+
+<Code code="/automod create" title="command" mark={highlights} />
+
+---
+
+## `/automod manage` - Quản lý rule
+Chỉnh sửa danh sách từ, regex, action, channel/role được ignore của một rule có sẵn.
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `rule`: Chọn rule AutoMod
+
+<Code code="/automod manage rule:Chặn invite" title="command" mark={highlights} />
+
+---
+
+## `/automod list` - Danh sách rule
+Liệt kê các rule AutoMod trong server
+
+<Code code="/automod list" title="command" mark={highlights} />
+
+---
+
+## `/automod delete` - Xóa rule
+Xóa một rule AutoMod
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+- `rule`: Rule AutoMod cần xóa
+
+<Code code="/automod delete rule:Chặn invite" title="command" mark={highlights} />

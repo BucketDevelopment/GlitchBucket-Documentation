@@ -35,12 +35,12 @@ Lệnh này sẽ gửi cho bạn bảng xếp hạng ủng hộ
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Không bắt buộc:_
- - `range`: Chỉ định phạm vi cho truy vấn (trong ngày, hoặc trong tháng, hoặc trong năm)
- - `limit`: Chỉ định giới hạn cho truy vấn (số lượng người trong bảng)
+ - `range`: Chỉ định phạm vi cho truy vấn (`Từ trước tới nay`, `24 giờ qua`, `7 ngày qua`, `30 ngày qua`, `1 năm qua`, `Năm nay`, `Tháng này`, `Tuần này`)
+ - `limit`: Số người trong bảng (5 - 20), _mặc định: 10_
 
 <h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ xem top 25 người donate nhiều nhất trong tháng này
-<Code code="/donation leaderboard range:This month limit:25" title="command" mark={highlights} />
+Lệnh này sẽ xem top 20 người donate nhiều nhất trong tháng này
+<Code code="/donation leaderboard range:Tháng này limit:20" title="command" mark={highlights} />
 ---
 
 ### `/donation serverstats` - Thống kê ủng hộ của máy chủ
@@ -97,19 +97,28 @@ Lệnh này sẽ bắt đầu thiết lập bản ghi ủng hộ cho máy chủ,
 <Code code="/donation enable channel:#donation receiver:@tudubucket" title="command" mark={highlights} />
 ---
 
-### `/donation reward` - Phần thưởng ủng hộ
-Lệnh này sẽ đặt phần thưởng (role) sau khi ủng hộ một số điểm nhất định. 
+### `/donation reward add` - Thêm phần thưởng ủng hộ
+Lệnh này sẽ đặt phần thưởng (role) sau khi ủng hộ một số điểm nhất định. Số phần thưởng tối đa tùy theo [gói của server](/premium/plans).
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động (thêm hoặc xóa)
  - `role`: Chọn vai trò (đóng vai như phần thưởng)
  - `threshold`: Chỉ định ngưỡng, bot thêm phần thưởng cho người dùng, nếu số tiền ủng hộ lớn hơn ngưỡng này
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm vai trò `@donator` khi người dùng đạt được 100.000 điểm ủng hộ
-<Code code="/donation reward action:Add role:@donator threshold:100000" title="command" mark={highlights} />
+<Code code="/donation reward add role:@donator threshold:100000" title="command" mark={highlights} />
+---
+
+### `/donation reward remove` - Xóa phần thưởng ủng hộ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `role`: Chọn vai trò phần thưởng cần xóa
+
+<Code code="/donation reward remove role:@donator" title="command" mark={highlights} />
 ---
 
 ### `/donation threshold` - Ngưỡng thông báo ủng hộ
@@ -160,22 +169,29 @@ Lệnh này sẽ đặt role `@Staff` trở thành role có thể được nhậ
 <Code code="/donation receiverole role:@Staff" title="command" mark={highlights} />
 ---
 
-### `/donation receiver` - Thêm/Xóa người nhận
-Lệnh này sẽ Thêm/Xóa người nhận. Có nghĩa rằng, nếu bạn gửi tiền tệ của bot khác cho người này, thì bot sẽ công nhận đó là khoản donate.
+### `/donation receiver add` - Thêm người nhận
+Lệnh này sẽ thêm người nhận. Có nghĩa rằng, nếu bạn gửi tiền tệ của bot khác cho người này, thì bot sẽ công nhận đó là khoản donate. Số người nhận tối đa tùy theo [gói của server](/premium/plans).
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động (thêm hoặc xóa)
  - `receiver`: Chỉ định người dùng, người sẽ là người nhận ủng hộ
 
 <h4>Ví dụ sử dụng lệnh</h4>
-
 Lệnh này sẽ **thêm** người dùng `@tudubucket` là người nhận ủng hộ
-<Code code="/donation receiver action:Add receiver:@tudubucket" title="command" mark={highlights} />
+<Code code="/donation receiver add receiver:@tudubucket" title="command" mark={highlights} />
+---
 
+### `/donation receiver remove` - Xóa người nhận
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `receiver`: Chọn người nhận cần xóa
+
+<h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ **xóa** người dùng `@tudubucket` khỏi danh sách người nhận ủng hộ
-<Code code="/donation receiver action:Remove receiver:@tudubucket" title="command" mark={highlights} />
+<Code code="/donation receiver remove receiver:@tudubucket" title="command" mark={highlights} />
 ---
 
 ### `/donation announcement` - Đặt kênh thông báo ủng hộ
@@ -192,18 +208,27 @@ Lệnh này sẽ đặt kênh thông báo là kênh `#donator` khi có ủng h�
 
 ---
 
-### `/donation channel` - Thêm/Xóa kênh nhận ủng hộ
-Lệnh này sẽ thêm/xóa kênh nhận ủng hộ
+### `/donation channel add` - Thêm kênh nhận ủng hộ
+Lệnh này sẽ thêm kênh nhận ủng hộ. Số kênh tối đa tùy theo [gói của server](/premium/plans).
 
 <h4>Tham số lệnh (Parameters)</h4>
 
 _Bắt buộc:_
- - `action`: Hãy ghi hành động (thêm hoặc xóa)
  - `channel`: Chọn kênh
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ thêm kênh `#general` làm kênh nhận ủng hộ
-<Code code="/donation channel action:Add channel:#general" title="command" mark={highlights} />
+<Code code="/donation channel add channel:#general" title="command" mark={highlights} />
+---
+
+### `/donation channel remove` - Xóa kênh nhận ủng hộ
+
+<h4>Tham số lệnh (Parameters)</h4>
+
+_Bắt buộc:_
+ - `channel`: Chọn kênh cần xóa
+
+<Code code="/donation channel remove channel:#general" title="command" mark={highlights} />
 ---
 
 ### `/donation add` - Thêm số tiền ủng hộ
@@ -213,7 +238,7 @@ Lệnh này sẽ thêm số tiền ủng hộ vào số dư của người dùng
 
 _Bắt buộc:_
  - `user`: Chọn người dùng
- - `amount`: Hãy ghi số sượng
+ - `amount`: Hãy ghi số lượng
 
 _Không bắt buộc:_
  - `announce`: Có nên thông báo về việc này hay không, _mặc định: có_
@@ -232,7 +257,7 @@ Lênh này sẽ trừ số tiền ủng hộ khỏi số dư của người dùn
 
 _Bắt buộc:_
  - `user`: Chọn người dùng
- - `amount`: Hãy ghi số sượng
+ - `amount`: Hãy ghi số lượng
 
 _Không bắt buộc:_
  - `reason`: Hãy nhập lý do cho hành động này
@@ -240,20 +265,7 @@ _Không bắt buộc:_
 
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ trừ 100.000 điểm của `@tudubucket`, với lí do `láo`
-<Code code="/donation add user:@tudubucket amount:100000 reason:láo " title="command" mark={highlights} />
----
-
-### `/donation autoreceive` - Bật/tắt ghi ủng hộ tự động
-Lệnh này sẽ bật, hoặc tắt tính năng ghi lại ủng hộ tự động cho máy chủ (không vô hiệu hóa tính năng)
-
-<h4>Tham số lệnh (Parameters)</h4>
-
-_Bắt buộc:_
- - `action`: Chọn hành động, tắt hoặc bật
-
-<h4>Ví dụ sử dụng lệnh</h4>
-Lệnh này sẽ tắt tính năng nhận donate tự động (bạn sẽ phải thêm khoản donate bằng lệnh [/donation add](/commands/group/donation#donation-add))
-<Code code="/donation autoreceive action:False" title="command" mark={highlights} />
+<Code code="/donation subtract user:@tudubucket amount:100000 reason:láo " title="command" mark={highlights} />
 ---
 
 ### `/donation disable` - Vô hiệu hóa tính năng

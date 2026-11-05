@@ -19,7 +19,7 @@ Pap một địa chỉ mạng.
 - `port`: Chỉ định cổng, mặc định là TCP 22, HTTP(s) 80/443.
 
 **Không bắt buộc:**
-- `count`: Tổng số lần pap, mặc định là 20 (Không chỉ định thì mặc định không giới hạn).
+- `count`: Tổng số lần pap (10 - 300), mặc định là 20.
 
 #### Ví dụ sử dụng lệnh
 
@@ -59,6 +59,9 @@ Kiểm tra xem một máy chủ có đang hoạt động không, sử dụng d�
 **Bắt buộc:**
 - `address`: Chỉ định một địa chỉ IPv4 hoặc tên miền với giao thức (https:// hoặc http://) và cổng (HTTPS là 443, HTTP/IPv4 là 80).
 
+**Không bắt buộc:**
+- `unique_region`: Chỉ hiển thị 1 kết quả cho mỗi khu vực, mặc định là có.
+
 #### Ví dụ sử dụng lệnh
 
 - Kiểm tra trạng thái của một tên miền qua HTTPS:
@@ -66,3 +69,43 @@ Kiểm tra xem một máy chủ có đang hoạt động không, sử dụng d�
 
 - Kiểm tra trạng thái của một địa chỉ IPv4 qua HTTP:
   <Code code="/network check-host address:http://192.168.1.1" title="command" mark={highlights} />
+
+---
+
+## `/network icmp`
+
+Ping ICMP tới một địa chỉ từ nhiều khu vực, qua check-host.net.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `address`: Chỉ định tên miền hoặc địa chỉ IPv4.
+
+**Không bắt buộc:**
+- `unique_region`: Chỉ hiển thị 1 kết quả cho mỗi khu vực, mặc định là có.
+
+#### Ví dụ sử dụng lệnh
+
+- Ping một tên miền:
+  <Code code="/network icmp address:tudubucket.dev" title="command" mark={highlights} />
+
+---
+
+## `/network web-capture`
+
+Chụp ảnh màn hình một trang web.
+
+#### Tham số lệnh (Parameters)
+
+**Bắt buộc:**
+- `address`: Địa chỉ trang web.
+
+**Không bắt buộc:**
+- `sleep`: Số giây chờ sau khi trang tải xong (0 - 15), mặc định là 0.
+- `full_page`: Chụp toàn bộ trang, mặc định là không.
+- `resolve_turnstile`: Tự động vượt Cloudflare Turnstile (Under Attack Mode) nếu có, mặc định là không.
+
+#### Ví dụ sử dụng lệnh
+
+- Chụp toàn bộ trang chủ của bot:
+  <Code code="/network web-capture address:https://bot.tudubucket.dev full_page:True" title="command" mark={highlights} />

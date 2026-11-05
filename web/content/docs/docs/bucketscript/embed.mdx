@@ -6,7 +6,7 @@ sidebar:
 ---
 
 import { Code } from '@astrojs/starlight/components';
-export const highlights = ['name:', 'message:', 'channel:']
+export const highlights = ['name:', 'message:', 'channel:', 'embed:', 'ephemeral:', 'edit_message:', 'data:', 'id:']
 
 **Embed** là một **hệ thống định dạng tin nhắn nâng cao** cho phép bạn **tạo các tin nhắn có cấu trúc đẹp mắt** với tiêu đề, mô tả, màu sắc, hình ảnh và nhiều trường thông tin khác.
 
@@ -56,3 +56,45 @@ _Bắt buộc:_
 <h4>Ví dụ sử dụng lệnh</h4>
 Lệnh này sẽ xóa embed `welcome`
 <Code code="/embed delete name:welcome" title="command" mark={highlights} />
+
+---
+
+## `/embed show` - Gửi Embed
+Gửi một embed đã lưu
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `embed`: Chỉ định tên embed
+
+_Không bắt buộc:_
+- `channel`: Chọn một kênh, _mặc định: kênh hiện tại_
+- `ephemeral`: Gửi ở chế độ im lặng (chỉ bạn thấy), _mặc định: có_
+- `edit_message`: Link hoặc ID tin nhắn (của bot) để sửa thành embed này, thay vì gửi tin nhắn mới
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ gửi embed `welcome` vào kênh `#general`
+<Code code="/embed show embed:welcome channel:#general ephemeral:False" title="command" mark={highlights} />
+
+---
+
+## `/embed shared` - Embed đã chia sẻ
+Xem các embed bạn đã chia sẻ. Mỗi embed được chia sẻ có 1 ID, người khác có thể dùng ID này để nhập embed vào server của họ bằng `/embed import`.
+
+<Code code="/embed shared" title="command" mark={highlights} />
+
+---
+
+## `/embed import` - Nhập Embed
+Nhập dữ liệu vào một embed có sẵn, từ file JSON hoặc từ ID embed đã chia sẻ
+
+<h4>Tham số lệnh (Parameters)</h4>
+_Bắt buộc:_
+- `embed`: Chỉ định embed cần nhập vào
+
+_Không bắt buộc (chọn 1 trong 2):_
+- `data`: File JSON dữ liệu của embed
+- `id`: ID một embed đã chia sẻ
+
+<h4>Ví dụ sử dụng lệnh</h4>
+Lệnh này sẽ nhập embed đã chia sẻ có ID `a1b2c3d4e5f6g7h8` vào embed `welcome`
+<Code code="/embed import embed:welcome id:a1b2c3d4e5f6g7h8" title="command" mark={highlights} />
