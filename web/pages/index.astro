@@ -383,10 +383,10 @@ const schema = [
         updateAllCardHeights();
 
         function animateNumber(element, target, suffix, duration = 2500) {
-            const currentText = element.textContent.replace(/,/g, '').replace(suffix, '').trim();
-            const currentValue = parseFloat(currentText) || target * 0.5;
-            const start = currentValue === 0 || isNaN(currentValue) ? target * 0.5 : currentValue;
-            
+            // read the last drawn value, not the text: "99,9%" would parse as 999 and count down
+            if (element._frame) cancelAnimationFrame(element._frame);
+            const start = Math.min(element._value ?? 0, target);
+
             const diffRatio = Math.abs(target - start) / target;
             
             let adjustedDuration = duration;
@@ -409,7 +409,8 @@ const schema = [
                 const progress = Math.min(elapsed / adjustedDuration, 1);
                 const easedProgress = easeOut(progress);
                 const current = start + (target - start) * easedProgress;
-                
+                element._value = current;
+
                 if (!hasStarted) {
                     hasStarted = true;
                 }
@@ -421,11 +422,11 @@ const schema = [
                 }
                 
                 if (progress < 1) {
-                    requestAnimationFrame(update);
+                    element._frame = requestAnimationFrame(update);
                 }
             }
-            
-            requestAnimationFrame(update);
+
+            element._frame = requestAnimationFrame(update);
         }
         
         setTimeout(() => {
