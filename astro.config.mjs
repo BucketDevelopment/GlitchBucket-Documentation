@@ -28,6 +28,9 @@ export default defineConfig({
             // components: {
             //     Hero: '/web/content/docs/docs/components/Hero.astro',
             // },
+            components: {
+                Head: './web/components/Head.astro',
+            },
             favicon: "/favicon.png",
             customCss: ["./web/styles/global.css"],
             defaultLocale: "vi",
@@ -101,7 +104,11 @@ export default defineConfig({
                 {
                     label: "Premium",
                     badge: { text: "Mới", variant: "caution" },
-                    autogenerate: { directory: "docs/premium" },
+                    items: [
+                        { label: "Bảng giá", link: "/premium" },
+                        { label: "Gói & Giới hạn", slug: "docs/premium/plans" },
+                        { label: "Dịch Vụ Whitelabel", slug: "docs/premium/whitelabel" },
+                    ],
                 },
                 {
                     label: "Các lệnh của bot",

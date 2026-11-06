@@ -1,0 +1,15 @@
+---
+// Head của Starlight kèm component embed riêng cho từng trang docs (tiêu đề và mô tả của trang).
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Head.astro';
+import ComponentEmbed from './ComponentEmbed.astro';
+import { componentEmbed } from '../data/embed.mjs';
+
+const { title, description } = Astro.props.entry.data;
+const embed = componentEmbed({
+    heading: title,
+    description: description ?? 'Tài liệu hướng dẫn sử dụng GlitchBucket, Discord Bot đa năng cho server của bạn.',
+});
+---
+<Default {...Astro.props}><slot /></Default>
+<ComponentEmbed embed={embed} />
