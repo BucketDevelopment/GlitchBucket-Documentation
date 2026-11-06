@@ -1,0 +1,869 @@
+---
+import faviconImg from '../assets/favicon.webp';
+import ComponentEmbed from '../components/ComponentEmbed.astro';
+import { DASHBOARD, premiumEmbed } from '../data/embed.mjs';
+
+const SUPPORT = 'https://bot.tudubucket.dev/support';
+const UNLIMITED = -1;
+
+type Row = { label: string; default: number; plus: number; extended: number };
+type Group = { title: string; rows: Row[] };
+
+// Lấy từ bảng giới hạn của bot (premium-plans.txt / limitation.py), -1 là không giới hạn
+const groups: Group[] = [
+    {
+        title: 'Tự động hóa',
+        rows: [
+            { label: 'Autoresponder', default: 40, plus: 100, extended: 300 },
+            { label: 'Embed', default: 15, plus: 40, extended: 100 },
+            { label: 'Layout', default: 10, plus: 30, extended: 80 },
+            { label: 'Button', default: 15, plus: 75, extended: 250 },
+            { label: 'Select', default: 3, plus: 10, extended: 30 },
+            { label: 'Lựa chọn mỗi select', default: 15, plus: 25, extended: 25 },
+            { label: 'Form', default: 5, plus: 30, extended: 100 },
+            { label: 'Lượt gửi form mỗi thành viên', default: 10, plus: 20, extended: 30 },
+            { label: 'Sticky Message', default: 5, plus: 15, extended: 30 },
+        ],
+    },
+    {
+        title: 'Cộng đồng',
+        rows: [
+            { label: 'Custom Role', default: 50, plus: 300, extended: 1000 },
+            { label: 'Giveaway đang chạy', default: 20, plus: 100, extended: 1000 },
+            { label: 'Template giveaway', default: 10, plus: 30, extended: 100 },
+            { label: 'Item', default: 5, plus: 30, extended: 100 },
+        ],
+    },
+    {
+        title: 'Ticket',
+        rows: [
+            { label: 'Panel ticket', default: 5, plus: 10, extended: 25 },
+            { label: 'Role ưu tiên mỗi panel ticket', default: 2, plus: 10, extended: 20 },
+            { label: 'Ticket mở cùng lúc mỗi thành viên', default: 10, plus: 20, extended: 30 },
+        ],
+    },
+    {
+        title: 'Ủng hộ',
+        rows: [
+            { label: 'Người nhận ủng hộ', default: 10, plus: 30, extended: 60 },
+            { label: 'Role phần thưởng ủng hộ', default: 10, plus: 25, extended: 50 },
+            { label: 'Kênh nhận ủng hộ', default: 10, plus: 25, extended: 50 },
+        ],
+    },
+];
+
+const fmt = (n: number) => (n === UNLIMITED ? '∞' : n.toLocaleString('vi-VN'));
+const money = (n: number) => `${n.toLocaleString('vi-VN')}đ`;
+
+const plans = [
+    {
+        id: 'plus',
+        name: 'Plus',
+        tagline: 'Cho những server community ở mức vừa phải.',
+        month: 36000,
+        lifetime: 250000,
+        featured: true,
+        includes: 'Default',
+        points: [
+            'Giới hạn cao hơn (x3-x5)',
+            'Cho phép custom avatar bot, banner, style tên bot & bio bot',
+            'Trả theo tháng hoặc mua lifetime',
+        ],
+    },
+    {
+        id: 'extended',
+        name: 'Extended',
+        tagline: 'Cho server lớn, muốn gần như không phải đếm.',
+        month: 59000,
+        lifetime: 500000,
+        includes: 'Plus',
+        points: [
+            'Giới hạn cao nhất (x7-x20)',
+            'Dư dả cho server lớn, gần như không phải lăn tăn',
+            'Trả theo tháng hoặc mua lifetime',
+        ],
+    },
+    {
+        id: 'enterprise',
+        name: 'Enterprise',
+        tagline: 'Đôi khi bạn cần những yêu cầu lớn hơn nữa.',
+        includes: 'Extended',
+        points: [
+            'Giới hạn từng tính năng theo nhu cầu',
+            'Thời hạn tùy chỉnh',
+            'Giá theo nhu cầu của server',
+        ],
+    },
+];
+
+const benefits = [
+    { icon: '📈', title: 'Giới hạn cao hơn', text: 'Autoresponder, Embed, Button, Form, Giveaway và nhiều tính năng khác được tạo nhiều hơn hẳn plan Default.' },
+    { icon: '🎨', title: 'Bot mang diện mạo riêng', text: 'Plus và Extended cho phép đặt ảnh đại diện và banner bot riêng cho server.' },
+    { icon: '🗓️', title: 'Tháng hoặc lifetime', text: 'Trả theo tháng nếu cần linh hoạt, hoặc mua lifetime một lần để dùng lâu dài.' },
+    { icon: '🛟', title: 'Hết hạn vẫn an toàn', text: 'Những gì bạn đã tạo vẫn được giữ lại. Chỉ là chưa tạo thêm được cho tới khi gia hạn hoặc xóa bớt.' },
+];
+
+const faqs = [
+    {
+        q: 'Plan áp dụng cho server nào?',
+        a: 'Mỗi plan gắn với đúng một server, là server bạn chọn lúc mua. Các server khác vẫn dùng plan của riêng nó. Nếu bạn có nhiều server cần nâng cấp, mỗi server sẽ là một plan riêng.',
+    },
+    {
+        q: 'Mình có chuyển plan sang server khác được không?',
+        a: 'Tạm thời bạn chưa được phép chuyển plan từ 1 server sang 1 server khác. Plan đã gắn với server nào thì ở lại server đó, nên hãy chọn server cho kỹ trước khi mua nhé!',
+    },
+    {
+        q: 'Lifetime nghĩa là gì?',
+        a: 'Bạn trả một lần và plan không bao giờ hết hạn, không cần gia hạn hàng tháng. Plan vẫn gắn với server đã mua.',
+    },
+    {
+        q: 'Plan hết hạn thì sao?',
+        a: 'Server sẽ quay về plan Default. Những gì bạn đã tạo vẫn được giữ, không bị xóa. Nhưng nếu số lượng đang vượt giới hạn của Default, bạn chỉ có thể xóa bớt cho tới khi về lại giới hạn, rồi mới tạo thêm được. Gia hạn plan là mọi thứ dùng lại bình thường.',
+    },
+    {
+        q: 'Server mình thêm bot từ trước thì giới hạn cũ có còn không?',
+        a: 'Còn nhé! Server đã thêm bot trước ngày 01/11/2026 vẫn được giữ giới hạn cũ của plan Default ở những tính năng có giới hạn cũ cao hơn: Autoresponder 50, Form 10, Sticky Message 6, Custom Role 100, Item 10 và Role ưu tiên mỗi panel ticket 5. Các tính năng còn lại dùng giới hạn mới như bảng ở trên.',
+    },
+    {
+        q: 'Mình mua bằng cách nào?',
+        a: `Bạn vào [Dashboard](${DASHBOARD}), chọn server cần nâng cấp rồi mua plan ngay trong đó. Gia hạn cũng làm ở Dashboard luôn. Nếu cần hoàn tiền thì xem [Chính sách Hoàn tiền](/docs/policy/refund).`,
+    },
+    {
+        q: 'Mình muốn xóa hẳn thương hiệu & host dưới dạng bot riêng thì sao?',
+        a: 'Đó là dịch vụ [Whitelabel](/docs/premium/whitelabel), tách riêng với plan ở trang này.',
+    },
+];
+
+const inline = (s: string) => s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+const plain = (s: string) => s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
+
+const SITE = 'https://bot.tudubucket.dev';
+const TITLE = 'Bảng giá Premium | GlitchBucket';
+const DESCRIPTION =
+    'Bảng giá Premium của GlitchBucket: plan Plus từ 36.000đ/tháng, Extended từ 59.000đ/tháng hoặc lifetime, nâng giới hạn Autoresponder, Embed, Ticket, Giveaway cho server Discord của bạn.';
+const IMAGE = 'https://cdn.tudubucket.dev/widebucket.png';
+const offer = (name: string, price: number, period: string) => ({
+    '@type': 'Offer',
+    name: `${name} (${period})`,
+    price,
+    priceCurrency: 'VND',
+    availability: 'https://schema.org/InStock',
+    url: `${SITE}/premium`,
+});
+const schema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: 'GlitchBucket Premium',
+        description: DESCRIPTION,
+        image: IMAGE,
+        brand: { '@type': 'Brand', name: 'GlitchBucket' },
+        offers: plans.flatMap((p) =>
+            p.month ? [offer(p.name, p.month, '1 tháng'), offer(p.name, p.lifetime!, 'vĩnh viễn')] : [],
+        ),
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: plain(f.a) },
+        })),
+    },
+];
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{TITLE}</title>
+    <meta name="description" content={DESCRIPTION}/>
+    <meta name="robots" content="index, follow, max-image-preview:large"/>
+    <meta name="keywords" content="GlitchBucket premium, GlitchBucket bảng giá, bot discord premium, bot discord việt nam, nâng cấp server discord, autoresponder, ticket bot, giveaway bot"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="canonical" href="https://bot.tudubucket.dev/premium"/>
+    <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
+    <meta property="og:title" content={TITLE}/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content={`${SITE}/premium`}/>
+    <meta property="og:locale" content="vi_VN"/>
+    <meta property="og:site_name" content="GlitchBucket"/>
+    <meta property="og:description" content={DESCRIPTION}/>
+    <meta property="og:image" content={IMAGE}/>
+    <meta property="og:image:alt" content="GlitchBucket"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content={TITLE}/>
+    <meta name="twitter:description" content={DESCRIPTION}/>
+    <meta name="twitter:image" content={IMAGE}/>
+    <meta name="theme-color" content="#C0CDFF"/>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <ComponentEmbed embed={premiumEmbed} />
+    <script is:inline>
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+    </script>
+    <script is:inline>
+        (function () {
+            const url = `https://service.tudubucket.dev/metrics/?domain=${encodeURIComponent(location.hostname)}&path=${encodeURIComponent(location.pathname)}`;
+            fetch(url).catch(() => {});
+        })();
+    </script>
+</head>
+
+<body class="landing_page premium_page">
+    <nav class="nav_bar">
+        <div class="left">
+            <a class="logo" href="/">
+                <img src={faviconImg.src} alt="logo" class="img">
+                GlitchBucket
+            </a>
+            <a href="/dashboard/servers" class="link strikethrough">Bảng điều khiển</a>
+            <a href="https://bot.tudubucket.dev/stats" class="link">Status</a>
+            <a href="/invite" class="link">Thêm bot</a>
+            <a href="/premium" class="link">Premium</a>
+            <a href="/docs/getting-started" class="link">Tài liệu</a>
+        </div>
+            <div class="right">
+                <a class="button primary" href="https://service.tudubucket.dev/dashboard/auth/login" style="text-decoration: none;">Đăng nhập</a>
+            </div>
+    </nav>
+
+    <section class="hero p_hero">
+        <div class="div_module p_center" data-stagger>
+            {/* <div class="p_tag">Premium</div> */}
+            <h1 class="p_title">
+                <span class="gradient">Quản lí server</span><br>
+                ở một mức độ cao hơn.
+            </h1>
+            <p class="p_lead">
+                Đôi khi những cộng đồng cần những giới hạn lớn hơn những giới hạn mà vốn chúng đã lớn sẵn.
+            </p>
+            <div class="p_buttons">
+                <a class="p_btn primary" href="#plans">Xem các plan</a>
+                <a class="p_btn" href={SUPPORT}>Liên hệ</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="plans" class="p_plans">
+        <div class="div_module">
+            <div class="p_cards" data-stagger="zoom">
+                {plans.map((p) => (
+                    <div class:list={['p_card', { featured: p.featured }]}>
+                        {p.featured && <span class="p_badge">Nhiều người chọn</span>}
+                        <h2>{p.name}</h2>
+                        <p class="p_tagline">{p.tagline}</p>
+                        {p.month ? (
+                            <div class="p_price">
+                                <p class="main"><strong>{money(p.month)}</strong><span>/tháng</span></p>
+                                <p class="alt">hoặc vĩnh viễn với <strong>{money(p.lifetime!)}</strong></p>
+                            </div>
+                        ) : (
+                            <div class="p_price">
+                                <p class="main"><strong>Liên hệ</strong></p>
+                                <p class="alt">giá theo nhu cầu</p>
+                            </div>
+                        )}
+                        <ul>
+                            <li class="lead">Bao gồm mọi quyền lợi của {p.includes}, và</li>
+                            {p.points.map((x) => <li>{x}</li>)}
+                        </ul>
+                        <a class="p_btn block" href={p.month ? DASHBOARD : SUPPORT}>{p.month ? 'Mua trên Dashboard' : 'Liên hệ ở server hỗ trợ'}</a>
+                    </div>
+                ))}
+            </div>
+            {/* <p class="p_note">
+                Plan gắn với một server và tạm thời chưa chuyển sang server khác được. Cần mua thì vào <a href={DASHBOARD}>Dashboard</a>.
+            </p> */}
+        </div>
+    </section>
+
+    <section class="p_benefits">
+        <div class="div_module">
+            <h2 class="p_h2" data-reveal>Bạn nhận được gì?</h2>
+            <p class="p_sub" data-reveal>Những điều thay đổi khi server lên plan cao hơn.</p>
+            <div class="p_grid" data-stagger>
+                {benefits.map((b) => (
+                    <div class="p_benefit">
+                        <div class="icon">{b.icon}</div>
+                        <h3>{b.title}</h3>
+                        <p>{b.text}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section id="so-sanh" class="p_compare">
+        <div class="div_module">
+            <h2 class="p_h2" data-reveal>So sánh chi tiết</h2>
+            {/* <p class="p_sub">Số lượng tối đa của từng tính năng trong một server. ∞ là không giới hạn. Gõ <code>/premium info</code> để xem plan và số đã dùng của server bạn.</p> */}
+            <p class="p_sub" data-reveal>Số lượng tối đa của từng tính năng trong một server.</p>
+            <div class="p_table_wrap" data-reveal>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tính năng</th>
+                            <th>Default</th>
+                            <th class="hl">Plus</th>
+                            <th>Extended</th>
+                            <th>Enterprise</th>
+                        </tr>
+                    </thead>
+                    {groups.map((g) => (
+                        <tbody>
+                            <tr class="group"><th colspan="5">{g.title}</th></tr>
+                            {g.rows.map((r) => (
+                                <tr>
+                                    <th scope="row">{r.label}</th>
+                                    <td>{fmt(r.default)}</td>
+                                    <td class="hl">{fmt(r.plus)}</td>
+                                    <td>{fmt(r.extended)}</td>
+                                    <td class="custom">Tùy chỉnh</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    ))}
+                    <tbody>
+                        <tr class="group"><th colspan="5">Khác</th></tr>
+                        <tr>
+                            <th scope="row">Ảnh đại diện và banner bot tùy chỉnh</th>
+                            <td>Không</td><td class="hl">Có</td><td>Có</td><td class="custom">Tùy chỉnh</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Thời hạn</th>
+                            <td>Vĩnh viễn</td><td class="hl">Theo tháng/Lifetime</td><td>Theo tháng/Lifetime</td><td class="custom">Tùy chỉnh</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {/* <p class="p_legacy">
+                Server đã thêm bot trước ngày <strong>01/11/2026</strong> được giữ lại giới hạn cũ của plan Default nếu giới hạn cũ cao hơn:
+                Autoresponder <strong>50</strong>, Form <strong>10</strong>, Sticky Message <strong>6</strong>, Custom Role <strong>100</strong>,
+                Item <strong>10</strong>, Role ưu tiên mỗi panel ticket <strong>5</strong>.
+            </p> */}
+        </div>
+    </section>
+
+    <section id="faq" class="p_faq">
+        <div class="div_module narrow">
+            <h2 class="p_h2" data-reveal>Câu hỏi thường gặp</h2>
+            <div class="p_faq_list" data-stagger>
+                {faqs.map((f) => (
+                    <details>
+                        <summary>{f.q}</summary>
+                        <p set:html={inline(f.a)} />
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta">
+        <div class="cta-bg"></div>
+        <div class="cta-content" data-reveal="zoom">
+            <h2>Sẵn Sàng Nâng Cấp Server?</h2>
+            <p>Server của bạn chỉ còn cách vài bước.</p>
+            <div class="cta-buttons">
+                <button class="btn-primary" onclick={`location.href='${DASHBOARD}'`}>Mở Dashboard</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="grid">
+                <div class="section">
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <img src={faviconImg.src} alt="logo" class="icon">
+                        <div class="text">GlitchBucket</div>
+                    </div>
+                    <p style="font-size: 14px; color: var(--muted-foreground);">Discord Bot với các chức năng độc quyền & hữu ích, giúp bạn quản lí Server Discord dễ dàng hơn!</p>
+                </div>
+
+                <div class="section">
+                    <h4>Sản Phẩm</h4>
+                    <ul>
+                        <li><a href="/docs/getting-started">Tính Năng</a></li>
+                        <li><a href="/premium">Pricing</a></li>
+                        <li><a href="/docs/getting-started">Docs</a></li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h4>Cộng Đồng</h4>
+                    <ul>
+                        <li><a href="https://bot.tudubucket.dev/support">Discord</a></li>
+                        <li><a href="https://github.com/tudubucket">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h4>Pháp Lý</h4>
+                    <ul>
+                        <li><a href="/docs/policy/statement-of-purpose/">Mục tiêu & Sứ mệnh</a></li>
+                        <li><a href="/docs/policy/privacy-policy/">Privacy</a></li>
+                        <li><a href="/docs/policy/terms-of-service/">Terms</a></li>
+                        <li><a href="https://bot.tudubucket.dev/support">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <p>© 2025 BucketDevelopment. All rights reserved.</p>
+                <div class="socials">
+                    <a href="https://bot.tudubucket.dev/support" title="Discord"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12"></path></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script is:inline src="/motion.js"></script>
+</body>
+</html>
+
+<style is:global>
+    .premium_page .p_hero {
+        position: relative;
+        text-align: center;
+        padding: 12vh 24px 40px;
+    }
+    /* Hai vệt sáng periwinkle và hồng như hero trang chủ, mỗi vệt một lớp riêng để trôi nhẹ tại chỗ. Dùng radial-gradient (không blur) và tắt hẳn trước mép section nên overflow: hidden của .hero không cắt ra cạnh cứng. */
+    .premium_page .p_hero::before,
+    .premium_page .p_hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+    .premium_page .p_hero::before {
+        background: radial-gradient(ellipse 48% 60% at 28% 35%, rgba(192, 205, 255, 0.24) 0%, rgba(192, 205, 255, 0.08) 50%, transparent 100%);
+    }
+    .premium_page .p_hero::after {
+        background: radial-gradient(ellipse 38% 55% at 78% 30%, rgba(255, 158, 197, 0.16) 0%, rgba(255, 158, 197, 0.06) 50%, transparent 100%);
+    }
+    .motion .premium_page .p_hero::before {
+        animation: glowDriftA 16s ease-in-out infinite;
+    }
+    .motion .premium_page .p_hero::after {
+        animation: glowDriftB 19s ease-in-out infinite;
+    }
+    @keyframes glowDriftA {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(2.5%, 3%) scale(1.04); }
+        66% { transform: translate(-2%, 1.5%) scale(0.98); }
+    }
+    @keyframes glowDriftB {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        40% { transform: translate(-3%, 2%) scale(1.05); }
+        75% { transform: translate(1.5%, -2%) scale(0.97); }
+    }
+    .premium_page .p_center {
+        position: relative;
+        z-index: 1;
+        max-width: 760px;
+    }
+    .premium_page .p_tag {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(192, 205, 255, 0.3);
+        background: rgba(192, 205, 255, 0.05);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--primary);
+    }
+    .premium_page .p_title {
+        font-size: clamp(2.2rem, 8vw, 4rem);
+        font-weight: 700;
+        line-height: 1.15;
+    }
+    .premium_page .p_title .gradient {
+        font-weight: 700;
+        background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientWave 6s linear infinite;
+    }
+    .premium_page .p_lead {
+        margin: 20px auto 0;
+        max-width: 600px;
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--muted-foreground);
+    }
+    .premium_page .p_buttons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 32px;
+    }
+    .premium_page .p_btn {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        color: var(--primary);
+        border: 1px solid rgba(192, 205, 255, 0.3);
+        transition: all 0.3s;
+    }
+    .premium_page .p_btn:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+    }
+    .premium_page .p_btn.primary {
+        border: 0;
+        background: linear-gradient(135deg, #c0cdff 0%, #ff9ec5 100%);
+        color: #0a0e27;
+    }
+    .premium_page .p_btn.primary:hover {
+        box-shadow: 0 10px 30px rgba(192, 205, 255, 0.3);
+    }
+    .premium_page .p_btn.block {
+        display: block;
+    }
+
+    .premium_page .p_plans {
+        padding-top: 40px;
+    }
+    .premium_page .p_cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1100px;
+        margin: 0 auto;
+        align-items: stretch;
+    }
+    .premium_page .p_card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 32px 28px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .premium_page .p_card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(192, 205, 255, 0.5);
+        box-shadow: 0 20px 50px rgba(192, 205, 255, 0.08);
+    }
+    .premium_page .p_card.featured {
+        border-color: var(--primary);
+        background: linear-gradient(180deg, rgba(192, 205, 255, 0.1), var(--card) 60%);
+        box-shadow: 0 0 40px rgba(192, 205, 255, 0.12);
+    }
+    .premium_page .p_card h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+    .premium_page .p_badge {
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 4px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+        background: linear-gradient(135deg, #c0cdff 0%, #ff9ec5 100%);
+        color: #0a0e27;
+    }
+    .premium_page .p_tagline {
+        margin: 8px 0 20px;
+        min-height: 3em;
+        line-height: 1.5;
+        color: var(--muted-foreground);
+    }
+    .premium_page .p_price .main {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+    }
+    .premium_page .p_price .main strong {
+        font-size: 2.4rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+    .premium_page .p_price .main span,
+    .premium_page .p_price .alt {
+        color: var(--muted-foreground);
+    }
+    .premium_page .p_price .alt {
+        margin-top: 6px;
+    }
+    .premium_page .p_price .alt strong {
+        color: var(--foreground);
+        font-weight: 600;
+    }
+    .premium_page .p_card ul {
+        flex: 1;
+        margin: 24px 0 28px;
+        padding: 20px 0 0;
+        border-top: 1px solid var(--border);
+        list-style: none;
+    }
+    .premium_page .p_card li {
+        position: relative;
+        padding: 5px 0 5px 26px;
+        line-height: 1.4;
+    }
+    .premium_page .p_card li.lead {
+        padding-left: 0;
+        font-size: 13.5px;
+        white-space: nowrap;
+        color: var(--muted-foreground);
+    }
+    @media (min-width: 1001px) and (max-width: 1180px) {
+        .premium_page .p_card li.lead {
+            white-space: normal;
+        }
+    }
+    .premium_page .p_card li.lead::before {
+        content: none;
+    }
+    /* Check của lucide (giống trang pricing của afterlife), tô màu bằng mask để theo màu nền. */
+    .premium_page .p_card li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 16px;
+        height: 16px;
+        background: #34d399;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .premium_page .p_note {
+        max-width: 640px;
+        margin: 32px auto 0;
+        text-align: center;
+        color: var(--muted-foreground);
+        line-height: 1.5;
+    }
+    .premium_page a {
+        color: var(--primary);
+    }
+    .premium_page .p_btn.primary {
+        color: #0a0e27;
+    }
+    .premium_page .footer .section ul li a {
+        color: var(--muted-foreground);
+    }
+    .premium_page .nav_bar a.logo {
+        color: transparent;
+    }
+    .premium_page .nav_bar .left .link {
+        color: var(--foreground);
+    }
+    .premium_page .nav_bar .right .button.primary {
+        color: var(--primary-foreground);
+    }
+
+    .premium_page .p_h2 {
+        text-align: center;
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        font-weight: 700;
+    }
+    .premium_page .p_sub {
+        max-width: 640px;
+        margin: 12px auto 40px;
+        text-align: center;
+        line-height: 1.5;
+        color: var(--muted-foreground);
+    }
+    .premium_page code {
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: var(--muted);
+        font-size: 0.9em;
+    }
+
+    .premium_page .p_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    .premium_page .p_benefit {
+        padding: 28px 24px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        transition: transform 0.3s, border-color 0.3s;
+    }
+    .premium_page .p_benefit:hover {
+        transform: translateY(-4px);
+        border-color: rgba(192, 205, 255, 0.5);
+    }
+    .premium_page .p_benefit .icon {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+        font-size: 22px;
+        background: rgba(192, 205, 255, 0.1);
+    }
+    .premium_page .p_benefit h3 {
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    .premium_page .p_benefit p {
+        line-height: 1.5;
+        font-size: 15px;
+        color: var(--muted-foreground);
+    }
+
+    .premium_page .p_table_wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+    }
+    .premium_page table {
+        width: 100%;
+        min-width: 640px;
+        border-collapse: collapse;
+        font-size: 15px;
+    }
+    .premium_page th,
+    .premium_page td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+        text-align: center;
+    }
+    .premium_page thead th {
+        font-weight: 600;
+        background: var(--muted);
+    }
+    .premium_page tbody th[scope='row'],
+    .premium_page thead th:first-child {
+        text-align: left;
+    }
+    .premium_page tbody th[scope='row'] {
+        font-weight: 400;
+    }
+    .premium_page .hl {
+        background: rgba(192, 205, 255, 0.06);
+    }
+    .premium_page thead th.hl {
+        color: var(--primary);
+        background: rgba(192, 205, 255, 0.14);
+    }
+    .premium_page td.custom {
+        color: var(--muted-foreground);
+    }
+    .premium_page tr.group th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--primary);
+        background: rgba(192, 205, 255, 0.04);
+    }
+    .premium_page tbody:last-child tr:last-child > * {
+        border-bottom: 0;
+    }
+    .premium_page .p_legacy {
+        max-width: 960px;
+        margin: 24px auto 0;
+        padding: 16px 20px;
+        border-radius: 12px;
+        border-left: 3px solid var(--primary);
+        background: rgba(192, 205, 255, 0.05);
+        line-height: 1.6;
+        font-size: 14px;
+        color: var(--muted-foreground);
+    }
+    .premium_page .p_legacy strong {
+        color: var(--foreground);
+        font-weight: 600;
+    }
+
+    .premium_page .div_module.narrow {
+        max-width: 760px;
+    }
+    .premium_page .p_faq .p_h2 {
+        margin-bottom: 40px;
+    }
+    .premium_page .p_faq_list details {
+        margin-bottom: 12px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        transition: border-color 0.3s;
+    }
+    .premium_page .p_faq_list details:hover,
+    .premium_page .p_faq_list details[open] {
+        border-color: rgba(192, 205, 255, 0.5);
+    }
+    .premium_page .p_faq_list summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 22px;
+        list-style: none;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .premium_page .p_faq_list summary::-webkit-details-marker {
+        display: none;
+    }
+    .premium_page .p_faq_list summary::after {
+        content: '+';
+        flex-shrink: 0;
+        font-size: 22px;
+        color: var(--primary);
+        transition: transform 0.3s;
+    }
+    .premium_page .p_faq_list details[open] summary::after {
+        transform: rotate(45deg);
+    }
+    .premium_page .p_faq_list details p {
+        padding: 0 22px 20px;
+        line-height: 1.6;
+        color: var(--muted-foreground);
+    }
+
+    @media (max-width: 1000px) {
+        .premium_page .p_cards {
+            grid-template-columns: 1fr;
+            max-width: 440px;
+        }
+        .premium_page .p_tagline {
+            min-height: 0;
+        }
+    }
+    @media (max-width: 768px) {
+        .premium_page section {
+            padding: 56px 16px;
+        }
+        .premium_page .p_hero {
+            padding: 8vh 16px 24px;
+        }
+        .premium_page .p_lead {
+            font-size: 16px;
+        }
+        .premium_page .p_buttons {
+            flex-direction: column;
+        }
+    }
+</style>
