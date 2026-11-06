@@ -35,7 +35,6 @@ export const homeEmbed = componentEmbed({
         'Discord Bot đa năng với các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành server chuyên nghiệp hơn.',
     sections: [
         section('**Thêm GlitchBucket vào server**\n-# Hoàn toàn miễn phí để bắt đầu', link('Thêm bot', `${SITE}/invite`)),
-        section('**Cần giới hạn lớn hơn?**\n-# Plus chỉ từ 36.000đ/tháng', link('Premium', `${SITE}/premium`)),
     ],
 });
 
