@@ -30,7 +30,7 @@ export function componentEmbed({ heading, description, image = EMBED_IMAGE, sect
 }
 
 export const homeEmbed = componentEmbed({
-    heading: 'Quản lý server thông minh và hiệu quả',
+    heading: 'Quản lý server thông minh và hiệu quả.',
     description:
         'Discord Bot đa năng với các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành server chuyên nghiệp hơn.',
     sections: [
