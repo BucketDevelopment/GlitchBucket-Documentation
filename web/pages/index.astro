@@ -14,6 +14,8 @@ import giveawayImg from '../content/docs/docs/assets/features/giveaway.png';
 
 import faviconImg from '../assets/favicon.webp';
 import heroImg from '../assets/GlitchBucket-2.webp';
+import ComponentEmbed from '../components/ComponentEmbed.astro';
+import { homeEmbed } from '../data/embed.mjs';
 
 const avatars = {
     duyandy,
@@ -33,14 +35,43 @@ const images = {
     customrole: customroleImg,
     giveaway: giveawayImg
 };
+
+const SITE = 'https://bot.tudubucket.dev';
+const TITLE = 'GlitchBucket - Quản lí Server Thông Minh & Hiệu Quả';
+const DESCRIPTION =
+    'Discord Bot đa năng, cung cấp các công cụ độc quyền về quản lý, tự động hóa và tương tác, giúp bạn vận hành Server Discord một cách chuyên nghiệp, thống nhất và hiệu quả hơn bao giờ hết.';
+const IMAGE = 'https://cdn.tudubucket.dev/widebucket.png';
+const schema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'GlitchBucket',
+        url: `${SITE}/`,
+        inLanguage: 'vi',
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'GlitchBucket',
+        applicationCategory: 'CommunicationApplication',
+        operatingSystem: 'Discord',
+        description: DESCRIPTION,
+        url: `${SITE}/`,
+        image: IMAGE,
+        offers: { '@type': 'Offer', price: 0, priceCurrency: 'VND' },
+        publisher: { '@type': 'Organization', name: 'BucketDevelopment', url: `${SITE}/`, logo: `${SITE}/favicon.png` },
+    },
+];
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlitchBucket - Quản lí Server Thông Minh & Hiệu Quả</title>
+    <title>{TITLE}</title>
+    <meta name="description" content={DESCRIPTION}/>
+    <meta name="robots" content="index, follow, max-image-preview:large"/>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <link rel="canonical" href="https://bot.tudubucket.dev/"/>
@@ -59,19 +90,26 @@ const images = {
     <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
     <meta name="generator" content="Astro v5.1.7"/>
     <meta name="generator" content="Starlight v0.31.1"/>
-    <meta property="og:title" content="GlitchBucket"/>
-    <meta property="og:type" content="article"/>
-    <meta property="og:url" content="https://bot.tudubucket.dev/"/>
-    <meta property="og:locale" content="vi"/>
-    <meta property="og:description" content="Discord Bot đa năng, cung cấp các công cụ độc quyền về quản lý, tự động hóa và tương tác, giúp bạn vận hành Server Discord một cách chuyên nghiệp, thống nhất và hiệu quả hơn bao giờ hết."/>
-    <meta property="og:site_name" content="BucketDevelopment"/>
+    <meta property="og:title" content={TITLE}/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content={`${SITE}/`}/>
+    <meta property="og:locale" content="vi_VN"/>
+    <meta property="og:description" content={DESCRIPTION}/>
+    <meta property="og:site_name" content="GlitchBucket"/>
+    <meta property="og:image" content={IMAGE}/>
+    <meta property="og:image:alt" content="GlitchBucket"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="description" content="Discord Bot đa năng, cung cấp các công cụ độc quyền về quản lý, tự động hóa và tương tác, giúp bạn vận hành Server Discord một cách chuyên nghiệp, thống nhất và hiệu quả hơn bao giờ hết."/>
+    <meta name="twitter:title" content={TITLE}/>
+    <meta name="twitter:description" content={DESCRIPTION}/>
     <meta name="keywords" content="GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi"/>
     <meta name="google-site-verification" content="um3q97hCSAv7TUAD2O6KoMsdGKC-El8E7BMUWUw5bVk"/>
-    <meta property="twitter:image" content="https://cdn.tudubucket.dev/widebucket.png"/>
-    <meta property="twitter:card" content="summary_large_image"/>
-    <meta property="theme-color" content="#C0CDFF"/>
+    <meta name="twitter:image" content={IMAGE}/>
+    <meta name="theme-color" content="#C0CDFF"/>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <ComponentEmbed embed={homeEmbed} />
+    <script is:inline>
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+    </script>
     <style>
         .strikethrough {
             text-decoration: line-through;
@@ -129,7 +167,7 @@ const images = {
         <div class="div_module">
             <div class="main">
                 <div class="hero-blob-1"></div>
-                <div class="left">
+                <div class="left" data-stagger>
                     <!-- <div class="hero-bg">
                         <div class="hero-blob-2"></div>
                     </div> -->
@@ -154,11 +192,11 @@ const images = {
                         <div class="button" onclick="location.href='/docs/getting-started/'">Documentation</div>
                     </div>
                 </div>
-                <div class="right">
-                    <img src={heroImg.src} alt="logo">
+                <div class="right" data-reveal="zoom" style="--i: 2">
+                    <img src={heroImg.src} alt="GlitchBucket">
                 </div>
             </div>
-            <div class="stats">
+            <div class="stats" data-stagger>
                 <div class="content">
                     <p class="text" data-target="7000" data-suffix="">---</p>
                     <p class="description">Servers</p>
@@ -176,21 +214,21 @@ const images = {
     </section>
     <section class="screen_2">
         <div class="div_module">
-            <div class="content_web">
+            <div class="content_web" data-stagger>
                 <h1 class="header">Tính Năng Nổi Bật</h1>
                 <p class="description">GlitchBucket mang đến hầu hết những tính năng thiết yếu để quản lý Server Discord</p>
             </div>
-            <div class="features" id="featureList">
+            <div class="features" id="featureList" data-stagger="zoom">
                 <!-- data -->
             </div>
         </div>
     </section>
     <section class="feedback_container">
-        <div class="content_web">
+        <div class="content_web" data-stagger>
             <h1 class="header">Mọi Người Nói Gì?</h1>
             <p class="description">Được yêu thích bởi hàng ngàn Server Owner & User tại Việt Nam</p>
         </div>
-        <div class="feedback_data">
+        <div class="feedback_data" data-stagger>
             
         </div>
         <div class="content_web" style="margin-top: 2rem; margin-bottom: 0rem;">
@@ -199,7 +237,7 @@ const images = {
     </section>
     <section id="cta" class="cta">
         <div class="cta-bg"></div>
-        <div class="cta-content">
+        <div class="cta-content" data-reveal="zoom">
             <h2>Sẵn Sàng Nâng Cấp Server?</h2>
             <p>Tham gia cùng hàng ngàn server đã tin tưởng & sử dụng GlitchBucket. Hoàn toàn miễn phí để bắt đầu.</p>
             <div class="cta-buttons">
@@ -222,7 +260,7 @@ const images = {
                     <h4>Sản Phẩm</h4>
                     <ul>
                         <li><a href="/docs/getting-started">Tính Năng</a></li>
-                        <li><a href="/docs/premium/whitelabel">Pricing</a></li>
+                        <li><a href="/premium">Pricing</a></li>
                         <li><a href="/docs/getting-started">Docs</a></li>
                     </ul>
                 </div>
@@ -487,5 +525,6 @@ const images = {
             `
         })
     </script>
+    <script is:inline src="/motion.js"></script>
 </body>
 </html>
