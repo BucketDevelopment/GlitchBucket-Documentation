@@ -96,6 +96,8 @@ Trong [Autoresponder](/commands/group/autoresponder), bạn có thể lấy từ
 
 Kết hợp với `{require_arg}` để bắt buộc tin nhắn phải có đủ từ, ví dụ `{require_arg:1|user}`.
 
+Muốn một argument chứa được cả dấu cách (tên, câu nói...), hãy dùng `{separator}` để đổi kí tự ngăn cách. Ví dụ với `{separator:,}`, tin nhắn `!profile Nguyễn Văn A, Hà Nội` sẽ có `[&1]` là `Nguyễn Văn A` và `[&2]` là `Hà Nội`. Bot sẽ tự bỏ dấu cách thừa ở 2 đầu mỗi argument nên bạn viết `a,b` hay `a , b` đều được nhé.
+
 ### Functions (các hàm)
 
 :::caution[Chú ý]
@@ -116,6 +118,7 @@ Ngược lại, các hàm không có dấu `*` là bạn có thể sử dụng h
 |`{embed}`*                     | Gói toàn bộ nội dung tin nhắn vào một embed, màu mặc định `#C0CDFF`                         | *Không có tham số*                    | `{embed}`
 |`{embed:#hex}`*                | Gói toàn bộ nội dung tin nhắn vào một embed có màu `hex`                                    | `hex`: Mã màu 6 kí tự                 | `{embed:#ffd24d}`
 |`{require_arg:position\|type}` | Yêu cầu vị trí kí tự tại `position` trong tin nhắn phải là dạng `type`.                 | `position`: Vị trí từ trong tin nhắn<br /> `type`: Loại yêu cầu, không bắt buộc. Là 1 trong 4 loại `user` (người dùng), `number` (số), `channel` (kênh), `role` (vai trò)               | `{require_arg:1\|user}`<br /> `{require_arg:2}`<br /> `{require_arg:4\|number}`
+|`{separator:char}`*            | Tách argument theo `char` thay vì dấu cách, mỗi argument được bỏ dấu cách ở 2 đầu            | `char`: Tối đa 4 kí tự. `{newline}`, `newline` hoặc `\n` là xuống dòng | `{separator:,}`<br /> `{separator:\|}`<br /> `{separator:{newline}}`
 |`{require_user:id}`           | Yêu cầu được sử dụng bởi người dùng có ID là `id`                                           | `id`: ID một người dùng               | `{require_user:906844267870314577}`
 |`{require_channel:id}`        | Yêu cầu kênh trigger có ID là `id`                                                          | `id`: ID một kênh                     | `{require_channel:1145547639618801736}`
 |`{require_category:id}`       | Yêu cầu category được sử dụng có ID là `id`                                                 | `id`: ID một category                     | `{require_category:1275866968582262965}`
