@@ -223,8 +223,8 @@ const schema = [
             <a href="/dashboard/servers" class="link strikethrough">Bảng điều khiển</a>
             <a href="https://bot.tudubucket.dev/stats" class="link">Status</a>
             <a href="/invite" class="link">Thêm bot</a>
-            <a href="/premium" class="link">Premium</a>
             <a href="/docs/getting-started" class="link">Tài liệu</a>
+            <a href="/premium" class="link premium"><img src="/crown.png" alt="" class="crown">Premium</a>
         </div>
             <div class="right">
                 <a class="button primary" href="https://service.tudubucket.dev/dashboard/auth/login" style="text-decoration: none;">Đăng nhập</a>
@@ -663,7 +663,7 @@ const schema = [
     .premium_page .nav_bar a.logo {
         color: transparent;
     }
-    .premium_page .nav_bar .left .link {
+    .premium_page .nav_bar .left .link:not(.premium) {
         color: var(--foreground);
     }
     .premium_page .nav_bar .right .button.primary {
