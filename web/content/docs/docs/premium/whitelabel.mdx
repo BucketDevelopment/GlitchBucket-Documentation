@@ -1,38 +1,55 @@
 ---
 title: "Dịch Vụ Whitelabel"
-description: "Dịch vụ cao cấp xóa bỏ thương hiệu GlitchBucket cho Server của bạn!"
+description: "Chạy GlitchBucket bằng chính bot của bạn, xóa bỏ thương hiệu GlitchBucket khỏi server"
 ---
 
-Whitelabel Service/Custom Branding là dịch vụ Premium dành cho **GlitchBucket**. Với GlitchBucket Whitelabel, bạn có thể tùy chỉnh tên, ảnh đại diện và trạng thái của bot để xóa hoàn toàn mọi thương hiệu khỏi dịch vụ & trở thành bot ngay trên chính server của bạn.
+Whitelabel (Custom Branding) là dịch vụ Premium giúp GlitchBucket chạy bằng **chính bot của bạn**. Tên, avatar, banner, bio và status đều là của bot bạn, member trong server sẽ không còn thấy thương hiệu GlitchBucket nữa, nhưng vẫn dùng được đầy đủ tính năng như bot gốc.
 
-Whitelabel được áp dụng theo từng server, một bot có thể đăng kí nhiều gói Whitelabel cho nhiều server khác nhau, và được gia hạn hàng tháng, hoặc nhiều tháng 1 lần (3 tháng/6 tháng).
+Whitelabel áp dụng theo từng server: một bot có thể đăng kí Whitelabel cho nhiều server khác nhau, gia hạn hàng tháng hoặc nhiều tháng 1 lần. Server có Whitelabel dùng giới hạn giống gói **Plus** (xem [Gói & Giới hạn](/docs/premium/plans)), và được hỗ trợ ưu tiên khi gặp vấn đề.
 
-Ngoài ra, người đăng ký Whitelabel cũng sẽ nhận được hỗ trợ ưu tiên, đảm bảo rằng bất kỳ vấn đề hoặc câu hỏi nào cũng được giải quyết kịp thời.
-
----
-
-## Cách Bắt Đầu
-
-:::note[Note]
-Nếu bạn gặp rắc rối trong quá trình thanh toán/hoàn thiện, bạn cũng có thể tạo ticket để được hỗ trợ nhé!
+:::tip[Whitelabel khác gì Profile?]
+Với [gói Plus](/premium), bạn có thể đổi tên, avatar, banner và bio của GlitchBucket trong server ở trang **Premium** → **Profile** trên Dashboard, nhưng bot vẫn là GlitchBucket. Whitelabel thì khác: đây là bot riêng của bạn, từ username, tag cho tới link mời bot.
 :::
 
-**Bước 1:** Tham gia server hỗ trợ [tại đây](http://bot.tudubucket.dev/support)
+---
 
-**Bước 2:** Hãy tìm kênh có tên là [`#custom-branding`](https://discord.com/channels/1096028188397809736/1298093422418329711), sau đó thực hiện thanh toán theo các bước được hướng dẫn.
+## Đăng kí Whitelabel
 
-**Bước 3:** Sau khi hoàn thiện, bạn lấy token và bật Intent cho bot theo [hướng dẫn này](/docs/premium/whitelabel-setup), rồi nhập token ở trang **Whitelabel** trên [Dashboard](https://bot.tudubucket.dev/dashboard).
+**Bước 1:** Tham gia server hỗ trợ [tại đây](http://bot.tudubucket.dev/support).
 
-## Quản lí Whitelabel trên Dashboard
-Mọi thứ về Whitelabel giờ được quản lí ở trang **Premium** → **Whitelabel** trên [Dashboard](https://bot.tudubucket.dev/dashboard):
-- **Thay token**: dán thẳng token bot, không cần mã hóa trước. Bot sẽ tự kiểm tra token rồi khởi động lại.
-- **Status & Activity**: đổi trạng thái (Online, Idle, Do Not Disturb, Invisible) và dòng activity của bot.
+**Bước 2:** Tìm kênh [`#custom-branding`](https://discord.com/channels/1096028188397809736/1298093422418329711), sau đó thanh toán theo các bước được hướng dẫn trong kênh.
+
+:::note[Note]
+Nếu gặp rắc rối trong lúc thanh toán, bạn cứ tạo ticket để được hỗ trợ nhé!
+:::
+
+## Cài đặt bot
+
+**Bước 1:** Tạo bot ở [trang Developer của Discord](https://discord.com/developers/applications) (bấm **New Application**), đặt tên và avatar bạn muốn. Nếu đã có bot rồi thì bỏ qua bước này.
+
+**Bước 2:** Lấy token và bật Intent cho bot theo [hướng dẫn này](/docs/premium/whitelabel-setup).
+
+**Bước 3:** Vào [Dashboard](https://bot.tudubucket.dev/dashboard), chọn server của bạn rồi mở **Premium** → **Whitelabel**. Dán token vào ô **Token bot** rồi bấm **Lưu**, bot sẽ tự kiểm tra token rồi khởi động.
+
+**Bước 4:** Bấm **Mời bot** để thêm bot của bạn vào server. Xong rồi đó, bot của bạn đã sẵn sàng hoạt động!
+
+## Quản lí Whitelabel
+
+Mọi thứ về Whitelabel đều nằm ở trang **Premium** → **Whitelabel** trên [Dashboard](https://bot.tudubucket.dev/dashboard):
+- **Thông tin**: bot đang dùng, ngày đăng kí và ngày hết hạn.
+- **Thay token**: dán thẳng token bot, không cần mã hóa trước.
+- **Status & Activity**: trạng thái (Online, Idle, Do Not Disturb, Invisible), loại activity và dòng chữ hiện dưới tên bot.
 - **Khởi động lại bot**: tối đa 1 lần mỗi phút.
+
+Mỗi lần đổi token hoặc status, bot sẽ tự khởi động lại để áp dụng, chỉ mất vài giây thôi.
+
+:::caution[Chú ý]
+- Nếu bạn **Reset Token** ở trang Developer, token cũ sẽ ngừng hoạt động ngay. Hãy cập nhật token mới trên Dashboard để bot online trở lại.
+- Khi Whitelabel hết hạn, bot của bạn sẽ ngừng hoạt động cho tới khi được gia hạn.
+:::
 
 Lệnh `/whitelabel manage` cũ không còn dùng nữa, bot sẽ chỉ bạn sang Dashboard.
 
-Để biết thêm thông tin chi tiết, vui lòng tham khảo [Điều Khoản Dịch Vụ Whitelabel](https://bot.tudubucket.dev/policy/whitelabel/) và [Chính Sách Bảo Mật](https://bot.tudubucket.dev/policy/privacy-policy/).
-
 ---
 
-Nếu cần hỗ trợ thêm, vui lòng liên hệ với đội ngũ hỗ trợ của chúng tôi tại [Support Server](http://bot.tudubucket.dev/support).
+Để biết thêm thông tin chi tiết, vui lòng tham khảo [Điều Khoản Dịch Vụ Whitelabel](https://bot.tudubucket.dev/policy/whitelabel/) và [Chính Sách Bảo Mật](https://bot.tudubucket.dev/policy/privacy-policy/). Nếu cần hỗ trợ thêm, hãy liên hệ với chúng tôi tại [Support Server](http://bot.tudubucket.dev/support) nhé!
