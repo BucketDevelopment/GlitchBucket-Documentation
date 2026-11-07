@@ -1,0 +1,55 @@
+---
+title: "Lấy token & bật Intent"
+description: "Hướng dẫn lấy token bot và bật Intent để chạy Whitelabel trên GlitchBucket Dashboard"
+---
+
+export const _imgs = import.meta.glob('../assets/whitelabel/*', { eager: true });
+export const img = (name) => _imgs[`../assets/whitelabel/${name}`]?.default;
+
+Để GlitchBucket chạy bằng chính bot của bạn, bạn cần đưa **token** của bot vào trang **Whitelabel** trên [Dashboard](https://bot.tudubucket.dev/dashboard), và bật đủ **Intent** để bot nhận được tin nhắn cũng như thông tin member trong server.
+
+:::caution[Chú ý]
+Token giống như mật khẩu của bot, ai có token đều điều khiển được bot của bạn. Đừng gửi token cho bất kì ai, kể cả người tự nhận là đội ngũ hỗ trợ. Chỉ dán token vào trang Whitelabel trên Dashboard thôi nhé!
+:::
+
+---
+
+## Bật Intent
+
+Truy cập [trang Developer của Discord](https://discord.com/developers/applications), chọn bot của bạn rồi vào mục **Bot**. Kéo xuống phần **Privileged Gateway Intents** và bật **2 Intent** sau:
+- **Server Members Intent**: để bot nhận được thông tin member (greeting, custom role, giveaway...).
+- **Message Content Intent**: để bot đọc được nội dung tin nhắn (autoresponder, nối từ, prefix command...).
+
+<img src={img('intents.png').src} class="img" style="max-width:90%; height:auto; margin: 0 auto; display: block"></img>
+
+Sau khi bật, nhớ bấm **Save Changes** ở cuối trang. Nếu thiếu Intent, bot sẽ không khởi động được hoặc nhiều tính năng sẽ không hoạt động.
+
+:::note[Note]
+Bot của bạn không cần **Presence Intent**, bạn bật hay tắt đều được.
+:::
+
+## Lấy token bot
+
+**Bước 1:** Cũng ở mục **Bot**, bấm **Reset Token**.
+
+<img src={img('bot-tab.png').src} class="img" style="max-width:90%; height:auto; margin: 0 auto; display: block"></img>
+
+**Bước 2:** Discord sẽ hỏi lại cho chắc, bấm **Yes, do it!** (nếu tài khoản có bật 2FA thì nhập mã 2FA nữa nhé).
+
+<img src={img('reset-confirm.png').src} class="img" style="max-width:90%; height:auto; margin: 0 auto; display: block"></img>
+
+**Bước 3:** Token mới sẽ hiện ra, bấm **Copy** để lấy token. Token chỉ hiện 1 lần duy nhất, nếu lỡ mất thì bạn chỉ cần Reset Token lại là được.
+
+<img src={img('copy-token.png').src} class="img" style="max-width:90%; height:auto; margin: 0 auto; display: block"></img>
+
+:::caution[Chú ý]
+Khi Reset Token, token cũ sẽ ngừng hoạt động ngay. Nếu bot đang chạy Whitelabel, hãy cập nhật token mới trên Dashboard để bot online trở lại.
+:::
+
+## Đưa token vào Dashboard
+
+Vào [Dashboard](https://bot.tudubucket.dev/dashboard), chọn server của bạn rồi mở **Premium** → **Whitelabel**. Dán token vào ô **Token bot**, sau đó bấm **Lưu**. Bot sẽ tự kiểm tra token rồi khởi động lại, chỉ sau vài giây là bot của bạn sẽ online nhé!
+
+---
+
+Nếu cần hỗ trợ thêm, vui lòng liên hệ với đội ngũ hỗ trợ của chúng tôi tại [Support Server](http://bot.tudubucket.dev/support).

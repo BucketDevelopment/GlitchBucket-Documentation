@@ -108,6 +108,7 @@ export default defineConfig({
                         { label: "Bảng giá", link: "/premium" },
                         { label: "Gói & Giới hạn", slug: "docs/premium/plans" },
                         { label: "Dịch Vụ Whitelabel", slug: "docs/premium/whitelabel" },
+                        { label: "Lấy token & bật Intent", slug: "docs/premium/whitelabel-setup" },
                     ],
                 },
                 {

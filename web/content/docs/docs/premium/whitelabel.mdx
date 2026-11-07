@@ -21,12 +21,15 @@ Nếu bạn gặp rắc rối trong quá trình thanh toán/hoàn thiện, bạn
 
 **Bước 2:** Hãy tìm kênh có tên là [`#custom-branding`](https://discord.com/channels/1096028188397809736/1298093422418329711), sau đó thực hiện thanh toán theo các bước được hướng dẫn.
 
-**Bước 3:** Sau khi hoàn thiện, bạn sử dụng lệnh `/whitelabel manage` để thay token và khởi động bot
+**Bước 3:** Sau khi hoàn thiện, bạn lấy token và bật Intent cho bot theo [hướng dẫn này](/docs/premium/whitelabel-setup), rồi nhập token ở trang **Whitelabel** trên [Dashboard](https://bot.tudubucket.dev/dashboard).
 
-## Lệnh quản lí Whitelabel: /whitelabel manage
-Lệnh này đều có ở 2 bot: Bot chính (**GlitchBucket#9965**) và bot của bạn. Tuy nhiên, chức năng sử dụng của lệnh ở mỗi bot là khác nhau:
-- Tại bot chính, bạn có thể thực hiện **Restart Bot** và **Thay token**
-- Tại bot của bạn, bạn có thể thay đổi **Status/Presence** của Whitelabel Instance.
+## Quản lí Whitelabel trên Dashboard
+Mọi thứ về Whitelabel giờ được quản lí ở trang **Premium** → **Whitelabel** trên [Dashboard](https://bot.tudubucket.dev/dashboard):
+- **Thay token**: dán thẳng token bot, không cần mã hóa trước. Bot sẽ tự kiểm tra token rồi khởi động lại.
+- **Status & Activity**: đổi trạng thái (Online, Idle, Do Not Disturb, Invisible) và dòng activity của bot.
+- **Khởi động lại bot**: tối đa 1 lần mỗi phút.
+
+Lệnh `/whitelabel manage` cũ không còn dùng nữa, bot sẽ chỉ bạn sang Dashboard.
 
 Để biết thêm thông tin chi tiết, vui lòng tham khảo [Điều Khoản Dịch Vụ Whitelabel](https://bot.tudubucket.dev/policy/whitelabel/) và [Chính Sách Bảo Mật](https://bot.tudubucket.dev/policy/privacy-policy/).
 
