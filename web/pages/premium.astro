@@ -226,10 +226,22 @@ const schema = [
             <a href="/docs/getting-started" class="link">Tài liệu</a>
             <a href="/premium" class="link premium"><img src="/crown.png" alt="" class="crown">Premium</a>
         </div>
-            <div class="right">
-                <a class="button primary" href="https://service.tudubucket.dev/dashboard/auth/login" style="text-decoration: none;">Đăng nhập</a>
-            </div>
+        <div class="right">
+            <a class="button primary login" href="https://bot-service.tudubucket.dev/dashboard/auth/login" style="text-decoration: none;">Đăng nhập</a>
+            <a class="user" href="/dashboard/servers" hidden><img alt="" class="avatar"><span class="name"></span></a>
+            <button class="menu_toggle" type="button" aria-label="Mở menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+        </div>
+        <div class="menu_panel">
+            <a href="/dashboard/servers" class="item">Bảng điều khiển</a>
+            <a href="https://bot.tudubucket.dev/stats" class="item">Status</a>
+            <a href="/invite" class="item">Thêm bot</a>
+            <a href="/docs/getting-started" class="item">Tài liệu</a>
+            <a href="/premium" class="item premium"><img src="/crown.png" alt="" class="crown">Premium</a>
+        </div>
     </nav>
+    <script is:inline src="/nav.js"></script>
 
     <section class="hero p_hero">
         <div class="div_module p_center" data-stagger>
