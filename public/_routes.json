@@ -1,5 +1,0 @@
-{
-  "version": 1,
-  "include": ["/dashboard/*"],
-  "exclude": ["/dashboard/", "/dashboard/assets/*", "/dashboard/fonts/*", "/dashboard/icons/*", "/dashboard/favicon.webp"]
-}

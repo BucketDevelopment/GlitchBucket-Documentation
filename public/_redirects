@@ -1,0 +1,8 @@
+# dashboard là SPA: mọi đường dẫn con trả về /dashboard/ (rewrite 200, không cần Function nên không tốn subrequest)
+# luật luôn áp dụng kể cả khi có file trùng tên, nên file tĩnh rewrite về chính nó trước (chỉ luật khớp đầu tiên được dùng)
+/dashboard/favicon.webp  /dashboard/favicon.webp  200
+/dashboard/version.json  /dashboard/version.json  200
+/dashboard/assets/*  /dashboard/assets/:splat  200
+/dashboard/fonts/*  /dashboard/fonts/:splat  200
+/dashboard/icons/*  /dashboard/icons/:splat  200
+/dashboard/*  /dashboard/  200
