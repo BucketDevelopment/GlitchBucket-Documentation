@@ -2,7 +2,6 @@
   const nav = document.querySelector('.nav_bar')
   if (!nav) return
 
-  // dashboard lưu hồ sơ công khai khi đăng nhập (frontend/src/lib/auth/context.tsx), đăng xuất thì xóa
   try {
     const profile = JSON.parse(localStorage.getItem('glitchbucket-profile') || 'null')
     if (profile && typeof profile.name === 'string' && /^https:\/\/cdn\.discordapp\.com\//.test(profile.avatar)) {

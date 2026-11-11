@@ -840,7 +840,6 @@ section {
     .nav_bar .menu_toggle {
         display: inline-flex;
     }
-    /* dropdown đủ section thay cho các link bị ẩn: fade + ease-out */
     .nav_bar .menu_panel {
         display: grid;
         position: absolute;
