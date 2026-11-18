@@ -1,0 +1,92 @@
+/* 1. hero và các plan nằm chung một tờ đế */
+.p-hero{position:relative;isolation:isolate;padding:clamp(120px,16vh,168px) 0 clamp(72px,9vw,128px)}
+.p-hero-copy{max-width:820px;margin-inline:auto;text-align:center}
+.p-hero h1{font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.12}
+.p-hero h1 .line{display:block;animation:rise .5s var(--ease) both}
+.p-hero h1 .line+.line{animation-delay:.06s}
+.p-hero h1 .grad{width:fit-content;margin-inline:auto;background:var(--grad) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:rise .5s var(--ease) both,wave 6s linear infinite}
+.p-hero .hero-lead{margin-inline:auto}
+.p-hero .hero-actions{justify-content:center}
+
+/* thẻ plan là sticker trắng ở cả hai theme nên chữ và nút trong thẻ luôn dùng màu tối */
+.p-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vw,32px);max-width:1200px;margin:clamp(56px,7vw,96px) auto 0;align-items:stretch}
+.p-plans .p-card{--b:clamp(22px,2.2vw,30px);--R:22px;--ink:#1b1d33;--mute:#474b72;--under:var(--sticker);--cta:#1b1d33;--cta-ink:#fff;--rule:rgba(27,29,51,.14);
+  display:flex;flex-direction:column;color:var(--ink);animation:rise .5s var(--ease) backwards;animation-delay:calc(.2s + var(--i) * 70ms)}
+.p-plans .p-card:nth-child(1){--r:-1deg}
+.p-plans .p-card:nth-child(3){--r:1deg}
+.p-plans .p-card:hover{--r:0deg;translate:0 -6px;box-shadow:0 30px 44px -20px rgba(var(--shadow),.65)}
+.p-plans .p-card.featured:hover{box-shadow:0 0 0 3px #fba71b,0 30px 44px -20px rgba(var(--shadow),.65)}
+.p-card.featured{box-shadow:0 0 0 3px #fba71b,0 24px 40px -18px rgba(var(--shadow),.6)}
+.p-badge{position:absolute;top:-14px;left:var(--b);display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:#fba71b;color:#fff;font-size:13px;font-weight:650}
+.p-badge img{width:14px;height:14px;filter:brightness(0) invert(1)}
+.p-card h2{font-size:clamp(1.6rem,2.2vw,2rem)}
+.p-tagline{margin-top:6px;color:var(--mute);font-size:15px}
+.p-price{margin:22px 0;padding:18px 0;border-block:1px dashed var(--rule)}
+.p-amount{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px}
+.p-amount strong{font-size:clamp(2rem,3vw,2.6rem);line-height:1.1;letter-spacing:-.02em}
+.p-amount span{color:var(--mute);font-weight:600}
+.p-alt{margin-top:6px;color:var(--mute);font-size:14px}
+.p-alt strong{color:var(--ink);font-weight:650}
+.p-points{display:grid;gap:10px;align-content:start;flex:1;margin-bottom:26px}
+.p-points li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.5}
+.p-points svg{flex:none;width:16px;height:16px;margin-top:3px;color:#0c8f5e}
+.p-points .p-includes{font-size:14px;font-weight:650}
+.p-card .btn{width:100%}
+
+/* 2. quyền lợi */
+.p-benefits{padding:clamp(72px,9vw,128px) 0}
+.p-benefit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(24px,3vw,44px);padding-top:clamp(28px,3vw,40px);border-top:1px dashed var(--rule)}
+.p-icon{display:grid;place-items:center;width:56px;height:56px;border-radius:16px;background:var(--sticker);font-size:28px;line-height:1;rotate:-4deg;
+  box-shadow:0 12px 20px -14px rgba(var(--shadow),.6);transition:rotate .35s var(--ease)}
+.p-icon img{width:28px;height:28px}
+.p-benefit:nth-child(even) .p-icon{rotate:4deg}
+.p-benefit:hover .p-icon{rotate:0deg}
+.p-benefit h3{margin-top:20px;font-size:20px}
+.p-benefit p{margin-top:8px;color:var(--mute);font-size:15px}
+
+/* 3. bảng so sánh, cột đầu đứng yên khi cuộn ngang trên màn hẹp */
+.p-compare{padding:clamp(72px,9vw,128px) 0}
+.p-table{--b:0px;--R:20px;--ink:#1b1d33;--mute:#474b72;--rule:rgba(27,29,51,.12);color:var(--ink);overflow:hidden}
+.p-scroll{overflow-x:auto}
+.p-table table{width:100%;min-width:760px;border-collapse:collapse;font-size:15px}
+.p-table th,.p-table td{padding:14px clamp(14px,1.6vw,24px);border-bottom:1px dashed var(--rule);text-align:center}
+.p-table th:first-child{position:sticky;left:0;z-index:1;text-align:left;background:var(--sticker)}
+.p-table thead th{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.02em;border-bottom:1px solid var(--rule)}
+.p-table tbody th[scope="row"]{font-weight:500}
+.p-table td{font-weight:650;font-variant-numeric:tabular-nums}
+.p-table .group th{padding-top:28px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--rule)}
+.p-table .hl{background:rgba(244,166,200,.2)}
+.p-table thead .hl{background:var(--pink)}
+.p-table .custom{color:var(--mute);font-weight:500}
+.p-table tbody tr:not(.group){transition:background-color .2s ease-out}
+.p-table tbody tr:not(.group):hover{background:rgba(192,205,255,.28)}
+
+/* 4. câu hỏi */
+.p-faq{padding:clamp(72px,9vw,128px) 0}
+.p-faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,6vw,120px);align-items:start}
+.p-faq .section-head{margin-bottom:0}
+.p-faq .section-head a,.p-faq-list a{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.p-faq-list{border-top:1px dashed var(--rule)}
+.p-faq-list details{border-bottom:1px dashed var(--rule)}
+.p-faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;font-family:var(--display);font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.35;
+  list-style:none;cursor:pointer;transition:color .2s ease-out}
+.p-faq-list summary::-webkit-details-marker{display:none}
+.p-faq-list summary:hover{color:var(--doodle)}
+.p-faq-list summary svg{flex:none;width:20px;height:20px;transition:rotate .3s var(--ease)}
+.p-faq-list details[open] summary svg{rotate:45deg}
+.p-faq-list details p{padding:0 40px 22px 0;color:var(--mute);animation:faq-open .3s ease-out}
+@keyframes faq-open{from{opacity:0;translate:0 -6px}}
+
+@media (max-width:1100px){
+  .p-benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .p-plans{grid-template-columns:minmax(0,1fr);max-width:540px}
+  .p-plans .p-card:nth-child(n){--r:0deg}
+  .p-faq-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){
+  .p-benefit-grid{grid-template-columns:minmax(0,1fr)}
+  .p-faq-list details p{padding-right:0}
+}

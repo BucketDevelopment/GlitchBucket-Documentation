@@ -1,10 +1,9 @@
 ---
-import '../styles/landing.css';
 import duyandy from '../content/docs/docs/assets/testimonials/duyandy.webp';
 import hoanglong921 from '../content/docs/docs/assets/testimonials/hoanglong921.webp';
 import ptcd from '../content/docs/docs/assets/testimonials/ptcd.webp';
 import fakecattos from '../content/docs/docs/assets/testimonials/fakecattos.webp';
-import ComponentEmbed from '../components/ComponentEmbed.astro';
+import Page from '../components/landing/Page.astro';
 import Shot from '../components/landing/Shot.astro';
 import Shots from '../components/landing/Shots.astro';
 import { homeEmbed } from '../data/embed.mjs';
@@ -16,6 +15,7 @@ const avatars = { duyandy, hoanglong921, ptcd, fakecattos };
 const title = `${name} · Discord Bot lo việc cho server của bạn`;
 const description = `${name} là bot discord đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.`;
 const image = 'https://cdn.tudubucket.dev/widebucket.png';
+const keywords = 'GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi';
 const schema = [
     { '@context': 'https://schema.org', '@type': 'WebSite', name, url: `${BRAND.site}/`, inLanguage: 'vi' },
     {
@@ -31,14 +31,6 @@ const schema = [
         publisher: { '@type': 'Organization', name: BRAND.studio.name, url: BRAND.studio.url, logo: `${BRAND.site}/favicon.png` },
     },
 ];
-const nav = [
-    ['Tính năng', '#features'],
-    ['Dashboard', links.dashboard],
-    ['Tài liệu', links.docs],
-    ['Status', links.status],
-    ['Premium', links.premium],
-];
-const navLink = ([label, href]) => label === 'Premium' ? `<a href="${href}" class="premium"><img src="/crown.png" alt="" width="16" height="16">${label}</a>` : `<a href="${href}">${label}</a>`;
 const [bigVoice, ...sideVoices] = TESTIMONIALS;
 // localhost bị CORS của API chặn nên lúc dev dùng số lấy từ /dashboard/status (18/11/2026), trả về chậm như API thật
 const statsMock = import.meta.env.DEV ? { servers: 21202, users: 5612318 } : null;
@@ -47,74 +39,7 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
 const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 const star = '<svg class="star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z"/></svg>';
 ---
-<!doctype html>
-<html lang="vi">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{title}</title>
-    <meta name="description" content={description}>
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href={`${BRAND.site}/`}>
-    <link rel="sitemap" href="/sitemap-index.xml">
-    <link rel="shortcut icon" href="/favicon.png" type="image/png">
-    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600;700&family=Shantell+Sans:wght@400&display=swap" rel="stylesheet">
-    <meta property="og:title" content={title}>
-    <meta property="og:type" content="website">
-    <meta property="og:url" content={`${BRAND.site}/`}>
-    <meta property="og:locale" content="vi_VN">
-    <meta property="og:description" content={description}>
-    <meta property="og:site_name" content={name}>
-    <meta property="og:image" content={image}>
-    <meta property="og:image:alt" content={name}>
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content={title}>
-    <meta name="twitter:description" content={description}>
-    <meta name="twitter:image" content={image}>
-    <meta name="keywords" content="GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi">
-    <meta name="google-site-verification" content="um3q97hCSAv7TUAD2O6KoMsdGKC-El8E7BMUWUw5bVk">
-    <meta name="theme-color" content="#C0CDFF">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    <ComponentEmbed embed={homeEmbed} />
-    <script is:inline>
-        (function () {
-            var root = document.documentElement;
-            var stored = null;
-            try { stored = localStorage.getItem('starlight-theme'); } catch (e) {}
-            root.dataset.theme = stored === 'light' || stored === 'dark' ? stored : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            root.classList.add('js');
-            fetch('https://service.tudubucket.dev/metrics/?domain=' + encodeURIComponent(location.hostname) + '&path=' + encodeURIComponent(location.pathname)).catch(function () {});
-        })();
-    </script>
-</head>
-<body>
-    <header class="nav">
-        <div class="nav-bar">
-            <a class="nav-logo" href="/"><img src={BRAND.avatar} alt="" width="36" height="36"><span class="nav-name">{name}<small>{BRAND.formerName}</small></span></a>
-            <nav class="nav-links" aria-label="Chính">
-                {nav.map((item) => <Fragment set:html={navLink(item)} />)}
-            </nav>
-            <div class="nav-right">
-                <button class="icon-btn" type="button" data-theme-toggle aria-label="Đổi sáng/tối">
-                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
-                </button>
-                <a class="nav-login" href={links.login} data-login>Đăng nhập</a>
-                <a class="nav-user" href={links.dashboard} data-user hidden><img alt="" width="32" height="32"><span></span></a>
-                <a class="btn btn-main btn-sm" href={links.invite}>Thêm bot</a>
-                <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="Mở menu" aria-expanded="false">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-                </button>
-            </div>
-        </div>
-        <nav class="menu-panel" aria-label="Menu">
-            {nav.map((item) => <Fragment set:html={navLink(item)} />)}
-        </nav>
-    </header>
-
-    <main>
+<Page title={title} description={description} path="/" keywords={keywords} schema={schema} embed={homeEmbed} image={image}>
         <section class="hero sheet">
             <div class="hero-emoji" aria-hidden="true"></div>
             <div class="wrap">
@@ -229,76 +154,10 @@ const star = '<svg class="star" viewBox="0 0 24 24" fill="currentColor" stroke="
                 </div>
             </div>
         </section>
-    </main>
 
-    <footer class="foot deep">
-        <div class="wrap">
-            <div class="foot-cols">
-                <div>
-                    <div class="foot-brand"><img src={BRAND.avatar} alt="" width="44" height="44" loading="lazy">{name}</div>
-                    <p>Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn quản lí server dễ dàng hơn.</p>
-                </div>
-                <div>
-                    <h3>Sản phẩm</h3>
-                    <ul>
-                        <li><a href="#features">Tính năng</a></li>
-                        <li><a href={links.dashboard}>Dashboard</a></li>
-                        <li><a href={links.premium}>Premium</a></li>
-                        <li><a href={links.docs}>Tài liệu</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Cộng đồng</h3>
-                    <ul>
-                        <li><a href={links.support}>Discord</a></li>
-                        <li><a href={links.github}>GitHub</a></li>
-                        <li><a href={links.status}>Status</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Pháp lý</h3>
-                    <ul>
-                        <li><a href="/docs/policy/statement-of-purpose/">Mục tiêu &amp; Sứ mệnh</a></li>
-                        <li><a href="/docs/policy/privacy-policy/">Privacy</a></li>
-                        <li><a href="/docs/policy/terms-of-service/">Terms</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="foot-base"><span>© {new Date().getFullYear()} <a class="foot-studio" href={BRAND.studio.url} target="_blank" rel="noopener">{BRAND.studio.name}<Fragment set:html={arrow} /></a></span></div>
-        </div>
-    </footer>
-
+    <Fragment slot="end">
     <script define:vars={{ statsUrl: links.stats, statsMock }} is:inline>
         (function () {
-            var root = document.documentElement;
-
-            document.querySelector('[data-theme-toggle]').addEventListener('click', function () {
-                var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-                root.dataset.theme = next;
-                try { localStorage.setItem('starlight-theme', next); } catch (e) {}
-            });
-
-            var nav = document.querySelector('.nav');
-            var toggle = nav.querySelector('[data-menu-toggle]');
-            var setMenu = function (open) {
-                nav.classList.toggle('open', open);
-                toggle.setAttribute('aria-expanded', String(open));
-            };
-            toggle.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
-            document.addEventListener('click', function (event) { if (!nav.contains(event.target) || event.target.closest('.menu-panel a')) setMenu(false); });
-            document.addEventListener('keydown', function (event) { if (event.key === 'Escape') setMenu(false); });
-
-            try {
-                var profile = JSON.parse(localStorage.getItem('glitchbucket-profile') || 'null');
-                if (profile && typeof profile.name === 'string' && /^https:\/\/cdn\.discordapp\.com\//.test(profile.avatar)) {
-                    var user = nav.querySelector('[data-user]');
-                    user.querySelector('img').src = profile.avatar;
-                    user.querySelector('span').textContent = profile.name;
-                    user.hidden = false;
-                    nav.querySelector('[data-login]').hidden = true;
-                }
-            } catch (e) {}
-
             var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             // số server và member: vào trang là chạy ký tự ngẫu nhiên rồi hiện dần từng số từ trái sang. có số lưu từ lần trước thì
@@ -469,16 +328,7 @@ const star = '<svg class="star" viewBox="0 0 24 24" fill="currentColor" stroke="
                 }, 200);
             });
 
-            var reveals = document.querySelectorAll('[data-reveal]');
-            if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) reveals.forEach(function (el) { el.classList.add('in'); });
-            else {
-                var observer = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); } });
-                }, { threshold: 0.12 });
-                reveals.forEach(function (el) { observer.observe(el); });
-            }
-
         })();
     </script>
-</body>
-</html>
+    </Fragment>
+</Page>

@@ -108,7 +108,7 @@ export const ALL_FEATURES = [
   { emoji: '🎯', name: 'Quests', line: 'Giao nhiệm vụ cho member', removed: true },
   { emoji: '⚡', name: 'Outage', line: 'Tra lịch cắt điện tại Việt Nam', removed: true },
   { emoji: '🚩', name: 'Quick Report', line: 'Báo tin nhắn vi phạm tới mod', removed: true },
-  { emoji: '🔒', name: 'Security', line: 'Tự sửa nickname sai quy tắc, khóa invite, ...', removed: true },
+  { emoji: '🔒', name: 'Security', line: 'Tự sửa nickname, khóa invite, ...', removed: true },
   { emoji: '⏰', name: 'Autolock', line: 'Tự khóa kênh theo giờ', removed: true },
   { emoji: '🧱', name: 'BlocksMC', line: 'Tra thông tin người chơi BlocksMC', removed: true },
   { emoji: '🔞', name: 'NSFW Prediction', line: 'Kiểm tra ảnh NSFW bằng AI', removed: true },
