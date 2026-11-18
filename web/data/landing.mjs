@@ -124,4 +124,9 @@ export const TESTIMONIALS = [
   { avatar: 'hoanglong921', name: 'Hoang Long', role: 'Network Administrator', quote: 'Cảm ơn vì network paping' },
   { avatar: 'ptcd', name: 'ptcd', role: 'Server Owner', quote: 'cảm ơn vì tính năng độc cmn lạ - love from asakacloud.vn ❤' },
   { avatar: 'fakecattos', name: 'fakecattos', role: 'Community Member', quote: 'bot nhu cai lol' },
+  { avatar: 'meimeizzz', name: 'Mei', role: 'Server Owner', quote: 'Bot quá là xịn, mình rất thích các tính năng của bot. Mong bot càng ngày càng phát triển và có thể update nhìu tính năng pro vjp hơn trong tương lai ạ :3' },
+  { avatar: 'bachhummus', name: 'Bach Hummus', role: 'Server Owner · Vietnam', flag: '1f1fb-1f1f3', quote: 'great non moderation, utility bot as always. pls crack me uwu.' },
+  { avatar: 'butsimptachyon', name: 'BTM-Tachyon', role: 'Server Owner', quote: 'Bot peak vl nhung khong co tien dnt' },
+  { avatar: 'apdz', name: 'Nauht', role: 'Server Owner', quote: 'Tôi muốn đẻ con cho bot' },
+  { avatar: 'ksh_st', name: 'ksh_st', role: 'Server Owner', quote: 'Toi yeu glitchbucket' },
 ];

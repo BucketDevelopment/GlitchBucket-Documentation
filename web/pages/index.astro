@@ -1,8 +1,4 @@
 ---
-import duyandy from '../content/docs/docs/assets/testimonials/duyandy.webp';
-import hoanglong921 from '../content/docs/docs/assets/testimonials/hoanglong921.webp';
-import ptcd from '../content/docs/docs/assets/testimonials/ptcd.webp';
-import fakecattos from '../content/docs/docs/assets/testimonials/fakecattos.webp';
 import Page from '../components/landing/Page.astro';
 import Shot from '../components/landing/Shot.astro';
 import Shots from '../components/landing/Shots.astro';
@@ -11,7 +7,8 @@ import { BRAND } from '../data/brand.mjs';
 import { HERO_SCENES, MAIN_FEATURES, DASHBOARD_SHOTS, ALL_FEATURES, TESTIMONIALS } from '../data/landing.mjs';
 
 const { name, links } = BRAND;
-const avatars = { duyandy, hoanglong921, ptcd, fakecattos };
+const avatarFiles = import.meta.glob('../content/docs/docs/assets/testimonials/*.webp', { eager: true, import: 'default' });
+const avatars = Object.fromEntries(Object.entries(avatarFiles).map(([path, image]) => [path.split('/').pop().replace('.webp', ''), image]));
 const title = `${name} · Quản Lý Server Thông Minh & Hiệu Quả`;
 const description = `${name} là bot discord đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.`;
 const image = 'https://cdn.tudubucket.dev/widebucket.png';
@@ -31,7 +28,9 @@ const schema = [
         publisher: { '@type': 'Organization', name: BRAND.studio.name, url: BRAND.studio.url, logo: `${BRAND.site}/favicon.png` },
     },
 ];
-const [bigVoice, ...sideVoices] = TESTIMONIALS;
+const [bigVoice, ...restVoices] = TESTIMONIALS;
+const sideVoices = restVoices.slice(0, 5);
+const underVoices = restVoices.slice(5);
 // localhost bị CORS của API chặn nên lúc dev dùng số lấy từ /dashboard/status (18/11/2026), trả về chậm như API thật
 const statsMock = import.meta.env.DEV ? { servers: 21202, users: 5612318 } : null;
 const heroSlots = Array.from({ length: Math.max(...HERO_SCENES.map((scene) => scene.length)) }, (_, i) => ({ item: HERO_SCENES.find((scene) => scene[i])[i], off: !HERO_SCENES[0][i] }));
@@ -125,15 +124,23 @@ const star = '<svg class="star" viewBox="0 0 24 24" fill="currentColor" stroke="
             <div class="wrap">
                 <h2 data-reveal>Mọi người nói gì?</h2>
                 <div class="voices">
-                    <figure class="sticker voice voice-big" data-reveal>
-                        <blockquote>“{bigVoice.quote}”</blockquote>
-                        <footer><img src={avatars[bigVoice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{bigVoice.name}</b><span>{bigVoice.role}</span></div></footer>
-                    </figure>
+                    <div class="voice-main">
+                        <figure class="sticker voice voice-big" data-reveal>
+                            <blockquote>“{bigVoice.quote}”</blockquote>
+                            <footer><img src={avatars[bigVoice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{bigVoice.name}</b><span>{bigVoice.role}</span></div></footer>
+                        </figure>
+                        {underVoices.map((voice, i) => (
+                            <figure class="sticker voice" data-reveal style={`--d:${i + 1}`}>
+                                <blockquote>“{voice.quote}”</blockquote>
+                                <footer><img src={avatars[voice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{voice.name}</b><span>{voice.role}{voice.flag && <img class="flag" src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/${voice.flag}.svg`} alt="" width="14" height="14" loading="lazy">}</span></div></footer>
+                            </figure>
+                        ))}
+                    </div>
                     <div class="voice-side">
                         {sideVoices.map((voice, i) => (
                             <figure class="sticker voice" data-reveal style={`--d:${i + 1}`}>
                                 <blockquote>“{voice.quote}”</blockquote>
-                                <footer><img src={avatars[voice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{voice.name}</b><span>{voice.role}</span></div></footer>
+                                <footer><img src={avatars[voice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{voice.name}</b><span>{voice.role}{voice.flag && <img class="flag" src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/${voice.flag}.svg`} alt="" width="14" height="14" loading="lazy">}</span></div></footer>
                             </figure>
                         ))}
                     </div>
