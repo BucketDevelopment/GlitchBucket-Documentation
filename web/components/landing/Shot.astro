@@ -1,0 +1,18 @@
+---
+import { readFileSync } from 'node:fs';
+
+interface Props {
+    shot: { light: string; dark: string };
+    alt: string;
+    eager?: boolean;
+}
+const { shot, alt, eager = false } = Astro.props;
+const size = (path: string) => {
+    const header = readFileSync(`public${path}`);
+    if (header.toString('ascii', 12, 16) === 'VP8 ') return { width: header.readUInt16LE(26) & 0x3fff, height: header.readUInt16LE(28) & 0x3fff };
+    return { width: header.readUInt32BE(16), height: header.readUInt32BE(20) };
+};
+---
+{(['light', 'dark'] as const).map((theme) => (
+    <img class={`shot shot-${theme}`} src={shot[theme]} alt={alt} {...size(shot[theme])} loading={eager ? 'eager' : 'lazy'} decoding="async" draggable="false" />
+))}

@@ -1,0 +1,30 @@
+---
+import Shot from './Shot.astro';
+
+type ShotPair = { light: string; dark: string };
+
+interface Props {
+    shots?: ShotPair[];
+    alt: string;
+    class?: string;
+    sequence?: boolean;
+    cycle?: { shot: ShotPair; text: string }[];
+    slots?: number;
+    captions?: boolean;
+    pile?: ShotPair[];
+}
+const { shots = [], alt, class: className, sequence = false, cycle, slots = 2, captions = true, pile } = Astro.props;
+const states = cycle?.map((_, k) => Array.from({ length: slots }, (_, s) => cycle[(k + s) % cycle.length]));
+const next = '<svg viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 30C24 12 46 10 70 24"/><path d="M62.6 10 70 24 54 24.5"/></svg>';
+---
+<div class:list={['shots', className, { sequence, split: !!pile }]} data-cycle={states && JSON.stringify(states)}>
+    {shots.map((shot, i) => <>{sequence && i > 0 && <span class="seq-arrow" set:html={next} />}<div class="sticker"><Shot shot={shot} alt={alt} /></div></>)}
+    {states?.[0].map((item, i) => (
+        <figure class="sticker cycle-shot" data-slot={i} data-order={i}>
+            <span class="frame"><Shot shot={item.shot} alt={item.text} /></span>
+            {captions && <figcaption>{item.text}</figcaption>}
+        </figure>
+    ))}
+    {pile && <div class="pile">{pile.map((shot) => <div class="sticker"><Shot shot={shot} alt={alt} /></div>)}</div>}
+    <slot />
+</div>

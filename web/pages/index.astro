@@ -1,544 +1,484 @@
 ---
+import '../styles/landing.css';
 import duyandy from '../content/docs/docs/assets/testimonials/duyandy.webp';
 import hoanglong921 from '../content/docs/docs/assets/testimonials/hoanglong921.webp';
 import ptcd from '../content/docs/docs/assets/testimonials/ptcd.webp';
 import fakecattos from '../content/docs/docs/assets/testimonials/fakecattos.webp';
-
-import donationVideo from '../content/docs/docs/assets/features/donation.mp4';
-import stickieVideo from '../content/docs/docs/assets/features/stickie.mp4';
-
-import wordconnectImg from '../content/docs/docs/assets/features/wordconnect.png';
-import votingImg from '../content/docs/docs/assets/features/voting.png';
-import customroleImg from '../content/docs/docs/assets/features/customrole.png';
-import giveawayImg from '../content/docs/docs/assets/features/giveaway.png';
-
-import faviconImg from '../assets/favicon.webp';
-import heroImg from '../assets/GlitchBucket-2.webp';
 import ComponentEmbed from '../components/ComponentEmbed.astro';
+import Shot from '../components/landing/Shot.astro';
+import Shots from '../components/landing/Shots.astro';
 import { homeEmbed } from '../data/embed.mjs';
+import { BRAND } from '../data/brand.mjs';
+import { HERO_SCENES, MAIN_FEATURES, DASHBOARD_SHOTS, ALL_FEATURES, TESTIMONIALS } from '../data/landing.mjs';
 
-const avatars = {
-    duyandy,
-    hoanglong921,
-    ptcd,
-    fakecattos
-};
-
-const videos = {
-    donation: donationVideo,
-    stickie: stickieVideo
-};
-
-const images = {
-    wordconnect: wordconnectImg,
-    voting: votingImg,
-    customrole: customroleImg,
-    giveaway: giveawayImg
-};
-
-const SITE = 'https://bot.tudubucket.dev';
-const TITLE = 'GlitchBucket - Quản lí Server Thông Minh & Hiệu Quả';
-const DESCRIPTION =
-    'Discord Bot đa năng, cung cấp các công cụ độc quyền về quản lý, tự động hóa và tương tác, giúp bạn vận hành Server Discord một cách chuyên nghiệp, thống nhất và hiệu quả hơn bao giờ hết.';
-const IMAGE = 'https://cdn.tudubucket.dev/widebucket.png';
+const { name, links } = BRAND;
+const avatars = { duyandy, hoanglong921, ptcd, fakecattos };
+const title = `${name} · Discord Bot lo việc cho server của bạn`;
+const description = `${name} là bot discord đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.`;
+const image = 'https://cdn.tudubucket.dev/widebucket.png';
 const schema = [
-    {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: 'GlitchBucket',
-        url: `${SITE}/`,
-        inLanguage: 'vi',
-    },
+    { '@context': 'https://schema.org', '@type': 'WebSite', name, url: `${BRAND.site}/`, inLanguage: 'vi' },
     {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'GlitchBucket',
+        name,
         applicationCategory: 'CommunicationApplication',
         operatingSystem: 'Discord',
-        description: DESCRIPTION,
-        url: `${SITE}/`,
-        image: IMAGE,
+        description,
+        url: `${BRAND.site}/`,
+        image,
         offers: { '@type': 'Offer', price: 0, priceCurrency: 'VND' },
-        publisher: { '@type': 'Organization', name: 'BucketDevelopment', url: `${SITE}/`, logo: `${SITE}/favicon.png` },
+        publisher: { '@type': 'Organization', name: BRAND.studio.name, url: BRAND.studio.url, logo: `${BRAND.site}/favicon.png` },
     },
 ];
+const nav = [
+    ['Tính năng', '#features'],
+    ['Dashboard', links.dashboard],
+    ['Tài liệu', links.docs],
+    ['Status', links.status],
+    ['Premium', links.premium],
+];
+const navLink = ([label, href]) => label === 'Premium' ? `<a href="${href}" class="premium"><img src="/crown.png" alt="" width="16" height="16">${label}</a>` : `<a href="${href}">${label}</a>`;
+const [bigVoice, ...sideVoices] = TESTIMONIALS;
+// localhost bị CORS của API chặn nên lúc dev dùng số lấy từ /dashboard/status (18/11/2026), trả về chậm như API thật
+const statsMock = import.meta.env.DEV ? { servers: 21202, users: 5612318 } : null;
+const heroSlots = Array.from({ length: Math.max(...HERO_SCENES.map((scene) => scene.length)) }, (_, i) => ({ item: HERO_SCENES.find((scene) => scene[i])[i], off: !HERO_SCENES[0][i] }));
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>';
+const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+const star = '<svg class="star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z"/></svg>';
 ---
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{TITLE}</title>
-    <meta name="description" content={DESCRIPTION}/>
-    <meta name="robots" content="index, follow, max-image-preview:large"/>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-    <link rel="canonical" href="https://bot.tudubucket.dev/"/>
-    <link rel="sitemap" href="/sitemap-index.xml"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-    <script>
-        (function() {
-            const domain = window.location.hostname;
-            const path = window.location.pathname;
-            const url = `https://service.tudubucket.dev/metrics/?domain=${encodeURIComponent(domain)}&path=${encodeURIComponent(path)}`;
-            fetch(url).catch( () => {}
-            );
-        }
-        )();
-    </script>
-    <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
-    <meta name="generator" content="Astro v5.1.7"/>
-    <meta name="generator" content="Starlight v0.31.1"/>
-    <meta property="og:title" content={TITLE}/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content={`${SITE}/`}/>
-    <meta property="og:locale" content="vi_VN"/>
-    <meta property="og:description" content={DESCRIPTION}/>
-    <meta property="og:site_name" content="GlitchBucket"/>
-    <meta property="og:image" content={IMAGE}/>
-    <meta property="og:image:alt" content="GlitchBucket"/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content={TITLE}/>
-    <meta name="twitter:description" content={DESCRIPTION}/>
-    <meta name="keywords" content="GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi"/>
-    <meta name="google-site-verification" content="um3q97hCSAv7TUAD2O6KoMsdGKC-El8E7BMUWUw5bVk"/>
-    <meta name="twitter:image" content={IMAGE}/>
-    <meta name="theme-color" content="#C0CDFF"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href={`${BRAND.site}/`}>
+    <link rel="sitemap" href="/sitemap-index.xml">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600;700&family=Shantell+Sans:wght@400&display=swap" rel="stylesheet">
+    <meta property="og:title" content={title}>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={`${BRAND.site}/`}>
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:description" content={description}>
+    <meta property="og:site_name" content={name}>
+    <meta property="og:image" content={image}>
+    <meta property="og:image:alt" content={name}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={image}>
+    <meta name="keywords" content="GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi">
+    <meta name="google-site-verification" content="um3q97hCSAv7TUAD2O6KoMsdGKC-El8E7BMUWUw5bVk">
+    <meta name="theme-color" content="#C0CDFF">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <ComponentEmbed embed={homeEmbed} />
     <script is:inline>
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+        (function () {
+            var root = document.documentElement;
+            var stored = null;
+            try { stored = localStorage.getItem('starlight-theme'); } catch (e) {}
+            root.dataset.theme = stored === 'light' || stored === 'dark' ? stored : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            root.classList.add('js');
+            fetch('https://service.tudubucket.dev/metrics/?domain=' + encodeURIComponent(location.hostname) + '&path=' + encodeURIComponent(location.pathname)).catch(function () {});
+        })();
     </script>
-    <style>
-        .strikethrough {
-            text-decoration: line-through;
-            position: relative;
-        }
-        .coming-soon-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        .coming-soon-bubble {
-            position: absolute;
-            bottom: -35px;
-            right: 50%;
-            transform: translateX(50%);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-        .coming-soon-bubble::after {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
-            width: 8px;
-            height: 8px;
-            background: #667eea;
-        }
-    </style>
 </head>
+<body>
+    <header class="nav">
+        <div class="nav-bar">
+            <a class="nav-logo" href="/"><img src={BRAND.avatar} alt="" width="36" height="36"><span class="nav-name">{name}<small>{BRAND.formerName}</small></span></a>
+            <nav class="nav-links" aria-label="Chính">
+                {nav.map((item) => <Fragment set:html={navLink(item)} />)}
+            </nav>
+            <div class="nav-right">
+                <button class="icon-btn" type="button" data-theme-toggle aria-label="Đổi sáng/tối">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+                </button>
+                <a class="nav-login" href={links.login} data-login>Đăng nhập</a>
+                <a class="nav-user" href={links.dashboard} data-user hidden><img alt="" width="32" height="32"><span></span></a>
+                <a class="btn btn-main btn-sm" href={links.invite}>Thêm bot</a>
+                <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="Mở menu" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <nav class="menu-panel" aria-label="Menu">
+            {nav.map((item) => <Fragment set:html={navLink(item)} />)}
+        </nav>
+    </header>
 
-<body class="landing_page">
-    <nav class="nav_bar">
-        <div class="left">
-            <a class="logo" href="/">
-                <img src={faviconImg.src} alt="logo" class="img">
-                GlitchBucket
-            </a>
-            <a href="/dashboard/" class="link strikethrough">Bảng điều khiển</a>
-            <a href="https://bot.tudubucket.dev/stats" class="link">Status</a>
-            <a href="/invite" class="link">Thêm bot</a>
-            <a href="/docs/getting-started" class="link">Tài liệu</a>
-            <a href="/premium" class="link premium"><img src="/crown.png" alt="" class="crown">Premium</a>
-        </div>
-        <div class="right">
-            <a class="button primary login" href="https://bot-service.tudubucket.dev/dashboard/auth/login" style="text-decoration: none;">Đăng nhập</a>
-            <a class="user" href="/dashboard/" hidden><img alt="" class="avatar"><span class="name"></span></a>
-            <button class="menu_toggle" type="button" aria-label="Mở menu" aria-expanded="false">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-            </button>
-        </div>
-        <div class="menu_panel">
-            <a href="/dashboard/" class="item">Bảng điều khiển</a>
-            <a href="https://bot.tudubucket.dev/stats" class="item">Status</a>
-            <a href="/invite" class="item">Thêm bot</a>
-            <a href="/docs/getting-started" class="item">Tài liệu</a>
-            <a href="/premium" class="item premium"><img src="/crown.png" alt="" class="crown">Premium</a>
-        </div>
-    </nav>
-    <script is:inline src="/nav.js"></script>
-    <section class="hero">
-        <div class="div_module">
-            <div class="main">
-                <div class="hero-blob-1"></div>
-                <div class="left" data-stagger>
-                    <!-- <div class="hero-bg">
-                        <div class="hero-blob-2"></div>
-                    </div> -->
-                    <div class="tag">✨ #1 Utilities tại Việt Nam</div>
-                    <h1 class="header">
-                        <span class="gradient">
-                            Quản Lý Server
-                        </span>
-                        <br>
-                        Thông Minh & Hiệu Quả
-                    </h1>
-                    <p class="description">
-                        GlitchBucket là Discord Bot đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, 
-                        giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.
-                    </p>
-                    <div class="button_container">
-                        <div class="button primary" onclick="location.href='/invite'">Thêm Bot Ngay</div>
-                        {/* <div class="coming-soon-wrapper">
-                            <div class="button strikethrough" onclick="location.href='/dashboard/'">Dashboard</div>
-                            <span class="coming-soon-bubble">Coming Soon</span>
-                        </div> */}
-                        <div class="button" onclick="location.href='/docs/getting-started/'">Documentation</div>
+    <main>
+        <section class="hero sheet">
+            <div class="hero-emoji" aria-hidden="true"></div>
+            <div class="wrap">
+                <div class="hero-grid">
+                    <div>
+                        <h1><span class="line grad">Quản Lý Server</span><span class="line">Thông Minh &amp; Hiệu Quả</span></h1>
+                        <p class="hero-lead">{name} là bot discord đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.</p>
+                        <div class="hero-actions">
+                            <a class="btn btn-main" href={links.invite}>Thêm bot vào server<Fragment set:html={arrow} /></a>
+                            <a class="btn btn-ghost" href={links.dashboard}>Mở dashboard</a>
+                        </div>
+                        <dl class="hero-stats">
+                            <div><dt>Servers</dt><dd class="num" data-live="servers">21,000+</dd></div>
+                            <div><dt>Members</dt><dd class="num" data-live="users">5,600,000+</dd></div>
+                        </dl>
+                    </div>
+                    <div class="hero-stage" data-cycle={JSON.stringify(HERO_SCENES)}>
+                        {heroSlots.map(({ item, off }, i) => (
+                            <figure class:list={['sticker stage-shot', { off }]} data-slot={i} data-order={i * 2 + 1} style={`--x:${item.place.x};--y:${item.place.y};--w:${item.place.w};--tilt:${item.place.tilt}deg`}>
+                                <Shot shot={item.shot} alt={item.text} eager />
+                            </figure>
+                        ))}
+                        {heroSlots.map(({ item, off }, i) => (
+                            <p class:list={['doodle', { off }]} aria-hidden="true" data-slot-text={i} data-order={i * 2} data-arrow={item.label.arrow} data-flow={item.label.flow ?? 'down'} style={`--x:${item.label.x};--y:${item.label.y};--tilt:${item.label.tilt}deg;--aim:${item.label.aim ?? 0}deg`}>
+                                <span data-text>{item.text}</span><svg class="arrow-left" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M78 8C74 32 52 50 14 52"/><path d="M27 40 14 52l15 9"/></svg><svg class="arrow-right" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8C8 34 28 54 74 56"/><path d="M61 45l13 11-16 6"/></svg>
+                            </p>
+                        ))}
                     </div>
                 </div>
-                <div class="right" data-reveal="zoom" style="--i: 2">
-                    <img src={heroImg.src} alt="GlitchBucket">
-                </div>
             </div>
-            <div class="stats" data-stagger>
-                <div class="content">
-                    <p class="text" data-target="7000" data-suffix="">---</p>
-                    <p class="description">Servers</p>
-                </div>
-                <div class="content">
-                    <p class="text" data-target="3000000" data-suffix="">---</p>
-                    <p class="description">Members</p>
-                </div>
-                <div class="content">
-                    <p class="text" data-target="99.9" data-suffix="%">---</p>
-                    <p class="description">Service-level Agreement</p>
-                </div>
+        </section>
+
+        <section class="features paper" id="features">
+            <div class="wrap">
+                {MAIN_FEATURES.map((feature) => (
+                    <article class="feature" id={feature.id}>
+                        <div class="feature-head" data-reveal>
+                            <div>
+                                <h3>{feature.head}</h3>
+                                <p>{feature.body}</p>
+                            </div>
+                            <div>
+                                <ul class="facts">{feature.facts.map((fact) => <li><Fragment set:html={check} />{fact}</li>)}</ul>
+                                <div class="feature-links">
+                                    {feature.links.map(([label, href]) => <a class="link-chip" href={href}>{label}<Fragment set:html={arrow} /></a>)}
+                                </div>
+                            </div>
+                        </div>
+                        <div data-reveal style="--d:1"><Shots shots={feature.shots} alt={feature.label} sequence={feature.sequence} cycle={feature.cycle} slots={feature.slots} captions={feature.captions ?? true} pile={feature.pile} /></div>
+                    </article>
+                ))}
             </div>
-        </div>
-    </section>
-    <section class="screen_2">
-        <div class="div_module">
-            <div class="content_web" data-stagger>
-                <h1 class="header">Tính Năng Nổi Bật</h1>
-                <p class="description">GlitchBucket mang đến hầu hết những tính năng thiết yếu để quản lý Server Discord</p>
-            </div>
-            <div class="features" id="featureList" data-stagger="zoom">
-                <!-- data -->
-            </div>
-        </div>
-    </section>
-    <section class="feedback_container">
-        <div class="content_web" data-stagger>
-            <h1 class="header">Mọi Người Nói Gì?</h1>
-            <p class="description">Được yêu thích bởi hàng ngàn Server Owner & User tại Việt Nam</p>
-        </div>
-        <div class="feedback_data" data-stagger>
-            
-        </div>
-        <div class="content_web" style="margin-top: 2rem; margin-bottom: 0rem;">
-            <p class="description" style="font-size: 0.875rem; display: flex; align-items: center; justify-content: center; gap: 0.25rem;">Xem thêm tại <img src="https://top.gg/favicon.ico" alt="top.gg" style="width: 14px; height: 14px; display: inline-block;"> <a href="https://top.gg/bot/1103932552701550622" target="_blank" rel="noopener noreferrer" style="color: var(--sl-color-text-accent); text-decoration: underline;">top.gg</a></p>
-        </div>
-    </section>
-    <section id="cta" class="cta">
-        <div class="cta-bg"></div>
-        <div class="cta-content" data-reveal="zoom">
-            <h2>Sẵn Sàng Nâng Cấp Server?</h2>
-            <p>Tham gia cùng hàng ngàn server đã tin tưởng & sử dụng GlitchBucket. Hoàn toàn miễn phí để bắt đầu.</p>
-            <div class="cta-buttons">
-                <button class="btn-primary" onclick="location.href='/invite'">Thêm Bot Ngay <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 640 640"><path d="M480 96c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H160c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM368 360c0 13.3 10.7 24 24 24s24-10.7 24-24V248c0-13.3-10.7-24-24-24H280c-13.3 0-24 10.7-24 24s10.7 24 24 24h54.1l-103 103c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l103-103z"/></svg></button>
-            </div>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="container">
-            <div class="grid">
-                <div class="section">
-                    <div class="logo" style="margin-bottom: 1rem;">
-                        <img src={faviconImg.src} alt="logo" class="icon">
-                        <div class="text">GlitchBucket</div>
+        </section>
+
+        <section class="dash sheet" id="dashboard">
+            <div class="wrap">
+                <div class="feature-head" data-reveal>
+                    <div>
+                        <h2>Một trải nghiệm dashboard<br />khó có thể quên.</h2>
+                        <p>Khỏi phải nhớ tá lệnh. Sửa embed, layout, panel ticket hay autoresponder ngay trên web, với preview thật đến mức bạn suy nghĩ có phải đang mở Discord bên cạnh không. Đổi config giờ là chuyện quá ez.</p>
                     </div>
-                    <p style="font-size: 14px; color: var(--muted-foreground);">Discord Bot với các chức năng độc quyền & hữu ích, giúp bạn quản lí Server Discord dễ dàng hơn!</p>
+                    <div class="hero-actions"><a class="btn btn-main" href={links.dashboard}>Mở dashboard<Fragment set:html={arrow} /></a></div>
                 </div>
+                <div data-reveal style="--d:1"><Shots class="shots-grid" cycle={DASHBOARD_SHOTS} captions={false} alt="Ảnh chụp dashboard" /></div>
+            </div>
+        </section>
 
-                <div class="section">
-                    <h4>Sản Phẩm</h4>
+        <section class="all paper" id="all">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <h2>Còn cả một đống nữa.</h2>
+                    <p>Tất cả những gì bạn cần để phát triển một Server Discord.</p>
+                </div>
+                <div class="all-grid" data-reveal>
+                    {ALL_FEATURES.map((item) => item.removed
+                        ? <div class="removed" tabindex="0"><strong>{item.name}</strong><span class="swap"><span>{item.line}</span><span>Tính năng này đã tạm ngừng phát triển</span></span></div>
+                        : <a href={item.href} class:list={{ featured: item.featured }}><strong>{item.name}{item.featured && <Fragment set:html={star} />}</strong><span>{item.line}</span></a>)}
+                </div>
+            </div>
+        </section>
+
+        <section class="proof deep">
+            <div class="wrap">
+                <h2 data-reveal>Mọi người nói gì?</h2>
+                <div class="voices">
+                    <figure class="sticker voice voice-big" data-reveal>
+                        <blockquote>“{bigVoice.quote}”</blockquote>
+                        <footer><img src={avatars[bigVoice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{bigVoice.name}</b><span>{bigVoice.role}</span></div></footer>
+                    </figure>
+                    <div class="voice-side">
+                        {sideVoices.map((voice, i) => (
+                            <figure class="sticker voice" data-reveal style={`--d:${i + 1}`}>
+                                <blockquote>“{voice.quote}”</blockquote>
+                                <footer><img src={avatars[voice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{voice.name}</b><span>{voice.role}</span></div></footer>
+                            </figure>
+                        ))}
+                    </div>
+                </div>
+                <p class="voices-more">Xem thêm nhận xét tại <a href={links.topgg} target="_blank" rel="noopener noreferrer">top.gg</a></p>
+            </div>
+        </section>
+
+        <section class="close sheet">
+            <div class="wrap close-grid">
+                <div data-reveal>
+                    <h2>Sẵn sàng nâng cấp server?</h2>
+                    <p>Tham gia cùng hàng chục nghìn server đã tin tưởng & sử dụng bot.<br/>Hoàn toàn miễn phí để bắt đầu.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-main" href={links.invite}>Thêm bot vào server<Fragment set:html={arrow} /></a>
+                        {/* <a class="btn btn-ghost" href={links.support}>Vào server hỗ trợ</a> */}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="foot deep">
+        <div class="wrap">
+            <div class="foot-cols">
+                <div>
+                    <div class="foot-brand"><img src={BRAND.avatar} alt="" width="44" height="44" loading="lazy">{name}</div>
+                    <p>Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn quản lí server dễ dàng hơn.</p>
+                </div>
+                <div>
+                    <h3>Sản phẩm</h3>
                     <ul>
-                        <li><a href="/docs/getting-started">Tính Năng</a></li>
-                        <li><a href="/premium">Pricing</a></li>
-                        <li><a href="/docs/getting-started">Docs</a></li>
+                        <li><a href="#features">Tính năng</a></li>
+                        <li><a href={links.dashboard}>Dashboard</a></li>
+                        <li><a href={links.premium}>Premium</a></li>
+                        <li><a href={links.docs}>Tài liệu</a></li>
                     </ul>
                 </div>
-
-                <div class="section">
-                    <h4>Cộng Đồng</h4>
+                <div>
+                    <h3>Cộng đồng</h3>
                     <ul>
-                        <li><a href="https://bot.tudubucket.dev/support">Discord</a></li>
-                        <li><a href="https://github.com/tudubucket">GitHub</a></li>
+                        <li><a href={links.support}>Discord</a></li>
+                        <li><a href={links.github}>GitHub</a></li>
+                        <li><a href={links.status}>Status</a></li>
                     </ul>
                 </div>
-
-                <div class="section">
-                    <h4>Pháp Lý</h4>
+                <div>
+                    <h3>Pháp lý</h3>
                     <ul>
-                        <li><a href="/docs/policy/statement-of-purpose/">Mục tiêu & Sứ mệnh</a></li>
+                        <li><a href="/docs/policy/statement-of-purpose/">Mục tiêu &amp; Sứ mệnh</a></li>
                         <li><a href="/docs/policy/privacy-policy/">Privacy</a></li>
                         <li><a href="/docs/policy/terms-of-service/">Terms</a></li>
-                        <li><a href="https://bot.tudubucket.dev/support">Contact</a></li>
                     </ul>
                 </div>
             </div>
-
-            <div class="bottom">
-                <p>© 2025 BucketDevelopment. All rights reserved.</p>
-                <div class="socials">
-                    <a href="https://bot.tudubucket.dev/support" title="Discord"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12"></path></svg></a>
-                </div>
-            </div>
+            <div class="foot-base"><span>© {new Date().getFullYear()} <a class="foot-studio" href={BRAND.studio.url} target="_blank" rel="noopener">{BRAND.studio.name}<Fragment set:html={arrow} /></a></span></div>
         </div>
     </footer>
-    <script is:inline define:vars={{ videos, images }}>
-        function updateAllCardHeights() {
-            const elements = document.querySelectorAll('.landing_page .screen_2 .features .card .description');
-            elements.forEach(el => {
-                if (!(el instanceof HTMLElement)) return;
-                el.style.height = 'auto';
-                const height = el.scrollHeight;
-                el.style.height = height + 'px';
+
+    <script define:vars={{ statsUrl: links.stats, statsMock }} is:inline>
+        (function () {
+            var root = document.documentElement;
+
+            document.querySelector('[data-theme-toggle]').addEventListener('click', function () {
+                var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+                root.dataset.theme = next;
+                try { localStorage.setItem('starlight-theme', next); } catch (e) {}
             });
-        }
-        window.addEventListener('resize', () => {
-            updateAllCardHeights()
-        });
-        const featureData = [
-            {
-                icon: '⚡',
-                name: 'Nối từ',
-                description: 'Giải trí với các Member khác bằng trò chơi Nối từ!',
-                attachment: images.wordconnect.src,
-                is_video: false,
-                href: '/docs/commands/group/wordconnect/',
-            },
-            {
-                icon: '💰',
-                name: 'Donation',
-                description: 'Tự động theo dõi các khoản donate từ Member trong Server!',
-                attachment: videos.donation,
-                is_video: true,
-                href: '/docs/commands/group/donation/',
-            },
-            {
-                icon: '🎫',
-                name: 'Voting',
-                description: 'Tạo & quản lý tự động Event Vote với các yêu cầu & điều kiện phức tạp!',
-                attachment: images.voting.src,
-                is_video: false,
-                href: '/docs/commands/group/voting/',
-            },
-            {
-                icon: '🏷️',
-                name: 'Custom-role',
-                description: 'Giảm tải cho Admin, giúp Member tự quản lý role một cách an toàn & hiệu quả!',
-                attachment: images.customrole.src,
-                is_video: false,
-                href: '/docs/commands/group/customrole/',
-            },
-            {
-                icon: '🎁',
-                name: 'Giveaway',
-                description: 'Tổ chức các Giveaway cho Member trong Server, với các tính năng nâng cao!',
-                attachment: images.giveaway.src,
-                is_video: false,
-                href: '/docs/commands/group/giveaway/',
-            },
-            {
-                icon: '📌',
-                name: 'Sticky Message',
-                description: 'Ghim tin nhắn cố định trong kênh theo style của bạn!',
-                attachment: videos.stickie,
-                is_video: true,
-                href: '/docs/commands/group/stickie/',
-            },
 
-        ]
-        const featureList = document.getElementById('featureList')
-        featureList.innerHTML = ''
-        featureData.map(item => {
-            let attachmentElement = ``
-            if(item.is_video === true){
-                attachmentElement = `<video src="${item.attachment}" autoplay="" loop="" muted="" class="preview"></video>`
-            } else {
-                attachmentElement = `<img src="${item.attachment}" class="preview">`
-            }
-            featureList.innerHTML += 
-            `
-            <div class="card" onclick="window.open('${item.href}', '_blank');">
-                ${attachmentElement}
-                <div class="absolute">
-                    <div class="content">
-                        <h1 class="header">${item.name}</h1>
-                        <p class="description">${item.description}</p>
-                        <a class="learn">Tìm hiểu thêm <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h306.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
-                    </div>
-                </div>
-                <div class="icon">${item.icon}</div>
-            </div>
-            `
-        })
-        updateAllCardHeights();
+            var nav = document.querySelector('.nav');
+            var toggle = nav.querySelector('[data-menu-toggle]');
+            var setMenu = function (open) {
+                nav.classList.toggle('open', open);
+                toggle.setAttribute('aria-expanded', String(open));
+            };
+            toggle.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
+            document.addEventListener('click', function (event) { if (!nav.contains(event.target) || event.target.closest('.menu-panel a')) setMenu(false); });
+            document.addEventListener('keydown', function (event) { if (event.key === 'Escape') setMenu(false); });
 
-        function animateNumber(element, target, suffix, duration = 2500) {
-            // read the last drawn value, not the text: "99,9%" would parse as 999 and count down
-            if (element._frame) cancelAnimationFrame(element._frame);
-            const start = Math.min(element._value ?? 0, target);
+            try {
+                var profile = JSON.parse(localStorage.getItem('glitchbucket-profile') || 'null');
+                if (profile && typeof profile.name === 'string' && /^https:\/\/cdn\.discordapp\.com\//.test(profile.avatar)) {
+                    var user = nav.querySelector('[data-user]');
+                    user.querySelector('img').src = profile.avatar;
+                    user.querySelector('span').textContent = profile.name;
+                    user.hidden = false;
+                    nav.querySelector('[data-login]').hidden = true;
+                }
+            } catch (e) {}
 
-            const diffRatio = Math.abs(target - start) / target;
-            
-            let adjustedDuration = duration;
-            if (diffRatio < 0.1) { 
-                adjustedDuration = Math.max(500, duration * (diffRatio / 0.1));
-            }
-            
-            let startTime = null;
-            let hasStarted = false;
-            const isDecimal = target.toString().includes('.');
-            const power = 4 + Math.random() * 2; 
-            
-            function easeOut(t) {
-                return 1 - Math.pow(1 - t, power);
-            }
-            
-            function update(currentTime) {
-                if (!startTime) startTime = currentTime;
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / adjustedDuration, 1);
-                const easedProgress = easeOut(progress);
-                const current = start + (target - start) * easedProgress;
-                element._value = current;
+            var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-                if (!hasStarted) {
-                    hasStarted = true;
-                }
-                
-                if (isDecimal) {
-                    element.textContent = current.toFixed(1).replace('.', ',') + suffix;
-                } else {
-                    element.textContent = Math.floor(current).toLocaleString('en-US') + suffix;
-                }
-                
-                if (progress < 1) {
-                    element._frame = requestAnimationFrame(update);
-                }
-            }
-
-            element._frame = requestAnimationFrame(update);
-        }
-        
-        setTimeout(() => {
-            const statsElements = document.querySelectorAll('.stats .text');
-            const CACHE_KEY = 'stats';
-            
-            function updateStats(data) {
-                const serverEl = statsElements[0];
-                const userEl = statsElements[1];
-                
-                if (serverEl && data.servers) {
-                    serverEl.setAttribute('data-target', data.servers);
-                }
-                if (userEl && data.users) {
-                    userEl.setAttribute('data-target', data.users);
-                }
-            }
-            
-            function animateAllStats() {
-                statsElements.forEach(el => {
-                    const target = parseFloat(el.getAttribute('data-target'));
-                    const suffix = el.getAttribute('data-suffix') || '';
-                    animateNumber(el, target, suffix);
+            // số server và member: vào trang là chạy ký tự ngẫu nhiên rồi hiện dần từng số từ trái sang. có số lưu từ lần trước thì
+            // ra luôn số đó, không chờ API; API trả số khác thì chỉ các chữ số đổi mới chạy lại. lần đầu thì chờ API, khung 5 và 7 chữ số
+            var CHARS = '0123456789%$#&@';
+            var cached = null;
+            try { cached = JSON.parse(localStorage.getItem('stats') || 'null'); } catch (e) {}
+            var valid = function (data, key) { return data && isFinite(data[key]) && data[key] > 0 ? Math.floor(data[key]) : 0; };
+            var format = function (n) { return n.toLocaleString('en-US'); };
+            var counters = [['servers', 5], ['users', 7]].map(function (pair) {
+                var known = valid(cached, pair[0]);
+                var el = document.querySelector('[data-live="' + pair[0] + '"]');
+                return { key: pair[0], el: el, fallback: el.textContent, pattern: format(known || Math.pow(10, pair[1] - 1)), value: known ? format(known) : '', cells: [], pending: [], hold: 0, step: 0 };
+            });
+            var build = function (c) {
+                c.el.textContent = '';
+                c.cells = [];
+                c.pattern.split('').forEach(function (ch) {
+                    if (ch >= '0' && ch <= '9') c.cells.push(c.el.appendChild(document.createElement('span')));
+                    else c.el.appendChild(document.createTextNode(ch));
                 });
-            }
-            
-            const cached = localStorage.getItem(CACHE_KEY);
-            if (cached) {
-                try {
-                    const data = JSON.parse(cached);
-                    updateStats(data);
-                } catch (e) {}
-            }
-            
-            animateAllStats();
-            
-            fetch('https://bot-service.tudubucket.dev/dashboard/status')
-                .then(res => res.json())
-                .then(data => {
-                    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-                    updateStats(data);
-                    animateAllStats();
+            };
+            var paint = function (c) {
+                var digits = c.value.replace(/\D/g, '');
+                c.cells.forEach(function (cell, i) {
+                    var ch = c.pending.indexOf(i) >= 0 || !digits[i] ? CHARS[Math.floor(Math.random() * CHARS.length)] : digits[i];
+                    cell.textContent = ch;
+                    cell.className = ch >= '0' && ch <= '9' ? '' : 'sym';
+                });
+            };
+            var scramble = 0;
+            var run = function () {
+                if (reduceMotion || scramble) return;
+                scramble = setInterval(function () {
+                    var busy = false;
+                    counters.forEach(function (c) {
+                        if (!c.pending.length) return;
+                        if (c.hold > 0) c.hold--;
+                        else if (c.value && c.step++ % 2 === 0) c.pending.shift();
+                        paint(c);
+                        busy = busy || c.pending.length > 0;
+                    });
+                    if (!busy) { clearInterval(scramble); scramble = 0; }
+                }, 55);
+            };
+            var update = function (data) {
+                counters.forEach(function (c) {
+                    var n = valid(data, c.key);
+                    if (!n) {
+                        if (!c.value) { c.pending = []; c.pattern = ''; c.el.textContent = c.fallback; }
+                        return;
+                    }
+                    var next = format(n);
+                    c.el.setAttribute('aria-label', next);
+                    if (reduceMotion) { c.value = next; c.el.textContent = next; return; }
+                    var redo = !c.pending.length;
+                    if (next.replace(/\d/g, '0') !== c.pattern.replace(/\d/g, '0')) {
+                        c.pattern = next;
+                        build(c);
+                        c.pending = c.cells.map(function (_, i) { return i; });
+                        redo = true;
+                    } else if (c.value) {
+                        var before = c.value.replace(/\D/g, ''), after = next.replace(/\D/g, '');
+                        c.pending = c.cells.map(function (_, i) { return i; }).filter(function (i) { return c.pending.indexOf(i) >= 0 || before[i] !== after[i]; });
+                    } else redo = true;
+                    if (redo) { c.hold = 6; c.step = 0; }
+                    c.value = next;
+                });
+                run();
+            };
+            counters.forEach(function (c) {
+                if (c.value) c.el.setAttribute('aria-label', c.value);
+                if (reduceMotion) { if (c.value) c.el.textContent = c.value; return; }
+                build(c);
+                c.pending = c.cells.map(function (_, i) { return i; });
+                c.hold = 6;
+                paint(c);
+            });
+            run();
+            var giveUp = setTimeout(function () { update(cached); }, 6000);
+            (statsMock ? new Promise(function (resolve) { setTimeout(function () { resolve(statsMock); }, 1200); }) : fetch(statsUrl).then(function (res) { return res.ok ? res.json() : null; }))
+                .then(function (data) {
+                    clearTimeout(giveUp);
+                    if (!valid(data, 'servers') && !valid(data, 'users')) return update(cached);
+                    try { localStorage.setItem('stats', JSON.stringify({ servers: data.servers, users: data.users })); } catch (e) {}
+                    update(data);
                 })
-                .catch(() => {});
-        }, 1);
-    </script>
-    <script is:inline define:vars={{ avatars }}>
-        const feedbackData = [
-            {
-                avatar: avatars.duyandy.src,
-                role: 'Server Owner',
-                name: 'Duy Andy',
-                feedback: 'GlitchBucket là một người bạn hỗ trợ tuyệt vời cho cộng đồng của tôi, có rất nhiều chức năng hay, phục vụ rất nhiều cho cộng đồng mà các bạn không nên bỏ lỡ. Chức năng quản lý donation, chức năng tạo roles có thời hạn, đây là 2 chức năng tôi rất đánh giá cao.',
-            },
-            {
-                avatar: avatars.hoanglong921.src,
-                role: 'Network Administrator',
-                name: 'Hoang Long',
-                feedback: 'Cảm ơn vì network paping',
-            },
-            {
-                avatar: avatars.ptcd.src,
-                role: 'Server Owner',
-                name: 'ptcd',
-                feedback: 'cảm ơn vì tính năng độc cmn lạ - love from asakacloud.vn ❤',
-            },
-            {
-                avatar: avatars.fakecattos.src,
-                role: 'Community Member',
-                name: 'fakecattos',
-                feedback: 'bot nhu cai lol',
-            },
-        ]
-        const feedbackDataEl = document.querySelector('.feedback_data');
-        feedbackDataEl.innerHTML = ``
-        function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+                .catch(function () { clearTimeout(giveUp); update(cached); });
+
+            // xoay vòng như gallery bucketdev: thấy ≥30% đủ 3,5 giây thì từng phần mờ đi lần lượt, đổi nội dung rồi hiện lại
+            var markCrop = function (figure) {
+                figure.querySelectorAll('img').forEach(function (img) {
+                    var check = function () {
+                        if (getComputedStyle(img).display === 'none' || !img.naturalWidth) return;
+                        figure.classList.toggle('cropped', img.naturalHeight * img.clientWidth / img.naturalWidth > img.clientHeight + 1);
+                    };
+                    if (img.complete) check();
+                    else img.addEventListener('load', check, { once: true });
+                });
+            };
+            var allSlots = function () { return document.querySelectorAll('[data-slot]'); };
+            allSlots().forEach(markCrop);
+            addEventListener('resize', function () { allSlots().forEach(markCrop); });
+            document.querySelectorAll('[data-cycle]').forEach(function (root) {
+                var states = JSON.parse(root.dataset.cycle || '[]');
+                if (reduceMotion || states.length < 2) return;
+                var parts = [].slice.call(root.querySelectorAll('[data-order]')).sort(function (a, b) { return a.dataset.order - b.dataset.order; });
+                var HOLD = 3500, STAGGER = 110, FADE = 260;
+                var index = 0, shown = false, since = 0, total = 0;
+                new IntersectionObserver(function (entries) {
+                    var now = performance.now();
+                    if (shown) total += now - since;
+                    shown = entries[0].intersectionRatio >= 0.3;
+                    since = now;
+                }, { threshold: [0, 0.3, 0.6, 1] }).observe(root);
+                var preload = function (src) { var img = new Image(); img.src = src; return img.decode ? img.decode().catch(function () {}) : null; };
+                var apply = function (el, item) {
+                    var place = function (spot) {
+                        el.style.setProperty('--x', spot.x);
+                        el.style.setProperty('--y', spot.y);
+                        if (spot.w !== undefined) el.style.setProperty('--w', spot.w);
+                        el.style.setProperty('--tilt', spot.tilt + 'deg');
+                    };
+                    if (el.hasAttribute('data-slot')) {
+                        if (item.place) place(item.place);
+                        el.querySelectorAll('img.shot').forEach(function (img) {
+                            img.removeAttribute('width');
+                            img.removeAttribute('height');
+                            img.src = img.classList.contains('shot-dark') ? item.shot.dark : item.shot.light;
+                            img.alt = item.text;
+                        });
+                        var caption = el.querySelector('figcaption');
+                        if (caption) caption.textContent = item.text;
+                        markCrop(el);
+                    } else {
+                        (el.querySelector('[data-text]') || el).textContent = item.text;
+                        if (item.label) {
+                            place(item.label);
+                            el.dataset.arrow = item.label.arrow;
+                            el.dataset.flow = item.label.flow || 'down';
+                            el.style.setProperty('--aim', (item.label.aim || 0) + 'deg');
+                        }
+                    }
+                };
+                var swap = function () {
+                    index = (index + 1) % states.length;
+                    var next = states[index];
+                    Promise.all(next.map(function (item) { return Promise.all([preload(item.shot.light), preload(item.shot.dark)]); })).then(function () {
+                        parts.forEach(function (el, i) {
+                            var item = next[Number(el.dataset.slot !== undefined ? el.dataset.slot : el.dataset.slotText)];
+                            if (!item && el.classList.contains('off')) return;
+                            setTimeout(function () {
+                                el.classList.add('out');
+                                setTimeout(function () {
+                                    if (item) apply(el, item);
+                                    el.classList.toggle('off', !item);
+                                    requestAnimationFrame(function () { el.classList.remove('out'); });
+                                }, FADE);
+                            }, i * STAGGER);
+                        });
+                    });
+                };
+                setInterval(function () {
+                    if (document.hidden) return;
+                    var now = performance.now();
+                    if (shown) { total += now - since; since = now; }
+                    if (total >= HOLD) { total = 0; swap(); }
+                }, 200);
+            });
+
+            var reveals = document.querySelectorAll('[data-reveal]');
+            if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) reveals.forEach(function (el) { el.classList.add('in'); });
+            else {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); } });
+                }, { threshold: 0.12 });
+                reveals.forEach(function (el) { observer.observe(el); });
             }
-            return arr;
-        }
-        const randomFeedbacks = shuffleArray(feedbackData).slice(0, 4)
-        randomFeedbacks.map((item) => {
-            feedbackDataEl.innerHTML += 
-            `
-            <div class="card card-feedback">
-                <div class="header">
-                    <img class="avatar" src="${item.avatar}"></img>
-                    <div class="info">
-                        <h4>${item.name}</h4>
-                        <p>${item.role}</p>
-                    </div>
-                </div>
-                <p class="content">"${item.feedback}"</p>
-            </div>
-            `
-        })
+
+        })();
     </script>
-    <script is:inline src="/motion.js"></script>
 </body>
 </html>

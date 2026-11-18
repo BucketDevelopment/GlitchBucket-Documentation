@@ -1,0 +1,5 @@
+@import '../../../GlitchBucket-Dashboard/frontend/src/index.css';
+@source '../../../GlitchBucket-Dashboard/frontend/src';
+@source '.';
+
+[data-shot] article span.text-xs { white-space: pre-line; }
