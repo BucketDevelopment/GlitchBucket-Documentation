@@ -5,9 +5,9 @@
 
 export const SITE = 'https://bot.tudubucket.dev';
 export const DASHBOARD = `${SITE}/dashboard`;
-export const EMBED_IMAGE = 'https://cdn.tudubucket.dev/widebucket-rounded.png';
+export const EMBED_IMAGE = `${SITE}/landing/embed-banner.png`;
 const ACCENT = 0xc0cdff;
-const SOURCE = `-# [bot.tudubucket.dev](${SITE}) · Discord Bot`;
+const SOURCE = `-# [bot.tudubucket.dev](${SITE}) · nemuri`;
 
 export const link = (label, url) => ({ type: 2, style: 5, disabled: false, label, url });
 export const section = (content, button) => ({ type: 9, components: [{ type: 10, content }], accessory: button });
@@ -34,7 +34,7 @@ export const homeEmbed = componentEmbed({
     description:
         'Discord Bot đa năng với các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành server chuyên nghiệp hơn.',
     sections: [
-        section('**Thêm GlitchBucket vào server**\n-# Hoàn toàn miễn phí để bắt đầu', link('Thêm bot', `${SITE}/invite`)),
+        section('**Thêm nemuri vào server**\n-# Hoàn toàn miễn phí để bắt đầu', link('Thêm bot', `${SITE}/invite`)),
     ],
 });
 
