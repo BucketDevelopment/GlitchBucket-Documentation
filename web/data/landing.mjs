@@ -67,7 +67,7 @@ export const MAIN_FEATURES = [
     head: L('Hoặc cần cả ticket?', 'Need tickets too?'),
     body: L(
       'Nhớ cái lúc bọn member mở ticket xong im mẹ nó luôn không? Tại nemuri, support giữa Member và Server Admin hiện đã trở nên dễ dàng hơn rất nhiều: Câu hỏi mở đầu ticket, chia ticket category, transcript, ...\nTiếp nhận và xử lí ticket chưa bao giờ tiện lợi đến vậy.',
-      "You know that one member who opens a ticket and then ghosts everyone? With nemuri, support between members and server admins gets a whole lot easier: opening questions, ticket categories, transcripts, ...\nHandling tickets has never been this convenient.",
+      "You know that one member who opens a ticket and then doesn't give a shit about anyone? With nemuri, support between members and server admins gets a whole lot easier: opening questions, ticket categories, transcripts, ...\nHandling tickets has never been this convenient.",
     ),
     facts: [L('Multi-panel dạng dropdown hoặc nút bấm', "Multi-panel with dropdowns or buttons"), L('Form hỏi member trước khi mở ticket', "Forms that ask members before a ticket opens"), L('Staff bấm Nhận ticket, khỏi rep trùng nhau', "Staff claim tickets, no more stepping on each other's toes"), L('Transcript và đánh giá 1–5 sao khi đóng', "Transcripts and 1–5 star ratings on close")],
     shots: [shot('ticket'), shot('ticket-form'), shot('ticket-open')],
