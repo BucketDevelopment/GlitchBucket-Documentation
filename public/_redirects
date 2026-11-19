@@ -3,4 +3,5 @@
 /dashboard/assets/*  /dashboard/assets/:splat  200
 /dashboard/fonts/*  /dashboard/fonts/:splat  200
 /dashboard/icons/*  /dashboard/icons/:splat  200
+/dashboard/brand/*  /dashboard/brand/:splat  200
 /dashboard/*  /dashboard/  200
