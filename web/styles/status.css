@@ -40,7 +40,7 @@
 .s-shard:hover{translate:0 -2px}
 .s-shard span{font-size:11px;font-weight:600;color:#474b72}
 .s-shard b{font-family:var(--display);font-size:15px;color:color-mix(in srgb,var(--tone) 80%,#1b1d33)}
-.s-shard[data-level="slow"],.s-shard[data-level="wait"]{--tone:#e8a317}
+.s-shard[data-level="slow"]{--tone:#e8a317}
 .s-shard[data-level="bad"],.s-shard[data-level="down"]{--tone:#e0475a}
 
 @media (max-width:1000px){

@@ -14,13 +14,14 @@ const title = t(`Trạng thái hệ thống | ${name}`, `System status | ${name}
 const description = t(`Theo dõi trực tiếp trạng thái hoạt động của ${name}.`, `Live status of every ${name} cluster and shard.`);
 const keywords = `${name} status, GlitchBucket status, discord bot status, bot uptime`;
 const schema = [{ '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: `${BRAND.site}${path}`, inLanguage: locale }];
-const detailsUrl = `${links.stats}/details`;
+const devApi = import.meta.env.DEV ? import.meta.env.PUBLIC_STATUS_API : undefined;
+const detailsUrl = `${devApi || links.stats}/details`;
 const mineUrl = `${links.stats}/mine`;
 // localhost bị CORS của API chặn nên lúc dev dùng dữ liệu mẫu giống hình dạng API thật: một cluster ngoại tuyến,
 // một cluster đang khởi động, một cluster bình thường
 const shards = (cluster: number, online: boolean) =>
     Array.from({ length: 10 }, (_, i) => ({ id: cluster * 10 + i, latency_ms: online ? 42 + ((i * 7 + cluster * 3) % 30) : null }));
-const mock = import.meta.env.DEV
+const mock = import.meta.env.DEV && !devApi
     ? {
           status: 'degraded',
           servers: 21275,
@@ -129,8 +130,12 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                     }).filter(Boolean).join(', ');
                 };
                 var level = function (ms) { return ms == null ? 'down' : ms <= 70 ? 'good' : ms <= 300 ? 'slow' : 'bad'; };
-                // cluster vừa chạy chưa quá 5 phút coi là đang khởi động
-                var phase = function (c) { return !c.online ? 'down' : c.uptime_seconds != null && c.uptime_seconds <= 300 ? 'starting' : 'up'; };
+                // cluster vừa chạy chưa quá 5 phút mà còn shard chưa kết nối thì coi là đang khởi động
+                var phase = function (c) {
+                    if (!c.online) return 'down';
+                    var fresh = c.uptime_seconds == null || c.uptime_seconds <= 300;
+                    return fresh && c.shards.some(function (s) { return s.latency_ms == null; }) ? 'starting' : 'up';
+                };
                 var overall = function (clusters) {
                     var phases = clusters.map(phase);
                     if (!phases.length || phases.every(function (p) { return p === 'down'; })) return 'offline';
@@ -284,7 +289,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                             var title = labels.shard + ' #' + s.id + ': ' + (s.latency_ms == null ? (waiting ? labels.connecting : labels.disconnected) : s.latency_ms + ' ms');
                             var own = byShard[s.id];
                             var pop = own ? '<div class="s-pop" role="tooltip"><p>' + labels.mine + '</p><ul>' + own.map(guildLine).join('') + '</ul></div>' : '';
-                            return '<li class="s-shard" data-level="' + (waiting ? 'wait' : level(s.latency_ms)) + '"' + (own ? ' data-mine tabindex="0"' : ' title="' + esc(title) + '"') + '><span>' + labels.shard + ' #' + s.id + '</span><b>' + (s.latency_ms == null ? '-' : s.latency_ms + ' ms') + '</b>' + pop + '</li>';
+                            return '<li class="s-shard" data-level="' + level(s.latency_ms) + '"' + (own ? ' data-mine tabindex="0"' : ' title="' + esc(title) + '"') + '><span>' + labels.shard + ' #' + s.id + '</span><b>' + (s.latency_ms == null ? '-' : s.latency_ms + ' ms') + '</b>' + pop + '</li>';
                         }).join('');
                         var pill = p === 'down' ? labels.down : p === 'starting' ? labels.starting_pill : labels.up;
                         return '<article class="sticker s-cluster" data-phase="' + p + '">'
