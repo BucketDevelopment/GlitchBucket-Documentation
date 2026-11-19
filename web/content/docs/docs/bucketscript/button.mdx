@@ -1,6 +1,6 @@
 ---
 title: "Button (Nút)"
-description: "GlitchBucket - Tạo & Quản lí Nút"
+description: "nemuri - Tạo & Quản lí Nút"
 sidebar:
   order: 30
 ---
@@ -9,6 +9,10 @@ import { Code, Steps } from '@astrojs/starlight/components';
 import ButtonExample from '../assets/layouts/button.mp4';
 
 export const highlights = ['name:', 'trigger:', 'ignorecase:']
+
+:::note[Dashboard]
+**Button** đã có trên [Dashboard](https://bot.tudubucket.dev/dashboard/?to=/:server/bucketscript/buttons). Trên Dashboard, bạn có thể xem, tạo và chỉnh sửa Button trực quan hơn, có preview giống hệt trong Discord mà không cần nhớ cú pháp lệnh.
+:::
 
 <video class="attachment-media" src={ButtonExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
 
@@ -29,7 +33,7 @@ Button có thể được sử dụng trong:
 
 
 :::caution[Giới hạn]
-Mỗi tin nhắn tối đa **25 button** (5 hàng × 5 button/hàng). Số button bạn được tạo qua GlitchBucket tùy theo [gói của server](/premium/plans).
+Mỗi tin nhắn tối đa **25 button** (5 hàng × 5 button/hàng). Số button bạn được tạo qua nemuri tùy theo [gói của server](/premium/plans).
 :::
 
 :::note[Tương thích]

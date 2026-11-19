@@ -43,7 +43,7 @@ Bạn có thể thêm kí tự `\` ở đằng trước để chuyển từ ki�
 
 Ví dụ, bạn có một emoji là `:emoji:`, bạn có thể thêm `\` như `\:emoji:` để biến nó trở thành `<:emoji:1176462510690414646>`.
 
-Phương pháp này có thể sử dụng để lấy một số Emoji nguyên bản cho GlitchBucket, cũng như áp dụng cho mọi loại mention.
+Phương pháp này có thể sử dụng để lấy một số Emoji nguyên bản cho nemuri, cũng như áp dụng cho mọi loại mention.
 :::
 
 Bạn có thể xem tất cả tại [Trang Tài liệu Discord Developer](https://discord.com/developers/docs/reference#message-formatting)

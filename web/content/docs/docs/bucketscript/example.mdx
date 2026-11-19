@@ -1,6 +1,6 @@
 ---
 title: "Ví dụ về BucketScript"
-description: "GlitchBucket - Các ví dụ cho Hệ thống xử lí tin nhắn của GlitchBucket"
+description: "nemuri - Các ví dụ cho Hệ thống xử lí tin nhắn của nemuri"
 sidebar:
   order: 70
 ---
@@ -8,7 +8,7 @@ sidebar:
 import { Code, Steps } from '@astrojs/starlight/components';
 export const highlights = ['require_channel:', 'display_icon:', 'react_trigger:', 'trigger:', 'response:', 'mode:', 'ignorecase:', 'name:', 'channel:', 'display_name:', 'icon:'];
 
-Hệ thống xử lí tin nhắn của **GlitchBucket** được tích hợp gần như mọi nơi, như ở tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message, ... và thường sẽ được ghi là **`[BucketScript Compatible]`**/**`[Tích hợp BucketScript]`**). Dưới đây sẽ là một số ví dụ hữu ích dành cho bạn để làm nền móng cho việc dựng một script khác, hoặc để bạn tham khảo.
+Hệ thống xử lí tin nhắn của **nemuri** được tích hợp gần như mọi nơi, như ở tính năng có sử dụng phương thức gửi tin nhắn (Donation, Autoresponder, Sticky Message, ... và thường sẽ được ghi là **`[BucketScript Compatible]`**/**`[Tích hợp BucketScript]`**). Dưới đây sẽ là một số ví dụ hữu ích dành cho bạn để làm nền móng cho việc dựng một script khác, hoặc để bạn tham khảo.
 
 :::note[Lưu ý]
 Bạn có thể tham gia [Discord hỗ trợ](/support) và đóng góp ý tưởng của bản thân tại khu vực [`#🌟〡showcase`](https://discord.com/channels/1096028188397809736/1330168053324841000) nhé 😄😄 
@@ -141,7 +141,7 @@ Chỉ sử dụng `{react_trigger:emoji}` chứ không sử dụng `{react_reply
 
 2. Nhập chuỗi kí tự sau vào ô `Phản hồi` (bạn có thể thêm bao nhiêu url tùy thích, chỉ cần chia mỗi cái bằng kí tự `|`):
 
-    <Code code="{delete} {random:string: https://cdn.tudubucket.dev/Wild.png | https://cdn.tudubucket.dev/widebucket.png} [random:string]" title="command" mark={highlights} />
+    <Code code="{delete} {random:string: https://cdn.tudubucket.dev/Wild.png | https://bot.tudubucket.dev/landing/embed-banner.png} [random:string]" title="command" mark={highlights} />
 
 </Steps>
 

@@ -1,6 +1,6 @@
 ---
 title: "💬 Auto-responder"
-description: "GlitchBucket - Tự động phản hồi lại chuỗi tin nhắn nhất định"
+description: "nemuri - Tự động phản hồi lại chuỗi tin nhắn nhất định"
 sidebar:
   label: "💬 Auto-responder"
   order: 40
@@ -8,6 +8,10 @@ sidebar:
 
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['reply:', 'action:', 'mode:', 'trigger:', 'ignorecase:'];
+
+:::note[Dashboard]
+**Autoresponder** đã có trên [Dashboard](https://bot.tudubucket.dev/dashboard/?to=/:server/autoresponder). Trên Dashboard, bạn có thể xem, tạo và chỉnh sửa Autoresponder trực quan hơn, có preview giống hệt trong Discord mà không cần nhớ cú pháp lệnh.
+:::
 
 <h4>Vấn đề</h4>
 
@@ -20,10 +24,6 @@ Bằng cách kết hợp với [`BucketScript`](/bucketscript/functions), **Auto
 - Lưu trữ tạm thời dữ liệu về một số người dùng (Lưu trữ tiền donate, số vật phẩm, v.v)
 - Làm bot economy trong server
 Giới hạn của tính năng nằm ở sự sáng tạo của bạn. 
-
-:::tip[Dashboard]
-Bạn cũng có thể thêm và chỉnh sửa autoresponder trên [Dashboard](https://bot.tudubucket.dev/dashboard).
-:::
 
 :::note[Note]
 Đây là một tính năng nâng cao thuộc [`BucketScript`](/bucketscript/functions). Nếu bạn gặp khó khăn trong quá trình sử dụng **Autoresponder**, đội ngũ hỗ trợ tại [Discord](https://bot.tudubucket.dev/support) luôn có mặt để giúp đỡ bạn. Hãy đặt câu hỏi khi bạn có thắc mắc nhé!

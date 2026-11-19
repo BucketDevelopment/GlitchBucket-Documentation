@@ -181,7 +181,7 @@ const plain = (s: string) => s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
 const title = t(`Bảng giá Premium | ${name}`, `Premium pricing | ${name}`);
 const description = t(
     `Bảng giá Premium của ${name}: plan Plus từ 36.000đ/tháng, Extended từ 59.000đ/tháng hoặc lifetime, nâng giới hạn Autoresponder, Embed, Ticket, Giveaway cho server Discord của bạn.`,
-    `${name} Premium pricing: Plus from €2.99/month, Extended from €4.99/month or lifetime, raising the limits of Autoresponder, Embed, Ticket and Giveaway for your Discord server.`,
+    `${name} premium pricing: Plus from €2.99/month, Extended from €4.99/month or lifetime, raising the limits of Autoresponder, Embed, Ticket and Giveaway for your Discord server.`,
 );
 const keywords = `${name} premium, GlitchBucket premium, GlitchBucket bảng giá, GlitchBucket pricing, bot discord premium, discord bot premium, nâng cấp server discord, autoresponder, ticket bot, giveaway bot`;
 const offer = (plan: string, price: number, period: string) => ({
@@ -196,7 +196,7 @@ const schema = [
     {
         '@context': 'https://schema.org',
         '@type': 'Product',
-        name: `${name} Premium`,
+        name: `${name} premium`,
         description,
         image: 'https://cdn.tudubucket.dev/widebucket.png',
         brand: { '@type': 'Brand', name },

@@ -1,3 +1,5 @@
+/docs/commands/group/purge/  /docs/commands/single/purge/  301
+/docs/commands/group/purge  /docs/commands/single/purge/  301
 /dashboard/favicon.webp  /dashboard/favicon.webp  200
 /dashboard/version.json  /dashboard/version.json  200
 /dashboard/assets/*  /dashboard/assets/:splat  200

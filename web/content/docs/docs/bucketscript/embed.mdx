@@ -1,6 +1,6 @@
 ---
 title: "Embed"
-description: "GlitchBucket - Tạo & Quản lí Embed"
+description: "nemuri - Tạo & Quản lí Embed"
 sidebar:
   order: 55
 ---
@@ -8,9 +8,13 @@ sidebar:
 import { Code } from '@astrojs/starlight/components';
 export const highlights = ['name:', 'message:', 'channel:', 'embed:', 'ephemeral:', 'edit_message:', 'data:', 'id:']
 
+:::note[Dashboard]
+**Embed** đã có trên [Dashboard](https://bot.tudubucket.dev/dashboard/?to=/:server/bucketscript/embeds). Trên Dashboard, bạn có thể xem, tạo và chỉnh sửa Embed trực quan hơn, có preview giống hệt trong Discord mà không cần nhớ cú pháp lệnh.
+:::
+
 **Embed** là một **hệ thống định dạng tin nhắn nâng cao** cho phép bạn **tạo các tin nhắn có cấu trúc đẹp mắt** với tiêu đề, mô tả, màu sắc, hình ảnh và nhiều trường thông tin khác.
 
-Embed được xử lý thông qua **[BucketScript](/bucketscript/functions/)** - hệ thống xử lý tin nhắn của GlitchBucket, cho phép sử dụng các placeholder động và logic điều kiện.
+Embed được xử lý thông qua **[BucketScript](/bucketscript/functions/)** - hệ thống xử lý tin nhắn của nemuri, cho phép sử dụng các placeholder động và logic điều kiện.
 
 Embed có thể được sử dụng trong:
 - **Autoresponder**: Phản hồi tự động với embed đẹp mắt

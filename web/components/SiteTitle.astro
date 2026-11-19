@@ -1,0 +1,94 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import { BRAND } from '../data/brand.mjs';
+
+const { siteTitleHref } = Astro.props;
+const links = [
+	['Trang chủ', '/'],
+	['Dashboard', BRAND.links.dashboard],
+	['Premium', BRAND.links.premium],
+	['Status', '/status'],
+];
+---
+
+<div class="docs-brand">
+	<a href={siteTitleHref} class="docs-logo">
+		<img src={BRAND.avatar} alt="" width="34" height="34" />
+		<span class="docs-name" translate="no">{BRAND.name}<small>docs</small></span>
+	</a>
+	<nav class="docs-links" aria-label="Trang chính">
+		{links.map(([label, href]) => <a href={href}>{label}</a>)}
+	</nav>
+</div>
+
+<style>
+	.docs-brand {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		min-width: 0;
+	}
+	.docs-logo {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		flex: none;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.docs-logo img {
+		width: 34px;
+		height: 34px;
+		border-radius: 10px;
+		object-fit: cover;
+	}
+	.docs-name {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: 'Lexend Deca', 'Inter', sans-serif;
+		font-size: 1.3rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 1;
+	}
+	.docs-name small {
+		padding: 0.15rem 0.45rem;
+		border-radius: 999px;
+		background: rgb(35 165 90 / 0.18);
+		color: #4ccf83;
+		line-height: 1;
+		font-family: 'Inter', sans-serif;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0;
+	}
+	:global([data-theme='light']) .docs-name small {
+		background: rgb(35 165 90 / 0.14);
+		color: #16804a;
+	}
+	.docs-links {
+		display: none;
+		align-items: center;
+		gap: 0.25rem;
+	}
+	.docs-links a {
+		padding: 0.35rem 0.6rem;
+		border-radius: 0.5rem;
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+		font-weight: 500;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: background-color 0.2s ease-out, color 0.2s ease-out;
+	}
+	.docs-links a:hover {
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-white);
+	}
+	@media (min-width: 72rem) {
+		.docs-links {
+			display: flex;
+		}
+	}
+</style>

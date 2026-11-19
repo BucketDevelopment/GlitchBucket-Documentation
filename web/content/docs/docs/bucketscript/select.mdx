@@ -1,6 +1,6 @@
 ---
 title: "Select (Trình chọn)"
-description: "GlitchBucket - Tạo & Quản lí các trình chọn"
+description: "nemuri - Tạo & Quản lí các trình chọn"
 sidebar:
   order: 40
 ---
@@ -9,6 +9,10 @@ import { Code, Steps } from '@astrojs/starlight/components';
 import SelectExample from '../assets/layouts/select.mp4';
 
 export const highlights = ['name:', 'trigger:', 'ignorecase:']
+
+:::note[Dashboard]
+**Select menu** đã có trên [Dashboard](https://bot.tudubucket.dev/dashboard/?to=/:server/bucketscript/selects). Trên Dashboard, bạn có thể xem, tạo và chỉnh sửa Select menu trực quan hơn, có preview giống hệt trong Discord mà không cần nhớ cú pháp lệnh.
+:::
 
 <video class="attachment-media" src={SelectExample} style="width: 100%; border-radius: 12px; display:block;" autoplay loop muted></video>
 
@@ -136,7 +140,7 @@ Bạn có thể thêm nhiều select như button, bằng cách ngăn nhau bằng
 :::caution[Giới hạn Discord]
 - Mỗi tin nhắn tối đa **5 select**
 - Select không thể đứng cùng hàng với 1 Button
-- Select chỉ hỗ trợ chọn đơn (single-select), không hỗ trợ multi-select trong GlitchBucket
+- Select chỉ hỗ trợ chọn đơn (single-select), không hỗ trợ multi-select trong nemuri
 :::
 
 

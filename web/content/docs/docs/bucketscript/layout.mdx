@@ -1,11 +1,11 @@
 ---
 title: "Layout (Giao diện)"
-description: "GlitchBucket - Layout (giao diện) tin nhắn"
+description: "nemuri - Layout (giao diện) tin nhắn"
 head:
   - tag: meta
     attrs: 
         property: "twitter:image"
-        content: "https://cdn.tudubucket.dev/component_v2_message.png"
+        content: "https://bot.tudubucket.dev/landing/embed-banner.png"
 sidebar:
   order: 10
 ---
@@ -27,15 +27,19 @@ import ExampleVideoDisplay from '../components/ExampleVideo.astro';
 
 export const highlights = ['name:', 'trigger:', 'ignorecase:']
 
+:::note[Dashboard]
+**Layout** đã có trên [Dashboard](https://bot.tudubucket.dev/dashboard/?to=/:server/bucketscript/layouts). Trên Dashboard, bạn có thể xem, tạo và chỉnh sửa Layout trực quan hơn, có preview giống hệt trong Discord mà không cần nhớ cú pháp lệnh.
+:::
+
 <Image class="attachment-media" src={Cv2ExampleImage} alt="Component v2 Message" style="width: 100%; border-radius: 12px; display:block;"/>
 
 Phía trên chính là Components v2 của Discord - một *layout (giao diện)* tin nhắn rất mới có tính linh hoạt và mạnh mẽ hơn embed truyền thống, cho phép bố trí nội dung và các hành động tương tác ngay trong cùng khung tin nhắn. 
 
 Tất cả các *components (thành phần)* này có thể tùy chỉnh và kết hợp với nhau, giúp bạn tạo ra tin nhắn bắt mắt, rõ ràng, và có thể tương tác trực tiếp.
 
-Như thường lệ, Layout của **GlitchBucket** sẽ sử dụng bộ phận xử lí tin nhắn **[BucketScript](/bucketscript/functions)**. Tài liệu dưới đây sẽ miêu tả về các thành phần (components), cách sử dụng trong GlitchBucket, cũng như 1 phần hỗ trợ các Developer về layout (giao diện) mới này. Nếu bạn muốn đọc tài liệu từ chính Discord, thì bạn có thể xem [tại đây](https://discord.com/developers/docs/components/overview).
+Như thường lệ, Layout của **nemuri** sẽ sử dụng bộ phận xử lí tin nhắn **[BucketScript](/bucketscript/functions)**. Tài liệu dưới đây sẽ miêu tả về các thành phần (components), cách sử dụng trong nemuri, cũng như 1 phần hỗ trợ các Developer về layout (giao diện) mới này. Nếu bạn muốn đọc tài liệu từ chính Discord, thì bạn có thể xem [tại đây](https://discord.com/developers/docs/components/overview).
 
-Đối với **Developer** và đối với **GlitchBucket**, các layout được dựng trên phiên bản [`discord.py`](https://github.com/Rapptz/discord.py) `2.6.4` (Layout được hỗ trợ từ phiên bản `2.6.0`). Bạn có thể cập nhật [`discord.py`](https://github.com/Rapptz/discord.py) lên phiên bản `>= 2.6.0` 
+Đối với **Developer** và đối với **nemuri**, các layout được dựng trên phiên bản [`discord.py`](https://github.com/Rapptz/discord.py) `2.6.4` (Layout được hỗ trợ từ phiên bản `2.6.0`). Bạn có thể cập nhật [`discord.py`](https://github.com/Rapptz/discord.py) lên phiên bản `>= 2.6.0` 
 
 --- 
 
@@ -142,7 +146,7 @@ Khi người dùng **hoàn tất việc chọn**, bot sẽ **nhận được m�
 
 Thành phần này có thể được **cấu hình ở hai chế độ**:  
 - **Chọn đơn (Single-select):** chỉ chọn một mục.  
-- **Chọn nhiều (Multi-select):** chọn nhiều mục cùng lúc. *(GlitchBucket không hỗ trợ chế độ này khi dựng layout)*
+- **Chọn nhiều (Multi-select):** chọn nhiều mục cùng lúc. *(nemuri không hỗ trợ chế độ này khi dựng layout)*
 
 **Select** có thể được sử dụng trong **tin nhắn (messages)** và **hộp thoại (modals)**.  
 
@@ -319,7 +323,7 @@ from discord.ui import LayoutView, MediaGallery
 layout = LayoutView(timeout=300)
 
 gallery = MediaGallery(
-    MediaGalleryItem('https://cdn.tudubucket.dev/widebucket.png'),
+    MediaGalleryItem('https://bot.tudubucket.dev/landing/embed-banner.png'),
     MediaGalleryItem('https://cdn.tudubucket.dev/gura_bounce.gif'),
     MediaGalleryItem('https://cdn.tudubucket.dev/gura_bounce.gif'),
     MediaGalleryItem('https://cdn.tudubucket.dev/gura_bounce.gif'),
@@ -369,7 +373,7 @@ ATTACHMENT_CDN = 'https://cdn.discordapp.com/attachments/697138785317814292'
 
 layout = LayoutView(timeout=None)
 container = Container(
-    MediaGallery(MediaGalleryItem(f'{ATTACHMENT_CDN}/1364347504702914602/docs-header.png')),
+    MediaGallery(MediaGalleryItem('https://bot.tudubucket.dev/landing/embed-banner.png')),
 
     TextDisplay('### Giới thiệu các thành phần mới cho tin nhắn!'),
 

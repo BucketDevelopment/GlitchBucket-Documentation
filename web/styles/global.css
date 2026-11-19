@@ -53,3 +53,20 @@ html, body {
 [data-has-hero] .hero > img {
     filter: drop-shadow(0 0 3rem var(--overlay-blurple));
 }
+
+header.header {
+    border-bottom: 1px solid var(--sl-color-hairline-shade);
+    background-color: hsla(var(--header-hsl), 0.75);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+header.header .header > div:nth-child(2)::before {
+    content: '';
+    flex: 2;
+}
+
+header.header .header > div:nth-child(2)::after {
+    content: '';
+    flex: 1;
+}

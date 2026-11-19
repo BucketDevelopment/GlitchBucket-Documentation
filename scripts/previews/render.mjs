@@ -43,6 +43,24 @@ try {
   const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })) })
   const evaluate = async (expression) => (await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true })).result.value
 
+  // PAGE=docs.html dựng ảnh minh họa của docs vào thư mục assets của docs, mỗi shot một file theo id
+  if (process.env.PAGE) {
+    const out = process.env.OUT ?? here('../../web/content/docs/docs/assets')
+    await send('Emulation.setDeviceMetricsOverride', { width: 2200, height: 900, deviceScaleFactor: 2, mobile: false })
+    await send('Page.navigate', { url: `${VITE}${process.env.PAGE}` })
+    await poll(() => evaluate('window.__ready === true'))
+    const shots = await evaluate(`[...document.querySelectorAll('[data-shot]')].map((el) => { const r = el.getBoundingClientRect(); return { id: el.dataset.shot, x: r.x + scrollX, y: r.y + scrollY, width: r.width, height: r.height } })`)
+    for (const shot of shots.filter((s) => !process.env.ONLY || process.env.ONLY.split(',').includes(s.id))) {
+      const { data } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: shot.x, y: shot.y, width: shot.width, height: shot.height, scale: 1 } })
+      mkdirSync(join(out, shot.id, '..'), { recursive: true })
+      writeFileSync(join(out, `${shot.id}.png`), Buffer.from(data, 'base64'))
+      console.log(`${shot.id}.png`)
+    }
+    ws.close()
+    chrome.kill()
+    vite.kill()
+    process.exit(0)
+  }
   await send('Emulation.setDeviceMetricsOverride', { width: 720, height: 900, deviceScaleFactor: 2, mobile: false })
   mkdirSync(OUT, { recursive: true })
   // bản tiếng Anh cho trang /en/: nối từ, quote và ảnh embed link giữ tiếng Việt nên không dựng lại

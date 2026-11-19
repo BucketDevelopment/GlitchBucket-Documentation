@@ -1,6 +1,6 @@
 ---
 title: "🎁 Giveaway"
-description: "GlitchBucket - Tạo một Giveaway nâng cao"
+description: "nemuri - Tạo một Giveaway nâng cao"
 sidebar:
   label: "🎁 Giveaway"
   order: 20
@@ -13,6 +13,10 @@ import { Code } from '@astrojs/starlight/components';
 import ImageGrid from '../../components/ImageGrid.astro';
 import ImageItem from '../../components/ImageItem.astro';
 export const highlights = ['template:', 'giveaway:', 'reward:', 'duration:', 'winners:', 'channel:', 'template:', 'requirements:', 'blacklists:', 'bypasses:', 'bonus_entrants:', 'count:', 'message:', 'delete:', 'color:', 'button_color:', 'button_emoji:', 'requires_join_before:', 'image:']
+
+:::note[Dashboard]
+**Giveaway** đã có trên [Dashboard](https://bot.tudubucket.dev/dashboard/?to=/:server/giveaways). Trên Dashboard, bạn có thể xem, tạo và chỉnh sửa Giveaway trực quan hơn, có preview giống hệt trong Discord mà không cần nhớ cú pháp lệnh.
+:::
 
 <h4>Vấn đề</h4>
 Bạn muốn tạo một Giveaway có thể custom được mọi phần trong tin nhắn Giveaway, cũng như có các yêu cầu/hạn chế phức tạp dành cho từng Giveaway (Chẳng hạn như yêu cầu phải tham gia server được 3 ngày, hoặc phải có role `@Server Booster` thì mới được tham gia Giveaway).
@@ -185,7 +189,7 @@ _Bắt buộc:_
 ---
 
 ### `/giveaway migrate`
-Chuyển một giveaway đang chạy của bot khác sang GlitchBucket
+Chuyển một giveaway đang chạy của bot khác sang nemuri
 
 <h4>Tham số lệnh (Parameters)</h4>
 _Bắt buộc:_
