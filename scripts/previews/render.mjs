@@ -45,11 +45,13 @@ try {
 
   await send('Emulation.setDeviceMetricsOverride', { width: 720, height: 900, deviceScaleFactor: 2, mobile: false })
   mkdirSync(OUT, { recursive: true })
-  for (const [theme, suffix] of [['ash', 'dark'], ['light', 'light']]) {
-    await send('Page.navigate', { url: `${VITE}?theme=${theme}` })
+  // bản tiếng Anh cho trang /en/: nối từ, quote và ảnh embed link giữ tiếng Việt nên không dựng lại
+  const VI_ONLY = /^(wordconnect|quote|embed-.+)$/
+  for (const [lang, theme, suffix] of [['vi', 'ash', 'dark'], ['vi', 'light', 'light'], ['en', 'ash', 'en-dark'], ['en', 'light', 'en-light']]) {
+    await send('Page.navigate', { url: `${VITE}?theme=${theme}&lang=${lang}` })
     await poll(() => evaluate('window.__ready === true'))
     const shots = await evaluate(`[...document.querySelectorAll('[data-shot]')].map((el) => { const r = el.getBoundingClientRect(); return { id: el.dataset.shot, x: r.x + scrollX, y: r.y + scrollY, width: r.width, height: r.height } })`)
-    for (const shot of shots.filter((s) => !process.env.ONLY || process.env.ONLY.split(',').includes(s.id))) {
+    for (const shot of shots.filter((s) => (!process.env.ONLY || process.env.ONLY.split(',').includes(s.id)) && !(lang === 'en' && VI_ONLY.test(s.id)))) {
       const { data } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: shot.x, y: shot.y, width: shot.width, height: shot.height, scale: 1 } })
       writeFileSync(join(OUT, `${shot.id}-${suffix}.png`), Buffer.from(data, 'base64'))
       console.log(`${shot.id}-${suffix}.png`)

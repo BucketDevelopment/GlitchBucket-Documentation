@@ -11,15 +11,24 @@ interface Props {
     schema: object[];
     embed: object;
     image?: string;
+    locale?: 'vi' | 'en';
 }
-const { title, description, path, keywords, schema, embed, image = 'https://cdn.tudubucket.dev/widebucket.png' } = Astro.props;
+const { title, description, path, keywords, schema, embed, image = 'https://cdn.tudubucket.dev/widebucket.png', locale = 'vi' } = Astro.props;
+const t = (vi: string, en: string) => (locale === 'vi' ? vi : en);
+// nhãn đổi theo ngôn ngữ giữ sẵn bề rộng của bản dài hơn (bản kia ẩn chồng lên) để đổi ngôn ngữ tại chỗ các nút không bị xô
+const fit = (vi: string, en: string) => bilingual ? `<span class="fit"><span>${t(vi, en)}</span><span aria-hidden="true">${t(en, vi)}</span></span>` : t(vi, en);
+// chỉ trang chủ có bản tiếng Anh: / là tiếng Việt, /en/ là tiếng Anh
+const PATHS = { vi: '/', en: '/en/' };
+const bilingual = path === PATHS.vi || path === PATHS.en;
+const other = locale === 'vi' ? { lang: 'en', href: PATHS.en, label: 'English' } : { lang: 'vi', href: PATHS.vi, label: 'Tiếng Việt' };
 const { name, links } = BRAND;
-const home = path === '/';
+const home = bilingual;
+const homeHref = PATHS[locale];
 const url = `${BRAND.site}${path}`;
 const nav = [
-    ['Tính năng', home ? '#features' : '/#features'],
+    [fit('Tính năng', 'Features'), home ? '#features' : '/#features'],
     ['Dashboard', links.dashboard],
-    ['Tài liệu', links.docs],
+    [fit('Tài liệu', 'Docs'), links.docs],
     ['Status', links.status],
     ['Premium', links.premium],
 ];
@@ -27,7 +36,7 @@ const navLink = ([label, href]) => label === 'Premium' ? `<a href="${href}" clas
 const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>';
 ---
 <!doctype html>
-<html lang="vi">
+<html lang={locale}>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,6 +44,11 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
     <meta name="description" content={description}>
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href={url}>
+    {bilingual && <>
+        <link rel="alternate" hreflang="vi" href={`${BRAND.site}${PATHS.vi}`}>
+        <link rel="alternate" hreflang="en" href={`${BRAND.site}${PATHS.en}`}>
+        <link rel="alternate" hreflang="x-default" href={`${BRAND.site}${PATHS.vi}`}>
+    </>}
     <link rel="sitemap" href="/sitemap-index.xml">
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -43,7 +57,7 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
     <meta property="og:title" content={title}>
     <meta property="og:type" content="website">
     <meta property="og:url" content={url}>
-    <meta property="og:locale" content="vi_VN">
+    <meta property="og:locale" content={locale === 'vi' ? 'vi_VN' : 'en_US'}>
     <meta property="og:description" content={description}>
     <meta property="og:site_name" content={name}>
     <meta property="og:image" content={image}>
@@ -57,6 +71,16 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
     <meta name="theme-color" content="#C0CDFF">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <ComponentEmbed embed={embed} />
+    {bilingual && locale === 'vi' && (
+        <script is:inline>
+            // trang tĩnh nên chuyển ngôn ngữ ngay trên trình duyệt: không có tiếng Việt trong ngôn ngữ của trình duyệt thì sang /en/,
+            // trừ khi đã tự chọn ngôn ngữ (cookie lang)
+            try {
+                if (!/(?:^|;\s*)lang=/.test(document.cookie) && !(navigator.languages || [navigator.language]).some(function (l) { return /^vi\b/i.test(l); }))
+                    location.replace('/en/' + location.hash);
+            } catch (e) {}
+        </script>
+    )}
     <script is:inline>
         (function () {
             var root = document.documentElement;
@@ -71,19 +95,31 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
 <body>
     <header class="nav">
         <div class="nav-bar">
-            <a class="nav-logo" href="/"><img src={BRAND.avatar} alt="" width="36" height="36"><span class="nav-name">{name}<small>{BRAND.formerName}</small></span></a>
-            <nav class="nav-links" aria-label="Chính">
+            <a class="nav-logo" href={homeHref}><img src={BRAND.avatar} alt="" width="36" height="36"><span class="nav-name">{name}<small>{BRAND.formerName}</small></span></a>
+            <nav class="nav-links" aria-label={t('Chính', 'Main')}>
                 {nav.map((item) => <Fragment set:html={navLink(item)} />)}
             </nav>
             <div class="nav-right">
-                <a class="btn btn-main btn-sm" href={links.invite}>Thêm bot</a>
-                <button class="icon-btn" type="button" data-theme-toggle aria-label="Đổi sáng/tối">
+                <a class="btn btn-main btn-sm" href={links.invite} set:html={fit('Thêm bot', 'Add bot')} />
+                {bilingual && (
+                    <span class="lang-wrap">
+                        <a class="nav-lang" href={other.href} data-lang={other.lang} hreflang={other.lang}>{other.lang.toUpperCase()}</a>
+                        <span class="lang-bubble" data-lang-bubble hidden>
+                            <span data-lang-text></span>
+                            <button type="button" data-lang-go>{other.lang === 'vi' ? 'Xem bằng tiếng Việt' : 'View in English'}</button>
+                            <button type="button" data-lang-close aria-label={t('Đóng', 'Close')}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                            </button>
+                        </span>
+                    </span>
+                )}
+                <button class="icon-btn" type="button" data-theme-toggle aria-label={t('Đổi sáng/tối', 'Toggle light/dark')}>
                     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
                     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
                 </button>
-                <a class="nav-login" href={links.login} data-login>Đăng nhập</a>
+                <a class="nav-login" href={links.login} data-login set:html={fit('Đăng nhập', 'Log in')} />
                 <a class="nav-user" href={links.dashboard} data-user hidden><span></span><img alt="" width="32" height="32"></a>
-                <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="Mở menu" aria-expanded="false">
+                <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label={t('Mở menu', 'Open menu')} aria-expanded="false">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
             </div>
@@ -102,19 +138,19 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
             <div class="foot-cols">
                 <div>
                     <div class="foot-brand"><img src={BRAND.avatar} alt="" width="44" height="44" loading="lazy">{name}</div>
-                    <p>Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn quản lí server dễ dàng hơn.</p>
+                    <p>{t('Discord Bot với các chức năng độc quyền và hữu ích, giúp bạn quản lí server dễ dàng hơn.', 'A Discord bot with exclusive, useful features that make managing your server easier.')}</p>
                 </div>
                 <div>
-                    <h3>Sản phẩm</h3>
+                    <h3>{t('Sản phẩm', 'Product')}</h3>
                     <ul>
-                        <li><a href={home ? '#features' : '/#features'}>Tính năng</a></li>
+                        <li><a href={home ? '#features' : '/#features'}>{t('Tính năng', 'Features')}</a></li>
                         <li><a href={links.dashboard}>Dashboard</a></li>
                         <li><a href={links.premium}>Premium</a></li>
-                        <li><a href={links.docs}>Tài liệu</a></li>
+                        <li><a href={links.docs}>{t('Tài liệu', 'Docs')}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3>Cộng đồng</h3>
+                    <h3>{t('Cộng đồng', 'Community')}</h3>
                     <ul>
                         <li><a href={links.support}>Discord</a></li>
                         <li><a href={links.github}>GitHub</a></li>
@@ -122,15 +158,15 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
                     </ul>
                 </div>
                 <div>
-                    <h3>Pháp lý</h3>
+                    <h3>{t('Pháp lý', 'Legal')}</h3>
                     <ul>
-                        <li><a href="/docs/policy/statement-of-purpose/">Mục tiêu &amp; Sứ mệnh</a></li>
+                        <li><a href="/docs/policy/statement-of-purpose/">{t('Mục tiêu & Sứ mệnh', 'Purpose & Mission')}</a></li>
                         <li><a href="/docs/policy/privacy-policy/">Privacy</a></li>
                         <li><a href="/docs/policy/terms-of-service/">Terms</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="foot-base"><span>© {new Date().getFullYear()} <a class="foot-studio" href={BRAND.studio.url} target="_blank" rel="noopener">{BRAND.studio.name}<Fragment set:html={arrow} /></a></span></div>
+            <div class="foot-base"><span>© {new Date().getFullYear()} <a class="foot-studio" href={BRAND.studio.url} target="_blank" rel="noopener">{BRAND.studio.name}<Fragment set:html={arrow} /></a></span>{bilingual && <a class="foot-lang" href={other.href} data-lang={other.lang} hreflang={other.lang}>{other.label}</a>}</div>
         </div>
     </footer>
 
@@ -176,5 +212,130 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
         })();
     </script>
     <slot name="end" />
+    {bilingual && (
+        <script is:inline>
+        (() => {
+            // Đổi ngôn ngữ không tải lại trang, y như bucketdev: tải trang ngôn ngữ kia, so với HTML gốc của trang này, phần nào khác chữ
+            // thì mờ đi rồi hiện lại với chữ mới. Hiệu ứng bắt đầu ở mép trên màn hình rồi lan xuống (và lan lên với phần nằm phía trên),
+            // như một con sóng. Lỗi gì thì chuyển trang bình thường.
+            // khối có trạng thái đang chạy (xoay vòng, số đếm, user đã đăng nhập) giữ nguyên, không đụng tới
+            const LIVE = '[data-slot], [data-slot-text], [data-live], [data-user], [data-lang-bubble], .hero-emoji';
+            const SKIP = LIVE + ', script, style, svg, noscript';
+            const ATTRS = ['aria-label', 'alt', 'title', 'href', 'hreflang', 'data-lang', 'placeholder', 'src', 'width', 'height'];
+            const ownText = (el) => [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('');
+                        // phần tử không có chữ hiển thị thì bỏ qua khi so: Cloudflare chèn <script> vào trang mở bằng trình duyệt nhưng không chèn vào bản tải về
+            const INVISIBLE = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'LINK', 'META', 'TEMPLATE', 'IFRAME']);
+            // thẻ custom element (thanh công cụ dev của Astro, widget chèn thêm) chỉ có ở trang đang mở, cũng bỏ qua
+            const kids = (el) => [...el.children].filter((c) => !INVISIBLE.has(c.tagName) && !c.tagName.includes('-'));
+            // khối giữ cấu trúc trang hoặc trạng thái đang chạy thì không thay cả khối, chỉ so từng phần bên trong
+            const STRUCTURE = 'main, header, footer, section, article, nav, ol, ul, .wrap, .shots, .all-grid, .voices';
+            const diff = (a, b, live, out) => {
+                if (a.tagName !== b.tagName || a.tagName !== live.tagName || a.matches(SKIP)) return;
+                const attrs = ATTRS.filter((k) => a.getAttribute(k) !== b.getAttribute(k)).map((k) => [k, b.getAttribute(k)]);
+                const [ka, kb, kl] = [kids(a), kids(b), kids(live)];
+                const sameShape = ka.length === kb.length && ka.length === kl.length && ka.every((c, i) => c.tagName === kb[i].tagName);
+                if (!sameShape || ownText(a) !== ownText(b)) {
+                    const structural = a.matches(STRUCTURE) || !!a.querySelector(STRUCTURE) || !!a.querySelector(LIVE);
+                    if (structural) {
+                        if (attrs.length) out.push({ live: live, attrs });
+                        if (ka.length === kb.length && ka.length === kl.length) for (let i = 0; i < ka.length; i++) diff(ka[i], kb[i], kl[i], out);
+                        return;
+                    }
+                    if (a.innerHTML !== b.innerHTML || attrs.length) out.push({ live: live, html: a.innerHTML !== b.innerHTML ? b.innerHTML : undefined, attrs });
+                    return;
+                }
+                if (attrs.length) out.push({ live: live, attrs });
+                for (let i = 0; i < ka.length; i++) diff(ka[i], kb[i], kl[i], out);
+            };
+            let switching = false;
+            const switchLang = async (a) => {
+                if (switching) return;
+                switching = true;
+                const target = a.href, path = a.pathname;
+                try {
+                    const parse = async (url) => new DOMParser().parseFromString(await (await fetch(url)).text(), 'text/html');
+                    const [cur, next] = await Promise.all([parse(location.pathname), parse(path)]);
+                    const changes = [];
+                    diff(cur.body, next.body, document.body, changes);
+                    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const top = scrollY;
+                    document.documentElement.lang = next.documentElement.lang;
+                    document.title = next.title;
+                    const desc = next.querySelector('meta[name="description"]')?.getAttribute('content');
+                    if (desc) document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+                    // ô xoay vòng (hero, layout, dashboard) đổi sang chữ của ngôn ngữ mới ngay ở cảnh đang hiện
+                    next.querySelectorAll('[data-cycle]').forEach((el, i) => {
+                        const live = document.querySelectorAll('[data-cycle]')[i];
+                        if (live && el.dataset.cycle) { live.dataset.cycle = el.dataset.cycle; live.dispatchEvent(new Event('relabel')); }
+                    });
+                    history.pushState(null, '', path + location.hash);
+                    shownPath = path;
+                    let longest = 0;
+                    for (const ch of changes) {
+                        const apply = () => {
+                            for (const [k, v] of ch.attrs) v === null ? ch.live.removeAttribute(k) : ch.live.setAttribute(k, v);
+                            if (ch.html !== undefined) ch.live.innerHTML = ch.html;
+                        };
+                        const r = ch.live.getBoundingClientRect();
+                        const y = r.top + scrollY;
+                        const visible = r.width > 0 && r.bottom + scrollY > top - 2000 && y < top + innerHeight + 2000;
+                        // ảnh đổi src cũng mờ ra vào theo đợt sóng như chữ, tải sẵn ảnh mới để lúc hiện lại không bị trống
+                        const src = ch.attrs.find(([k]) => k === 'src');
+                        if ((ch.html === undefined && !src) || reduce || !visible) { apply(); continue; }
+                        if (src && src[1]) { const img = new Image(); img.src = src[1]; }
+                        const delay = Math.min(Math.abs(y - top) * 0.55, 900);
+                        longest = Math.max(longest, delay + 520);
+                        const fx = { opacity: 0, filter: 'blur(3px)' }, clear = { opacity: 1, filter: 'blur(0)' };
+                        const out = ch.live.animate([clear, fx], { duration: 200, delay, easing: 'ease-in', fill: 'forwards' });
+                        setTimeout(() => {
+                            apply();
+                            ch.live.animate([fx, clear], { duration: 320, easing: 'ease-out' });
+                            out.cancel();
+                        }, delay + 200);
+                    }
+                    await new Promise((res) => setTimeout(res, longest));
+                } catch {
+                    location.href = target;
+                } finally {
+                    switching = false;
+                }
+            };
+            // back/forward qua lần đổi ngôn ngữ thì tải lại trang đó; nhảy anchor (#features) giữ nguyên path nên để yên
+            let shownPath = location.pathname;
+            addEventListener('popstate', () => { if (location.pathname !== shownPath) location.reload(); });
+            // gợi ý đổi ngôn ngữ theo quốc gia người xem (Home.astro báo qua sự kiện visitor-country): người ở Việt Nam đang xem bản
+            // tiếng Anh thì gợi ý tiếng Việt, người ngoài Việt Nam đang xem bản tiếng Việt thì gợi ý tiếng Anh. Đã tự chọn ngôn ngữ
+            // (cookie lang) hoặc đã tắt gợi ý thì thôi
+            const bubble = document.querySelector('[data-lang-bubble]');
+            const hideBubble = () => { if (bubble) bubble.hidden = true; };
+            document.addEventListener('visitor-country', (e) => {
+                const code = String(e.detail).toUpperCase();
+                // ở ngoài Việt Nam nhưng trình duyệt có tiếng Việt (người Việt ở nước ngoài) vẫn coi là muốn tiếng Việt
+                const speaksVi = (navigator.languages || [navigator.language]).some((l) => /^vi\b/i.test(l));
+                const want = code === 'VN' || speaksVi ? 'vi' : 'en';
+                let dismissed = false;
+                try { dismissed = localStorage.getItem('lang-hint') === want; } catch {}
+                if (!bubble || want === document.documentElement.lang || dismissed || /(?:^|;\s*)lang=/.test(document.cookie)) return;
+                let place = code;
+                try { place = new Intl.DisplayNames([want], { type: 'region' }).of(code) || code; } catch {}
+                bubble.querySelector('[data-lang-text]').textContent = want === 'vi'
+                    ? code === 'VN' ? `Có vẻ bạn đang ở ${place}, xem trang bằng tiếng Việt nhé?` : 'Có vẻ bạn dùng tiếng Việt, xem trang bằng tiếng Việt nhé?'
+                    : `Looks like you're visiting from ${place}. Would you like to view this page in English?`;
+                bubble.hidden = false;
+                bubble.querySelector('[data-lang-close]').onclick = () => { hideBubble(); try { localStorage.setItem('lang-hint', want); } catch {} };
+                bubble.querySelector('[data-lang-go]').onclick = () => { hideBubble(); document.querySelector('a.nav-lang')?.click(); };
+            });
+            document.addEventListener('click', (e) => {
+                const a = e.target.closest('a[data-lang]');
+                if (a) hideBubble();
+                if (!a) return;
+                document.cookie = `lang=${a.dataset.lang}; path=/; max-age=31536000; samesite=lax`;
+                if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                e.preventDefault();
+                switchLang(a);
+            });
+                })();
+        </script>
+    )}
 </body>
 </html>

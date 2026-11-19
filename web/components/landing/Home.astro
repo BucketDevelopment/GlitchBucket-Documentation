@@ -1,0 +1,369 @@
+---
+import Page from './Page.astro';
+import Shot from './Shot.astro';
+import Shots from './Shots.astro';
+import { homeEmbed } from '../../data/embed.mjs';
+import { BRAND } from '../../data/brand.mjs';
+import * as DATA from '../../data/landing.mjs';
+
+interface Props { locale: 'vi' | 'en' }
+const { locale } = Astro.props;
+const t = (vi: string, en: string) => (locale === 'vi' ? vi : en);
+const { HERO_SCENES, MAIN_FEATURES, DASHBOARD_SHOTS, ALL_FEATURES, TESTIMONIALS } = DATA.localize(DATA, locale);
+const home = locale === 'vi' ? '/' : '/en/';
+
+const { name, links } = BRAND;
+const avatarFiles = import.meta.glob('../../content/docs/docs/assets/testimonials/*.webp', { eager: true, import: 'default' });
+const avatars = Object.fromEntries(Object.entries(avatarFiles).map(([path, image]) => [path.split('/').pop().replace('.webp', ''), image]));
+const title = t(`${name} · Quản Lý Server Thông Minh & Hiệu Quả`, `${name} · Server Management, Elevated`);
+const description = t(`${name} là bot discord đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.`, `${name} is a multipurpose Discord bot with exclusive management and automation tools, helping you run your server more professionally and efficiently than ever.`);
+const image = 'https://cdn.tudubucket.dev/widebucket.png';
+const keywords = 'GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi';
+const schema = [
+    { '@context': 'https://schema.org', '@type': 'WebSite', name, url: `${BRAND.site}${home}`, inLanguage: locale },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name,
+        applicationCategory: 'CommunicationApplication',
+        operatingSystem: 'Discord',
+        description,
+        url: `${BRAND.site}${home}`,
+        image,
+        offers: { '@type': 'Offer', price: 0, priceCurrency: 'VND' },
+        publisher: { '@type': 'Organization', name: BRAND.studio.name, url: BRAND.studio.url, logo: `${BRAND.site}/favicon.png` },
+    },
+];
+const [bigVoice, ...restVoices] = TESTIMONIALS;
+const sideVoices = restVoices.slice(0, 5);
+const underVoices = restVoices.slice(5);
+// localhost bị CORS của API chặn nên lúc dev dùng số lấy từ /dashboard/status (18/11/2026), trả về chậm như API thật
+const statsMock = import.meta.env.DEV ? { servers: 21202, users: 5612318, country: 'VN' } : null;
+const heroSlots = Array.from({ length: Math.max(...HERO_SCENES.map((scene) => scene.length)) }, (_, i) => ({ item: HERO_SCENES.find((scene) => scene[i])[i], off: !HERO_SCENES[0][i] }));
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>';
+const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+const star = '<svg class="star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z"/></svg>';
+---
+<Page locale={locale} title={title} description={description} path={home} keywords={keywords} schema={schema} embed={homeEmbed} image={image}>
+        <section class="hero sheet">
+            <div class="hero-emoji" aria-hidden="true"></div>
+            <div class="wrap">
+                <div class="hero-grid">
+                    <div>
+                        <h1><span class="line grad">{t('Quản Lý Server', 'Server Management,')}</span><span class="line">{t('Thông Minh & Hiệu Quả', 'Elevated.')}</span></h1>
+                        <p class="hero-lead">{description}</p>
+                        <div class="hero-actions">
+                            <a class="btn btn-main" href={links.invite}>{t('Thêm bot vào server', 'Add to your server')}<Fragment set:html={arrow} /></a>
+                            <a class="btn btn-ghost" href={links.dashboard}>{t('Mở dashboard', 'Open dashboard')}</a>
+                        </div>
+                        <dl class="hero-stats">
+                            <div><dt>Servers</dt><dd class="num" data-live="servers">21,000+</dd></div>
+                            <div><dt>Members</dt><dd class="num" data-live="users">5,600,000+</dd></div>
+                        </dl>
+                    </div>
+                    <div class="hero-stage" data-cycle={JSON.stringify(HERO_SCENES)}>
+                        {heroSlots.map(({ item, off }, i) => (
+                            <figure class:list={['sticker stage-shot', { off }]} data-slot={i} data-order={i * 2 + 1} style={`--x:${item.place.x};--y:${item.place.y};--w:${item.place.w};--tilt:${item.place.tilt}deg`}>
+                                <Shot shot={item.shot} alt={item.text} eager />
+                            </figure>
+                        ))}
+                        {heroSlots.map(({ item, off }, i) => (
+                            <p class:list={['doodle', { off }]} aria-hidden="true" data-slot-text={i} data-order={i * 2} data-arrow={item.label.arrow} data-flow={item.label.flow ?? 'down'} style={`--x:${item.label.x};--y:${item.label.y};--tilt:${item.label.tilt}deg;--aim:${item.label.aim ?? 0}deg`}>
+                                <span data-text>{item.text}</span><svg class="arrow-left" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M78 8C74 32 52 50 14 52"/><path d="M27 40 14 52l15 9"/></svg><svg class="arrow-right" viewBox="0 0 90 70" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8C8 34 28 54 74 56"/><path d="M61 45l13 11-16 6"/></svg>
+                            </p>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features paper" id="features">
+            <div class="wrap">
+                {MAIN_FEATURES.map((feature) => (
+                    <article class="feature" id={feature.id}>
+                        <div class="feature-head" data-reveal>
+                            <div>
+                                <h3>{feature.head}</h3>
+                                <p>{feature.body}</p>
+                            </div>
+                            <div>
+                                <ul class="facts">{feature.facts.map((fact) => <li><Fragment set:html={check} />{fact}</li>)}</ul>
+                                <div class="feature-links">
+                                    {feature.links.map(([label, href]) => <a class="link-chip" href={href}>{label}<Fragment set:html={arrow} /></a>)}
+                                </div>
+                            </div>
+                        </div>
+                        <div data-reveal style="--d:1"><Shots shots={feature.shots} alt={feature.label} sequence={feature.sequence} cycle={feature.cycle} slots={feature.slots} captions={feature.captions ?? true} pile={feature.pile} /></div>
+                    </article>
+                ))}
+            </div>
+        </section>
+
+        <section class="dash sheet" id="dashboard">
+            <div class="wrap">
+                <div class="feature-head" data-reveal>
+                    <div>
+                        <h2>{t('Một trải nghiệm dashboard', 'A dashboard experience')}<br />{t('khó có thể quên.', "you won't forget.")}</h2>
+                        <p>{t('Khỏi phải nhớ tá lệnh. Sửa embed, layout, panel ticket hay autoresponder ngay trên web, với preview thật đến mức bạn suy nghĩ có phải đang mở Discord bên cạnh không. Đổi config giờ là chuyện quá ez.', 'No more memorizing a pile of commands. Edit embeds, layouts, ticket panels or autoresponders right on the web, with a preview so real you will wonder whether Discord is open next to you. Changing config is now ridiculously easy.')}</p>
+                    </div>
+                    <div class="hero-actions"><a class="btn btn-main" href={links.dashboard}>{t('Mở dashboard', 'Open dashboard')}<Fragment set:html={arrow} /></a></div>
+                </div>
+                <div data-reveal style="--d:1"><Shots class="shots-grid" cycle={DASHBOARD_SHOTS} captions={false} alt={t('Ảnh chụp dashboard', 'Dashboard screenshot')} /></div>
+            </div>
+        </section>
+
+        <section class="all paper" id="all">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <h2>{t('Còn cả một đống nữa.', 'And a whole lot more.')}</h2>
+                    <p>{t('Tất cả những gì bạn cần để phát triển một Server Discord.', 'Everything you need to grow a Discord server.')}</p>
+                </div>
+                <div class="all-grid" data-reveal>
+                    {ALL_FEATURES.map((item) => item.removed
+                        ? <div class="removed" tabindex="0"><strong>{item.name}</strong><span class="swap"><span>{item.line}</span><span>{t('Tính năng này đã tạm ngừng phát triển', 'This feature is on hold for now')}</span></span></div>
+                        : <a href={item.href} class:list={{ featured: item.featured }}><strong>{item.name}{item.featured && <Fragment set:html={star} />}</strong><span>{item.line}</span></a>)}
+                </div>
+            </div>
+        </section>
+
+        <section class="proof deep">
+            <div class="wrap">
+                <h2 data-reveal>{t('Mọi người nói gì?', 'What people say')}</h2>
+                <div class="voices">
+                    <div class="voice-main">
+                        <figure class="sticker voice voice-big" data-reveal>
+                            <blockquote>“{bigVoice.quote}”</blockquote>
+                            <footer><img src={avatars[bigVoice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{bigVoice.name}</b><span>{bigVoice.role}</span></div></footer>
+                        </figure>
+                        {underVoices.map((voice, i) => (
+                            <figure class="sticker voice" data-reveal style={`--d:${i + 1}`}>
+                                <blockquote>“{voice.quote}”</blockquote>
+                                <footer><img src={avatars[voice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{voice.name}</b><span>{voice.role}{voice.flag && <img class="flag" src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/${voice.flag}.svg`} alt="" width="14" height="14" loading="lazy">}</span></div></footer>
+                            </figure>
+                        ))}
+                    </div>
+                    <div class="voice-side">
+                        {sideVoices.map((voice, i) => (
+                            <figure class="sticker voice" data-reveal style={`--d:${i + 1}`}>
+                                <blockquote>“{voice.quote}”</blockquote>
+                                <footer><img src={avatars[voice.avatar].src} alt="" width="40" height="40" loading="lazy"><div><b>{voice.name}</b><span>{voice.role}{voice.flag && <img class="flag" src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/${voice.flag}.svg`} alt="" width="14" height="14" loading="lazy">}</span></div></footer>
+                            </figure>
+                        ))}
+                    </div>
+                </div>
+                <p class="voices-more">{t('Xem thêm nhận xét tại', 'More reviews on')} <a href={links.topgg} target="_blank" rel="noopener noreferrer">top.gg</a></p>
+            </div>
+        </section>
+
+        <section class="close sheet">
+            <div class="wrap close-grid">
+                <div data-reveal>
+                    <h2>{t('Sẵn sàng nâng cấp server?', 'Ready to level up your server?')}</h2>
+                    <p>{t('Tham gia cùng hàng chục nghìn server đã tin tưởng & sử dụng bot.', 'Join tens of thousands of servers that already trust the bot.')}<br/>{t('Hoàn toàn miễn phí để bắt đầu.', 'Completely free to get started.')}</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-main" href={links.invite}>{t('Thêm bot vào server', 'Add to your server')}<Fragment set:html={arrow} /></a>
+                                            </div>
+                </div>
+            </div>
+        </section>
+
+    <Fragment slot="end">
+    <script define:vars={{ statsUrl: links.stats, statsMock }} is:inline>
+        (function () {
+            var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // số server và member: vào trang là chạy ký tự ngẫu nhiên rồi hiện dần từng số từ trái sang. có số lưu từ lần trước thì
+            // ra luôn số đó, không chờ API; API trả số khác thì chỉ các chữ số đổi mới chạy lại. lần đầu thì chờ API, khung 5 và 7 chữ số
+            var CHARS = '0123456789%$#&@';
+            var cached = null;
+            try { cached = JSON.parse(localStorage.getItem('stats') || 'null'); } catch (e) {}
+            var valid = function (data, key) { return data && isFinite(data[key]) && data[key] > 0 ? Math.floor(data[key]) : 0; };
+            var format = function (n) { return n.toLocaleString('en-US'); };
+            var counters = [['servers', 5], ['users', 7]].map(function (pair) {
+                var known = valid(cached, pair[0]);
+                var el = document.querySelector('[data-live="' + pair[0] + '"]');
+                return { key: pair[0], el: el, fallback: el.textContent, pattern: format(known || Math.pow(10, pair[1] - 1)), value: known ? format(known) : '', cells: [], pending: [], hold: 0, step: 0 };
+            });
+            var build = function (c) {
+                c.el.textContent = '';
+                c.cells = [];
+                c.pattern.split('').forEach(function (ch) {
+                    if (ch >= '0' && ch <= '9') c.cells.push(c.el.appendChild(document.createElement('span')));
+                    else c.el.appendChild(document.createTextNode(ch));
+                });
+            };
+            var paint = function (c) {
+                var digits = c.value.replace(/\D/g, '');
+                c.cells.forEach(function (cell, i) {
+                    var ch = c.pending.indexOf(i) >= 0 || !digits[i] ? CHARS[Math.floor(Math.random() * CHARS.length)] : digits[i];
+                    cell.textContent = ch;
+                    cell.className = ch >= '0' && ch <= '9' ? '' : 'sym';
+                });
+            };
+            var scramble = 0;
+            var run = function () {
+                if (reduceMotion || scramble) return;
+                scramble = setInterval(function () {
+                    var busy = false;
+                    counters.forEach(function (c) {
+                        if (!c.pending.length) return;
+                        if (c.hold > 0) c.hold--;
+                        else if (c.value && c.step++ % 2 === 0) c.pending.shift();
+                        paint(c);
+                        busy = busy || c.pending.length > 0;
+                    });
+                    if (!busy) { clearInterval(scramble); scramble = 0; }
+                }, 55);
+            };
+            var update = function (data) {
+                counters.forEach(function (c) {
+                    var n = valid(data, c.key);
+                    if (!n) {
+                        if (!c.value) { c.pending = []; c.pattern = ''; c.el.textContent = c.fallback; }
+                        return;
+                    }
+                    var next = format(n);
+                    c.el.setAttribute('aria-label', next);
+                    if (reduceMotion) { c.value = next; c.el.textContent = next; return; }
+                    var redo = !c.pending.length;
+                    if (next.replace(/\d/g, '0') !== c.pattern.replace(/\d/g, '0')) {
+                        c.pattern = next;
+                        build(c);
+                        c.pending = c.cells.map(function (_, i) { return i; });
+                        redo = true;
+                    } else if (c.value) {
+                        var before = c.value.replace(/\D/g, ''), after = next.replace(/\D/g, '');
+                        c.pending = c.cells.map(function (_, i) { return i; }).filter(function (i) { return c.pending.indexOf(i) >= 0 || before[i] !== after[i]; });
+                    } else redo = true;
+                    if (redo) { c.hold = 6; c.step = 0; }
+                    c.value = next;
+                });
+                run();
+            };
+            counters.forEach(function (c) {
+                if (c.value) c.el.setAttribute('aria-label', c.value);
+                if (reduceMotion) { if (c.value) c.el.textContent = c.value; return; }
+                build(c);
+                c.pending = c.cells.map(function (_, i) { return i; });
+                c.hold = 6;
+                paint(c);
+            });
+            run();
+            var giveUp = setTimeout(function () { update(cached); }, 6000);
+            // header Visitor-Country (rule "dashboard visitor country" của Cloudflare) báo quốc gia người xem: Page.astro dùng để gợi ý đổi ngôn ngữ
+            var country = function (code) { if (code) document.dispatchEvent(new CustomEvent('visitor-country', { detail: code })); };
+            (statsMock ? new Promise(function (resolve) { setTimeout(function () { country(statsMock.country); resolve(statsMock); }, 1200); }) : fetch(statsUrl).then(function (res) { country(res.headers.get('visitor-country')); return res.ok ? res.json() : null; }))
+                .then(function (data) {
+                    clearTimeout(giveUp);
+                    if (!valid(data, 'servers') && !valid(data, 'users')) return update(cached);
+                    try { localStorage.setItem('stats', JSON.stringify({ servers: data.servers, users: data.users })); } catch (e) {}
+                    update(data);
+                })
+                .catch(function () { clearTimeout(giveUp); update(cached); });
+
+            // xoay vòng như gallery bucketdev: thấy ≥30% đủ 3,5 giây thì từng phần mờ đi lần lượt, đổi nội dung rồi hiện lại
+            var markCrop = function (figure) {
+                figure.querySelectorAll('img').forEach(function (img) {
+                    var check = function () {
+                        if (getComputedStyle(img).display === 'none' || !img.naturalWidth) return;
+                        figure.classList.toggle('cropped', img.naturalHeight * img.clientWidth / img.naturalWidth > img.clientHeight + 1);
+                    };
+                    if (img.complete) check();
+                    else img.addEventListener('load', check, { once: true });
+                });
+            };
+            var allSlots = function () { return document.querySelectorAll('[data-slot]'); };
+            allSlots().forEach(markCrop);
+            addEventListener('resize', function () { allSlots().forEach(markCrop); });
+            document.querySelectorAll('[data-cycle]').forEach(function (root) {
+                var states = JSON.parse(root.dataset.cycle || '[]');
+                var parts = [].slice.call(root.querySelectorAll('[data-order]')).sort(function (a, b) { return a.dataset.order - b.dataset.order; });
+                var HOLD = 3500, STAGGER = 110, FADE = 260;
+                var index = 0, shown = false, since = 0, total = 0;
+                new IntersectionObserver(function (entries) {
+                    var now = performance.now();
+                    if (shown) total += now - since;
+                    shown = entries[0].intersectionRatio >= 0.3;
+                    since = now;
+                }, { threshold: [0, 0.3, 0.6, 1] }).observe(root);
+                var preload = function (src) { var img = new Image(); img.src = src; return img.decode ? img.decode().catch(function () {}) : null; };
+                var apply = function (el, item) {
+                    var place = function (spot) {
+                        el.style.setProperty('--x', spot.x);
+                        el.style.setProperty('--y', spot.y);
+                        if (spot.w !== undefined) el.style.setProperty('--w', spot.w);
+                        el.style.setProperty('--tilt', spot.tilt + 'deg');
+                    };
+                    if (el.hasAttribute('data-slot')) {
+                        if (item.place) place(item.place);
+                        el.querySelectorAll('img.shot').forEach(function (img) {
+                            img.removeAttribute('width');
+                            img.removeAttribute('height');
+                            img.src = img.classList.contains('shot-dark') ? item.shot.dark : item.shot.light;
+                            img.alt = item.text;
+                        });
+                        var caption = el.querySelector('figcaption');
+                        if (caption) caption.textContent = item.text;
+                        markCrop(el);
+                    } else {
+                        (el.querySelector('[data-text]') || el).textContent = item.text;
+                        if (item.label) {
+                            place(item.label);
+                            el.dataset.arrow = item.label.arrow;
+                            el.dataset.flow = item.label.flow || 'down';
+                            el.style.setProperty('--aim', (item.label.aim || 0) + 'deg');
+                        }
+                    }
+                };
+                // đổi ngôn ngữ tại chỗ (Page.astro) thay data-cycle rồi báo relabel: cảnh đang hiện lấy chữ và ảnh của ngôn ngữ mới
+                root.addEventListener('relabel', function () {
+                    states = JSON.parse(root.dataset.cycle || '[]');
+                    var current = states[index] || [];
+                    var itemOf = function (el) { return current[Number(el.dataset.slot !== undefined ? el.dataset.slot : el.dataset.slotText)]; };
+                    if (reduceMotion) { parts.forEach(function (el) { var item = itemOf(el); if (item) apply(el, item); }); return; }
+                    // đổi giống một lượt xoay vòng: từng phần mờ đi lần lượt, đổi sang chữ và ảnh của ngôn ngữ mới rồi hiện lại
+                    Promise.all(current.map(function (item) { return Promise.all([preload(item.shot.light), preload(item.shot.dark)]); })).then(function () {
+                        parts.forEach(function (el, i) {
+                            var item = itemOf(el);
+                            if (!item) return;
+                            setTimeout(function () {
+                                el.classList.add('out');
+                                setTimeout(function () {
+                                    apply(el, item);
+                                    requestAnimationFrame(function () { el.classList.remove('out'); });
+                                }, FADE);
+                            }, i * STAGGER);
+                        });
+                    });
+                });
+                if (reduceMotion || states.length < 2) return;
+                var swap = function () {
+                    index = (index + 1) % states.length;
+                    var next = states[index];
+                    Promise.all(next.map(function (item) { return Promise.all([preload(item.shot.light), preload(item.shot.dark)]); })).then(function () {
+                        parts.forEach(function (el, i) {
+                            var item = next[Number(el.dataset.slot !== undefined ? el.dataset.slot : el.dataset.slotText)];
+                            if (!item && el.classList.contains('off')) return;
+                            setTimeout(function () {
+                                el.classList.add('out');
+                                setTimeout(function () {
+                                    if (item) apply(el, item);
+                                    el.classList.toggle('off', !item);
+                                    requestAnimationFrame(function () { el.classList.remove('out'); });
+                                }, FADE);
+                            }, i * STAGGER);
+                        });
+                    });
+                };
+                setInterval(function () {
+                    if (document.hidden) return;
+                    var now = performance.now();
+                    if (shown) { total += now - since; since = now; }
+                    if (total >= HOLD) { total = 0; swap(); }
+                }, 200);
+            });
+
+        })();
+    </script>
+    </Fragment>
+</Page>
