@@ -12,7 +12,7 @@ import type { DiscordEmbed, LayoutComponent } from '@/lib/contracts'
 import palette from '@dashboard/../docs/discord-palette.json'
 import { Twemoji } from '@/lib/twemoji'
 import { BRAND } from '../../web/data/brand.mjs'
-import { EMBED_IMAGE, homeEmbed, premiumEmbed } from '../../web/data/embed.mjs'
+import { EMBED_IMAGE, homeEmbed, premiumEmbed, statusEmbed, statusEmbedEn } from '../../web/data/embed.mjs'
 import embedBanner from '../../public/landing/embed-banner.png'
 import uwuAvatar from './uwu.png'
 import wowieAvatar from './wowie.webp'
@@ -761,7 +761,7 @@ function Shots() {
             </Row>
           </div>
         </section>
-        {([['embed-home', 'https://bot.tudubucket.dev', homeEmbed], ['embed-premium', 'https://bot.tudubucket.dev/premium', premiumEmbed]] as const).map(([id, url, embed]) => (
+        {([['embed-home', 'https://bot.tudubucket.dev', homeEmbed], ['embed-premium', 'https://bot.tudubucket.dev/premium', premiumEmbed], ['embed-status', 'https://bot.tudubucket.dev/status', statusEmbed], ['embed-status-en', 'https://bot.tudubucket.dev/en/status', statusEmbedEn]] as const).map(([id, url, embed]) => (
           <section key={id} data-shot={id} style={{ width: 600 }}>
             <div className="grid bg-[#222327] py-3 font-discord text-[#efeff1]">
               <Row {...FUN.tudubucket}>

@@ -2,8 +2,14 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 // tạo ô nền lặp lại cho hero landing: emoji Twemoji (bộ Discord dùng) xếp lưới chéo, hàng lẻ lệch nửa ô.
-// vị trí, cỡ, góc nghiêng cố định theo seed nên chạy lại vẫn ra cùng một ảnh. chạy: node scripts/hero-emoji.mjs
-const EMOJI = ['❤️', '😊', '✨', '🥰', '⭐', '😂', '💖', '🎉', '😎', '🌸', '🤩', '💬', '🥳', '🍀', '😴', '🔥', '🎮', '😳', '🎵', '💜', '😆', '👑', '🌙', '💕', '🙈', '🐒'];
+// vị trí, cỡ, góc nghiêng cố định theo seed nên chạy lại vẫn ra cùng một ảnh.
+// chạy: node scripts/hero-emoji.mjs (landing, bảng giá) hoặc node scripts/hero-emoji.mjs status (trang trạng thái)
+const SETS = {
+    hero: ['❤️', '😊', '✨', '🥰', '⭐', '😂', '💖', '🎉', '😎', '🌸', '🤩', '💬', '🥳', '🍀', '😴', '🔥', '🎮', '😳', '🎵', '💜', '😆', '👑', '🌙', '💕', '🙈', '🐒'],
+    status: ['✅', '⚠️', '🔄', '❌', '⏳', '📡', '🛰️', '⚡', '🔌', '🟢', '🟡', '🔴', '🔥', '🚒', '🧯', '💦', '💦', '💦', '💦', '🪣', '🚿', '🌊', '🧑‍🚒'],
+};
+const SET = process.argv[2] === 'status' ? 'status' : 'hero';
+const EMOJI = SETS[SET];
 const SIZE = 960;
 const COLS = 6;
 const ROWS = 12;
@@ -46,6 +52,6 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${SIZE}" height="${S
 <g filter="url(#soft)">${uses.join('')}</g>
 </svg>
 `;
-const out = fileURLToPath(new URL('../public/landing/hero-emoji.svg', import.meta.url));
+const out = fileURLToPath(new URL(`../public/landing/${SET === 'status' ? 'status' : 'hero'}-emoji.svg`, import.meta.url));
 writeFileSync(out, svg);
 console.log(out, svg.length);

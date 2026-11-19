@@ -1,0 +1,424 @@
+---
+import '../../styles/status.css';
+import Page from './Page.astro';
+import { statusEmbed, statusEmbedEn } from '../../data/embed.mjs';
+import { BRAND } from '../../data/brand.mjs';
+
+interface Props { locale: 'vi' | 'en' }
+const { locale } = Astro.props;
+const t = (vi: string, en: string) => (locale === 'vi' ? vi : en);
+const path = locale === 'vi' ? '/status' : '/en/status';
+const { name, links } = BRAND;
+
+const title = t(`Trạng thái hệ thống | ${name}`, `System status | ${name}`);
+const description = t(`Theo dõi trực tiếp trạng thái hoạt động của ${name}.`, `Live status of every ${name} cluster and shard.`);
+const keywords = `${name} status, GlitchBucket status, discord bot status, bot uptime`;
+const schema = [{ '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: `${BRAND.site}${path}`, inLanguage: locale }];
+const detailsUrl = `${links.stats}/details`;
+const mineUrl = `${links.stats}/mine`;
+// localhost bị CORS của API chặn nên lúc dev dùng dữ liệu mẫu giống hình dạng API thật: một cluster ngoại tuyến,
+// một cluster đang khởi động, một cluster bình thường
+const shards = (cluster: number, online: boolean) =>
+    Array.from({ length: 10 }, (_, i) => ({ id: cluster * 10 + i, latency_ms: online ? 42 + ((i * 7 + cluster * 3) % 30) : null }));
+const mock = import.meta.env.DEV
+    ? {
+          status: 'degraded',
+          servers: 21275,
+          users: 5595362,
+          http_latency_ms: 59,
+          updated_at: Math.trunc(Date.now() / 1000),
+          clusters: [
+              { id: 0, online: false, uptime_seconds: null, servers: null, shards: shards(0, false) },
+              { id: 1, online: true, uptime_seconds: 140, servers: 6820, shards: shards(1, true).map((s, i) => (i > 6 ? { ...s, latency_ms: null } : s)) },
+              { id: 2, online: true, uptime_seconds: 250000, servers: 7120, shards: shards(2, true).map((s, i) => (i === 3 ? { ...s, latency_ms: 180 } : i === 8 ? { ...s, latency_ms: 420 } : s)) },
+          ],
+      }
+    : null;
+// server mẫu của người đang đăng nhập: id dựng sao cho rơi vào đúng shard (id >> 22) % 30 của dữ liệu mẫu
+const guildId = (shard: number, n: number) => String((BigInt(shard + 30 * (1000 + n)) << 22n) | 4242n);
+const mockMine = import.meta.env.DEV
+    ? [
+          { id: guildId(12, 1), name: 'Moonstruck 🌙', role: 'owner' },
+          { id: guildId(12, 2), name: 'Sweet Cookies', role: 'admin' },
+          { id: guildId(12, 3), name: 'Tiệm Cà Phê Của Bò', role: 'member' },
+          { id: guildId(23, 4), name: 'The Free Duck 🫐', role: 'manager' },
+          { id: guildId(5, 5), name: 'Camelliera', role: 'member' },
+      ]
+    : null;
+// chữ của cả hai ngôn ngữ: đổi ngôn ngữ ngay trên trang thì phần do script vẽ (card, trạng thái, bong bóng) vẽ lại bằng chữ mới
+const makeLabels = (loc: 'vi' | 'en') => {
+    const t = (vi: string, en: string) => (loc === 'vi' ? vi : en);
+    return {
+        online: t('Mọi thứ đều hoạt động bình thường.', 'All systems operational.'),
+        starting: t('Bot vừa được khởi động lại, một số cluster đang kết nối lại với Discord.', 'The bot just restarted, some clusters are reconnecting to Discord.'),
+        degraded: t('Một số cluster đang gặp sự cố 🔥🚒🔥🚒🧯', 'Some clusters are having issues, we are on it.'),
+        offline: t('Bot đang ngoại tuyến 🔥🚧🚒🔥.', 'The bot is offline, we are on it.'),
+        unknown: t('Chưa lấy được trạng thái, vui lòng thử tải lại sau ít phút.', 'Could not load the status, please try again in a few minutes.'),
+        cluster: 'Cluster',
+        up: t('Hoạt động', 'Operational'),
+        starting_pill: t('Đang khởi động', 'Starting'),
+        down: t('Ngoại tuyến', 'Offline'),
+        uptime: t('Uptime', 'Uptime'),
+        servers: 'Servers',
+        shard: 'Shard',
+        disconnected: t('mất kết nối', 'disconnected'),
+        connecting: t('đang kết nối', 'connecting'),
+        updated: t('Cập nhật lúc', 'Updated at'),
+        ago: t('{} trước', '{} ago'),
+        just_now: t('vừa xong', 'just now'),
+        units: loc === 'vi'
+            ? [['ngày', 'ngày'], ['giờ', 'giờ'], ['phút', 'phút'], ['giây', 'giây']]
+            : [['day', 'days'], ['hour', 'hours'], ['minute', 'minutes'], ['second', 'seconds']],
+        refresh_in: t('Dữ liệu sẽ được làm mới sau {}', 'Data refreshes in {}'),
+        refreshing: t('Đang làm mới dữ liệu...', 'Refreshing data...'),
+        mine: t('Bạn đang trong một số server của shard:', 'You are in some servers on this shard:'),
+        roles: { owner: 'Owner', admin: 'Admin', manager: 'Manager' },
+        paused: t('Dữ liệu sẽ được làm mới khi bạn quay lại trang', 'Data will refresh when you come back to this page'),
+    };
+};
+const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
+---
+<Page locale={locale} alternates={{ vi: '/status', en: '/en/status' }} title={title} description={description} path={path} keywords={keywords} schema={schema} embed={locale === 'vi' ? statusEmbed : statusEmbedEn}>
+    <section class="s-top sheet">
+        <div class="hero-emoji s-status-emoji" aria-hidden="true"></div>
+        <div class="wrap s-top-row">
+            <div class="s-head">
+                <h1>{t('Trạng thái hệ thống', 'System status')} <span class="s-emoji" data-status-emoji data-live aria-hidden="true">⏳</span></h1>
+                <p class="s-state" data-state="loading" data-live>
+                    <span class="s-dot" aria-hidden="true"></span>
+                    <span data-status-text>{t('Đang kiểm tra trạng thái...', 'Checking status...')}</span>
+                </p>
+                <p class="s-updated"><span data-updated data-live></span><span class="s-every">{t('Dữ liệu sẽ được làm mới sau mỗi 15 giây', 'Data refreshes every 15 seconds')}</span></p>
+            </div>
+            <dl class="s-totals">
+                <div class="sticker"><dt>Servers</dt><dd class="num" data-total="servers" data-live>-</dd></div>
+                <div class="sticker"><dt>Members</dt><dd class="num" data-total="users" data-live>-</dd></div>
+                <div class="sticker"><dt>API latency</dt><dd class="num" data-total="http" data-live>-</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    <section class="s-body paper">
+        <div class="wrap">
+            <div class="s-grid" data-clusters data-live>
+                <p class="s-waiting">{t('Đang tải trạng thái các cluster...', 'Loading cluster status...')}</p>
+            </div>
+        </div>
+    </section>
+    <p class="s-refresh" data-refresh data-live aria-live="polite"></p>
+
+    <Fragment slot="end">
+        <script define:vars={{ detailsUrl, mineUrl, mock, mockMine, labelsAll, locale }} is:inline>
+            (function () {
+                var lang = locale;
+                var labels = labelsAll[lang];
+                var nf = new Intl.NumberFormat(lang === 'vi' ? 'vi-VN' : 'en-US');
+                var state = document.querySelector('.s-state');
+                var grid = document.querySelector('[data-clusters]');
+                var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+                // tối đa 2 đơn vị, cách nhau bằng dấu phẩy: 2 ngày, 21 giờ / 4 phút, 12 giây
+                var duration = function (total) {
+                    if (total == null) return '-';
+                    total = Math.max(0, Math.floor(total));
+                    var parts = [Math.floor(total / 86400), Math.floor(total % 86400 / 3600), Math.floor(total % 3600 / 60), total % 60];
+                    var first = parts.findIndex(function (v) { return v > 0; });
+                    if (first === -1) first = 3;
+                    return parts.slice(first, first + 2).map(function (v, i) {
+                        var unit = labels.units[first + i];
+                        return v || !i ? v + ' ' + unit[v === 1 ? 0 : 1] : null;
+                    }).filter(Boolean).join(', ');
+                };
+                var level = function (ms) { return ms == null ? 'down' : ms <= 70 ? 'good' : ms <= 300 ? 'slow' : 'bad'; };
+                // cluster vừa chạy chưa quá 5 phút coi là đang khởi động
+                var phase = function (c) { return !c.online ? 'down' : c.uptime_seconds != null && c.uptime_seconds <= 300 ? 'starting' : 'up'; };
+                var overall = function (clusters) {
+                    var phases = clusters.map(phase);
+                    if (!phases.length || phases.every(function (p) { return p === 'down'; })) return 'offline';
+                    if (phases.indexOf('down') !== -1) return 'degraded';
+                    if (phases.indexOf('starting') !== -1) return 'starting';
+                    var broken = clusters.some(function (c) { return c.shards.some(function (s) { return s.latency_ms == null; }); });
+                    return broken ? 'degraded' : 'online';
+                };
+                // làm mới giống lúc đổi ngôn ngữ: giữ nguyên các card, chỗ nào khác chữ thì mờ đi rồi hiện lại với giá trị mới
+                var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+                var swap = function (el, apply) {
+                    if (reduce) return apply();
+                    var fx = { opacity: 0, filter: 'blur(3px)' }, clear = { opacity: 1, filter: 'blur(0)' };
+                    var out = el.animate([clear, fx], { duration: 200, easing: 'ease-in', fill: 'forwards' });
+                    setTimeout(function () { apply(); el.animate([fx, clear], { duration: 320, easing: 'ease-out' }); out.cancel(); }, 200);
+                };
+                var setText = function (el, text) { if (el.textContent !== text) swap(el, function () { el.textContent = text; }); };
+                var ATTRS = ['data-level', 'data-phase', 'data-mine', 'tabindex', 'title'];
+                var patch = function (live, next) {
+                    ATTRS.forEach(function (k) {
+                        var v = next.getAttribute(k);
+                        if (live.getAttribute(k) !== v) v === null ? live.removeAttribute(k) : live.setAttribute(k, v);
+                    });
+                    if (next.hasAttribute('data-uptime')) {
+                        live.dataset.uptime = next.dataset.uptime;
+                        return;
+                    }
+                    var lk = live.children, nk = next.children;
+                    var same = lk.length === nk.length && Array.prototype.every.call(nk, function (c, i) { return c.tagName === lk[i].tagName; });
+                    if (!same) return swap(live, function () { live.innerHTML = next.innerHTML; });
+                    if (!nk.length) return setText(live, next.textContent);
+                    for (var i = 0; i < nk.length; i++) patch(lk[i], nk[i]);
+                };
+                // server của người đang đăng nhập theo shard: shard = (id >> 22) % tổng số shard
+                var mine = null, lastData = null;
+                var mineByShard = function (total) {
+                    var out = {};
+                    if (!mine || !total || typeof BigInt === 'undefined') return out;
+                    mine.forEach(function (g) {
+                        var shard = Number((BigInt(g.id) >> 22n) % BigInt(total));
+                        (out[shard] = out[shard] || []).push(g);
+                    });
+                    return out;
+                };
+                // icon đặc một màu như crown của Owner (Material Icons, Apache 2.0)
+                var solid = function (path) { return '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="' + path + '"/></svg>'; };
+                var ICONS = {
+                    owner: '<img src="/crown.png" alt="" width="14" height="14">',
+                    admin: solid('M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'),
+                    manager: solid('M22.7 19 13.6 9.9c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z'),
+                    member: solid('M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'),
+                };
+                var guildLine = function (g) {
+                    var role = labels.roles[g.role] ? ' <em>(' + labels.roles[g.role] + ')</em>' : '';
+                    return '<li><span class="s-role" data-role="' + g.role + '">' + (ICONS[g.role] || ICONS.member) + '</span><span>' + esc(g.name) + role + '</span></li>';
+                };
+                // "Cập nhật lúc 21:49 (12 giây trước)", phần trước đó chạy theo từng giây trong tick()
+                var updatedAt = null;
+                var updatedText = function () {
+                    if (updatedAt === null) return '';
+                    var time = new Date(updatedAt).toLocaleTimeString(lang === 'vi' ? 'vi-VN' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+                    var age = Math.floor((Date.now() - updatedAt) / 1000);
+                    return labels.updated + ' ' + time + ' (' + (age < 2 ? labels.just_now : labels.ago.replace('{}', duration(age))) + ')';
+                };
+                // emoji ở cuối tiêu đề theo trạng thái chung
+                var EMOJI = { loading: '⏳', online: '✅', starting: '🔄', degraded: '🔥', offline: '❌', unknown: '❓' };
+                var emojiEl = document.querySelector('[data-status-emoji]');
+                var setEmoji = function (state) { setText(emojiEl, EMOJI[state]); };
+                // số tổng như landing: chạy ký tự ngẫu nhiên rồi hiện dần từng chữ số từ trái sang, lần sau chỉ chữ số đổi mới chạy lại
+                var CHARS = '0123456789%$#&@';
+                var roller = 0;
+                var counter = function (el, pattern) {
+                    var c = { el: el, pattern: '', value: '', cells: [], pending: [], hold: 0, step: 0 };
+                    var build = function (text) {
+                        c.pattern = text;
+                        el.textContent = '';
+                        c.cells = [];
+                        text.split('').forEach(function (ch) {
+                            if (ch >= '0' && ch <= '9') c.cells.push(el.appendChild(document.createElement('span')));
+                            else el.appendChild(document.createTextNode(ch));
+                        });
+                    };
+                    c.paint = function () {
+                        var digits = c.value.replace(/\D/g, '');
+                        c.cells.forEach(function (cell, i) {
+                            var ch = c.pending.indexOf(i) >= 0 || !digits[i] ? CHARS[Math.floor(Math.random() * CHARS.length)] : digits[i];
+                            cell.textContent = ch;
+                            cell.className = ch >= '0' && ch <= '9' ? '' : 'sym';
+                        });
+                    };
+                    c.set = function (next) {
+                        el.setAttribute('aria-label', next);
+                        if (reduce || !/\d/.test(next)) { c.value = next; c.pattern = ''; c.pending = []; el.textContent = next; return; }
+                        var redo = !c.pending.length;
+                        if (next.replace(/\d/g, '0') !== c.pattern.replace(/\d/g, '0')) {
+                            build(next);
+                            c.pending = c.cells.map(function (_, i) { return i; });
+                            redo = true;
+                        } else if (c.value) {
+                            var before = c.value.replace(/\D/g, ''), after = next.replace(/\D/g, '');
+                            c.pending = c.cells.map(function (_, i) { return i; }).filter(function (i) { return c.pending.indexOf(i) >= 0 || before[i] !== after[i]; });
+                        }
+                        if (redo) { c.hold = 6; c.step = 0; }
+                        c.value = next;
+                        roll();
+                    };
+                    if (!reduce) { build(pattern); c.pending = c.cells.map(function (_, i) { return i; }); c.hold = 6; c.paint(); }
+                    return c;
+                };
+                var roll = function () {
+                    if (reduce || roller) return;
+                    roller = setInterval(function () {
+                        var busy = false;
+                        Object.keys(counters).forEach(function (k) {
+                            var c = counters[k];
+                            if (!c.pending.length) return;
+                            if (c.hold > 0) c.hold--;
+                            else if (c.value && c.step++ % 2 === 0) c.pending.shift();
+                            c.paint();
+                            busy = busy || c.pending.length > 0;
+                        });
+                        if (!busy) { clearInterval(roller); roller = 0; }
+                    }, 55);
+                };
+                var counters = {
+                    servers: counter(document.querySelector('[data-total="servers"]'), '00.000'),
+                    users: counter(document.querySelector('[data-total="users"]'), '0.000.000'),
+                    http: counter(document.querySelector('[data-total="http"]'), '00 ms'),
+                };
+                roll();
+                var render = function (data) {
+                    lastData = data;
+                    if (!data) {
+                        state.dataset.state = 'unknown';
+                        setEmoji('unknown');
+                        setText(state.querySelector('[data-status-text]'), labels.unknown);
+                        return;
+                    }
+                    var status = overall(data.clusters);
+                    state.dataset.state = status;
+                    setEmoji(status);
+                    setText(state.querySelector('[data-status-text]'), labels[status]);
+                    updatedAt = data.updated_at * 1000;
+                    counters.servers.set(nf.format(data.servers));
+                    counters.users.set(nf.format(data.users));
+                    counters.http.set(data.http_latency_ms == null ? '-' : data.http_latency_ms + ' ms');
+                    var byShard = mineByShard(data.clusters.reduce(function (n, c) { return n + c.shards.length; }, 0));
+                    var html = data.clusters.map(function (c) {
+                        var p = phase(c);
+                        var shards = c.shards.map(function (s) {
+                            var waiting = s.latency_ms == null && p === 'starting';
+                            var title = labels.shard + ' #' + s.id + ': ' + (s.latency_ms == null ? (waiting ? labels.connecting : labels.disconnected) : s.latency_ms + ' ms');
+                            var own = byShard[s.id];
+                            var pop = own ? '<div class="s-pop" role="tooltip"><p>' + labels.mine + '</p><ul>' + own.map(guildLine).join('') + '</ul></div>' : '';
+                            return '<li class="s-shard" data-level="' + (waiting ? 'wait' : level(s.latency_ms)) + '"' + (own ? ' data-mine tabindex="0"' : ' title="' + esc(title) + '"') + '><span>' + labels.shard + ' #' + s.id + '</span><b>' + (s.latency_ms == null ? '-' : s.latency_ms + ' ms') + '</b>' + pop + '</li>';
+                        }).join('');
+                        var pill = p === 'down' ? labels.down : p === 'starting' ? labels.starting_pill : labels.up;
+                        return '<article class="sticker s-cluster" data-phase="' + p + '">'
+                            + '<header><h3>' + labels.cluster + ' #' + c.id + '</h3><span class="s-pill">' + pill + '</span></header>'
+                            + '<dl><div class="s-wide"><dt>' + labels.uptime + '</dt><dd data-uptime="' + (c.uptime_seconds == null ? '' : c.uptime_seconds) + '">' + duration(c.uptime_seconds) + '</dd></div>'
+                            + '<div><dt>' + labels.servers + '</dt><dd>' + (c.servers == null ? '-' : nf.format(c.servers)) + '</dd></div></dl>'
+                            + '<ul class="s-shards">' + shards + '</ul></article>';
+                    }).join('');
+                    if (grid.children.length !== data.clusters.length || grid.querySelector('.s-waiting')) {
+                        grid.innerHTML = html;
+                        return;
+                    }
+                    var next = document.createElement('div');
+                    next.innerHTML = html;
+                    for (var i = 0; i < next.children.length; i++) patch(grid.children[i], next.children[i]);
+                };
+                var refresh = document.querySelector('[data-refresh]');
+                var every = 15000;
+                var pageStart = Date.now(), loadedAt = Date.now(), nextAt = Date.now() + every, loading = false;
+                var store = {
+                    get: function (key, ttl) {
+                        try {
+                            var v = JSON.parse(localStorage.getItem(key) || 'null');
+                            return v && Date.now() - v.at < ttl ? v : null;
+                        } catch (e) { return null; }
+                    },
+                    set: function (key, value) { try { localStorage.setItem(key, JSON.stringify({ at: Date.now(), value: value })); } catch (e) {} },
+                };
+                var loadMine = function () {
+                    var profile = null;
+                    try { profile = JSON.parse(localStorage.getItem('glitchbucket-profile') || 'null'); } catch (e) {}
+                    if (!profile && !mockMine) return;
+                    var cached = store.get('glitchbucket-status-mine', 120000);
+                    if (cached) { mine = cached.value; if (lastData) render(lastData); return; }
+                    var request = mockMine
+                        ? Promise.resolve(mockMine)
+                        : fetch(mineUrl, { credentials: 'include' }).then(function (res) { return res.ok ? res.json().then(function (body) { return body.data; }) : res.status === 401 ? [] : null; });
+                    request.then(function (list) {
+                        if (!list) return;
+                        store.set('glitchbucket-status-mine', list);
+                        mine = list;
+                        if (lastData) render(lastData);
+                    }, function () {});
+                };
+                var load = function () {
+                    // tải lại trang liên tục thì dùng số của lần tải trước nếu chưa quá 5 giây
+                    var cached = store.get('glitchbucket-status', 5000);
+                    if (cached) {
+                        render(cached.value);
+                        loadedAt = cached.at;
+                        nextAt = cached.at + every;
+                        tick();
+                        return;
+                    }
+                    loading = true;
+                    tick();
+                    var request = mock
+                        ? new Promise(function (resolve) { setTimeout(function () { var age = Math.trunc((Date.now() - pageStart) / 1000); var jitter = function (n, spread) { return n == null ? null : Math.max(1, Math.round(n + (Math.random() - 0.5) * spread)); };
+                            resolve(Object.assign({}, mock, {
+                                updated_at: Math.trunc(Date.now() / 1000),
+                                servers: mock.servers + Math.round(Math.random() * 20 - 8),
+                                users: mock.users + Math.round(Math.random() * 400 - 150),
+                                http_latency_ms: jitter(mock.http_latency_ms, 30),
+                                clusters: mock.clusters.map(function (c) {
+                                    return Object.assign({}, c, {
+                                        uptime_seconds: c.uptime_seconds == null ? null : c.uptime_seconds + age,
+                                        shards: c.shards.map(function (sh) { return Object.assign({}, sh, { latency_ms: Math.random() < 0.5 ? sh.latency_ms : jitter(sh.latency_ms, 40) }); }),
+                                    });
+                                }),
+                            })); }, 600); })
+                        : fetch(detailsUrl).then(function (res) { return res.ok ? res.json() : null; });
+                    request.then(function (data) { if (data) store.set('glitchbucket-status', data); render(data); }, function () { render(null); }).then(function () {
+                        loading = false;
+                        loadedAt = Date.now();
+                        nextAt = loadedAt + every;
+                        tick();
+                    });
+                };
+                // uptime chạy theo từng giây kể từ lần tải, bong bóng đếm ngược tới lần làm mới tiếp theo
+                var tick = function () {
+                    var updatedEl = document.querySelector('[data-updated]');
+                    var line = loading ? labels.refreshing : updatedText();
+                    if (updatedEl.dataset.loading !== String(loading) && updatedEl.dataset.loading !== undefined) {
+                        updatedEl.dataset.loading = loading;
+                        setText(updatedEl, line);
+                    } else if (!updatedEl.getAnimations().length) {
+                        updatedEl.dataset.loading = loading;
+                        updatedEl.textContent = line;
+                    }
+                    var elapsed = (Date.now() - loadedAt) / 1000;
+                    grid.querySelectorAll('[data-uptime]').forEach(function (el) {
+                        if (el.dataset.uptime !== '' && !el.getAnimations().length) el.textContent = duration(Number(el.dataset.uptime) + elapsed);
+                    });
+                    // không làm mới khi trang không được focus (tab ẩn, đang ở cửa sổ khác), quay lại là làm mới ngay
+                    var left = Math.max(0, Math.ceil((nextAt - Date.now()) / 1000));
+                    var away = document.hidden || !document.hasFocus();
+                    // đổi loại thông báo (đếm ngược, đang làm mới, tạm dừng) thì mờ chữ cũ rồi hiện chữ mới, còn số đếm ngược thì đổi thẳng
+                    var mode = loading ? 'loading' : left === 0 && away ? 'paused' : 'count';
+                    var text = mode === 'loading' ? labels.refreshing : mode === 'paused' ? labels.paused : labels.refresh_in.replace('{}', duration(left));
+                    var shown = refresh.classList.contains('show');
+                    if (refresh.dataset.mode && refresh.dataset.mode !== mode && shown) {
+                        refresh.dataset.mode = mode;
+                        swap(refresh, function () { refresh.textContent = text; refresh.dataset.loading = loading; });
+                    } else if (refresh.dataset.mode === mode || !refresh.dataset.mode || !shown) {
+                        refresh.dataset.mode = mode;
+                        refresh.textContent = text;
+                        refresh.dataset.loading = loading;
+                    }
+                    if (!loading && left === 0 && !away) load();
+                };
+                var top = document.querySelector('.s-top');
+                if ('IntersectionObserver' in window) {
+                    new IntersectionObserver(function (entries) { refresh.classList.toggle('show', entries[0].intersectionRatio <= 0.3); }, { threshold: [0, 0.3, 0.6, 1] }).observe(top);
+                }
+                // đổi ngôn ngữ tại chỗ (Page.astro đổi lang của <html>): vẽ lại bằng chữ mới, chỗ khác chữ thì mờ rồi hiện lại
+                new MutationObserver(function () {
+                    var next = document.documentElement.lang === 'en' ? 'en' : 'vi';
+                    if (next === lang) return;
+                    lang = next;
+                    labels = labelsAll[lang];
+                    nf = new Intl.NumberFormat(lang === 'vi' ? 'vi-VN' : 'en-US');
+                    refresh.dataset.mode = '';
+                    if (lastData !== null) render(lastData);
+                    grid.querySelectorAll('[data-uptime]').forEach(function (el) {
+                        if (el.dataset.uptime !== '') swap(el, function () { el.textContent = duration(Number(el.dataset.uptime) + (Date.now() - loadedAt) / 1000); });
+                    });
+                    tick();
+                }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+                load();
+                loadMine();
+                setInterval(tick, 1000);
+                addEventListener('focus', tick);
+            })();
+        </script>
+    </Fragment>
+</Page>

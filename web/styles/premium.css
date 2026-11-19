@@ -4,9 +4,9 @@
 .p-hero h1{font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.12}
 .p-hero h1 .line{display:block;animation:rise .5s var(--ease) both}
 .p-hero h1 .line+.line{animation-delay:.06s}
-.p-hero h1 .grad{width:fit-content;margin-inline:auto;background:var(--grad) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+.p-hero h1 .grad{width:fit-content;margin-inline:auto;padding-block:.12em;margin-block:-.12em;background:var(--grad) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
   animation:rise .5s var(--ease) both,wave 6s linear infinite}
-.p-hero .hero-lead{margin-inline:auto}
+.p-hero .hero-lead{max-width:none;margin-inline:auto}
 .p-hero .hero-actions{justify-content:center}
 
 /* thẻ plan là sticker trắng ở cả hai theme nên chữ và nút trong thẻ luôn dùng màu tối */

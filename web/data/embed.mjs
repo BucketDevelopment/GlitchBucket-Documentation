@@ -46,3 +46,22 @@ export const premiumEmbed = componentEmbed({
         section('**Extended** · 59.000đ/tháng\n-# hoặc vĩnh viễn với 500.000đ', link('Mua Extended', DASHBOARD)),
     ],
 });
+
+export const premiumEmbedEn = componentEmbed({
+    heading: 'Manage your server at a higher level',
+    description: 'Raise the limits of Autoresponder, Embed, Ticket, Giveaway and more for your server.',
+    sections: [
+        section('**Plus** · €2.99/month\n-# or lifetime for €21.99', link('Get Plus', DASHBOARD)),
+        section('**Extended** · €4.99/month\n-# or lifetime for €43.99', link('Get Extended', DASHBOARD)),
+    ],
+});
+
+export const statusEmbed = componentEmbed({
+    heading: 'Trạng thái hệ thống',
+    description: 'Theo dõi trực tiếp trạng thái hoạt động của nemuri.',
+});
+
+export const statusEmbedEn = componentEmbed({
+    heading: 'System status',
+    description: 'Live status of every nemuri cluster and shard.',
+});

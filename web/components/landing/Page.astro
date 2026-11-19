@@ -12,25 +12,27 @@ interface Props {
     embed: object;
     image?: string;
     locale?: 'vi' | 'en';
+    alternates?: { vi: string; en: string };
 }
-const { title, description, path, keywords, schema, embed, image = 'https://cdn.tudubucket.dev/widebucket.png', locale = 'vi' } = Astro.props;
+const { title, description, path, keywords, schema, embed, image = 'https://cdn.tudubucket.dev/widebucket.png', locale = 'vi', alternates } = Astro.props;
 const t = (vi: string, en: string) => (locale === 'vi' ? vi : en);
 // nhãn đổi theo ngôn ngữ giữ sẵn bề rộng của bản dài hơn (bản kia ẩn chồng lên) để đổi ngôn ngữ tại chỗ các nút không bị xô
 const fit = (vi: string, en: string) => bilingual ? `<span class="fit"><span>${t(vi, en)}</span><span aria-hidden="true">${t(en, vi)}</span></span>` : t(vi, en);
-// chỉ trang chủ có bản tiếng Anh: / là tiếng Việt, /en/ là tiếng Anh
-const PATHS = { vi: '/', en: '/en/' };
-const bilingual = path === PATHS.vi || path === PATHS.en;
+// trang có bản tiếng Anh truyền alternates (đường dẫn hai bản), trang chủ mặc định / và /en/
+const HOME = { vi: '/', en: '/en/' };
+const home = path === HOME.vi || path === HOME.en;
+const PATHS = alternates ?? HOME;
+const bilingual = home || !!alternates;
 const other = locale === 'vi' ? { lang: 'en', href: PATHS.en, label: 'English' } : { lang: 'vi', href: PATHS.vi, label: 'Tiếng Việt' };
 const { name, links } = BRAND;
-const home = bilingual;
-const homeHref = PATHS[locale];
+const homeHref = HOME[locale];
 const url = `${BRAND.site}${path}`;
 const nav = [
-    [fit('Tính năng', 'Features'), home ? '#features' : '/#features'],
+    [fit('Tính năng', 'Features'), home ? '#features' : `${homeHref}#features`],
     ['Dashboard', links.dashboard],
     [fit('Tài liệu', 'Docs'), links.docs],
-    ['Status', links.status],
-    ['Premium', links.premium],
+    ['Status', locale === 'en' ? '/en/status' : '/status'],
+    ['Premium', locale === 'en' ? '/en/premium' : links.premium],
 ];
 const navLink = ([label, href]) => label === 'Premium' ? `<a href="${href}" class="premium"><img src="/crown.png" alt="" width="16" height="16">${label}</a>` : `<a href="${href}">${label}</a>`;
 const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>';
@@ -72,12 +74,12 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <ComponentEmbed embed={embed} />
     {bilingual && locale === 'vi' && (
-        <script is:inline>
+        <script is:inline data-en={PATHS.en}>
             // trang tĩnh nên chuyển ngôn ngữ ngay trên trình duyệt: không có tiếng Việt trong ngôn ngữ của trình duyệt thì sang /en/,
             // trừ khi đã tự chọn ngôn ngữ (cookie lang)
             try {
                 if (!/(?:^|;\s*)lang=/.test(document.cookie) && !(navigator.languages || [navigator.language]).some(function (l) { return /^vi\b/i.test(l); }))
-                    location.replace('/en/' + location.hash);
+                    location.replace(document.currentScript.dataset.en + location.hash);
             } catch (e) {}
         </script>
     )}
@@ -143,9 +145,9 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
                 <div>
                     <h3>{t('Sản phẩm', 'Product')}</h3>
                     <ul>
-                        <li><a href={home ? '#features' : '/#features'}>{t('Tính năng', 'Features')}</a></li>
+                        <li><a href={home ? '#features' : `${homeHref}#features`}>{t('Tính năng', 'Features')}</a></li>
                         <li><a href={links.dashboard}>Dashboard</a></li>
-                        <li><a href={links.premium}>Premium</a></li>
+                        <li><a href={locale === 'en' ? '/en/premium' : links.premium}>Premium</a></li>
                         <li><a href={links.docs}>{t('Tài liệu', 'Docs')}</a></li>
                     </ul>
                 </div>
@@ -154,7 +156,7 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
                     <ul>
                         <li><a href={links.support}>Discord</a></li>
                         <li><a href={links.github}>GitHub</a></li>
-                        <li><a href={links.status}>Status</a></li>
+                        <li><a href={locale === 'en' ? '/en/status' : '/status'}>Status</a></li>
                     </ul>
                 </div>
                 <div>

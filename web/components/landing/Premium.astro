@@ -1,0 +1,356 @@
+---
+import '../../styles/premium.css';
+import Page from './Page.astro';
+import { premiumEmbed, premiumEmbedEn } from '../../data/embed.mjs';
+import { BRAND } from '../../data/brand.mjs';
+
+interface Props { locale: 'vi' | 'en' }
+const { locale } = Astro.props;
+const t = (vi: string, en: string) => (locale === 'vi' ? vi : en);
+const path = locale === 'vi' ? '/premium' : '/en/premium';
+
+const { name, links } = BRAND;
+const UNLIMITED = -1;
+
+type Row = { label: string; default: number; plus: number; extended: number };
+type Group = { title: string; rows: Row[] };
+
+// Lấy từ bảng giới hạn của bot (premium-plans.txt / limitation.py), -1 là không giới hạn
+const groups: Group[] = [
+    {
+        title: t('Tự động hóa', 'Automation'),
+        rows: [
+            { label: 'Autoresponder', default: 40, plus: 100, extended: 300 },
+            { label: 'Embed', default: 15, plus: 40, extended: 100 },
+            { label: 'Layout', default: 10, plus: 30, extended: 80 },
+            { label: 'Button', default: 15, plus: 75, extended: 250 },
+            { label: 'Select', default: 3, plus: 10, extended: 30 },
+            { label: t('Lựa chọn mỗi select', 'Options per select'), default: 15, plus: 25, extended: 25 },
+            { label: 'Form', default: 5, plus: 30, extended: 100 },
+            { label: t('Lượt gửi form mỗi thành viên', 'Form submissions per member'), default: 10, plus: 20, extended: 30 },
+            { label: 'Sticky Message', default: 5, plus: 15, extended: 30 },
+        ],
+    },
+    {
+        title: t('Cộng đồng', 'Community'),
+        rows: [
+            { label: 'Custom Role', default: 50, plus: 300, extended: 1000 },
+            { label: t('Giveaway đang chạy', 'Running giveaways'), default: 20, plus: 100, extended: 1000 },
+            { label: t('Template giveaway', 'Giveaway templates'), default: 10, plus: 30, extended: 100 },
+            { label: 'Item', default: 5, plus: 30, extended: 100 },
+        ],
+    },
+    {
+        title: 'Ticket',
+        rows: [
+            { label: t('Panel ticket', 'Ticket panels'), default: 5, plus: 10, extended: 25 },
+            { label: t('Role ưu tiên mỗi panel ticket', 'Priority roles per ticket panel'), default: 2, plus: 10, extended: 20 },
+            { label: t('Ticket mở cùng lúc mỗi thành viên', 'Open tickets per member'), default: 10, plus: 20, extended: 30 },
+        ],
+    },
+    {
+        title: t('Ủng hộ', 'Donation'),
+        rows: [
+            { label: t('Người nhận ủng hộ', 'Donation receivers'), default: 10, plus: 30, extended: 60 },
+            { label: t('Role phần thưởng ủng hộ', 'Donation reward roles'), default: 10, plus: 25, extended: 50 },
+            { label: t('Kênh nhận ủng hộ', 'Donation channels'), default: 10, plus: 25, extended: 50 },
+        ],
+    },
+];
+const yes = t('Có', 'Yes');
+const no = t('Không', 'No');
+const term = t('Theo tháng/Lifetime', 'Monthly/Lifetime');
+const extras = [
+    [t('Sticky Message gửi bằng webhook', 'Sticky Message sent via webhook'), no, yes, yes],
+    [t('Ảnh đại diện và banner bot tùy chỉnh', 'Custom bot avatar and banner'), no, yes, yes],
+    [t('Thời hạn', 'Duration'), t('Vĩnh viễn', 'Forever'), term, term],
+];
+const custom = t('Tùy chỉnh', 'Custom');
+
+const numberLocale = locale === 'vi' ? 'vi-VN' : 'en-US';
+const fmt = (n: number) => (n === UNLIMITED ? '∞' : n.toLocaleString(numberLocale));
+// bản tiếng Anh bán giá ngoại tệ: khoảng 2.5 lần giá VN, quy ra euro (1 EUR ≈ 28.200đ ngày 19/11/2026) rồi làm tròn về .99
+const EUR = { 36000: 2.99, 250000: 21.99, 59000: 4.99, 500000: 43.99 } as Record<number, number>;
+const price = (vnd: number) => (locale === 'vi' ? vnd : EUR[vnd]);
+const currency = locale === 'vi' ? 'VND' : 'EUR';
+const money = (vnd: number) => (locale === 'vi' ? `${vnd.toLocaleString('vi-VN')}đ` : `€${EUR[vnd].toFixed(2)}`);
+
+const plans = [
+    {
+        id: 'plus',
+        name: 'Plus',
+        tagline: t('Cho những server community ở mức vừa phải.', 'For mid-sized community servers.'),
+        month: 36000,
+        lifetime: 250000,
+        featured: true,
+        includes: 'Default',
+        points: [
+            t('Giới hạn cao hơn (x3-x5)', 'Higher limits (x3-x5)'),
+            t('Cho phép custom avatar bot, banner, style tên bot & bio bot', 'Custom bot avatar, banner, name style and bio'),
+            t('Trả theo tháng hoặc mua lifetime', 'Pay monthly or buy lifetime'),
+        ],
+    },
+    {
+        id: 'extended',
+        name: 'Extended',
+        tagline: t('Cho server lớn, muốn gần như không phải đếm.', 'For large servers that would rather not count at all.'),
+        month: 59000,
+        lifetime: 500000,
+        includes: 'Plus',
+        points: [
+            t('Giới hạn cao nhất (x7-x20)', 'The highest limits (x7-x20)'),
+            t('Dư dả cho server lớn, gần như không phải lăn tăn', 'Plenty of room for big servers, nothing to worry about'),
+            t('Trả theo tháng hoặc mua lifetime', 'Pay monthly or buy lifetime'),
+        ],
+    },
+    {
+        id: 'enterprise',
+        name: 'Enterprise',
+        tagline: t('Đôi khi bạn cần những yêu cầu lớn hơn nữa.', 'Sometimes you need even more than that.'),
+        includes: 'Extended',
+        points: [
+            t('Giới hạn từng tính năng theo nhu cầu', 'Per-feature limits tailored to you'),
+            t('Thời hạn tùy chỉnh', 'Custom duration'),
+            t('Giá theo nhu cầu của server', 'Pricing based on your server’s needs'),
+        ],
+    },
+];
+
+const benefits = [
+    { icon: '1f4c8', title: t('Giới hạn cao hơn', 'Higher limits'), text: t('Autoresponder, Embed, Button, Form, Giveaway và nhiều tính năng khác được tạo nhiều hơn hẳn plan Default.', 'Create far more Autoresponders, Embeds, Buttons, Forms, Giveaways and more than on the Default plan.') },
+    { icon: '1f3a8', title: t('Bot mang diện mạo riêng', 'A bot that looks like yours'), text: t('Plus và Extended cho phép đặt ảnh đại diện và banner bot riêng cho server.', 'Plus and Extended let you set a custom bot avatar and banner for your server.') },
+    { icon: '1f5d3', title: t('Tháng hoặc lifetime', 'Monthly or lifetime'), text: t('Trả theo tháng nếu cần linh hoạt, hoặc mua lifetime một lần để dùng lâu dài.', 'Pay monthly if you want flexibility, or buy lifetime once and keep it for good.') },
+    { icon: '1f6df', title: t('Hết hạn vẫn an toàn', 'Safe when it expires'), text: t('Những gì bạn đã tạo vẫn được giữ lại. Chỉ là chưa tạo thêm được cho tới khi gia hạn hoặc xóa bớt.', 'Everything you created stays. You just can’t create more until you renew or remove some.') },
+];
+
+const faqs = [
+    {
+        q: t('Plan áp dụng cho server nào?', 'Which server does a plan apply to?'),
+        a: t(
+            'Mỗi plan gắn với đúng một server, là server bạn chọn lúc mua. Các server khác vẫn dùng plan của riêng nó. Nếu bạn có nhiều server cần nâng cấp, mỗi server sẽ là một plan riêng.',
+            'Each plan belongs to exactly one server, the one you pick when buying. Other servers keep their own plan. If you want to upgrade several servers, each one needs its own plan.',
+        ),
+    },
+    {
+        q: t('Mình có chuyển plan sang server khác được không?', 'Can I move my plan to another server?'),
+        a: t(
+            'Tạm thời bạn chưa được phép chuyển plan từ 1 server sang 1 server khác. Plan đã gắn với server nào thì ở lại server đó, nên hãy chọn server cho kỹ trước khi mua nhé!',
+            'Not for now. A plan stays on the server it was bought for, so please pick your server carefully before buying!',
+        ),
+    },
+    {
+        q: t('Lifetime nghĩa là gì?', 'What does lifetime mean?'),
+        a: t(
+            'Bạn trả một lần và plan không bao giờ hết hạn, không cần gia hạn hàng tháng. Plan vẫn gắn với server đã mua.',
+            'You pay once and the plan never expires, no monthly renewals. It stays tied to the server you bought it for.',
+        ),
+    },
+    {
+        q: t('Plan hết hạn thì sao?', 'What happens when my plan expires?'),
+        a: t(
+            'Server sẽ quay về plan Default. Những gì bạn đã tạo vẫn được giữ, không bị xóa. Nhưng nếu số lượng đang vượt giới hạn của Default, bạn chỉ có thể xóa bớt cho tới khi về lại giới hạn, rồi mới tạo thêm được. Gia hạn plan là mọi thứ dùng lại bình thường.',
+            'Your server goes back to the Default plan. Everything you created is kept, nothing is deleted. If you are over the Default limits, you can only remove items until you are back under them before creating more. Renew the plan and everything works as before.',
+        ),
+    },
+    {
+        q: t('Server mình thêm bot từ trước thì giới hạn cũ có còn không?', 'My server added the bot a while ago. Do I keep the old limits?'),
+        a: t(
+            'Còn nhé! Server đã thêm bot trước ngày 01/11/2026 vẫn được giữ giới hạn cũ của plan Default ở những tính năng có giới hạn cũ cao hơn: Autoresponder 50, Form 10, Sticky Message 6, Custom Role 100, Item 10 và Role ưu tiên mỗi panel ticket 5. Các tính năng còn lại dùng giới hạn mới như bảng ở trên.',
+            'Yes! Servers that added the bot before November 1, 2026 keep the old Default limits wherever they were higher: Autoresponder 50, Form 10, Sticky Message 6, Custom Role 100, Item 10 and 5 priority roles per ticket panel. Everything else uses the new limits in the table above.',
+        ),
+    },
+    {
+        q: t('Mình mua bằng cách nào?', 'How do I buy?'),
+        a: t(
+            `Bạn vào [Dashboard](${links.dashboard}), chọn server cần nâng cấp rồi mua plan ngay trong đó. Gia hạn cũng làm ở Dashboard luôn. Nếu cần hoàn tiền thì xem [Chính sách Hoàn tiền](/docs/policy/refund).`,
+            `Open the [Dashboard](${links.dashboard}), pick the server you want to upgrade and buy the plan right there. Renewals happen on the Dashboard too. For refunds, see the [Refund Policy](/docs/policy/refund).`,
+        ),
+    },
+    {
+        q: t('Mình muốn xóa hẳn thương hiệu & host dưới dạng bot riêng thì sao?', 'What if I want my own fully branded bot?'),
+        a: t(
+            'Đó là dịch vụ [Whitelabel](/docs/premium/whitelabel), tách riêng với plan ở trang này.',
+            'That is the [Whitelabel](/docs/premium/whitelabel) service, separate from the plans on this page.',
+        ),
+    },
+];
+
+const inline = (s: string) => s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+const plain = (s: string) => s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
+
+const title = t(`Bảng giá Premium | ${name}`, `Premium pricing | ${name}`);
+const description = t(
+    `Bảng giá Premium của ${name}: plan Plus từ 36.000đ/tháng, Extended từ 59.000đ/tháng hoặc lifetime, nâng giới hạn Autoresponder, Embed, Ticket, Giveaway cho server Discord của bạn.`,
+    `${name} Premium pricing: Plus from €2.99/month, Extended from €4.99/month or lifetime, raising the limits of Autoresponder, Embed, Ticket and Giveaway for your Discord server.`,
+);
+const keywords = `${name} premium, GlitchBucket premium, GlitchBucket bảng giá, GlitchBucket pricing, bot discord premium, discord bot premium, nâng cấp server discord, autoresponder, ticket bot, giveaway bot`;
+const offer = (plan: string, price: number, period: string) => ({
+    '@type': 'Offer',
+    name: `${plan} (${period})`,
+    price,
+    priceCurrency: currency,
+    availability: 'https://schema.org/InStock',
+    url: `${BRAND.site}${path}`,
+});
+const schema = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: `${name} Premium`,
+        description,
+        image: 'https://cdn.tudubucket.dev/widebucket.png',
+        brand: { '@type': 'Brand', name },
+        offers: plans.flatMap((p) => (p.month ? [offer(p.name, price(p.month), t('1 tháng', '1 month')), offer(p.name, price(p.lifetime!), t('vĩnh viễn', 'lifetime'))] : [])),
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: plain(f.a) } })),
+    },
+];
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6"/></svg>';
+const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+const plus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+---
+<Page locale={locale} alternates={{ vi: '/premium', en: '/en/premium' }} title={title} description={description} path={path} keywords={keywords} schema={schema} embed={locale === 'vi' ? premiumEmbed : premiumEmbedEn}>
+    <section class="p-hero sheet">
+        <div class="hero-emoji" aria-hidden="true"></div>
+        <div class="wrap">
+            <div class="p-hero-copy">
+                <h1><span class="line grad">{t('Quản lí server', 'Manage your server')}</span><span class="line">{t('ở một mức độ cao hơn.', 'at a higher level.')}</span></h1>
+                <p class="hero-lead" set:html={t('Đôi khi những cộng đồng cần những giới hạn lớn hơn những giới hạn<br />mà vốn chúng đã lớn sẵn.', 'Sometimes communities need limits even bigger<br />than the ones that were already big.')} />
+                <div class="hero-actions">
+                    <a class="btn btn-main" href="#plans">{t('Xem các plan', 'See the plans')}</a>
+                    <a class="btn btn-ghost" href={links.support}>{t('Liên hệ', 'Contact us')}</a>
+                </div>
+            </div>
+            <div class="p-plans" id="plans">
+                {plans.map((plan, i) => (
+                    <article class:list={['sticker p-card', { featured: plan.featured }]} style={`--i:${i}`}>
+                        {plan.featured && <span class="p-badge"><img src="/crown.png" alt="" width="14" height="14">{t('Nhiều người chọn', 'Most popular')}</span>}
+                        <h2>{plan.name}</h2>
+                        <p class="p-tagline">{plan.tagline}</p>
+                        <div class="p-price">
+                            {plan.month ? (
+                                <>
+                                    <p class="p-amount"><strong class="num">{money(plan.month)}</strong><span>{t('/tháng', '/month')}</span></p>
+                                    <p class="p-alt">{t('hoặc vĩnh viễn với', 'or lifetime for')} <strong>{money(plan.lifetime!)}</strong></p>
+                                </>
+                            ) : (
+                                <>
+                                    <p class="p-amount"><strong class="num">{t('Liên hệ', 'Contact us')}</strong></p>
+                                    <p class="p-alt">{t('Giá theo nhu cầu của server', 'Priced to your server’s needs')}</p>
+                                </>
+                            )}
+                        </div>
+                        <ul class="p-points">
+                            <li class="p-includes">{t(`Bao gồm mọi quyền lợi của ${plan.includes}, và`, `Everything in ${plan.includes}, plus`)}</li>
+                            {plan.points.map((point) => <li><Fragment set:html={check} />{point}</li>)}
+                        </ul>
+                        <a class:list={['btn', plan.featured ? 'btn-main' : 'btn-ghost']} href={plan.month ? links.dashboard : links.support}>
+                            {plan.month ? t('Mua trên Dashboard', 'Buy on the Dashboard') : t('Liên hệ ở server hỗ trợ', 'Contact us on our support server')}<Fragment set:html={arrow} />
+                        </a>
+                    </article>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="p-benefits paper">
+        <div class="wrap">
+            <div class="section-head" data-reveal>
+                <h2>{t('Bạn nhận được gì?', 'What do you get?')}</h2>
+                <p>{t('Những điều thay đổi khi server lên plan cao hơn.', 'What changes when your server moves to a higher plan.')}</p>
+            </div>
+            <div class="p-benefit-grid">
+                {benefits.map((benefit, i) => (
+                    <div class="p-benefit" data-reveal style={`--d:${i}`}>
+                        <span class="p-icon" aria-hidden="true"><img src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/${benefit.icon}.svg`} alt="" width="28" height="28" loading="lazy"></span>
+                        <h3>{benefit.title}</h3>
+                        <p>{benefit.text}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="p-compare sheet" id="compare">
+        <div class="wrap">
+            <div class="section-head" data-reveal>
+                <h2>{t('So sánh chi tiết', 'Compare in detail')}</h2>
+                <p>{t('Số lượng tối đa của từng tính năng trong một server.', 'The maximum amount of each feature per server.')}</p>
+            </div>
+            <div class="sticker p-table" data-reveal>
+                <div class="p-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">{t('Tính năng', 'Feature')}</th>
+                                <th scope="col">Default</th>
+                                <th scope="col" class="hl">Plus</th>
+                                <th scope="col">Extended</th>
+                                <th scope="col">Enterprise</th>
+                            </tr>
+                        </thead>
+                        {groups.map((group) => (
+                            <tbody>
+                                <tr class="group"><th colspan="5" scope="colgroup">{group.title}</th></tr>
+                                {group.rows.map((row) => (
+                                    <tr>
+                                        <th scope="row">{row.label}</th>
+                                        <td>{fmt(row.default)}</td>
+                                        <td class="hl">{fmt(row.plus)}</td>
+                                        <td>{fmt(row.extended)}</td>
+                                        <td class="custom">{custom}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        ))}
+                        <tbody>
+                            <tr class="group"><th colspan="5" scope="colgroup">{t('Khác', 'Other')}</th></tr>
+                            {extras.map(([label, base, plusValue, extended]) => (
+                                <tr>
+                                    <th scope="row">{label}</th>
+                                    <td>{base}</td>
+                                    <td class="hl">{plusValue}</td>
+                                    <td>{extended}</td>
+                                    <td class="custom">{custom}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="p-faq paper" id="faq">
+        <div class="wrap p-faq-grid">
+            <div class="section-head" data-reveal>
+                <h2>{t('Câu hỏi thường gặp', 'Frequently asked questions')}</h2>
+                <p>{t('Cần tư vấn thêm? Cứ ghé ', 'Need a hand? Drop by our ')}<a href={links.support}>{t('server hỗ trợ', 'support server')}</a>{t(' hỏi tụi mình nhé!', ' and ask us!')}</p>
+            </div>
+            <div class="p-faq-list" data-reveal style="--d:1">
+                {faqs.map((faq) => (
+                    <details>
+                        <summary>{faq.q}<Fragment set:html={plus} /></summary>
+                        <p set:html={inline(faq.a)} />
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="close sheet">
+        <div class="wrap close-grid">
+            <div data-reveal>
+                <h2>{t('Sẵn sàng nâng cấp server?', 'Ready to upgrade your server?')}</h2>
+                <p>{t('Server của bạn chỉ còn cách vài bước. Chọn server trên Dashboard và mua plan ngay trong đó.', 'You are just a few steps away. Pick your server on the Dashboard and buy a plan right there.')}</p>
+                <div class="hero-actions">
+                    <a class="btn btn-main" href={links.dashboard}>{t('Mở Dashboard', 'Open Dashboard')}<Fragment set:html={arrow} /></a>
+                    <a class="btn btn-ghost" href={links.support}>{t('Liên hệ', 'Contact us')}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Page>
