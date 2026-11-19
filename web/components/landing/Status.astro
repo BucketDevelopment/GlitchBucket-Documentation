@@ -187,7 +187,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                     var role = labels.roles[g.role] ? ' <em>(' + labels.roles[g.role] + ')</em>' : '';
                     return '<li><span class="s-role" data-role="' + g.role + '">' + (ICONS[g.role] || ICONS.member) + '</span><span>' + esc(g.name) + role + '</span></li>';
                 };
-                // "Cập nhật lúc 21:49 (12 giây trước)", phần trước đó chạy theo từng giây trong tick()
+                // "Cập nhật lúc 21:49 (12 giây trước)" tính theo lúc trình duyệt nhận dữ liệu (không dùng updated_at của API), chạy theo từng giây trong tick()
                 var updatedAt = null;
                 var updatedText = function () {
                     if (updatedAt === null) return '';
@@ -273,7 +273,6 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                     state.dataset.state = status;
                     setEmoji(status);
                     setText(state.querySelector('[data-status-text]'), labels[status]);
-                    updatedAt = data.updated_at * 1000;
                     counters.servers.set(nf.format(data.servers));
                     counters.users.set(nf.format(data.users));
                     counters.http.set(data.http_latency_ms == null ? '-' : data.http_latency_ms + ' ms');
@@ -334,6 +333,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                     // tải lại trang liên tục thì dùng số của lần tải trước nếu chưa quá 5 giây
                     var cached = store.get('glitchbucket-status', 5000);
                     if (cached) {
+                        updatedAt = cached.at;
                         render(cached.value);
                         loadedAt = cached.at;
                         nextAt = cached.at + every;
@@ -357,7 +357,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                                 }),
                             })); }, 600); })
                         : fetch(detailsUrl).then(function (res) { return res.ok ? res.json() : null; });
-                    request.then(function (data) { if (data) store.set('glitchbucket-status', data); render(data); }, function () { render(null); }).then(function () {
+                    request.then(function (data) { if (data) { store.set('glitchbucket-status', data); updatedAt = Date.now(); } render(data); }, function () { render(null); }).then(function () {
                         loading = false;
                         loadedAt = Date.now();
                         nextAt = loadedAt + every;
