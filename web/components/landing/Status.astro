@@ -29,9 +29,9 @@ const mock = import.meta.env.DEV && !devApi
           http_latency_ms: 59,
           updated_at: Math.trunc(Date.now() / 1000),
           clusters: [
-              { id: 0, online: false, uptime_seconds: null, servers: null, shards: shards(0, false) },
-              { id: 1, online: true, uptime_seconds: 140, servers: 6820, shards: shards(1, true).map((s, i) => (i > 6 ? { ...s, latency_ms: null } : s)) },
-              { id: 2, online: true, uptime_seconds: 250000, servers: 7120, shards: shards(2, true).map((s, i) => (i === 3 ? { ...s, latency_ms: 180 } : i === 8 ? { ...s, latency_ms: 420 } : s)) },
+              { id: 0, online: false, uptime_seconds: null, servers: null, members: null, memory_bytes: null, shards: shards(0, false) },
+              { id: 1, online: true, uptime_seconds: 140, servers: 6820, members: 1793402, memory_bytes: 1932735283, shards: shards(1, true).map((s, i) => (i > 6 ? { ...s, latency_ms: null } : s)) },
+              { id: 2, online: true, uptime_seconds: 250000, servers: 7120, members: 1862750, memory_bytes: 2469606195, shards: shards(2, true).map((s, i) => (i === 3 ? { ...s, latency_ms: 180 } : i === 8 ? { ...s, latency_ms: 420 } : s)) },
           ],
       }
     : null;
@@ -56,11 +56,12 @@ const makeLabels = (loc: 'vi' | 'en') => {
         offline: t('Bot đang ngoại tuyến 🔥🚧🚒🔥.', 'The bot is offline, we are on it.'),
         unknown: t('Chưa lấy được trạng thái, vui lòng thử tải lại sau ít phút.', 'Could not load the status, please try again in a few minutes.'),
         cluster: 'Cluster',
-        up: t('Hoạt động', 'Operational'),
+        up: t('Ổn định', 'Operational'),
         starting_pill: t('Đang khởi động', 'Starting'),
         down: t('Ngoại tuyến', 'Offline'),
-        uptime: t('Uptime', 'Uptime'),
         servers: 'Servers',
+        members: 'Members',
+        memory: 'RAM',
         shard: 'Shard',
         disconnected: t('mất kết nối', 'disconnected'),
         connecting: t('đang kết nối', 'connecting'),
@@ -74,6 +75,8 @@ const makeLabels = (loc: 'vi' | 'en') => {
         refreshing: t('Đang làm mới dữ liệu...', 'Refreshing data...'),
         mine: t('Bạn đang trong một số server của shard:', 'You are in some servers on this shard:'),
         roles: { owner: 'Owner', admin: 'Admin', manager: 'Manager' },
+        found: t('Thông tin của Server:', 'Server info:'),
+        not_found: t('Server ID chưa đúng rồi. Bật Developer Mode trong Discord, chuột phải vào server rồi chọn Copy Server ID nhé!', 'That does not look like a server ID. Turn on Developer Mode in Discord, right-click the server and pick Copy Server ID.'),
         paused: t('Dữ liệu sẽ được làm mới khi bạn quay lại trang', 'Data will refresh when you come back to this page'),
     };
 };
@@ -84,7 +87,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
         <div class="hero-emoji s-status-emoji" aria-hidden="true"></div>
         <div class="wrap s-top-row">
             <div class="s-head">
-                <h1><span>{t('Trạng thái hệ thống', 'System status')}</span> <span class="s-emoji" data-status-emoji data-live aria-hidden="true">⏳</span></h1>
+                <h1><span>{t('Trạng thái hệ thống', 'System status')}</span> <span class="s-emoji" data-status-emoji data-live aria-hidden="true"></span></h1>
                 <p class="s-state" data-state="loading" data-live>
                     <span class="s-dot" aria-hidden="true"></span>
                     <span data-status-text>{t('Đang kiểm tra trạng thái...', 'Checking status...')}</span>
@@ -101,6 +104,13 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
 
     <section class="s-body paper">
         <div class="wrap">
+            <div class="s-search">
+                <label class="s-search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="search" inputmode="numeric" autocomplete="off" spellcheck="false" data-search aria-label={t('Tìm server', 'Find a server')} placeholder={t('Nhập ID Server', 'Enter Server ID')} />
+                </label>
+                <div class="s-found" data-found data-live aria-live="polite"></div>
+            </div>
             <div class="s-grid" data-clusters data-live>
                 <p class="s-waiting">{t('Đang tải trạng thái các cluster...', 'Loading cluster status...')}</p>
             </div>
@@ -117,7 +127,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                 var state = document.querySelector('.s-state');
                 var grid = document.querySelector('[data-clusters]');
                 var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-                // tối đa 2 đơn vị, cách nhau bằng dấu phẩy: 2 ngày, 21 giờ / 4 phút, 12 giây
+                // tối đa 2 đơn vị: 2 ngày 21 giờ / 4 phút 12 giây
                 var duration = function (total) {
                     if (total == null) return '-';
                     total = Math.max(0, Math.floor(total));
@@ -127,7 +137,12 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                     return parts.slice(first, first + 2).map(function (v, i) {
                         var unit = labels.units[first + i];
                         return v || !i ? v + ' ' + unit[v === 1 ? 0 : 1] : null;
-                    }).filter(Boolean).join(', ');
+                    }).filter(Boolean).join(' ');
+                };
+                var bytes = function (n) {
+                    if (n == null) return '-';
+                    var gb = n / 1073741824;
+                    return gb >= 1 ? new Intl.NumberFormat(lang === 'vi' ? 'vi-VN' : 'en-US', { maximumFractionDigits: 1 }).format(gb) + ' GB' : nf.format(Math.round(n / 1048576)) + ' MB';
                 };
                 var level = function (ms) { return ms == null ? 'down' : ms <= 70 ? 'good' : ms <= 300 ? 'slow' : 'bad'; };
                 // cluster vừa chạy chưa quá 5 phút mà còn shard chưa kết nối thì coi là đang khởi động
@@ -200,10 +215,10 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                     var age = Math.floor((Date.now() - updatedAt) / 1000);
                     return labels.updated + ' ' + time + ' (' + (age < 2 ? labels.just_now : labels.ago.replace('{}', duration(age))) + ')';
                 };
-                // emoji ở cuối tiêu đề theo trạng thái chung
-                var EMOJI = { loading: '⏳', online: '✅', starting: '🔄', degraded: '🔥', offline: '❌', unknown: '❓' };
+                // emoji ở cuối tiêu đề chỉ hiện khi bot có vấn đề
+                var EMOJI = { starting: '🔄', degraded: '🔥', offline: '❌' };
                 var emojiEl = document.querySelector('[data-status-emoji]');
-                var setEmoji = function (state) { setText(emojiEl, EMOJI[state]); };
+                var setEmoji = function (state) { setText(emojiEl, EMOJI[state] || ''); };
                 // số tổng như landing: chạy ký tự ngẫu nhiên rồi hiện dần từng chữ số từ trái sang, lần sau chỉ chữ số đổi mới chạy lại
                 var CHARS = '0123456789%$#&@';
                 var roller = 0;
@@ -293,19 +308,47 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                         }).join('');
                         var pill = p === 'down' ? labels.down : p === 'starting' ? labels.starting_pill : labels.up;
                         return '<article class="sticker s-cluster" data-phase="' + p + '">'
-                            + '<header><h3>' + labels.cluster + ' #' + c.id + '</h3><span class="s-pill">' + pill + '</span></header>'
-                            + '<dl><div class="s-wide"><dt>' + labels.uptime + '</dt><dd data-uptime="' + (c.uptime_seconds == null ? '' : c.uptime_seconds) + '">' + duration(c.uptime_seconds) + '</dd></div>'
-                            + '<div><dt>' + labels.servers + '</dt><dd>' + (c.servers == null ? '-' : nf.format(c.servers)) + '</dd></div></dl>'
+                            + '<header><h3>' + labels.cluster + ' #' + c.id + '</h3><div class="s-pill"><span>' + pill + '</span>' + (p === 'down' || c.uptime_seconds == null ? '' : '<span data-uptime="' + c.uptime_seconds + '">' + duration(c.uptime_seconds) + '</span>') + '</div></header>'
+                            + '<dl>'
+                            + '<div><dt>' + labels.servers + '</dt><dd>' + (c.servers == null ? '-' : nf.format(c.servers)) + '</dd></div><div><dt>' + labels.members + '</dt><dd>' + (c.members == null ? '-' : nf.format(c.members)) + '</dd></div><div><dt>' + labels.memory + '</dt><dd>' + bytes(c.memory_bytes) + '</dd></div></dl>'
                             + '<ul class="s-shards">' + shards + '</ul></article>';
                     }).join('');
                     if (grid.children.length !== data.clusters.length || grid.querySelector('.s-waiting')) {
                         grid.innerHTML = html;
+                        if (searchEl.value.trim()) search();
                         return;
                     }
                     var next = document.createElement('div');
                     next.innerHTML = html;
                     for (var i = 0; i < next.children.length; i++) patch(grid.children[i], next.children[i]);
+                    if (searchEl.value.trim()) search();
                 };
+                // tìm theo Server ID, shard tính ngay trên trình duyệt từ ID nên không gọi API
+                var searchEl = document.querySelector('[data-search]');
+                var foundEl = document.querySelector('[data-found]');
+                var search = function () {
+                    var q = searchEl.value.trim();
+                    var show = function (html) { if (foundEl.dataset.html !== html) { foundEl.dataset.html = html; swap(foundEl, function () { foundEl.innerHTML = html; }); } };
+                    if (!q || !lastData) return show('');
+                    var total = lastData.clusters.reduce(function (n, c) { return n + c.shards.length; }, 0);
+                    var id = /^\d{15,21}$/.test(q) ? q : null;
+                    if (!id || !total || typeof BigInt === 'undefined') return show('<p class="s-miss">' + labels.not_found + '</p>');
+                    var shard = Number((BigInt(id) >> 22n) % BigInt(total));
+                    var cluster = lastData.clusters.find(function (c) { return c.shards.some(function (s) { return s.id === shard; }); });
+                    var info = cluster && cluster.shards.find(function (s) { return s.id === shard; });
+                    var ms = info ? info.latency_ms : null;
+                    var ping = foundEl.querySelector('.s-chip-ping');
+                    if (ping && foundEl.dataset.key === lang + shard) {
+                        ping.dataset.level = level(ms);
+                        return setText(ping, ms == null ? labels.disconnected : ms + ' ms');
+                    }
+                    foundEl.dataset.key = lang + shard;
+                    show('<span>' + labels.found + '</span><span class="s-chip">' + labels.cluster + ' #' + (cluster ? cluster.id : '?') + '</span>'
+                        + '<b class="s-chip s-chip-shard">' + labels.shard + ' #' + shard + '</b>'
+                        + '<span class="s-chip s-chip-ping" data-level="' + level(ms) + '">' + (ms == null ? labels.disconnected : ms + ' ms') + '</span>');
+                };
+                var searchTimer = 0;
+                searchEl.addEventListener('input', function () { clearTimeout(searchTimer); searchTimer = setTimeout(search, 200); });
                 var refresh = document.querySelector('[data-refresh]');
                 var every = 15000;
                 var pageStart = Date.now(), loadedAt = Date.now(), nextAt = Date.now() + every, loading = false;
