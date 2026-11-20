@@ -1,3 +1,5 @@
+/status/embed.json  https://bot-service.tudubucket.dev/dashboard/status/embed/vi  302
+/en/status/embed.json  https://bot-service.tudubucket.dev/dashboard/status/embed/en  302
 /docs/commands/group/purge/  /docs/commands/single/purge/  301
 /docs/commands/group/purge  /docs/commands/single/purge/  301
 /dashboard/favicon.webp  /dashboard/favicon.webp  200

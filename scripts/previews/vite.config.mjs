@@ -32,5 +32,5 @@ export default {
     __TURNSTILE_SITEKEY__: '""',
     __COMMIT_SHA__: '"preview"',
   },
-  server: { port: 5191, strictPort: true, fs: { allow: [DASHBOARD, here('../..'), here('../../../GlitchBucket-Dashboard/docs')] } },
+  server: { port: 5191, strictPort: true, fs: { allow: [DASHBOARD, here('../..'), here('../../../GlitchBucket-Dashboard/docs'), here('../../../GlitchBucket-Dashboard/backend/src')] } },
 }

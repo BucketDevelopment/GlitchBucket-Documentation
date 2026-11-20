@@ -55,13 +55,3 @@ export const premiumEmbedEn = componentEmbed({
         section('**Extended** · €4.99/month\n-# or lifetime for €43.99', link('Get Extended', DASHBOARD)),
     ],
 });
-
-export const statusEmbed = componentEmbed({
-    heading: 'Trạng thái hệ thống',
-    description: 'Theo dõi trực tiếp trạng thái hoạt động của nemuri.',
-});
-
-export const statusEmbedEn = componentEmbed({
-    heading: 'System status',
-    description: 'Live status of every nemuri cluster and shard.',
-});
