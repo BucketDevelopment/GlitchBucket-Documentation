@@ -142,7 +142,7 @@ const labelsAll = { vi: makeLabels('vi'), en: makeLabels('en') };
                 var bytes = function (n) {
                     if (n == null) return '-';
                     var gb = n / 1073741824;
-                    return gb >= 1 ? new Intl.NumberFormat(lang === 'vi' ? 'vi-VN' : 'en-US', { maximumFractionDigits: 1 }).format(gb) + ' GB' : nf.format(Math.round(n / 1048576)) + ' MB';
+                    return gb >= 0.5 ? new Intl.NumberFormat(lang === 'vi' ? 'vi-VN' : 'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(gb) + ' GB' : Math.round(n / 1048576) + ' MB';
                 };
                 var level = function (ms) { return ms == null ? 'down' : ms <= 70 ? 'good' : ms <= 300 ? 'slow' : 'bad'; };
                 // cluster vừa chạy chưa quá 5 phút mà còn shard chưa kết nối thì coi là đang khởi động
