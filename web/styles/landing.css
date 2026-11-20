@@ -88,9 +88,13 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-h
 .nav .btn-main:hover{background:var(--pink);color:#1b1d33}
 .nav-login{font-size:14px;font-weight:550;padding:8px 12px;border-radius:999px;transition:background-color .2s ease-out}
 .nav-login:hover{background:var(--pink)}
-.nav-lang{display:grid;place-items:center;width:40px;height:40px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.04em;transition:background-color .2s ease-out}
-.nav-lang:hover{background:var(--pink)}
 .lang-wrap{position:relative;display:grid}
+.lang-menu{position:absolute;top:calc(100% + 12px);right:-6px;z-index:6;display:grid;gap:2px;min-width:170px;padding:6px;border-radius:16px;background:var(--sticker);color:#1b1d33;
+  box-shadow:0 14px 24px -12px rgba(var(--shadow),.6);opacity:0;visibility:hidden;translate:0 -6px;transition:opacity .2s ease-out,translate .2s ease-out,visibility .2s}
+.lang-wrap.open .lang-menu{opacity:1;visibility:visible;translate:0}
+.lang-menu a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:12px;font-size:14px;font-weight:550;transition:background-color .2s ease-out}
+.lang-menu a:hover{background:var(--pink)}
+:root[lang="vi"] .lang-menu a[data-lang="vi"]::after,:root[lang="en"] .lang-menu a[data-lang="en"]::after{content:"✓";font-weight:700}
 .lang-bubble{position:absolute;top:calc(100% + 12px);right:-6px;z-index:5;display:grid;grid-template-columns:1fr auto;gap:8px 4px;width:max-content;max-width:min(280px,calc(100vw - 32px));padding:12px 8px 10px 14px;border-radius:16px;background:var(--sticker);color:#1b1d33;box-shadow:0 14px 24px -12px rgba(var(--shadow),.6);animation:bubble .3s ease-out}
 .lang-bubble[hidden]{display:none}
 .lang-bubble::before{content:"";position:absolute;top:-5px;right:20px;width:12px;height:12px;background:inherit;border-radius:2px;rotate:45deg}
@@ -116,6 +120,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-h
   box-shadow:0 14px 26px -16px rgba(var(--shadow),.6);opacity:0;visibility:hidden;translate:0 -6px;transition:opacity .2s ease-out,translate .2s ease-out,visibility .2s}
 .nav.open .menu-panel{opacity:1;visibility:visible;translate:0}
 .menu-panel a{font-size:16px;padding:12px 14px}
+.menu-panel .menu-invite{display:none;height:48px;margin-top:6px;box-shadow:none}
 
 /* 1. tờ đế mở đầu */
 .hero{padding:clamp(120px,16vh,168px) 0 0;position:relative;isolation:isolate}
@@ -328,7 +333,10 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-h
   .foot-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:600px){
-  .nav-login,.nav-user span{display:none}
+  .nav-login,.nav-user span,.nav-right .btn-main{display:none}
+  .menu-panel .menu-invite{display:inline-flex}
+  .lang-bubble,.lang-menu{right:-52px}
+  .lang-bubble::before{right:66px}
   .nav-user{padding:4px}
   .hero-actions .btn{flex:1 1 auto}
   .shots-grid{grid-template-columns:minmax(0,1fr)}

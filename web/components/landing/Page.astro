@@ -105,7 +105,13 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
                 <a class="btn btn-main btn-sm" href={links.invite} set:html={fit('Thêm bot', 'Add bot')} />
                 {bilingual && (
                     <span class="lang-wrap">
-                        <a class="nav-lang" href={other.href} data-lang={other.lang} hreflang={other.lang}>{other.lang.toUpperCase()}</a>
+                        <button class="icon-btn" type="button" data-lang-toggle aria-label={t('Ngôn ngữ', 'Language')} aria-expanded="false">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
+                        </button>
+                        <span class="lang-menu" data-lang-menu>
+                            <a href={PATHS.vi} data-lang="vi" hreflang="vi">Tiếng Việt</a>
+                            <a href={PATHS.en} data-lang="en" hreflang="en">English</a>
+                        </span>
                         <span class="lang-bubble" data-lang-bubble hidden>
                             <span data-lang-text></span>
                             <button type="button" data-lang-go>{other.lang === 'vi' ? 'Xem bằng tiếng Việt' : 'View in English'}</button>
@@ -128,6 +134,7 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
         </div>
         <nav class="menu-panel" aria-label="Menu">
             {nav.map((item) => <Fragment set:html={navLink(item)} />)}
+            <a class="btn btn-main menu-invite" href={links.invite}>{t('Thêm bot', 'Add bot')}</a>
         </nav>
     </header>
 
@@ -221,7 +228,7 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
             // thì mờ đi rồi hiện lại với chữ mới. Hiệu ứng bắt đầu ở mép trên màn hình rồi lan xuống (và lan lên với phần nằm phía trên),
             // như một con sóng. Lỗi gì thì chuyển trang bình thường.
             // khối có trạng thái đang chạy (xoay vòng, số đếm, user đã đăng nhập) giữ nguyên, không đụng tới
-            const LIVE = '[data-slot], [data-slot-text], [data-live], [data-user], [data-lang-bubble], .hero-emoji';
+            const LIVE = '[data-slot], [data-slot-text], [data-live], [data-user], [data-lang-bubble], [data-lang-menu], .hero-emoji';
             const SKIP = LIVE + ', script, style, svg, noscript';
             const ATTRS = ['aria-label', 'alt', 'title', 'href', 'hreflang', 'data-lang', 'placeholder', 'src', 'width', 'height'];
             const ownText = (el) => [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('');
@@ -325,12 +332,22 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
                     : `Looks like you're visiting from ${place}. Would you like to view this page in English?`;
                 bubble.hidden = false;
                 bubble.querySelector('[data-lang-close]').onclick = () => { hideBubble(); try { localStorage.setItem('lang-hint', want); } catch {} };
-                bubble.querySelector('[data-lang-go]').onclick = () => { hideBubble(); document.querySelector('a.nav-lang')?.click(); };
+                bubble.querySelector('[data-lang-go]').onclick = () => { hideBubble(); document.querySelector(`[data-lang-menu] a[data-lang="${want}"]`)?.click(); };
             });
+            const langWrap = document.querySelector('.lang-wrap');
+            const langToggle = document.querySelector('[data-lang-toggle]');
+            const setLangMenu = (open) => {
+                langWrap?.classList.toggle('open', open);
+                langToggle?.setAttribute('aria-expanded', String(open));
+            };
+            langToggle?.addEventListener('click', () => { hideBubble(); setLangMenu(!langWrap.classList.contains('open')); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setLangMenu(false); });
             document.addEventListener('click', (e) => {
+                if (!e.target.closest('.lang-wrap')) setLangMenu(false);
                 const a = e.target.closest('a[data-lang]');
-                if (a) hideBubble();
+                if (a) { hideBubble(); setLangMenu(false); }
                 if (!a) return;
+                if (a.dataset.lang === document.documentElement.lang) { e.preventDefault(); return; }
                 document.cookie = `lang=${a.dataset.lang}; path=/; max-age=31536000; samesite=lax`;
                 if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                 e.preventDefault();
