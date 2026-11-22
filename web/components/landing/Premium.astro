@@ -198,7 +198,7 @@ const schema = [
         '@type': 'Product',
         name: `${name} premium`,
         description,
-        image: 'https://cdn.tudubucket.dev/widebucket.png',
+        image: 'https://bot.tudubucket.dev/landing/embed-banner.png',
         brand: { '@type': 'Brand', name },
         offers: plans.flatMap((p) => (p.month ? [offer(p.name, price(p.month), t('1 tháng', '1 month')), offer(p.name, price(p.lifetime!), t('vĩnh viễn', 'lifetime'))] : [])),
     },

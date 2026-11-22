@@ -1,5 +1,5 @@
 // Discord component embed (Components V2 trong link preview), cùng kiểu với zyhost: dòng nguồn nhỏ, ảnh, tiêu đề ### + mô
-// tả, trang nào cần thì thêm vạch ngăn và section có nút. Mỗi trang một embed riêng, ảnh tạm dùng chung widebucket.
+// tả, trang nào cần thì thêm vạch ngăn và section có nút. Mỗi trang một embed riêng, ảnh dùng chung embed-banner.
 // Docs: https://github.com/discord/discord-api-docs/blob/main/developers/link-previews/component-embeds.mdx
 // Giới hạn 3.000 byte (tính cả escape <…) và 40 component; ảnh phải là URL tuyệt đối http(s).
 

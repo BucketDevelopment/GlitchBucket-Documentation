@@ -17,7 +17,7 @@ const avatarFiles = import.meta.glob('../../content/docs/docs/assets/testimonial
 const avatars = Object.fromEntries(Object.entries(avatarFiles).map(([path, image]) => [path.split('/').pop().replace('.webp', ''), image]));
 const title = t(`${name} · Quản Lý Server Thông Minh & Hiệu Quả`, `${name} · Server Management, Elevated`);
 const description = t(`${name} là bot discord đa năng, cung cấp các công cụ độc quyền về quản lý và tự động hóa, giúp bạn vận hành Server chuyên nghiệp và hiệu quả hơn bao giờ hết.`, `${name} is a multipurpose Discord bot with exclusive management and automation tools, helping you run your server more professionally and efficiently than ever.`);
-const image = 'https://cdn.tudubucket.dev/widebucket.png';
+const image = 'https://bot.tudubucket.dev/landing/embed-banner.png';
 const keywords = 'GlitchBucket, GlitchBucket Bot, BucketBot, Glitch Bucket bot, bot nối từ, bot nối từ discord, bot nối từ tiếng việt, nối từ, sticky bot commands, snipe bot discord commands, donation bot, discord donation bot, discord voting bot, utils bot, utilities bot, xô lỗi, bot xô lỗi';
 const schema = [
     { '@context': 'https://schema.org', '@type': 'WebSite', name, url: `${BRAND.site}${home}`, inLanguage: locale },

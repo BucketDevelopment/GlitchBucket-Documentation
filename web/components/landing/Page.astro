@@ -14,7 +14,7 @@ interface Props {
     locale?: 'vi' | 'en';
     alternates?: { vi: string; en: string };
 }
-const { title, description, path, keywords, schema, embed, image = 'https://cdn.tudubucket.dev/widebucket.png', locale = 'vi', alternates } = Astro.props;
+const { title, description, path, keywords, schema, embed, image = 'https://bot.tudubucket.dev/landing/embed-banner.png', locale = 'vi', alternates } = Astro.props;
 const t = (vi: string, en: string) => (locale === 'vi' ? vi : en);
 // nhãn đổi theo ngôn ngữ giữ sẵn bề rộng của bản dài hơn (bản kia ẩn chồng lên) để đổi ngôn ngữ tại chỗ các nút không bị xô
 const fit = (vi: string, en: string) => bilingual ? `<span class="fit"><span>${t(vi, en)}</span><span aria-hidden="true">${t(en, vi)}</span></span>` : t(vi, en);

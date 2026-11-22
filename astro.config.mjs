@@ -78,7 +78,7 @@ export default defineConfig({
                     tag: "meta",
                     attrs: {
                         property: "twitter:image",
-                        content: "https://cdn.tudubucket.dev/widebucket.png",
+                        content: "https://bot.tudubucket.dev/landing/embed-banner.png",
                     },
                 },
                 {

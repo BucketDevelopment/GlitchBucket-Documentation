@@ -8,11 +8,13 @@ import { DASHBOARD } from './vite.config.mjs'
 const here = (path) => fileURLToPath(new URL(path, import.meta.url))
 const CHROME = process.env.CHROME ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 const OUT = process.env.OUT ?? here('../../public/landing/previews')
-const VITE = 'http://127.0.0.1:5191/dashboard/'
+// 5191 có lúc nằm trong dải port Windows giữ lại, PORT=... để đổi
+const PORT = process.env.PORT ?? '5191'
+const VITE = `http://127.0.0.1:${PORT}/dashboard/`
 const CDP = 9334
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-const vite = spawn(process.execPath, [`${DASHBOARD}/node_modules/vite/bin/vite.js`, '--config', here('./vite.config.mjs'), '--host', '127.0.0.1'], { stdio: 'ignore' })
+const vite = spawn(process.execPath, [`${DASHBOARD}/node_modules/vite/bin/vite.js`, '--config', here('./vite.config.mjs'), '--host', '127.0.0.1', '--port', PORT], { stdio: 'ignore' })
 const chrome = spawn(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', `--remote-debugging-port=${CDP}`, `--user-data-dir=${join(tmpdir(), 'gb-previews')}`, 'about:blank'], { stdio: 'ignore' })
 
 async function poll(fn) {
