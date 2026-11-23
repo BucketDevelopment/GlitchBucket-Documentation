@@ -9,3 +9,4 @@
 /dashboard/icons/*  /dashboard/icons/:splat  200
 /dashboard/brand/*  /dashboard/brand/:splat  200
 /dashboard/*  /dashboard/  200
+/docs /docs/getting-started 301
