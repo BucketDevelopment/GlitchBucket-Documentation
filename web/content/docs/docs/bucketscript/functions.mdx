@@ -133,6 +133,7 @@ Ngược lại, các hàm không có dấu `*` là bạn có thể sử dụng h
 |`{daily_cooldown}`*          | Mỗi người dùng chỉ được dùng 1 lần mỗi ngày. Không dùng chung với `{cooldown}`/`{global_cooldown}` | *Không có tham số* | `{daily_cooldown}`
 |`{global_cooldown:number}`*  | Thời gian chờ giữa các lần sử dụng BucketScript, đối với toàn server            | `number`: Một số nguyên                  | `{global_cooldown:2}`
 |`{ignore_errors}`*             | Ẩn tất cả các lỗi được trả về                                                               | *Không có tham số*                    | `{ignore_errors}`
+|`{error:code: nội dung}`       | Thay câu báo lỗi mặc định của bot bằng nội dung của bạn khi user gặp lỗi `code`. Xem thêm tại [Tùy chỉnh lỗi](#tùy-chỉnh-câu-báo-lỗi) | `code`: Mã lỗi, tên nhóm lỗi hoặc `*`<br />`nội dung`: Một BucketScript, để trống để bot im lặng | `{error:cooldown: Từ từ thôi bạn ơi, thử lại {retry_after} nhé!}`<br />`{error:cooldown_daily:}`
 |`{reply}`*                     | Phản hồi về tin nhắn được trigger                                                           | *Không có tham số*                    | `{reply}` 
 |`{reply_no_mention}`*          | Phản hồi về tin nhắn được trigger, nhưng không đề cập đến người dùng đấy                    | *Không có tham số*                    | `{reply_no_mention}` 
 |`{message_no_mention}`*        | Gửi tin nhắn, nhưng không cho phép đề cập (`@everyone`, `@here`, đề cập role & người dùng)  | *Không có tham số*                    | `{message_no_mention}` 
@@ -161,3 +162,73 @@ Ngược lại, các hàm không có dấu `*` là bạn có thể sử dụng h
 |`{button:a,b}`                | Thêm [Button](/bucketscript/button) vào tin nhắn                                              | `a,b`: Tên các button, ngăn cách bởi dấu phẩy | `{button:support_ticket,report_bug}` |
 |`{select:a,b}`                | Thêm [Select](/bucketscript/select) vào tin nhắn                                              | `a,b`: Tên các select, ngăn cách bởi dấu phẩy | `{select:support_category}` |
 
+## Tùy chỉnh báo lỗi
+
+Khi user dùng autoresponder mà gặp lỗi (đang cooldown, thiếu role, nhập thiếu tham số, ...), bot sẽ gửi một câu báo lỗi mặc định kèm mã lỗi, ví dụ **`[ COOLDOWN_DAILY ]`**. Nếu muốn câu báo hợp với server của bạn hơn, bạn có thể thêm hàm `{error:code: nội dung}` vào script. Hàm này hoàn toàn không bắt buộc, lỗi nào bạn không đặt thì bot vẫn báo như bình thường.
+
+Phần `nội dung` là một BucketScript đầy đủ, nên bạn dùng được placeholder, embed, layout, button, ... như một tin nhắn bình thường. Bạn cũng có thể đặt nhiều hàm `{error}` trong cùng một script, mỗi hàm cho một loại lỗi.
+
+<Code code="{daily_cooldown}{reply}{require_role:1122707453251948608}Chào {user_mention}, đây là quà hôm nay của bạn!{error:cooldown_daily: Bạn nhận quà hôm nay rồi, quay lại {retry_after} nhé {embed:gift}}{error:access: Bạn cần role <@&1122707453251948608> để nhận quà nhé.}{error:*: Có lỗi rồi: {error_message}}" title="command" mark={highlights} />
+
+Bot sẽ chọn câu báo theo thứ tự sau, gặp cái nào trước thì dùng cái đó:
+1. Hàm có đúng mã lỗi, ví dụ `{error:cooldown_daily: ...}`
+2. Hàm có tên nhóm của lỗi, ví dụ `{error:cooldown: ...}` dùng cho mọi lỗi cooldown
+3. Hàm `{error:*: ...}` dùng cho mọi lỗi còn lại
+4. Không có hàm nào khớp thì bot gửi câu báo mặc định
+
+:::note[Lưu ý]
+- Để trống nội dung, như `{error:cooldown_daily:}`, thì bot sẽ im lặng với riêng lỗi đó. Khác với `{ignore_errors}` là ẩn tất cả các lỗi.
+- Nếu script có cả `{ignore_errors}` và `{error}`, các lỗi có hàm `{error}` khớp vẫn được gửi câu báo của bạn, còn lại thì bot im lặng.
+- Bên trong `{error}` không đặt thêm `{error}` khác được. Nếu chính câu báo của bạn bị lỗi, bot sẽ gửi câu báo mặc định.
+- Khi user dùng button hoặc select, câu báo sẽ được gửi ở chế độ chỉ user đó thấy.
+:::
+
+### Placeholder trong câu báo lỗi
+
+Ngoài các placeholder mặc định, câu báo lỗi có thêm một số placeholder riêng. Placeholder nào không có ở loại lỗi đó thì bot giữ nguyên chữ, không thay.
+
+| Placeholder | Nội dung | Có ở lỗi |
+|-------------|----------|----------|
+|`{error_code}`      | Mã lỗi, ví dụ `COOLDOWN_SERVER`                               | Tất cả |
+|`{error_message}`   | Câu báo lỗi mặc định của bot                                  | Tất cả |
+|`{retry_after}`     | Thời điểm user thử lại được, hiển thị dạng "trong 5 phút nữa" | `cooldown_*` |
+|`{argument_index}`  | Vị trí của tham số bị thiếu hoặc sai                          | `argument_*` |
+|`{item_current}`    | Số item user đang có                                          | `item_*` |
+|`{item_required}`   | Số item cần có (hoặc cần trừ)                                 | `item_*` |
+
+### Mã lỗi
+
+Mã lỗi viết thường hay viết hoa đều được. Tên nhóm là phần đầu của mã: `access`, `cooldown`, `argument`, `item`, `role`, `member`, ví dụ `{error:access: ...}` dùng cho mọi mã bắt đầu bằng `access_`.
+
+| Mã lỗi | Trường hợp xuất hiện |
+|--------|----------------|
+|`access_require_user` | User không nằm trong `{require_user}` |
+|`access_require_role` | User thiếu role trong `{require_role}` |
+|`access_require_permission` | User thiếu quyền trong `{require_perm}` |
+|`access_require_channel` | Kênh không nằm trong `{require_channel}` |
+|`access_require_category` | Category không nằm trong `{require_category}` |
+|`access_ignore_user` | User bị chặn bởi `{ignore_user}` |
+|`access_ignore_role` | User có role bị chặn bởi `{ignore_role}` |
+|`access_ignore_permission` | User có quyền bị chặn bởi `{ignore_perm}` |
+|`access_ignore_channel` | Kênh bị chặn bởi `{ignore_channel}` |
+|`access_ignore_category` | Category bị chặn bởi `{ignore_category}` |
+|`cooldown_user` | User đang trong `{cooldown}` |
+|`cooldown_server` | Server đang trong `{global_cooldown}` |
+|`cooldown_daily` | User đã dùng trong ngày với `{daily_cooldown}` |
+|`argument_missing` | User nhập thiếu tham số theo `{require_arg}` |
+|`argument_invalid_user` | Tham số không phải user trong server |
+|`argument_invalid_role` | Tham số không phải role trong server |
+|`argument_invalid_channel` | Tham số không phải kênh trong server |
+|`argument_invalid_number` | Tham số không phải số |
+|`argument_length` | Tin nhắn không có đủ nội dung cho `[$n]`, `[$n+]`, `[$a-b]` |
+|`item_insufficient` | User không đủ item theo `{require_item}` |
+|`item_negative` | `{edit_item}` trừ item xuống dưới 0 |
+|`role_user_hierarchy` | Role cao nhất của user thấp hơn role hoặc người cần đổi |
+|`role_already_have` | Người được thêm role đã có role đó |
+|`role_not_have` | Người bị gỡ role không có role đó |
+|`role_target_owner` | Đổi role của chủ server |
+|`role_elevated` | Role có quyền quản lí, bot không thêm hay gỡ |
+|`role_missing_manage` | User thiếu quyền `Manage Roles` mà script không có `{admin}` |
+|`member_not_found` | Không tìm thấy thành viên theo ID |
+
+Các lỗi do script viết sai (mã bắt đầu bằng `SCRIPT_`) hoặc do bot thiếu quyền (mã bắt đầu bằng `BOT_`) không tùy chỉnh được, vì khi đó bạn cần thấy câu báo gốc để sửa lại script hoặc cấp thêm quyền cho bot.
